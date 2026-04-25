@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪百科與故事</title>
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        .guide-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 40px;
+        }
+        .breed-selector-group {
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+        .content-section {
+            margin-bottom: 24px;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        .content-origin {
+            background-color: rgba(206, 170, 61, 0.08);
+            border-left: 4px solid #ceaa3d;
+        }
+        .content-pros {
+            background-color: rgba(125, 140, 107, 0.08);
+            border-left: 4px solid var(--accent-green);
+        }
+        .content-cons {
+            background-color: rgba(196, 108, 90, 0.08);
+            border-left: 4px solid var(--accent-red);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+        }
+        .section-text {
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸，專精於貓科動物行為與營養分享，具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識，守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+                
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li><a href="#"><span class="list-icon">🥫</span> 飼料罐頭分析 (照片)</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li class="active"><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🐾 貓咪百科與故事</h2>
+                <p>📖 探索每位主子背後的有趣起源，了解迷人優點與專屬照顧須知！</p>
+            </header>
+
+            <div class="guide-card">
+                <div class="breed-selector-group">
+                    <label for="breed-select" style="display: block; font-size: 14px; color: var(--text-primary); margin-bottom: 12px; font-weight: 500;">🐈 查詢貓咪品種</label>
+                    <div class="select-wrapper">
+                        <select id="breed-select">
+                            <!-- Options will be populated by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <div id="breed-info-panel">
+                    <!-- Origin -->
+                    <div class="content-section content-origin">
+                        <div class="section-title" style="color: #ceaa3d;">📜 故事來源</div>
+                        <div class="section-text" id="info-origin">載入中...</div>
+                    </div>
+
+                    <!-- Pros -->
+                    <div class="content-section content-pros">
+                        <div class="section-title" style="color: var(--accent-green)">✨ 迷人優點</div>
+                        <div class="section-text" id="info-pros">載入中...</div>
+                    </div>
+
+                    <!-- Cons -->
+                    <div class="content-section content-cons">
+                        <div class="section-title" style="color: var(--accent-red)">⚠️ 照顧上要注意什麼</div>
+                        <div class="section-text" id="info-cons">載入中...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripting -->
+    <script src="./assets/cat_data.js"></script>
+    <script src="./assets/breed_guide.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪熱量 & 喝水計算機</title>
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸，專精於貓科動物行為與營養分享，具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識，守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+                
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li><a href="#"><span class="list-icon">🥫</span> 飼料罐頭分析 (照片)</a></li>
+                        <li class="active"><a href="#"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>📊 貓咪熱量 & 喝水計算機</h2>
+                <p>📝 輸入資料，算出主子每天該吃多少、喝多少！</p>
+            </header>
+
+            <div class="calculator-card">
+                <form id="calc-form">
+                    <div class="form-grid">
+                        <!-- Breed -->
+                        <div class="form-group">
+                            <label for="breed">🐈 貓咪品種</label>
+                            <div class="select-wrapper">
+                                <select id="breed" name="breed">
+                                    <option value="none" selected>一般家貓 / 米克斯 (Domestic Cat)</option>
+                                    <option value="american_shorthair">美國短毛貓 (American Shorthair)</option>
+                                    <option value="british_shorthair">英國短毛貓 (British Shorthair)</option>
+                                    <option value="exotic_shorthair">異國短毛貓 / 加菲貓 (Exotic Shorthair)</option>
+                                    <option value="persian">波斯貓 (Persian)</option>
+                                    <option value="ragdoll">布偶貓 (Ragdoll)</option>
+                                    <option value="maine_coon">緬因貓 (Maine Coon)</option>
+                                    <option value="russian_blue">俄羅斯藍貓 (Russian Blue)</option>
+                                    <option value="siamese">暹羅貓 (Siamese)</option>
+                                    <option value="scottish_fold">蘇格蘭摺耳貓 (Scottish Fold)</option>
+                                    <option value="sphynx">斯芬克斯無毛貓 (Sphynx)</option>
+                                    <option value="munchkin">曼赤肯短腿貓 (Munchkin)</option>
+                                    <option value="bengal">孟加拉豹貓 (Bengal)</option>
+                                    <option value="norwegian_forest">挪威森林貓 (Norwegian Forest Cat)</option>
+                                    <option value="abyssinian">阿比西尼亞貓 (Abyssinian)</option>
+                                    <option value="somali">索馬利貓 (Somali)</option>
+                                    <option value="siberian">西伯利亞貓 (Siberian)</option>
+                                    <option value="burmese">緬甸貓 (Burmese)</option>
+                                    <option value="birman">伯曼貓 (Birman)</option>
+                                    <option value="oriental_shorthair">東方短毛貓 (Oriental Shorthair)</option>
+                                    <option value="british_longhair">英國長毛貓 (British Longhair)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Weight -->
+                        <div class="form-group">
+                            <label for="weight">⚖️ 體重 (kg)</label>
+                            <div class="slider-wrapper">
+                                <output id="weight-output">4.0</output>
+                                <input type="range" id="weight" name="weight" min="0.1" max="20" step="0.1" value="4.0">
+                                <div class="slider-labels">
+                                    <span>0.1</span>
+                                    <span>20.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Age -->
+                        <div class="form-group">
+                            <label for="age">🎂 年齡 (歲)</label>
+                            <div class="slider-wrapper">
+                                <output id="age-output">5.0</output>
+                                <input type="range" id="age" name="age" min="0.1" max="25" step="0.1" value="5.0">
+                                <div class="slider-labels">
+                                    <span>0.1</span>
+                                    <span>25.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Body Condition -->
+                        <div class="form-group">
+                            <label for="condition">🩺 身體狀態 (決定熱量係數)</label>
+                            <div class="select-wrapper">
+                                <select id="condition" name="condition">
+                                    <option value="1.2" selected>已經結紮 (標準活動量)</option>
+                                    <option value="1.4">未結紮 (成貓)</option>
+                                    <option value="1.0">過重 / 減肥中</option>
+                                    <option value="1.6">過瘦 / 增重中</option>
+                                    <option value="2.5">成長期幼貓 (4個月內)</option>
+                                    <option value="2.0">成長期幼貓 (4個月-1歲)</option>
+                                    <option value="2.0">懷孕/哺乳母貓</option>
+                                    <option value="1.1">老齡貓 (活動量低)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="form-group">
+                            <label>⚧ 性別</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="male" checked>
+                                    <span class="custom-radio"></span> 公
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="gender" value="female">
+                                    <span class="custom-radio"></span> 母
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Diet -->
+                        <div class="form-group">
+                            <label for="diet">🥣 飲食偏好</label>
+                            <div class="select-wrapper">
+                                <select id="diet" name="diet">
+                                    <option value="wet" selected>以濕食(罐頭/生食)為主</option>
+                                    <option value="dry">以乾飼料為主</option>
+                                    <option value="mixed">半濕半乾 (混合)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inline Breed Info Card -->
+                    <div id="breed-info-card" class="breed-info-card">
+                        <div class="breed-info-header">
+                            <h4 id="inline-title">✨ 關於 一般家貓 / 米克斯</h4>
+                        </div>
+                        <div class="breed-info-grid">
+                            <div class="info-item">
+                                <h5>📜 故事來源</h5>
+                                <p id="inline-origin"></p>
+                            </div>
+                            <div class="info-item">
+                                <h5>✨ 迷人優點</h5>
+                                <p id="inline-pros"></p>
+                            </div>
+                            <div class="info-item">
+                                <h5>⚠️ 照顧上要注意什麼</h5>
+                                <p id="inline-cons"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="calculate-btn" class="submit-btn">🍄 香菇爸幫我算！</button>
+                </form>
+            </div>
+
+            <!-- Results Section (Hidden by default) -->
+            <div id="results-panel" class="results-panel hidden">
+                <div class="results-header">
+                    <h3>💡 專屬營養分析報告</h3>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-box glow-red">
+                        <h4>🔥 每日總熱量需求 (DER)</h4>
+                        <div class="value-display">
+                            <span id="res-calories" class="big-num">0</span> <span class="unit">kcal</span>
+                        </div>
+                        <p class="suggestion" id="res-food-ratio">建議比例加載中...</p>
+                    </div>
+
+                    <div class="result-box glow-blue">
+                        <h4>💧 每日目標水分</h4>
+                        <div class="value-display">
+                            <span id="res-water" class="big-num">0</span> <span class="unit">ml</span>
+                        </div>
+                        <p class="suggestion" id="res-water-tip">騙水小技巧加載中...</p>
+                    </div>
+                </div>
+
+                <div class="info-blocks">
+                    <div class="info-card">
+                        <h5>🧬 品種 / 年齡特別注意</h5>
+                        <p id="res-breed-notes">這裡將顯示品種專屬照顧指南。</p>
+                    </div>
+                </div>
+
+                <div class="footer-note">
+                    <h5>🍄 給家長的話：</h5>
+                    <p id="res-parent-note">香菇爸的話...</p>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <!-- Scripting -->
+    <script src="./assets/calculator.js"></script>
+</body>
+</html>
