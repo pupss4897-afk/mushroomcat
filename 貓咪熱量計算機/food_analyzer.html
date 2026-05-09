@@ -226,6 +226,319 @@
 
         /* Results */
         #analyze-results.hidden { display: none; }
+
+        /* Hero card: 高端整合 */
+        .hero-card {
+            background: linear-gradient(135deg, #5e6e54 0%, #7d8c6b 50%, #8c9b78 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            margin-bottom: 24px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(94, 110, 84, 0.35);
+        }
+        .hero-card::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 280px;
+            opacity: 0.06;
+            right: -40px;
+            top: -60px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        .hero-card .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .hero-card h2 {
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-family: var(--font-heading);
+        }
+        .hero-card .hero-sub {
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: 0.95;
+            margin-bottom: 18px;
+        }
+        .hero-card .hero-sub strong {
+            color: #fff;
+            background: rgba(255,255,255,0.18);
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+        .hero-foot {
+            font-size: 13px;
+            opacity: 0.85;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 14px;
+        }
+        .hero-pitch {
+            background: rgba(0, 0, 0, 0.18);
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Top Position Card: 前 5 項體檢 */
+        .top-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-soft);
+        }
+        .top-card.top-good {
+            border-left: 6px solid var(--accent-green);
+            background: linear-gradient(135deg, rgba(125,140,107,0.08), var(--bg-surface));
+        }
+        .top-card.top-mixed {
+            border-left: 6px solid #ceaa3d;
+            background: linear-gradient(135deg, rgba(206,170,61,0.08), var(--bg-surface));
+        }
+        .top-card.top-bad {
+            border-left: 6px solid var(--accent-red);
+            background: linear-gradient(135deg, rgba(196,108,90,0.10), var(--bg-surface));
+        }
+        .top-card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .top-card-head h3 {
+            font-size: 20px;
+            font-family: var(--font-heading);
+        }
+        .top-card-head .verdict-stat {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .verdict-stat .stat {
+            padding: 4px 11px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .stat-good { background: rgba(125,140,107,0.15); color: var(--accent-green); }
+        .stat-vague { background: rgba(206,170,61,0.18); color: #a37e1c; }
+        .stat-flag { background: rgba(196,108,90,0.15); color: var(--accent-red); }
+        .stat-supp { background: rgba(109,136,150,0.15); color: var(--accent-blue); }
+
+        .top-law {
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: var(--bg-base);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin: 14px 0 18px;
+            line-height: 1.7;
+        }
+        .top-law strong {
+            color: var(--text-primary);
+        }
+
+        .top-list {
+            display: grid;
+            gap: 8px;
+        }
+        .top-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 14px;
+            align-items: center;
+            background: var(--bg-base);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .top-item .top-num {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-secondary);
+            width: 28px;
+            text-align: center;
+        }
+        .top-item .top-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .top-item .top-text small {
+            display: block;
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .top-item .top-verdict {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 11px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+        .top-item.v-good     { border-left: 3px solid var(--accent-green); }
+        .top-item.v-good     .top-verdict { background: rgba(125,140,107,0.15); color: var(--accent-green); }
+        .top-item.v-vague    { border-left: 3px solid #ceaa3d; }
+        .top-item.v-vague    .top-verdict { background: rgba(206,170,61,0.18); color: #a37e1c; }
+        .top-item.v-flag     { border-left: 3px solid var(--accent-red); }
+        .top-item.v-flag     .top-verdict { background: rgba(196,108,90,0.15); color: var(--accent-red); }
+        .top-item.v-supp     { border-left: 3px solid var(--accent-blue); }
+        .top-item.v-supp     .top-verdict { background: rgba(109,136,150,0.15); color: var(--accent-blue); }
+        .top-item.v-unknown  { border-left: 3px solid var(--border-color); }
+        .top-item.v-unknown  .top-verdict { background: var(--bg-surface); color: var(--text-secondary); }
+
+        .top-takeaway {
+            margin-top: 16px;
+            padding: 14px 18px;
+            background: rgba(196,108,90,0.06);
+            border-left: 3px solid var(--accent-red);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+        .top-card.top-good .top-takeaway {
+            background: rgba(125,140,107,0.08);
+            border-left-color: var(--accent-green);
+        }
+        .top-card.top-mixed .top-takeaway {
+            background: rgba(206,170,61,0.08);
+            border-left-color: #ceaa3d;
+        }
+
+        /* Gut Risk Card */
+        .gut-risk-card {
+            background: linear-gradient(135deg, rgba(196,108,90,0.10), rgba(206,170,61,0.05));
+            border: 1px solid rgba(196,108,90,0.3);
+            border-left: 6px solid var(--accent-red);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            margin-bottom: 22px;
+        }
+        .gut-risk-card.risk-medium {
+            background: linear-gradient(135deg, rgba(206,170,61,0.10), rgba(206,170,61,0.04));
+            border-color: rgba(206,170,61,0.4);
+            border-left-color: #ceaa3d;
+        }
+        .gut-risk-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .gut-risk-head .icon {
+            font-size: 36px;
+        }
+        .gut-risk-head h3 {
+            font-size: 20px;
+            font-family: var(--font-heading);
+        }
+        .gut-risk-head .level-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 10px;
+            background: var(--accent-red);
+            color: #fff;
+            vertical-align: middle;
+        }
+        .gut-risk-card.risk-medium .level-badge { background: #ceaa3d; }
+        .gut-risk-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: 720px) {
+            .gut-risk-grid { grid-template-columns: 1fr; }
+        }
+        .gut-risk-block {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+        }
+        .gut-risk-block h5 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        .gut-risk-block ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+        .gut-risk-block ul li { margin-bottom: 3px; }
+        .gut-risk-rec {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border-color);
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        /* Functional grouping */
+        .section-fn .retail-contrast {
+            color: var(--accent-blue);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .section-fn.section-premium {
+            position: relative;
+            background: linear-gradient(135deg, var(--bg-surface), rgba(125,140,107,0.04));
+        }
+        .section-fn.section-premium::after {
+            content: '⭐ 高端訊號';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-green);
+            background: rgba(125,140,107,0.12);
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
         .result-summary {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
