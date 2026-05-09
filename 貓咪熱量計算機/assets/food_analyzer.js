@@ -1,6 +1,20 @@
 // 飼料成分分析器
 // 依賴:cat_ingredients_db.js (INGREDIENTS_DB, FUNCTION_META, PREMIUM_FUNCTIONS)
 
+// ============================================================
+//  體驗碼設定 — 香菇爸可以自行新增/修改
+//  uses: 體驗次數;設為 -1 = 無限次
+//  輸入時不分大小寫 (內部會轉成大寫)
+// ============================================================
+const ACCESS_CODES = {
+    'MUSHROOM2026': { uses: 3,  label: '基本體驗碼' },
+    'IGFANS':       { uses: 3,  label: 'IG 粉絲碼' },
+    'LINEVIP':      { uses: 5,  label: 'LINE VIP 碼' },
+    'MUSHROOMDAD':  { uses: -1, label: '香菇爸後台' }
+};
+
+const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
+
 (function() {
     const els = {
         textArea: document.getElementById('ingredient-text'),
@@ -48,8 +62,158 @@
         document.querySelectorAll('.platform-content').forEach(c => c.classList.toggle('active', c.dataset.platform === platform));
     });
 
+    // ============== 體驗碼閘門 ==============
+    const ACCESS_KEY = 'mushroom_analyzer_access';
+    const accessCard = document.getElementById('access-card');
+
+    function getAccess() {
+        try { return JSON.parse(localStorage.getItem(ACCESS_KEY)) || null; }
+        catch { return null; }
+    }
+    function setAccess(data) { localStorage.setItem(ACCESS_KEY, JSON.stringify(data)); }
+    function clearAccess() { localStorage.removeItem(ACCESS_KEY); }
+
+    function canAnalyze() {
+        const d = getAccess();
+        if (!d) return false;
+        return d.unlimited || d.remaining > 0;
+    }
+
+    function consumeUse() {
+        const d = getAccess();
+        if (!d) return false;
+        if (d.unlimited) return true;
+        if (d.remaining <= 0) return false;
+        d.remaining--;
+        setAccess(d);
+        return true;
+    }
+
+    function activateCode(rawCode) {
+        const code = (rawCode || '').trim().toUpperCase();
+        if (!code) return { ok: false, msg: '請輸入體驗碼' };
+        const cfg = ACCESS_CODES[code];
+        if (!cfg) return { ok: false, msg: '體驗碼無效,請確認後再試一次' };
+
+        const existing = getAccess();
+        if (existing && existing.code === code) {
+            return { ok: true, msg: '此碼已啟用過,沿用先前剩餘次數' };
+        }
+        const data = {
+            code, label: cfg.label,
+            remaining: cfg.uses,
+            unlimited: cfg.uses === -1,
+            activatedAt: new Date().toISOString(),
+        };
+        setAccess(data);
+        return { ok: true };
+    }
+
+    function renderAccess() {
+        const d = getAccess();
+        if (!d) {
+            accessCard.className = 'access-card locked';
+            accessCard.innerHTML = `
+                <div class="access-locked-grid">
+                    <span class="ico">🔐</span>
+                    <div>
+                        <h3>輸入體驗碼解鎖分析功能</h3>
+                        <p>輸入體驗碼可免費試用 3 次完整成分分析。沒有碼?加入香菇爸 LINE 社群免費領取!</p>
+                        <div class="access-form">
+                            <input id="code-input" type="text" placeholder="例如:MUSHROOM2026" autocomplete="off" maxlength="32">
+                            <button id="code-submit" type="button">啟用</button>
+                        </div>
+                        <div class="access-msg" id="access-msg"></div>
+                        <a href="${LINE_INVITE_URL}" target="_blank" rel="noopener" class="access-line-cta">
+                            📲 加入香菇爸 LINE 領取體驗碼
+                        </a>
+                    </div>
+                </div>`;
+            const input = document.getElementById('code-input');
+            document.getElementById('code-submit').addEventListener('click', () => trySubmit(input.value));
+            input.addEventListener('keydown', e => { if (e.key === 'Enter') trySubmit(input.value); });
+            input.focus();
+            updateAnalyzeBtnLock();
+            return;
+        }
+
+        if (!d.unlimited && d.remaining <= 0) {
+            accessCard.className = 'access-card depleted';
+            accessCard.innerHTML = `
+                <h3>🍄 體驗結束 — 感謝你的試用!</h3>
+                <p>覺得這個工具有用嗎?加入<strong>香菇爸 LINE 社群</strong>取得更多體驗次數,還能收看「護貓直播」、和其他家長一起交流。或輸入新的體驗碼繼續使用。</p>
+                <div class="depleted-actions">
+                    <a href="${LINE_INVITE_URL}" target="_blank" rel="noopener" class="access-line-cta">
+                        📲 加入香菇爸 LINE 社群
+                    </a>
+                    <button class="btn-secondary" id="code-reenter" type="button">🔑 輸入新的體驗碼</button>
+                </div>`;
+            document.getElementById('code-reenter').addEventListener('click', () => {
+                clearAccess();
+                renderAccess();
+            });
+            updateAnalyzeBtnLock();
+            return;
+        }
+
+        // unlocked
+        accessCard.className = 'access-card unlocked';
+        const countHtml = d.unlimited
+            ? '<span class="badge-count unlimited">⭐ 無限次</span>'
+            : `<span class="badge-count">剩餘 <strong>${d.remaining}</strong> 次</span>`;
+        accessCard.innerHTML = `
+            <div class="badge-row">
+                <span class="badge-ico">✨</span>
+                <span class="badge-label">已啟用 · ${escapeHtml(d.label)}</span>
+                ${countHtml}
+                <button class="badge-reset" id="badge-reset" type="button">重新輸入</button>
+            </div>`;
+        document.getElementById('badge-reset').addEventListener('click', () => {
+            if (confirm('確定要清除目前的體驗碼嗎?剩餘次數將會遺失。')) {
+                clearAccess();
+                renderAccess();
+            }
+        });
+        updateAnalyzeBtnLock();
+    }
+
+    function trySubmit(value) {
+        const result = activateCode(value);
+        const msgEl = document.getElementById('access-msg');
+        if (!result.ok) {
+            if (msgEl) msgEl.textContent = '❌ ' + result.msg;
+            return;
+        }
+        renderAccess();
+    }
+
+    function updateAnalyzeBtnLock() {
+        if (canAnalyze()) {
+            els.analyzeBtn.classList.remove('locked');
+            els.analyzeBtn.textContent = '🍄 香菇爸幫我分析';
+        } else {
+            els.analyzeBtn.classList.add('locked');
+            els.analyzeBtn.textContent = '🔐 請先輸入體驗碼';
+        }
+    }
+
+    renderAccess();
+
     // ============== 分析按鈕 ==============
-    els.analyzeBtn.addEventListener('click', () => analyze(els.textArea.value));
+    els.analyzeBtn.addEventListener('click', () => {
+        if (!canAnalyze()) {
+            accessCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const input = document.getElementById('code-input');
+            if (input) input.focus();
+            return;
+        }
+        if (!consumeUse()) {
+            renderAccess();
+            return;
+        }
+        analyze(els.textArea.value);
+        renderAccess(); // 更新剩餘次數
+    });
 
     // ============== 解析成分順序(法規重點)==============
     function parseIngredientOrder(rawText) {

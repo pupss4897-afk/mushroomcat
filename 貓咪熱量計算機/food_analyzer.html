@@ -771,6 +771,199 @@
             font-size: 12px;
         }
 
+        /* Access code gate */
+        .access-card {
+            border-radius: var(--radius-lg);
+            padding: 22px 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+        .access-card.locked {
+            background: linear-gradient(135deg, rgba(206,170,61,0.12), rgba(196,108,90,0.06));
+            border: 1px solid rgba(206,170,61,0.35);
+            border-left: 5px solid #ceaa3d;
+        }
+        .access-card.unlocked {
+            background: linear-gradient(135deg, rgba(125,140,107,0.10), rgba(125,140,107,0.04));
+            border: 1px solid rgba(125,140,107,0.30);
+            border-left: 5px solid var(--accent-green);
+            padding: 14px 22px;
+        }
+        .access-card.depleted {
+            background: linear-gradient(135deg, rgba(196,108,90,0.10), rgba(206,170,61,0.06));
+            border: 1px solid rgba(196,108,90,0.30);
+            border-left: 5px solid var(--accent-red);
+        }
+        .access-locked-grid {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+        .access-locked-grid .ico { font-size: 42px; line-height: 1; }
+        .access-card.locked h3 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .access-card.locked p {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+        .access-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .access-form input {
+            flex: 1;
+            min-width: 160px;
+            padding: 11px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 14px;
+            background: #fff;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .access-form input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(125,140,107,0.15);
+        }
+        .access-form button {
+            background: var(--accent-green);
+            color: #fff;
+            border: none;
+            padding: 11px 20px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .access-form button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(125,140,107,0.35);
+        }
+        .access-msg {
+            font-size: 13px;
+            color: var(--accent-red);
+            margin-top: 4px;
+            min-height: 18px;
+        }
+        .access-line-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #06C755;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 6px;
+            transition: var(--transition);
+        }
+        .access-line-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(6,199,85,0.35);
+        }
+
+        /* Unlocked badge */
+        .access-card.unlocked .badge-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .access-card.unlocked .badge-ico { font-size: 22px; }
+        .access-card.unlocked .badge-label {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--accent-green);
+        }
+        .access-card.unlocked .badge-count {
+            background: var(--accent-green);
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .access-card.unlocked .badge-count.unlimited {
+            background: linear-gradient(135deg, #d99a4a, #c47438);
+        }
+        .access-card.unlocked .badge-reset {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .access-card.unlocked .badge-reset:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Depleted card */
+        .access-card.depleted h3 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            margin-bottom: 6px;
+            color: var(--accent-red);
+        }
+        .access-card.depleted p {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+        .depleted-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .depleted-actions .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: var(--font-body);
+        }
+        .depleted-actions .btn-secondary:hover {
+            border-color: var(--accent-green);
+        }
+
+        /* Disabled analyze button when locked */
+        .analyze-btn.locked {
+            background: linear-gradient(135deg, #b8b0a3, #8c8378);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .analyze-btn.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
         /* Marketing traps card */
         .traps-card {
             background: var(--bg-surface);
@@ -893,6 +1086,9 @@
                 <h2>🥫 飼料罐頭成分分析</h2>
                 <p>📝 把成分標複製或輸入進來,香菇爸幫你看每個成分是好是壞、值不值得買!</p>
             </header>
+
+            <!-- Access Code Gate -->
+            <div id="access-card" class="access-card"></div>
 
             <!-- Input Card -->
             <div class="analyzer-card">
