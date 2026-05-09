@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 飼料罐頭成分分析</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        .analyzer-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+
+        /* Upload zone */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            text-align: center;
+            background: var(--bg-base);
+            transition: var(--transition);
+        }
+        .upload-zone:hover { border-color: var(--accent-green); }
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+        .upload-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .upload-sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+        }
+        .upload-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .upload-btn {
+            background: var(--accent-green);
+            color: #fff;
+            border: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 24px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(125, 140, 107, 0.35);
+        }
+        .upload-btn.secondary {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .upload-btn.secondary:hover {
+            background: var(--bg-base);
+            border-color: var(--accent-green);
+        }
+        #photo-input { display: none; }
+
+        /* Preview */
+        .preview-wrap {
+            margin-top: 20px;
+            position: relative;
+            background: var(--bg-base);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .preview-wrap.hidden { display: none; }
+        #preview-img {
+            display: block;
+            width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            background: #000;
+        }
+        .clear-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Progress */
+        .ocr-progress-wrap {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: rgba(109, 136, 150, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: var(--radius-sm);
+        }
+        .ocr-progress-wrap.hidden { display: none; }
+        .ocr-progress-bar-bg {
+            background: var(--border-color);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        #ocr-progress-bar {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        #ocr-progress-label {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* Text area */
+        .text-block {
+            margin-top: 22px;
+        }
+        .text-block label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .text-block label .hint {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        #ingredient-text {
+            width: 100%;
+            min-height: 120px;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 14px;
+            line-height: 1.7;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            resize: vertical;
+        }
+        #ingredient-text:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            background: #fff;
+        }
+        .sample-bar {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+        .sample-btn {
+            background: transparent;
+            border: 1px dashed var(--border-color);
+            color: var(--text-secondary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .sample-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--text-primary);
+        }
+
+        .analyze-btn {
+            margin-top: 18px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-red), #a85544);
+            color: #fff;
+            border: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(196, 108, 90, 0.4);
+        }
+
+        /* Results */
+        #analyze-results.hidden { display: none; }
+        .result-summary {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 20px;
+        }
+        .result-summary h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .summary-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .pill {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .pill-good    { background: rgba(125, 140, 107, 0.15); color: var(--accent-green); }
+        .pill-neutral { background: rgba(140, 131, 120, 0.15); color: var(--text-secondary); }
+        .pill-warn    { background: rgba(206, 170, 61, 0.18);  color: #a37e1c; }
+        .pill-bad     { background: rgba(196, 108, 90, 0.15);  color: var(--accent-red); }
+        .summary-note {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .empty-result {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-secondary);
+            background: var(--bg-base);
+            border-radius: var(--radius-md);
+        }
+
+        .result-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-soft);
+        }
+        .result-section.section-good    { border-left: 5px solid var(--accent-green); }
+        .result-section.section-neutral { border-left: 5px solid var(--text-secondary); }
+        .result-section.section-warn    { border-left: 5px solid #ceaa3d; }
+        .result-section.section-bad     { border-left: 5px solid var(--accent-red); }
+
+        .result-section-head h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .count-badge {
+            background: var(--bg-base);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+        .result-section-head p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .ingredient-list {
+            display: grid;
+            gap: 12px;
+        }
+        .ing-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+        }
+        .ing-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .ing-name {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .ing-good .ing-name    { color: var(--accent-green); }
+        .ing-neutral .ing-name { color: var(--text-primary); }
+        .ing-warn .ing-name    { color: #a37e1c; }
+        .ing-bad .ing-name     { color: var(--accent-red); }
+        .ing-cat {
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--bg-surface);
+            padding: 3px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .ing-line {
+            display: flex;
+            gap: 10px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            align-items: flex-start;
+        }
+        .ing-line:last-child { margin-bottom: 0; }
+        .ing-label {
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+        .ing-label.good { background: rgba(125, 140, 107, 0.15); color: var(--accent-green); }
+        .ing-label.bad  { background: rgba(196, 108, 90, 0.15);  color: var(--accent-red); }
+
+        /* Overall verdict */
+        .overall-verdict {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 24px 28px;
+            border-radius: var(--radius-lg);
+            margin-top: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+        .verdict-good    { background: linear-gradient(135deg, rgba(125,140,107,0.15), rgba(125,140,107,0.05)); border: 1px solid rgba(125,140,107,0.3); }
+        .verdict-neutral { background: var(--bg-surface); border: 1px solid var(--border-color); }
+        .verdict-warn    { background: linear-gradient(135deg, rgba(206,170,61,0.15), rgba(206,170,61,0.04)); border: 1px solid rgba(206,170,61,0.35); }
+        .verdict-bad     { background: linear-gradient(135deg, rgba(196,108,90,0.15), rgba(196,108,90,0.04)); border: 1px solid rgba(196,108,90,0.35); }
+        .verdict-emoji { font-size: 42px; line-height: 1; }
+        .verdict-text h4 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .verdict-text p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .verdict-text small {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li class="active"><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭分析 (照片)</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🥫 飼料罐頭成分分析</h2>
+                <p>📸 拍下成分標,香菇爸幫你看看每個成分是好是壞、值不值得買!</p>
+            </header>
+
+            <!-- Upload + Text -->
+            <div class="analyzer-card">
+                <div class="upload-zone">
+                    <div class="upload-icon">📸</div>
+                    <div class="upload-title">上傳成分標籤照片</div>
+                    <div class="upload-sub">建議拍攝清晰的成分列表,避免反光與模糊</div>
+                    <div class="upload-buttons">
+                        <button type="button" class="upload-btn" id="btn-camera">📷 拍照</button>
+                        <button type="button" class="upload-btn secondary" id="btn-upload">🖼️ 從相簿選</button>
+                    </div>
+                    <input type="file" id="photo-input" accept="image/*">
+                </div>
+
+                <div class="preview-wrap hidden" id="preview-wrap">
+                    <img id="preview-img" alt="預覽圖">
+                    <button class="clear-btn" id="btn-clear" title="移除">✕</button>
+                </div>
+
+                <div class="ocr-progress-wrap hidden" id="ocr-progress-wrap">
+                    <div class="ocr-progress-bar-bg">
+                        <div id="ocr-progress-bar"></div>
+                    </div>
+                    <div id="ocr-progress-label">準備中...</div>
+                </div>
+
+                <div class="text-block">
+                    <label for="ingredient-text">
+                        📝 成分文字 <span class="hint">(可手動輸入或修正 OCR 結果,確認後再分析)</span>
+                    </label>
+                    <textarea id="ingredient-text" placeholder="範例: 去骨雞肉、糙米、雞油、鯡魚粉、蔓越莓、牛磺酸、葡萄糖胺、混合維生素E..."></textarea>
+                    <div class="sample-bar">
+                        <span style="color: var(--text-secondary); align-self: center;">沒有照片?試試:</span>
+                        <button type="button" class="sample-btn" id="btn-sample1">🍗 高品質配方範例</button>
+                        <button type="button" class="sample-btn" id="btn-sample2">⚠️ 低品質配方範例</button>
+                    </div>
+                </div>
+
+                <button type="button" class="analyze-btn" id="btn-analyze">🍄 香菇爸幫我分析</button>
+            </div>
+
+            <!-- Results -->
+            <div id="analyze-results" class="hidden"></div>
+
+            <div class="disclaimer">
+                ⚠️ 本工具僅供參考,資料庫持續擴充中。最終飼料選擇請考量主子個別狀況、過敏史與獸醫建議。
+            </div>
+        </main>
+    </div>
+
+    <!-- Tesseract.js OCR (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+    <!-- Ingredient DB -->
+    <script src="./assets/cat_ingredients_db.js"></script>
+    <!-- Analyzer logic -->
+    <script src="./assets/food_analyzer.js"></script>
+</body>
+</html>
