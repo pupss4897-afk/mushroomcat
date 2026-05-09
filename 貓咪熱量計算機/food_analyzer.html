@@ -306,6 +306,76 @@
             line-height: 1.7;
         }
 
+        /* Fake high-end card: 表面有保健、底子不對 */
+        .fake-card {
+            background: linear-gradient(135deg, rgba(206,170,61,0.08) 0%, rgba(196,108,90,0.10) 100%);
+            border: 1px solid rgba(196,108,90,0.30);
+            border-left: 6px solid var(--accent-red);
+            border-radius: var(--radius-lg);
+            padding: 26px 30px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-soft);
+        }
+        .fake-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .fake-emoji { font-size: 36px; }
+        .fake-head h3 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            color: var(--text-primary);
+        }
+        .fake-lede {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            background: rgba(255,255,255,0.5);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+        }
+        .fake-vs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 720px) {
+            .fake-vs { grid-template-columns: 1fr; }
+        }
+        .fake-col {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+        }
+        .fake-col-good { border-left: 4px solid var(--accent-green); }
+        .fake-col-bad  { border-left: 4px solid var(--accent-red); }
+        .fake-col h5 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .fake-col-good h5 { color: var(--accent-green); }
+        .fake-col-bad h5  { color: var(--accent-red); }
+        .fake-col p {
+            font-size: 13.5px;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+        .fake-takeaway {
+            background: rgba(255,255,255,0.6);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-primary);
+            border: 1px dashed var(--border-color);
+        }
+
         /* Top Position Card: 前 5 項體檢 */
         .top-card {
             background: var(--bg-surface);
@@ -807,6 +877,7 @@
                         <li class="active"><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
                         <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
                         <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
                         <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
                     </ul>
                 </div>

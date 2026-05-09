@@ -235,12 +235,27 @@
 
         const premiumFnsHit = PREMIUM_FUNCTIONS.filter(f => fnBuckets[f] && fnBuckets[f].length > 0);
         const premiumIngsCount = matched.filter(m => m.isPremium).length;
-        const isHighEnd = premiumFnsHit.length >= 3;
+
+        // 前 5 項判讀:必須達標才能算高端
+        const top5Flags  = topAnalysis.filter(t => t.verdict.v === 'flag').length;
+        const top5Vague  = topAnalysis.filter(t => t.verdict.v === 'vague').length;
+        const top5Good   = topAnalysis.filter(t => t.verdict.v === 'good').length;
+
+        // 真高端:前位達標 + 多種保健 + 沒有 bad
+        const isHighEnd = premiumFnsHit.length >= 3
+            && top5Good >= 3
+            && top5Flags === 0
+            && levelBuckets.bad.length === 0;
+
+        // 偽高端:有保健但前位疑慮 — 「澱粉+灑保健粉」
+        const isFakeHighEnd = !isHighEnd
+            && premiumFnsHit.length >= 2
+            && top5Flags >= 2;
 
         let html = '';
 
-        // ===== Hero:整合保健 (僅高端配方) =====
-        if (isHighEnd && levelBuckets.bad.length === 0) {
+        // ===== Hero:真整合配方 (前位必須達標) =====
+        if (isHighEnd) {
             html += renderHero(premiumFnsHit, premiumIngsCount);
         }
 
@@ -249,22 +264,31 @@
             html += renderTopPositionCard(topAnalysis);
         }
 
+        // ===== 偽高端對照警示(關鍵新增) =====
+        if (isFakeHighEnd) {
+            html += renderFakeHighEndCard(premiumFnsHit, premiumIngsCount, top5Flags, top5Vague);
+        }
+
         // ===== 腸道敏感風險 =====
         if (gutRisk.risk !== 'low' && gutRisk.reasons.length > 0) {
             html += renderGutRiskCard(gutRisk);
         }
 
         // ===== 摘要 =====
+        const summaryHint = (top5Flags >= 2)
+            ? `<strong style="color: var(--accent-red);">⚠️ 注意:</strong>下方「推薦」數量是統計所有匹配到的好成分,但<strong>前 5 項紅旗已說明這款主食結構有問題</strong>。優劣判斷請以前 5 項為主。`
+            : `共辨識出 <strong>${matched.length}</strong> 項已知成分。資料庫持續擴充中,未列出的成分不代表沒問題。`;
+
         html += `
             <div class="result-summary">
-                <h3>📊 整體分析</h3>
+                <h3>📊 整體分析(全部成分統計)</h3>
                 <div class="summary-pills">
                     <span class="pill pill-good">推薦 ${levelBuckets.good.length}</span>
                     <span class="pill pill-neutral">中性 ${levelBuckets.neutral.length}</span>
                     <span class="pill pill-warn">注意 ${levelBuckets.warn.length}</span>
                     <span class="pill pill-bad">避免 ${levelBuckets.bad.length}</span>
                 </div>
-                <p class="summary-note">共辨識出 <strong>${matched.length}</strong> 項已知成分。資料庫持續擴充中,未列出的成分不代表沒問題。</p>
+                <p class="summary-note">${summaryHint}</p>
             </div>`;
 
         // ===== 應避免區 =====
@@ -316,6 +340,38 @@
 
         els.results.innerHTML = html;
         els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ============== Render: 偽高端對照警示 ==============
+    function renderFakeHighEndCard(premiumFnsHit, premiumIngsCount, top5Flags, top5Vague) {
+        const fnLabels = premiumFnsHit.map(f => FUNCTION_META[f]?.label.replace(/類$/, '')).filter(Boolean).slice(0, 4).join('、');
+        return `
+            <div class="fake-card">
+                <div class="fake-head">
+                    <span class="fake-emoji">🎭</span>
+                    <h3>表面有保健,但底子不對</h3>
+                </div>
+                <div class="fake-body">
+                    <p class="fake-lede">
+                        這款雖然加了 <strong>${premiumIngsCount}</strong> 項保健成分(${fnLabels} 功能都有),
+                        看起來像高端配方 — <strong>但前 5 項裡有 ${top5Flags} 個紅旗${top5Vague > 0 ? '、' + top5Vague + ' 個模糊蛋白' : ''}</strong>。
+                    </p>
+                    <div class="fake-vs">
+                        <div class="fake-col fake-col-good">
+                            <h5>✅ 真高端配方</h5>
+                            <p>前 5 項是<strong>明確物種的肉</strong>,再加保健成分 — 主食結構對,保健只是錦上添花。</p>
+                        </div>
+                        <div class="fake-col fake-col-bad">
+                            <h5>🎭 這款的設計</h5>
+                            <p>前 5 項以<strong>澱粉/植物蛋白</strong>為主,然後在後面<strong>「灑」一些保健粉</strong>提高賣相。底子問題沒解決。</p>
+                        </div>
+                    </div>
+                    <div class="fake-takeaway">
+                        🍄 <strong>香菇爸的話:</strong>保健成分當然是好東西,但<strong>不能用來補救前位錯誤的主食結構</strong>。
+                        如果只是想補益生菌、魚油,直接買保健品分開吃就好,不用花高價買這種「補健粉灑在澱粉上」的飼料。
+                    </div>
+                </div>
+            </div>`;
     }
 
     // ============== Render: Hero ==============

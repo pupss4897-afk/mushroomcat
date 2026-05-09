@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪營養基礎</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        /* Hero alert at top */
+        .nutri-hero {
+            background: linear-gradient(135deg, rgba(196,108,90,0.10), rgba(206,170,61,0.05));
+            border: 1px solid rgba(196,108,90,0.25);
+            border-left: 5px solid var(--accent-red);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+        .nutri-hero .ico { font-size: 36px; line-height: 1; }
+        .nutri-hero h3 { font-size: 18px; margin-bottom: 6px; color: var(--accent-red); }
+        .nutri-hero p { font-size: 14px; line-height: 1.7; color: var(--text-primary); }
+
+        /* Tab navigation */
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            padding: 6px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex: 1;
+            min-width: max-content;
+        }
+        .tab-btn:hover { background: rgba(125,140,107,0.08); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-green), #5e6e54);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(125,140,107,0.3);
+        }
+
+        .tab-section { display: none; }
+        .tab-section.active { display: block; }
+
+        /* Generic card */
+        .info-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-soft);
+        }
+        .info-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            margin: 18px 0 8px;
+            color: var(--text-primary);
+        }
+        .info-card p, .info-card li {
+            font-size: 14.5px;
+            line-height: 1.85;
+            color: var(--text-primary);
+        }
+        .info-card ul, .info-card ol {
+            padding-left: 22px;
+            margin-bottom: 8px;
+        }
+        .info-card ul li { margin-bottom: 4px; }
+        .info-card strong { color: var(--text-primary); }
+
+        /* Poison food cards */
+        .poison-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            margin-top: 20px;
+        }
+        .poison-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-red);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            position: relative;
+            transition: var(--transition);
+        }
+        .poison-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .poison-card.lethal { border-left-color: #8b0000; background: linear-gradient(135deg, rgba(196,108,90,0.06), var(--bg-base)); }
+        .poison-card.severe { border-left-color: var(--accent-red); }
+        .poison-card.moderate { border-left-color: #ceaa3d; }
+        .poison-name {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+        .poison-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin-left: 6px;
+            color: #fff;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+        }
+        .tag-lethal { background: #8b0000; }
+        .tag-severe { background: var(--accent-red); }
+        .tag-moderate { background: #ceaa3d; }
+        .poison-cause {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+        .poison-row {
+            display: flex;
+            gap: 8px;
+            font-size: 13.5px;
+            line-height: 1.7;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        .poison-row .label {
+            flex-shrink: 0;
+            font-weight: 700;
+            min-width: 56px;
+            color: var(--accent-red);
+        }
+        .poison-row.dose .label { color: #8b0000; }
+        .poison-row.symptom .label { color: #a37e1c; }
+        .poison-row.action .label { color: var(--accent-green); }
+
+        /* Water section */
+        .water-formula {
+            background: linear-gradient(135deg, rgba(109,136,150,0.10), rgba(109,136,150,0.04));
+            border: 1px solid rgba(109,136,150,0.25);
+            border-left: 4px solid var(--accent-blue);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            margin: 16px 0;
+            font-size: 15px;
+        }
+        .water-formula .formula {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin: 8px 0;
+            text-align: center;
+        }
+        .water-stages {
+            display: grid;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .water-stage {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 18px;
+            padding: 14px 18px;
+            background: var(--bg-base);
+            border-radius: var(--radius-md);
+            border-left: 4px solid;
+            align-items: center;
+        }
+        .water-stage.s5  { border-left-color: #ceaa3d; }
+        .water-stage.s10 { border-left-color: var(--accent-red); }
+        .water-stage.s15 { border-left-color: #8b0000; }
+        .water-stage .pct {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .water-stage.s5 .pct  { color: #ceaa3d; }
+        .water-stage.s10 .pct { color: var(--accent-red); }
+        .water-stage.s15 .pct { color: #8b0000; }
+
+        /* Protein NPU table */
+        .npu-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            background: var(--bg-base);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .npu-table thead {
+            background: linear-gradient(135deg, var(--accent-green), #5e6e54);
+        }
+        .npu-table th {
+            color: #fff;
+            font-family: var(--font-heading);
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .npu-table td {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+        .npu-table tr:nth-child(even) td { background: var(--bg-surface); }
+        .npu-bar {
+            display: inline-block;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-green), #ceaa3d);
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Essential AA cards */
+        .aa-grid {
+            display: grid;
+            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            margin-top: 12px;
+        }
+        .aa-card {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-green);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+        }
+        .aa-card h5 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            color: var(--accent-green);
+            margin-bottom: 6px;
+        }
+        .aa-card.cat-only { border-left-color: var(--accent-red); background: linear-gradient(135deg, rgba(196,108,90,0.05), var(--bg-base)); }
+        .aa-card.cat-only h5 { color: var(--accent-red); }
+        .aa-card .role {
+            font-size: 13.5px;
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+        .aa-card .lack {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            padding-top: 6px;
+            border-top: 1px dashed var(--border-color);
+        }
+        .aa-card .lack strong { color: var(--accent-red); }
+
+        /* Source */
+        .source-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 18px;
+            font-style: italic;
+        }
+
+        @media (max-width: 720px) {
+            .water-stage { grid-template-columns: 60px 1fr; gap: 12px; }
+            .water-stage .pct { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li class="active"><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🥗 貓咪營養基礎</h2>
+                <p>📚 香菇爸把寵物學課的核心知識整理成這頁,從六大營養素到致命毒物一次看懂。</p>
+            </header>
+
+            <!-- Hero Alert -->
+            <div class="nutri-hero">
+                <span class="ico">⚠️</span>
+                <div>
+                    <h3>家裡有貓必看</h3>
+                    <p>許多人類的日常食物對貓有<strong>致命毒性</strong>(葡萄、洋蔥、巧克力、木糖醇...)。這頁有完整中毒劑量、症狀與急救處理。<strong>建議加入書籤</strong>,真的有事時可以馬上查。</p>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tab-nav" id="tab-nav">
+                <button class="tab-btn active" data-tab="poison">🚨 致命毒物</button>
+                <button class="tab-btn" data-tab="water">💧 水分</button>
+                <button class="tab-btn" data-tab="protein">🥩 蛋白質</button>
+                <button class="tab-btn" data-tab="fat">🛢️ 脂肪</button>
+                <button class="tab-btn" data-tab="carb">🌾 碳水/纖維</button>
+            </div>
+
+            <!-- ========== POISON TAB ========== -->
+            <div class="tab-section active" id="tab-poison">
+                <div class="info-card">
+                    <h3>🚨 貓咪不能吃的致命食物</h3>
+                    <p>下列為臨床確認對<strong>貓有毒性</strong>的常見人類食物。標籤代表嚴重程度:<span class="poison-tag tag-lethal">致命</span> <span class="poison-tag tag-severe">嚴重</span> <span class="poison-tag tag-moderate">中度</span>。發現主子誤食請<strong>立刻聯絡獸醫</strong>,別等症狀出現。</p>
+
+                    <div class="poison-grid">
+                        <div class="poison-card lethal">
+                            <div class="poison-name">🧅 洋蔥 / 大蒜 / 韭菜<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-cause">主因:有機硫化合物造成「氧化性溶血」</div>
+                            <div class="poison-row dose"><span class="label">劑量</span><span>貓只要 <strong>5 g/kg</strong> 就有臨床症狀(4kg 貓 = 20g 一小撮)</span></div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>嘔吐、腹瀉、蒼白黏膜、無力、呼吸心跳加快、黃疸、紅棕色尿液(攝食後 1~數天出現)</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>沒有解藥,需支持性治療,嚴重需輸血。<strong>加熱、乾燥都無法解毒</strong>(洋蔥湯、洋蔥粉一樣有毒)</span></div>
+                        </div>
+
+                        <div class="poison-card lethal">
+                            <div class="poison-name">🍇 葡萄 / 葡萄乾<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-cause">主因:不明機轉導致急性腎衰竭</div>
+                            <div class="poison-row dose"><span class="label">劑量</span><span>個體差異大!<strong>8kg 臘腸狗吃 4-5 顆葡萄就中毒</strong>。貓劑量更敏感,沒有「安全量」</span></div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>24 小時內嘔吐、腹瀉、厭食、嗜睡、腹痛 → 後續腎衰竭(少尿/無尿、肌酐酸氮升高)</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>可催吐 + 活性碳吸收 + 點滴 48-72 小時。誤食後越快處理預後越好</span></div>
+                        </div>
+
+                        <div class="poison-card lethal">
+                            <div class="poison-name">🍫 巧克力 / 可可<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-cause">主因:甲基黃嘌呤(可可鹼、咖啡因)</div>
+                            <div class="poison-row dose"><span class="label">劑量</span><span>越苦越毒!<strong>苦巧 14mg/g、半甜 5mg/g、牛奶巧 2mg/g</strong>。20mg/kg 體重輕症,40-60mg/kg 可致癲癇</span></div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>2-4 小時出現:躁動、多喝多尿、嘔吐、腹瀉、高熱、心跳過速、心律不整、癲癇、昏迷</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>催吐、洗胃、活性碳。預後通常很好,但越快處理越好</span></div>
+                        </div>
+
+                        <div class="poison-card lethal">
+                            <div class="poison-name">🍬 木糖醇 (Xylitol)<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-cause">主因:刺激胰島素過度分泌 → 嚴重低血糖 + 肝損傷</div>
+                            <div class="poison-row dose"><span class="label">劑量</span><span><strong>0.1 g/kg</strong> 引起低血糖,<strong>0.5 g/kg</strong> 引起肝衰竭。一顆 Extra 口香糖含 0.5g 木糖醇</span></div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>30-60 分鐘出現:嘔吐、嗜睡、行動失調、休克、癲癇 → 後續黃疸、凝血異常</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>初期可催吐,<strong>不可用活性碳</strong>(吸不住木糖醇)。低血糖時需注射葡萄糖水</span></div>
+                        </div>
+
+                        <div class="poison-card severe">
+                            <div class="poison-name">🍷 酒精 / 發酵水果<span class="poison-tag tag-severe">嚴重</span></div>
+                            <div class="poison-cause">主因:酒精快速進入腦血管障壁 → 中樞神經抑制</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>憂鬱、行動失調、體溫過低、呼吸抑制、昏迷</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>血液透析可快速排除,α2-腎上腺素拮抗劑能喚醒寵物。發酵水果(如過熟蘋果)同樣危險</span></div>
+                        </div>
+
+                        <div class="poison-card severe">
+                            <div class="poison-name">🥑 酪梨<span class="poison-tag tag-severe">嚴重</span></div>
+                            <div class="poison-cause">主因:果肉含 persin(油溶性毒素)+ 高油脂</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>嘔吐、腹瀉、胰臟發炎(高油脂負擔)</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>避免主子誤食酪梨果肉、籽、葉子。整顆酪梨建議遠離主子活動範圍</span></div>
+                        </div>
+
+                        <div class="poison-card severe">
+                            <div class="poison-name">☕ 咖啡 / 茶 / 能量飲<span class="poison-tag tag-severe">嚴重</span></div>
+                            <div class="poison-cause">主因:咖啡因(同甲基黃嘌呤)</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>躁動、心跳過快、嘔吐、高血壓、肌肉震顫、癲癇</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>同巧克力中毒處理。注意茶包、咖啡渣也別亂丟</span></div>
+                        </div>
+
+                        <div class="poison-card moderate">
+                            <div class="poison-name">🌰 夏威夷豆 (澳洲堅果)<span class="poison-tag tag-moderate">中度</span></div>
+                            <div class="poison-cause">主因:含氰化物,中毒機轉不明</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>後肢無力、嘔吐、行動失調、震顫、體溫過高、跛行(攝食 12 小時後)</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>通常 24-48 小時自行恢復,嚴重者需就醫</span></div>
+                        </div>
+
+                        <div class="poison-card severe">
+                            <div class="poison-name">🍺 啤酒花<span class="poison-tag tag-severe">嚴重</span></div>
+                            <div class="poison-cause">主因:樹脂、精油、酚類化合物 → 體溫失調</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>體溫過高、焦慮、心跳過速、呼吸急促、嘔吐、癲癇、暗棕色尿液、肌肉壞死</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>催吐、降溫、靜脈輸液。家裡有自釀啤酒材料要收好</span></div>
+                        </div>
+
+                        <div class="poison-card severe">
+                            <div class="poison-name">🥛 三聚氰胺(污染奶粉)<span class="poison-tag tag-severe">嚴重</span></div>
+                            <div class="poison-cause">主因:工業添加物造成腎結石</div>
+                            <div class="poison-row symptom"><span class="label">症狀</span><span>多飲多尿、腹痛、結晶尿、急性腎衰竭</span></div>
+                            <div class="poison-row action"><span class="label">急救</span><span>2007 年寵物食品污染事件主因,優先選有檢驗認證的飼料</span></div>
+                        </div>
+                    </div>
+
+                    <h4>📞 急救專線備忘</h4>
+                    <ul>
+                        <li><strong>誤食後黃金時間:1-2 小時</strong>,越早處理預後越好。別等症狀出現!</li>
+                        <li>聯絡<strong>常去的動物醫院</strong>(夜間記下急診醫院電話)</li>
+                        <li>動物中毒急救可參考 <strong>農業部寵物登記管理資訊網</strong></li>
+                        <li>就醫時帶上「<strong>食用包裝</strong>」或「<strong>剩餘樣本</strong>」,有助獸醫判斷處理</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========== WATER TAB ========== -->
+            <div class="tab-section" id="tab-water">
+                <div class="info-card">
+                    <h3>💧 為什麼水是「第六大營養素」?</h3>
+                    <p>毛孩體重的 <strong>60-70% 都是水</strong>。水是<strong>所有物質的溶劑</strong>、進行細胞內外化學反應、運送養分氧氣、分泌消化液、排除廢物。<strong>缺水比缺營養更快致死</strong> — 幾天就會出大事。</p>
+
+                    <h4>🧮 貓的水分需求公式</h4>
+                    <div class="water-formula">
+                        <div>貓的水分需求:</div>
+                        <div class="formula">水 (mL) ≈ 0.8 ~ 1.0 × 每日熱量 (kcal)</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); text-align: center;">換句話說:每 1 kcal 食物對應約 0.8~1 mL 水</div>
+                    </div>
+                    <p>貓比狗更會濃縮尿液,所以水分需求略低於狗。但相對地,貓也<strong>更容易發生隱性脫水</strong>,因為他們本來就不愛主動喝水。</p>
+
+                    <h4>🥫 乾飼料 vs 罐頭的隱形差距</h4>
+                    <ul>
+                        <li><strong>乾飼料含水量</strong>只有 8-10% — 主子要靠喝水補</li>
+                        <li><strong>罐頭含水量</strong>約 75% — 等於吃飯就在補水</li>
+                        <li>純吃乾飼料的貓,尿量明顯偏少,長期下來<strong>泌尿道、腎臟負擔大</strong></li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🚨 缺水的階段警示</h3>
+                    <p>體重水分流失幾 % 就有不同等級風險,這是判斷脫水嚴重度的標準:</p>
+                    <div class="water-stages">
+                        <div class="water-stage s5">
+                            <div class="pct">5%</div>
+                            <div>
+                                <strong>輕度脫水</strong> — 皮膚缺乏彈性、唾液分泌減少、食慾下降、尿量減少、糞便乾硬。<br>
+                                <small style="color: var(--text-secondary);">手指輕拉肩膀皮膚,放開後 2 秒內彈回算正常,3 秒以上就要注意</small>
+                            </div>
+                        </div>
+                        <div class="water-stage s10">
+                            <div class="pct">10%</div>
+                            <div>
+                                <strong>中度脫水</strong> — 血流量減少、心跳加快,影響心臟、腦、肺、腎臟功能。<br>
+                                <small style="color: var(--text-secondary);">這時候必須就醫,需要靜脈或皮下輸液</small>
+                            </div>
+                        </div>
+                        <div class="water-stage s15">
+                            <div class="pct">15%</div>
+                            <div>
+                                <strong>致命脫水</strong> — 多重器官衰竭、休克,可能死亡。<br>
+                                <small style="color: var(--text-secondary);">急診等級,別等</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>🩺 容易脫水的高風險情境</h4>
+                    <ul>
+                        <li><strong>不良照顧</strong> — 沒換水、水盆位置不對(放在貓砂旁、吵雜處)</li>
+                        <li><strong>炎熱環境</strong> — 夏天無冷氣、車內</li>
+                        <li><strong>運動量大</strong></li>
+                        <li><strong>疾病狀態</strong> — 嘔吐、腹瀉、出血(同時流失電解質)</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>💡 不愛喝水?香菇爸的策略</h3>
+                    <ul>
+                        <li><strong>水碗每天勤清洗</strong> — 貓對水質很挑,有油垢就不喝了</li>
+                        <li><strong>多放幾個水碗</strong>,分散在主子常去的位置(睡窩附近、走道、不同樓層)</li>
+                        <li><strong>遠離貓砂與食盆</strong> — 貓不喜歡水靠近食物或廁所</li>
+                        <li><strong>用流動水</strong> — 飲水機/小噴泉,流動水最受歡迎</li>
+                        <li><strong>把水當遊戲</strong> — 玻璃杯、寬口陶瓷碗、不同材質讓貓「探索」</li>
+                        <li><strong>增加食物含水</strong> — 罐頭、湯罐、自己煮的肉湯混到主食裡</li>
+                        <li><strong>多運動</strong> — 玩到喘了會自己去喝水</li>
+                    </ul>
+                    <div style="background: rgba(206,170,61,0.08); border-left: 3px solid #ceaa3d; padding: 12px 16px; border-radius: var(--radius-sm); margin-top: 12px; font-size: 13.5px;">
+                        ⚠️ <strong>湯罐/解凍鮮食/自煮肉湯</strong>:沒喝完 1-2 小時就要丟掉!裡面有蛋白質,放久很快滋生細菌。
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== PROTEIN TAB ========== -->
+            <div class="tab-section" id="tab-protein">
+                <div class="info-card">
+                    <h3>🥩 貓為什麼是「絕對肉食動物」?</h3>
+                    <p>貓的身體已經演化成<strong>必須靠動物蛋白活下去</strong>:</p>
+                    <ul>
+                        <li><strong>胃酸 pH 1~2</strong>(比人類更酸)— 為了消化生肉與骨頭</li>
+                        <li><strong>無唾液澱粉酶</strong> — 嘴裡完全不消化碳水,只能在小腸處理</li>
+                        <li>多種<strong>必需氨基酸無法自行合成</strong>,得從動物蛋白拿(植物蛋白比例不對)</li>
+                        <li><strong>葡萄糖可以從蛋白質合成</strong>(糖質新生),不像人類需要碳水</li>
+                    </ul>
+                    <p>所以選飼料時,「<strong>動物蛋白比例</strong>」遠比「總蛋白幾 %」重要。標籤上的 38% 蛋白如果一半來自豌豆,對貓沒意義。</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🏆 蛋白質品質排行 (NPU 淨利用率)</h3>
+                    <p>NPU = 保留氮 / 食物攝取氮。<strong>數字越高代表貓身體吸收率越好</strong>。</p>
+                    <table class="npu-table">
+                        <thead>
+                            <tr><th>蛋白來源</th><th>NPU</th><th style="width:50%;">吸收率視覺</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>🥚 蛋</td><td><strong>90</strong></td><td><span class="npu-bar" style="width:90%;"></span></td></tr>
+                            <tr><td>🐟 魚</td><td><strong>83</strong></td><td><span class="npu-bar" style="width:83%;"></span></td></tr>
+                            <tr><td>🥛 牛奶</td><td>82</td><td><span class="npu-bar" style="width:82%;"></span></td></tr>
+                            <tr><td>🥩 牛肉</td><td>80</td><td><span class="npu-bar" style="width:80%;"></span></td></tr>
+                            <tr><td>🍠 甘藷/地瓜</td><td>72</td><td><span class="npu-bar" style="width:72%;"></span></td></tr>
+                            <tr><td>🥔 馬鈴薯</td><td>71</td><td><span class="npu-bar" style="width:71%;"></span></td></tr>
+                            <tr><td>🌱 黃豆</td><td>65</td><td><span class="npu-bar" style="width:65%;"></span></td></tr>
+                            <tr><td>🌾 米</td><td>57</td><td><span class="npu-bar" style="width:57%;"></span></td></tr>
+                            <tr><td>🌾 麵粉</td><td>52</td><td><span class="npu-bar" style="width:52%;"></span></td></tr>
+                            <tr><td>🌾 麵筋</td><td>37</td><td><span class="npu-bar" style="width:37%;"></span></td></tr>
+                        </tbody>
+                    </table>
+                    <p>👉 動物性蛋白(蛋、魚、肉)<strong>全都在 80 以上</strong>,植物蛋白吸收率明顯下降。這就是為什麼香菇爸一直強調「<strong>看肉的比例,不要看總蛋白數字</strong>」。</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>⭐ 對貓特別重要的必需氨基酸</h3>
+                    <p>貓有 <strong>23 種氨基酸</strong>,其中 11 種是「必需氨基酸」(身體無法合成,必須從食物來)。以下是對貓最關鍵的幾個:</p>
+                    <div class="aa-grid">
+                        <div class="aa-card cat-only">
+                            <h5>牛磺酸 (Taurine) ⭐ 貓專屬</h5>
+                            <div class="role">膽汁成分(消化油脂必需)、視網膜健康、心臟功能、神經發育、聽力</div>
+                            <div class="lack"><strong>缺乏:</strong>擴張型心肌病、視網膜退化、生殖功能異常。<strong>狗能自己合成、貓不行</strong>,所以所有合格貓食必加。</div>
+                        </div>
+
+                        <div class="aa-card cat-only">
+                            <h5>精氨酸 (Arginine) ⭐ 貓最敏感</h5>
+                            <div class="role">尿素循環的關鍵酵素 — 把蛋白質代謝產生的「氨」轉成尿素排掉</div>
+                            <div class="lack"><strong>缺乏:</strong>急性高血氨!嘔吐、流口水、肌肉震顫、運動失調、癲癇。貓只要<strong>一餐沒吃精氨酸就會出問題</strong>,比狗敏感太多。</div>
+                        </div>
+
+                        <div class="aa-card">
+                            <h5>色胺酸 (Tryptophan)</h5>
+                            <div class="role">血清素、退黑激素的前驅物,影響情緒與睡眠。貓<strong>無法從色胺酸合成菸鹼酸</strong>,所以需求量比狗高。</div>
+                            <div class="lack"><strong>缺乏:</strong>情緒不穩、易怒、睡眠變差。攝取過多也會傷腎。</div>
+                        </div>
+
+                        <div class="aa-card">
+                            <h5>甲硫胺酸 / 胱胺酸</h5>
+                            <div class="role">毛髮、皮膚、抗氧化(穀胱甘肽)的核心成分。掌管 DNA 複製、減少脂肪肝。</div>
+                            <div class="lack"><strong>缺乏:</strong>體重下降、皮膚紅腫發炎、毛髮粗糙脫屑。<strong>主子毛色亮不亮跟這個有關</strong>。</div>
+                        </div>
+
+                        <div class="aa-card">
+                            <h5>離胺酸 (Lysine)</h5>
+                            <div class="role">合成膠原蛋白、合成肉鹼(脂肪代謝)。常被用於支持貓皰疹病毒感染的恢復。</div>
+                            <div class="lack"><strong>缺乏:</strong>體重下降、負氮平衡。過量會引起精氨酸缺乏。</div>
+                        </div>
+
+                        <div class="aa-card">
+                            <h5>苯丙胺酸 / 酪胺酸</h5>
+                            <div class="role">合成黑色素、甲狀腺素。貓長期缺乏會出現神經缺陷。</div>
+                            <div class="lack"><strong>缺乏:</strong>黑貓毛色變紅棕、步態不穩、過動、流口水。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>📏 貓的蛋白質建議攝取量</h3>
+                    <p>依照三大標準(NRC、AAFCO、FEDIAF):</p>
+                    <ul>
+                        <li><strong>成貓最低</strong>:總熱量的 <strong>26%</strong> (NRC) ~ <strong>33.3%</strong> (AAFCO)</li>
+                        <li><strong>幼貓最低</strong>:總熱量的 <strong>30%</strong></li>
+                        <li><strong>絕育/老貓</strong>:可參考成貓標準,腎功能正常時無需特別降低</li>
+                    </ul>
+                    <h4>🚫 過量蛋白質的副作用</h4>
+                    <ul>
+                        <li>增加肝、腎負擔</li>
+                        <li>磷攝取量隨之上升</li>
+                        <li>過多熱量轉成脂肪 → 肥胖</li>
+                    </ul>
+                    <p>所以「<strong>蛋白越高越好</strong>」的迷思也不對。重點是「<strong>夠用、且來自動物蛋白</strong>」。</p>
+                </div>
+            </div>
+
+            <!-- ========== FAT TAB ========== -->
+            <div class="tab-section" id="tab-fat">
+                <div class="info-card">
+                    <h3>🛢️ 必需脂肪酸:貓無法自製的關鍵</h3>
+                    <p>脂肪不只是能量來源 — <strong>細胞膜、神經髓鞘、賀爾蒙合成都需要脂肪酸</strong>。貓自身無法合成的「必需脂肪酸」必須從食物攝取:</p>
+                    <ul>
+                        <li><strong>亞麻油酸 (Linoleic, n-6)</strong> — 細胞膜、皮膚屏障</li>
+                        <li><strong>次亞麻油酸 (α-Linolenic, n-3)</strong> — 神經發育、抗發炎前體</li>
+                        <li><strong>花生四烯酸 (Arachidonic) ⭐ 貓專屬</strong> — 狗能從亞麻油酸合成,<strong>貓不能</strong>!必須從動物來源直接吃,所以純素貓糧對貓有害</li>
+                        <li><strong>EPA + DHA</strong> — 強抗發炎、神經與視力發育、皮膚毛髮</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🐟 Omega-3 vs Omega-6 平衡</h3>
+                    <p>很多家長補魚油,但其實「<strong>比例</strong>」比「總量」重要:</p>
+                    <ul>
+                        <li><strong>Omega-6 (n-6)</strong> — 蔬菜油、穀物、雞油常見。<strong>過量會促進發炎</strong></li>
+                        <li><strong>Omega-3 (n-3)</strong> — 魚油、亞麻仁油常見。<strong>抗發炎、鎮靜免疫</strong></li>
+                        <li>現代飼料 Omega-6 通常嚴重過量,所以才需要<strong>另外補魚油</strong>把比例拉回來</li>
+                    </ul>
+                    <h4>📊 必需脂肪酸代謝差異</h4>
+                    <ul>
+                        <li>植物性 Omega-3(亞麻仁油的 ALA):貓<strong>幾乎無法轉換</strong>成 EPA/DHA</li>
+                        <li>動物性 Omega-3(魚油的 EPA/DHA):<strong>直接可用</strong>,效率高</li>
+                        <li>所以對貓來說,「<strong>魚油 &gt;&gt; 亞麻仁油</strong>」</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>📏 貓的脂肪需求</h3>
+                    <ul>
+                        <li><strong>傳統貓飼料脂肪量</strong>:8-13%</li>
+                        <li><strong>低脂飲食標準</strong>:飼料 &lt; 15% 脂肪、鮮食 &lt; 30% 總熱量</li>
+                        <li>貓有能力消化<strong>總熱量 50-70% 的脂肪</strong>(比想像的高)</li>
+                    </ul>
+                    <h4>⚠️ 高脂飲食對貓的風險</h4>
+                    <ul>
+                        <li><strong>肥胖</strong> — 體重每加 1 kg,胰島素敏感度下降 30%</li>
+                        <li><strong>胰臟發炎</strong> — 緬甸貓特別敏感</li>
+                        <li><strong>高脂血症</strong> — 緬甸貓家族有遺傳傾向</li>
+                    </ul>
+                    <h4>🩺 必需脂肪酸缺乏症狀</h4>
+                    <p>缺乏先從<strong>皮膚毛髮</strong>看出來:</p>
+                    <ul>
+                        <li>皮膚粗糙、毛髮乾燥脫屑(腹部 → 大腿 → 肩胛)</li>
+                        <li>脂漏性皮膚炎、搔癢、潰瘍、掉毛</li>
+                        <li>嚴重會傷害腎、生殖、免疫、視力</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========== CARB TAB ========== -->
+            <div class="tab-section" id="tab-carb">
+                <div class="info-card">
+                    <h3>🌾 貓需要碳水嗎?</h3>
+                    <p>嚴格說來:<strong>貓沒有「絕對的碳水需求」</strong>。他們可以從蛋白質透過糖質新生製造出血糖。但完全不吃碳水也不健康,適量纖維對腸道很重要。</p>
+                    <h4>🦷 貓的碳水消化系統</h4>
+                    <ul>
+                        <li>口腔<strong>沒有唾液澱粉酶</strong> — 食物在嘴裡完全不消化</li>
+                        <li><strong>胰臟才分泌少量澱粉酶</strong>,在小腸處理</li>
+                        <li>胰島素分泌量也比較少 → <strong>長期高碳水容易得糖尿病</strong></li>
+                    </ul>
+                    <h4>🚫 哪些糖貓真的不能吃?</h4>
+                    <ul>
+                        <li><strong>果糖</strong> — 代謝差,不要給</li>
+                        <li><strong>糖醇類</strong>(木糖醇、麥芽糖醇)— 吸收差會腹瀉,木糖醇還有致命毒性</li>
+                        <li><strong>所有糖類過量</strong> — 沒有甜味受體,完全不需要,純粹增加熱量負擔</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🥬 膳食纖維的角色</h3>
+                    <p>纖維雖然不算「營養素」(無熱量),但對腸道健康超重要:</p>
+                    <ul>
+                        <li><strong>幫助排便</strong> — 增加糞便體積、促進腸道蠕動</li>
+                        <li><strong>養好菌</strong> — 部分纖維會在大腸發酵成短鏈脂肪酸,滋養腸道上皮</li>
+                        <li><strong>毛球排出</strong> — 幫助毛球順利排出避免堆積</li>
+                        <li><strong>飽足感</strong> — 減重飼料常用纖維製造飽足感(纖維含量可高達 9-10%)</li>
+                    </ul>
+                    <h4>⚠️ 纖維太多的副作用</h4>
+                    <ul>
+                        <li>適口性下降(吃起來乾、不好吃)</li>
+                        <li>肚子脹氣、腸道不適</li>
+                        <li><strong>阻礙營養吸收</strong> — 纖維把礦物質、脂溶性營養素一起帶走</li>
+                        <li>果膠類發酵太快會腹瀉</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🌟 益生元 vs 益生菌</h3>
+                    <ul>
+                        <li><strong>益生菌</strong> — 直接補活菌,進到腸道定殖。但要活著到腸道才有用</li>
+                        <li><strong>益生元</strong>(寡糖、菊苣纖維、果寡糖 FOS、甘露寡糖 MOS)— 不是菌,是<strong>「菌的食物」</strong>。餵養腸道好菌</li>
+                        <li>兩個一起補才是最佳組合 → 高端配方常見「益生菌 + 益生元」雙效</li>
+                    </ul>
+                    <p>主子有<strong>軟便、消化不良、過敏體質</strong>時,腸道保健是優先選項。</p>
+                </div>
+            </div>
+
+            <div class="source-note">
+                📚 內容整理自香菇爸寵物學課程講義 + 陳巧明老師《寵物營養與膳食設計》。資料僅供參考,個別狀況請諮詢獸醫。
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            const tabBtns = document.querySelectorAll('#tab-nav .tab-btn');
+            const sections = document.querySelectorAll('.tab-section');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.dataset.tab;
+                    tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+                    sections.forEach(s => s.classList.toggle('active', s.id === 'tab-' + target));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
