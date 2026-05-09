@@ -28,9 +28,9 @@ const INGREDIENTS_DB = [
     },
     {
         name: '火雞肉',
-        aliases: ['火雞肉', '火雞', 'turkey'],
+        aliases: ['火雞肉粉', '脫水火雞肉', '火雞肉', '火雞', 'turkey'],
         level: 'good', function: 'protein-meat', category: '動物性蛋白',
-        pros: '低脂高蛋白,過敏率比雞肉低,適合敏感腸胃或過敏體質貓。'
+        pros: '低脂高蛋白,過敏率比雞肉低,適合敏感腸胃或過敏體質貓。「火雞肉粉」是濃縮蛋白形式,蛋白質含量更高。'
     },
     {
         name: '鴨肉',
@@ -138,9 +138,22 @@ const INGREDIENTS_DB = [
     },
     {
         name: '脫水家禽蛋白(未指明)',
-        aliases: ['脫水家禽蛋白', '脫水家禽肉', '家禽蛋白', '禽肉蛋白'],
+        aliases: ['脫水家禽蛋白', '脫水家禽肉', '家禽蛋白', '禽肉蛋白', '家禽肉粉'],
         level: 'warn', function: 'protein-meat', category: '動物性蛋白(模糊)', isVague: true,
         cons: '只標「家禽」未指明雞、鴨或火雞,品質難判斷,可能來自混合家禽副產物。優質飼料會明確標示「脫水雞肉」「脫水鴨肉」等。'
+    },
+    {
+        name: '動物性蛋白(未指明)',
+        aliases: ['動物性蛋白'],
+        level: 'warn', function: 'protein-meat', category: '動物蛋白(來源不明)', isVague: true,
+        cons: '完全沒揭露動物來源,可能是各種動物副產物的混合粉。優質飼料會明確標示物種(如「雞肉」「火雞肉」)。'
+    },
+    {
+        name: '魚粉',
+        aliases: ['魚粉', 'fish meal'],
+        level: 'neutral', function: 'protein-meat', category: '濃縮魚蛋白',
+        pros: '若品牌品質佳、指明魚種,是濃縮蛋白與 Omega-3 來源。',
+        cons: '未指明魚種時可能來自各種低價雜魚混合粉,且海洋污染物風險難評估。'
     },
     {
         name: '水解動物蛋白',
@@ -208,9 +221,21 @@ const INGREDIENTS_DB = [
     },
     {
         name: '雞油',
-        aliases: ['雞油', 'chicken fat'],
+        aliases: ['雞油', '雞脂', 'chicken fat'],
         level: 'good', function: 'fat', category: '油脂',
         pros: '高適口性,提供必需脂肪酸與能量。'
+    },
+    {
+        name: '鴨脂',
+        aliases: ['鴨脂', '鴨油', 'duck fat'],
+        level: 'good', function: 'fat', category: '油脂',
+        pros: '指明物種的優質動物油脂,適口性佳。'
+    },
+    {
+        name: '家禽脂肪',
+        aliases: ['家禽脂肪', 'poultry fat'],
+        level: 'warn', function: 'fat', category: '油脂(模糊)', isVague: true,
+        cons: '只標「家禽」沒指明雞或鴨,品質難以追溯。優質飼料會明確標示「雞油」「鴨脂」等。'
     },
     {
         name: '亞麻仁油',
@@ -249,6 +274,18 @@ const INGREDIENTS_DB = [
         aliases: ['益生菌', '乳酸菌', 'probiotic', 'lactobacillus', 'enterococcus'],
         level: 'good', function: 'gut', category: '腸道保健',
         pros: '改善腸道菌叢、增強免疫力,對軟便、消化不良貓有幫助。'
+    },
+    {
+        name: '枯草芽孢桿菌',
+        aliases: ['枯草芽孢桿菌', 'Bacillus subtilis'],
+        level: 'good', function: 'gut', category: '專利益生菌', isPremium: true,
+        pros: '具孢子保護耐高溫、耐胃酸,腸道存活率高。能分泌酵素輔助消化。'
+    },
+    {
+        name: '嗜酸乳桿菌',
+        aliases: ['嗜酸乳桿菌', 'Lactobacillus acidophilus', 'L. acidophilus'],
+        level: 'good', function: 'gut', category: '經典益生菌',
+        pros: '經典腸道益生菌,改善菌叢平衡、輔助免疫,對軟便、過敏體質貓有幫助。'
     },
     {
         name: '益生元',
@@ -332,6 +369,26 @@ const INGREDIENTS_DB = [
         pros: '支持毛髮亮澤、皮膚彈性與關節軟骨。<strong>市面常見「美毛粉」另外賣</strong>,直接放進主食是高度整合。'
     },
 
+    // ===== 免疫保健類 =====
+    {
+        name: 'β-葡聚醣',
+        aliases: ['β-葡聚醣', 'β葡聚醣', 'beta-glucan', 'β-glucan', 'beta glucan'],
+        level: 'good', function: 'immune', category: '免疫多醣體', isPremium: true,
+        pros: '酵母/菇類來源的免疫多醣體,刺激先天免疫反應、增強抗病力。<strong>市面常見免疫保健另外賣</strong>,主食內建是高端訊號。'
+    },
+    {
+        name: '黑酵母',
+        aliases: ['黑酵母', '出芽短梗黴', 'aureobasidium pullulans'],
+        level: 'good', function: 'immune', category: '免疫保健', isPremium: true,
+        pros: '黑酵母發酵物產生 β-葡聚醣等成分,日本研究顯示對先天免疫力有支持作用,屬高階保健成分。'
+    },
+    {
+        name: '螺旋藻',
+        aliases: ['螺旋藻', 'spirulina'],
+        level: 'good', function: 'immune', category: '超級食物', isPremium: true,
+        pros: '富含完整氨基酸、Omega、葉綠素、藻青素,被列為「超級食物」。支持免疫、毛髮亮澤。'
+    },
+
     // ===== 神經/代謝類 =====
     {
         name: '卵磷脂',
@@ -344,6 +401,24 @@ const INGREDIENTS_DB = [
         aliases: ['L-肉鹼', '左旋肉鹼', 'L-carnitine'],
         level: 'good', function: 'neural', category: '脂肪代謝',
         pros: '幫助脂肪轉換為能量,對減重、心臟功能有助益。'
+    },
+    {
+        name: '色胺酸',
+        aliases: ['色胺酸', 'tryptophan', 'L-tryptophan'],
+        level: 'good', function: 'neural', category: '必需氨基酸 / 情緒', isPremium: true,
+        pros: '血清素的前驅物,有助情緒穩定、減少焦慮、改善睡眠。對神經敏感、容易緊張的貓有幫助。'
+    },
+    {
+        name: 'DHA',
+        aliases: ['DHA', '二十二碳六烯酸', 'docosahexaenoic acid'],
+        level: 'good', function: 'neural', category: 'Omega-3 / 神經', isPremium: true,
+        pros: '腦部與視網膜發育的必需脂肪酸,對幼貓發育、老貓認知都重要。通常隨魚油一起補充。'
+    },
+    {
+        name: 'EPA',
+        aliases: ['EPA', '二十碳五烯酸', 'eicosapentaenoic acid'],
+        level: 'good', function: 'fat-omega', category: 'Omega-3',
+        pros: '抗發炎效果強的 Omega-3,改善皮膚、關節炎症,對心血管也好。'
     },
     {
         name: '酵母 / 酵母粉',
@@ -390,6 +465,24 @@ const INGREDIENTS_DB = [
         aliases: ['維生素E', '生育醇', 'mixed tocopherols', 'tocopherol', 'vitamin e'],
         level: 'good', function: 'vit-min', category: '天然抗氧化劑',
         pros: '天然防腐方式,同時是必需維生素。優質飼料的指標之一。'
+    },
+    {
+        name: '維生素A',
+        aliases: ['維生素A', '視黃醇', 'vitamin a', 'retinol'],
+        level: 'good', function: 'vit-min', category: '脂溶性維生素',
+        pros: '視力、皮膚、免疫必需。貓無法自行從 β-胡蘿蔔素轉換,必須直接補充。'
+    },
+    {
+        name: '維生素D',
+        aliases: ['維生素D', '維生素D3', 'vitamin d', 'vitamin d3', 'cholecalciferol'],
+        level: 'good', function: 'vit-min', category: '脂溶性維生素',
+        pros: '幫助鈣磷吸收、骨骼健康。貓無法靠日曬合成,必須由飲食補充。'
+    },
+    {
+        name: '微量礦物質群',
+        aliases: ['硫酸鋅', '蛋白鋅', '硫酸亞鐵', '甘氨酸鐵', '硫酸銅', '蛋白銅', '亞硒酸鈉', 'zinc', 'iron', 'copper', 'selenium'],
+        level: 'good', function: 'vit-min', category: '微量元素',
+        pros: '鋅(皮膚毛髮)、鐵(紅血球)、銅(毛色)、硒(抗氧化)等微量元素。完整主食都應該有。'
     },
     {
         name: '綜合維生素',
@@ -468,10 +561,10 @@ const INGREDIENTS_DB = [
     },
     {
         name: '豌豆',
-        aliases: ['豌豆', '豌豆粉', '豌豆蛋白', 'pea', 'peas'],
+        aliases: ['豌豆蛋白', '豌豆纖維', '豌豆澱粉', '豌豆粉', '豌豆', 'pea', 'peas', 'pea protein', 'pea fiber'],
         level: 'warn', function: 'carb', category: '無穀澱粉/植物蛋白',
         pros: '無穀配方常見成分,提供纖維與植物蛋白。',
-        cons: 'FDA 已調查豆類過量可能與心肌病(DCM)相關;豌豆蛋白也常被當蛋白質含量灌水手段。'
+        cons: 'FDA 已調查豆類過量可能與心肌病(DCM)相關;豌豆蛋白也常被當蛋白質含量灌水。<br>⚠️ <strong>「拆名字」陷阱</strong>:標籤上常見「豌豆蛋白、豌豆纖維、豌豆澱粉」分開列在不同位置,讓肉看起來排前面,但其實全部加起來都是豌豆。'
     },
     {
         name: '木薯',
@@ -519,6 +612,12 @@ const INGREDIENTS_DB = [
         cons: '貓不在意食物顏色,色素純粹做給人看。部分色素已被研究與過敏、過動行為相關。'
     },
     {
+        name: '人工香料',
+        aliases: ['人工香料', '人工增味劑', '合成香料', 'artificial flavor', 'artificial flavour'],
+        level: 'bad', function: 'additive-bad', category: '人工添加',
+        cons: '貓咪靠嗅覺判斷食物是否新鮮、是否能吃。品質好的飼料用真實肉/魚自然就有香氣,需要靠人工香料代表原料品質可能不佳。'
+    },
+    {
         name: '糖',
         aliases: ['蔗糖', '果糖', '糖漿', '玉米糖漿', 'sugar', 'syrup', 'fructose'],
         level: 'bad', function: 'additive-bad', category: '糖類',
@@ -544,6 +643,7 @@ const FUNCTION_META = {
     skin:            { emoji: '🟡', label: '毛髮皮膚類',     retail: '市面常見:美毛粉、膠原保健另外賣',       premium: true  },
     'fat-omega':     { emoji: '🟡', label: '毛髮皮膚 / Omega-3', retail: '市面常見:魚油保健另外補',              premium: true  },
     'protein-absorb':{ emoji: '🔵', label: '高吸收蛋白(營養吸收類)', retail: '市面常見:乳清/酪蛋白保健另外賣',  premium: true  },
+    immune:          { emoji: '🛡️', label: '免疫保健類',     retail: '市面常見:免疫保健另外賣(β-葡聚醣等)',  premium: true  },
     neural:          { emoji: '🟢', label: '神經 / 代謝類',  retail: '市面常見:卵磷脂保健另外補',             premium: true  },
     joint:           { emoji: '🦴', label: '關節保健類',     retail: '市面常見:關節保健粉另外賣',             premium: true  },
     urinary:         { emoji: '💧', label: '泌尿保健類',     retail: '市面常見:泌尿粉另外補',                 premium: true  },
@@ -558,4 +658,4 @@ const FUNCTION_META = {
 };
 
 // 觸發「整合保健」hero 的功能類別(高端訊號)
-const PREMIUM_FUNCTIONS = ['gut', 'skin', 'fat-omega', 'protein-absorb', 'neural', 'joint', 'urinary'];
+const PREMIUM_FUNCTIONS = ['gut', 'skin', 'fat-omega', 'protein-absorb', 'immune', 'neural', 'joint', 'urinary'];

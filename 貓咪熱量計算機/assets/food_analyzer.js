@@ -33,6 +33,13 @@
     els.photoHelperToggle.addEventListener('click', () => {
         els.photoHelper.classList.toggle('open');
     });
+
+    // 識破行銷話術 摺疊
+    const trapsCard = document.getElementById('traps-card');
+    const trapsToggle = document.getElementById('traps-toggle');
+    if (trapsToggle) {
+        trapsToggle.addEventListener('click', () => trapsCard.classList.toggle('open'));
+    }
     els.platformTabs.addEventListener('click', (e) => {
         const btn = e.target.closest('.platform-tab');
         if (!btn) return;
@@ -274,7 +281,7 @@
 
         // ===== 按功能分組 =====
         const fnRenderOrder = [
-            'gut', 'skin', 'fat-omega', 'protein-absorb', 'neural', 'joint', 'urinary',
+            'gut', 'skin', 'fat-omega', 'protein-absorb', 'immune', 'neural', 'joint', 'urinary',
             'protein-meat', 'fat', 'carb', 'fiber', 'amino', 'vit-min'
         ];
         fnRenderOrder.forEach(fnKey => {
@@ -452,25 +459,25 @@
         let verdict, emoji, cls;
 
         if (flagCount >= 2 || gutRisk.risk === 'high') {
-            verdict = `這款<strong>前位成分以澱粉或模糊蛋白為主</strong>,加上${gutRisk.risk === 'high' ? '腸道風險偏高' : '多個過敏原'},不建議當作肉食性貓咪的長期主食。如果主子已經出現軟便、皮膚癢,優先考慮換糧。`;
+            verdict = `我自己比較在意的是,這款<strong>前位成分以澱粉或模糊蛋白為主</strong>${gutRisk.risk === 'high' ? ',加上腸道風險偏高' : ''}。對肉食性的貓咪來說,這種結構蛋白吸收率比較低。如果主子已經有軟便、皮膚癢、淚痕等狀況,可以考慮換更乾淨的配方試試。`;
             emoji = '🚩'; cls = 'verdict-bad';
         } else if (isHighEnd && bad === 0) {
-            verdict = `這款已經達到<strong>「主食保健一體化」</strong>等級 — 涵蓋 ${premiumFnsHit.length} 種保健功能,前位成分達標。如果不是處方需求,這已經是台灣可買到的高水準配方。香菇爸給高分。`;
+            verdict = `這款已經達到<strong>「主食保健一體化」</strong>的等級 — 涵蓋 ${premiumFnsHit.length} 種保健功能,前位成分達標。如果不是處方需求,這已經是台灣可買到的高水準配方,香菇爸自己會放心給主子吃。`;
             emoji = '🎖️'; cls = 'verdict-good';
         } else if (bad >= 2) {
-            verdict = '含有多項<strong>建議避免</strong>的成分,香菇爸不太推薦長期當主食。';
-            emoji = '🚫'; cls = 'verdict-bad';
+            verdict = '我自己比較在意的是,這款含有多項<strong>容易引起爭議的成分</strong>。倒不是說「一定不好」,但同價位有更乾淨的選擇可以挑。';
+            emoji = '⚠️'; cls = 'verdict-bad';
         } else if (bad === 1) {
-            verdict = '出現了 1 個建議避免的成分,可以拿這個給獸醫或店家確認來源,有更好的選擇就換吧。';
+            verdict = '出現了 1 個比較有疑慮的成分,可以拿這個給獸醫或店家確認來源,有同價位更乾淨的選擇就換吧。';
             emoji = '⚠️'; cls = 'verdict-warn';
         } else if (warn >= 3 && good < 4) {
-            verdict = '有不少需要注意的成分(常見過敏原或品質模糊),不一定不好,但有更乾淨的選擇可以考慮。';
+            verdict = '有不少<strong>需要注意</strong>的成分(常見過敏原或品質模糊),不一定不好,但有更乾淨的選擇可以考慮。我自己會比較在意這幾項。';
             emoji = '🤔'; cls = 'verdict-warn';
         } else if (good >= 3) {
-            verdict = '看起來是不錯的配方!有多項對貓咪有益的成分,搭配輪換食用更佳。';
+            verdict = '看起來是不錯的配方!有多項對貓咪有益的成分,搭配蛋白源輪換食用會更好。';
             emoji = '🎉'; cls = 'verdict-good';
         } else {
-            verdict = '配方還行,但亮點不算多。建議多看品牌的營養比例(蛋白質/脂肪/灰分)再決定。';
+            verdict = '配方還行,但亮點不算多。建議多看品牌的營養比例(蛋白質/脂肪/灰分)、含水量、是否符合 AAFCO 全齡標準再決定。';
             emoji = '🍄'; cls = 'verdict-neutral';
         }
 

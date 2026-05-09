@@ -701,6 +701,78 @@
             font-size: 12px;
         }
 
+        /* Marketing traps card */
+        .traps-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .traps-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 28px;
+            cursor: pointer;
+            user-select: none;
+            background: linear-gradient(135deg, rgba(206,170,61,0.08), rgba(196,108,90,0.04));
+            transition: var(--transition);
+        }
+        .traps-toggle:hover { background: linear-gradient(135deg, rgba(206,170,61,0.15), rgba(196,108,90,0.06)); }
+        .traps-toggle h3 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .traps-toggle .arrow {
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+        .traps-card.open .traps-toggle .arrow { transform: rotate(180deg); }
+        .traps-body {
+            display: none;
+            padding: 8px 28px 28px;
+        }
+        .traps-card.open .traps-body { display: block; }
+        .trap-item {
+            background: var(--bg-base);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--accent-red);
+        }
+        .trap-item.tip { border-left-color: var(--accent-green); }
+        .trap-item h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+        .trap-item p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        .trap-item p strong { color: var(--accent-red); }
+        .trap-item.tip p strong { color: var(--accent-green); }
+        .trap-quote {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
         .disclaimer {
             text-align: center;
             font-size: 12px;
@@ -843,8 +915,72 @@
             <!-- Results -->
             <div id="analyze-results" class="hidden"></div>
 
+            <!-- 識破行銷話術 -->
+            <div class="traps-card" id="traps-card">
+                <div class="traps-toggle" id="traps-toggle">
+                    <h3>🧠 識破行銷話術 — 香菇爸的飼料心法</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="traps-body">
+                    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.7;">
+                        飼料包裝上的標語常常很漂亮,但背後常有家長看不見的話術。學會這四點,你不需要依賴任何人推薦,可以自己做判斷。
+                    </p>
+
+                    <div class="trap-item">
+                        <h4>❌ <strong>無穀</strong> 不等於 <strong>低碳水</strong></h4>
+                        <p>
+                            很多無穀飼料只是把玉米/小麥換成 <strong>馬鈴薯、豌豆、樹薯、地瓜</strong>,
+                            碳水比例可能還更高。重點是看「澱粉類佔幾項」,不是「有沒有穀」。
+                            無穀只代表「不含穀類」,跟「碳水含量低」是兩件事。
+                        </p>
+                    </div>
+
+                    <div class="trap-item">
+                        <h4>❌ <strong>鮮肉第一</strong> 不等於 <strong>肉很多</strong></h4>
+                        <p>
+                            鮮肉含水量約 <strong>70%</strong>,標示寫「鮮雞肉」第一項時很漂亮,
+                            但<strong>烘乾後其實佔比沒那麼高</strong>。
+                            反而看到「雞肉粉(meal)」是已經烘乾的濃縮蛋白,實際肉量更紮實。
+                        </p>
+                        <div class="trap-quote">
+                            ※ 並不是說「鮮肉=不好」,而是別被「第一項是鮮肉」這件事誤導。重要的是看整體配方結構。
+                        </div>
+                    </div>
+
+                    <div class="trap-item">
+                        <h4>❌ <strong>高蛋白</strong> 不等於 <strong>高品質</strong></h4>
+                        <p>
+                            標籤上寫的「粗蛋白 38%」沒有區分<strong>動物 vs 植物來源</strong>。
+                            有些品牌靠 <strong>豌豆蛋白、玉米麩質、植物分離蛋白</strong>
+                            把蛋白數字衝高,但對肉食的貓來說<strong>吸收差、容易引起過敏</strong>。
+                            重點不是蛋白「幾%」,而是這些蛋白「從哪裡來」。
+                        </p>
+                    </div>
+
+                    <div class="trap-item">
+                        <h4>⚠️ <strong>豌豆「拆名字」</strong> 陷阱</h4>
+                        <p>
+                            常見手法:標籤上把同一種原料拆成不同名字分開列。例如:
+                            <strong>豌豆蛋白(第3項)、豌豆纖維(第7項)、豌豆澱粉(第10項)、豌豆粉(第14項)</strong> —
+                            分散後讓肉看起來排前面,但其實全部加起來還是豌豆。
+                            玉米也常這樣拆成「玉米、玉米麩質、玉米澱粉、玉米麩」。
+                            高品質配方不會這樣玩。
+                        </p>
+                    </div>
+
+                    <div class="trap-item tip">
+                        <h4>🍄 <strong>香菇爸的話</strong></h4>
+                        <p>
+                            比起說「這款一定爛」,我自己比較在意的是 —— <strong>「家長看不到的東西」</strong>。
+                            學會看成分標,你不需要依賴任何人推薦,可以自己做判斷。
+                            有疑慮的東西不是世界末日,但同價位通常有更乾淨的選擇可以選。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="disclaimer">
-                ⚠️ 本工具僅供參考,目前資料庫收錄約 50 種常見成分,持續擴充中。最終飼料選擇請考量主子個別狀況、過敏史與獸醫建議。
+                ⚠️ 本工具僅供參考,資料庫持續擴充中。最終飼料選擇請考量主子個別狀況、過敏史與獸醫建議。
             </div>
         </main>
     </div>
