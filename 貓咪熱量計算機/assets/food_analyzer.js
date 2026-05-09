@@ -20,7 +20,7 @@
         els.textArea.focus();
     });
     els.sample2Btn.addEventListener('click', () => {
-        els.textArea.value = '成分:脫水家禽蛋白、米、植物分離蛋白、小麥、玉米、動物脂肪、小麥麵粉、水解動物蛋白、蔬菜纖維、礦物質、酵母及酵母提取物、玉米麩質、甜菜漿、大豆油、魚油、洋車前子及殼、水解酵母(甘露寡糖來源)、金盞花';
+        els.textArea.value = '成分:脫水家禽蛋白、米、植物分離蛋白、大豆粉、小麥、玉米粉、動物脂肪、小麥麵粉、水解動物蛋白、蔬菜纖維、礦物質、米麩質、甜菜漿、大豆油、小麥麩。';
         els.textArea.focus();
     });
     els.clearTextBtn.addEventListener('click', () => {
