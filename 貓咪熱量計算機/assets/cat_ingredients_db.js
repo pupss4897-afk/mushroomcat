@@ -346,10 +346,10 @@ const INGREDIENTS_DB = [
         pros: '幫助脂肪轉換為能量,對減重、心臟功能有助益。'
     },
     {
-        name: '酵母粉',
-        aliases: ['酵母粉', '啤酒酵母', 'brewer\'s yeast', 'yeast'],
-        level: 'good', function: 'vit-min', category: 'B群來源',
-        pros: '富含B群與微量元素,提升毛髮光澤與適口性。'
+        name: '酵母 / 酵母粉',
+        aliases: ['啤酒酵母', '酵母提取物', '酵母萃取物', '酵母及酵母提取物', '酵母粉', '酵母', 'brewer\'s yeast', 'yeast extract', 'yeast'],
+        level: 'good', function: 'vit-min', category: 'B群 / 風味來源',
+        pros: '富含B群與微量元素,提升毛髮光澤與適口性。酵母提取物常作為天然風味劑,讓貓更愛吃。'
     },
 
     // ===== 必需氨基酸 / 關節 =====
@@ -399,7 +399,7 @@ const INGREDIENTS_DB = [
     },
     {
         name: '綜合礦物質',
-        aliases: ['綜合礦物質', '微量礦物質'],
+        aliases: ['綜合礦物質', '微量礦物質', '礦物質'],
         level: 'good', function: 'vit-min', category: '基礎營養',
         pros: '補充鈣、磷、鉀、鎂、鋅、銅、硒、鐵等必需礦物質。'
     },
@@ -431,9 +431,10 @@ const INGREDIENTS_DB = [
     },
     {
         name: '白米',
-        aliases: ['白米', 'rice', '米飯'],
+        aliases: ['白米', '米飯', '米', 'rice'],
         level: 'neutral', function: 'carb', category: '碳水化合物',
-        pros: '易消化、低過敏,常作為腸胃處方主食。'
+        pros: '易消化、低過敏,常作為腸胃處方主食。',
+        cons: '貓是肉食動物,本身沒有專門消化大量碳水的酵素,前位出現代表蛋白比例可能偏低。'
     },
     {
         name: '玉米',
