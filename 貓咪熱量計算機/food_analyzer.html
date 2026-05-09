@@ -18,183 +18,195 @@
             margin-bottom: 30px;
         }
 
-        /* Upload zone */
-        .upload-zone {
-            border: 2px dashed var(--border-color);
+        /* Photo-to-text accordion */
+        .photo-helper {
+            background: linear-gradient(135deg, rgba(109,136,150,0.10), rgba(109,136,150,0.03));
+            border: 1px solid rgba(109,136,150,0.30);
             border-radius: var(--radius-md);
-            padding: 32px;
-            text-align: center;
-            background: var(--bg-base);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .photo-helper-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            cursor: pointer;
+            user-select: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--accent-blue);
             transition: var(--transition);
         }
-        .upload-zone:hover { border-color: var(--accent-green); }
-        .upload-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-            opacity: 0.7;
-        }
-        .upload-title {
-            font-family: var(--font-heading);
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-        .upload-sub {
-            font-size: 13px;
+        .photo-helper-toggle:hover { background: rgba(109,136,150,0.05); }
+        .photo-helper-toggle .arrow {
+            transition: transform 0.3s ease;
+            font-size: 12px;
             color: var(--text-secondary);
-            margin-bottom: 18px;
         }
-        .upload-buttons {
+        .photo-helper.open .photo-helper-toggle .arrow {
+            transform: rotate(180deg);
+        }
+        .photo-helper-body {
+            display: none;
+            padding: 0 22px 20px;
+            border-top: 1px solid rgba(109,136,150,0.20);
+            padding-top: 18px;
+        }
+        .photo-helper.open .photo-helper-body {
+            display: block;
+        }
+        .platform-tabs {
             display: flex;
-            gap: 12px;
-            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
-        .upload-btn {
-            background: var(--accent-green);
-            color: #fff;
-            border: none;
+        .platform-tab {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 7px 14px;
+            border-radius: 18px;
+            font-size: 13px;
             font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 14px;
-            padding: 10px 20px;
-            border-radius: 24px;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
             transition: var(--transition);
         }
-        .upload-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(125, 140, 107, 0.35);
-        }
-        .upload-btn.secondary {
-            background: var(--bg-surface);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        .upload-btn.secondary:hover {
-            background: var(--bg-base);
-            border-color: var(--accent-green);
-        }
-        #photo-input { display: none; }
-
-        /* Preview */
-        .preview-wrap {
-            margin-top: 20px;
-            position: relative;
-            background: var(--bg-base);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-        .preview-wrap.hidden { display: none; }
-        #preview-img {
-            display: block;
-            width: 100%;
-            max-height: 320px;
-            object-fit: contain;
-            background: #000;
-        }
-        .clear-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.6);
+        .platform-tab:hover { border-color: var(--accent-blue); }
+        .platform-tab.active {
+            background: var(--accent-blue);
             color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-size: 14px;
+            border-color: transparent;
         }
-
-        /* Progress */
-        .ocr-progress-wrap {
-            margin-top: 16px;
-            padding: 14px 16px;
-            background: rgba(109, 136, 150, 0.08);
-            border-left: 3px solid var(--accent-blue);
+        .platform-content { display: none; }
+        .platform-content.active { display: block; }
+        .platform-content ol {
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-primary);
+        }
+        .platform-content ol li {
+            margin-bottom: 4px;
+        }
+        .platform-content kbd {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+        .platform-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 10px 14px;
+            background: rgba(206,170,61,0.08);
+            border-left: 3px solid #ceaa3d;
             border-radius: var(--radius-sm);
         }
-        .ocr-progress-wrap.hidden { display: none; }
-        .ocr-progress-bar-bg {
-            background: var(--border-color);
-            height: 6px;
-            border-radius: 3px;
-            overflow: hidden;
+
+        /* Tip block */
+        .how-to-tip {
+            background: linear-gradient(135deg, rgba(125,140,107,0.10), rgba(206,170,61,0.05));
+            border: 1px solid rgba(125,140,107,0.25);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .how-to-tip .tip-emoji {
+            font-size: 30px;
+            line-height: 1;
+        }
+        .how-to-tip .tip-content h4 {
+            font-size: 16px;
             margin-bottom: 6px;
+            color: var(--accent-green);
         }
-        #ocr-progress-bar {
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
+        .how-to-tip .tip-content p {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.7;
         }
-        #ocr-progress-label {
-            font-size: 13px;
+        .how-to-tip .tip-content kbd {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: var(--font-body);
+            font-size: 12px;
             color: var(--text-primary);
         }
 
         /* Text area */
-        .text-block {
-            margin-top: 22px;
-        }
         .text-block label {
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            font-size: 14px;
-        }
-        .text-block label .hint {
-            font-weight: 400;
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-left: 8px;
+            font-size: 15px;
+            font-family: var(--font-heading);
         }
         #ingredient-text {
             width: 100%;
-            min-height: 120px;
-            padding: 14px;
-            border: 1px solid var(--border-color);
+            min-height: 160px;
+            padding: 16px;
+            border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
             font-family: var(--font-body);
-            font-size: 14px;
-            line-height: 1.7;
+            font-size: 15px;
+            line-height: 1.8;
             background: var(--bg-base);
             color: var(--text-primary);
             resize: vertical;
+            transition: var(--transition);
         }
         #ingredient-text:focus {
             outline: none;
             border-color: var(--accent-green);
             background: #fff;
+            box-shadow: 0 0 0 4px rgba(125, 140, 107, 0.1);
         }
         .sample-bar {
-            margin-top: 8px;
+            margin-top: 12px;
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
-            font-size: 12px;
+            align-items: center;
+        }
+        .sample-bar .label {
+            color: var(--text-secondary);
+            font-size: 13px;
         }
         .sample-btn {
             background: transparent;
             border: 1px dashed var(--border-color);
-            color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 12px;
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
+            font-family: var(--font-body);
+            transition: var(--transition);
         }
         .sample-btn:hover {
             border-color: var(--accent-green);
-            color: var(--text-primary);
+            border-style: solid;
+            background: rgba(125, 140, 107, 0.08);
+        }
+        .sample-btn.clear {
+            color: var(--text-secondary);
+            margin-left: auto;
         }
 
         .analyze-btn {
-            margin-top: 18px;
+            margin-top: 20px;
             width: 100%;
             background: linear-gradient(135deg, var(--accent-red), #a85544);
             color: #fff;
@@ -407,7 +419,7 @@
                     <h4>請選擇功能：</h4>
                     <ul>
                         <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
-                        <li class="active"><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭分析 (照片)</a></li>
+                        <li class="active"><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
                         <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
                         <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
                         <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
@@ -423,43 +435,92 @@
         <main class="main-content">
             <header class="page-header">
                 <h2>🥫 飼料罐頭成分分析</h2>
-                <p>📸 拍下成分標,香菇爸幫你看看每個成分是好是壞、值不值得買!</p>
+                <p>📝 把成分標複製或輸入進來,香菇爸幫你看每個成分是好是壞、值不值得買!</p>
             </header>
 
-            <!-- Upload + Text -->
+            <!-- Input Card -->
             <div class="analyzer-card">
-                <div class="upload-zone">
-                    <div class="upload-icon">📸</div>
-                    <div class="upload-title">上傳成分標籤照片</div>
-                    <div class="upload-sub">建議拍攝清晰的成分列表,避免反光與模糊</div>
-                    <div class="upload-buttons">
-                        <button type="button" class="upload-btn" id="btn-camera">📷 拍照</button>
-                        <button type="button" class="upload-btn secondary" id="btn-upload">🖼️ 從相簿選</button>
+                <div class="how-to-tip">
+                    <div class="tip-emoji">💡</div>
+                    <div class="tip-content">
+                        <h4>怎麼找成分?</h4>
+                        <p>
+                            ・<strong>飼料/罐頭包裝</strong>找「成分」或「Ingredients」開頭那一段<br>
+                            ・<strong>品牌官網</strong>商品頁通常有完整成分表,直接 <kbd>⌘</kbd>+<kbd>C</kbd> 貼過來<br>
+                            ・成分用「、」「,」或空格分開都可以,香菇爸會自己抓
+                        </p>
                     </div>
-                    <input type="file" id="photo-input" accept="image/*">
                 </div>
 
-                <div class="preview-wrap hidden" id="preview-wrap">
-                    <img id="preview-img" alt="預覽圖">
-                    <button class="clear-btn" id="btn-clear" title="移除">✕</button>
-                </div>
-
-                <div class="ocr-progress-wrap hidden" id="ocr-progress-wrap">
-                    <div class="ocr-progress-bar-bg">
-                        <div id="ocr-progress-bar"></div>
+                <!-- Photo to Text Helper -->
+                <div class="photo-helper" id="photo-helper">
+                    <div class="photo-helper-toggle" id="photo-helper-toggle">
+                        <span>📸 想直接從照片把成分文字複製過來?點這裡看怎麼做</span>
+                        <span class="arrow">▼</span>
                     </div>
-                    <div id="ocr-progress-label">準備中...</div>
+                    <div class="photo-helper-body">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">
+                            你的手機/電腦其實內建超強的中文文字辨識,完全免費!選擇你的裝置看做法👇
+                        </p>
+                        <div class="platform-tabs" id="platform-tabs">
+                            <button class="platform-tab active" data-platform="iphone">📱 iPhone / iPad</button>
+                            <button class="platform-tab" data-platform="mac">💻 Mac</button>
+                            <button class="platform-tab" data-platform="android">🤖 Android</button>
+                            <button class="platform-tab" data-platform="line">💬 LINE Keep</button>
+                        </div>
+
+                        <div class="platform-content active" data-platform="iphone">
+                            <ol>
+                                <li>打開「相機」或「相簿」,對準成分標拍照(或選現有照片)</li>
+                                <li>點開照片後,右下角會出現一個 <strong>「文字辨識」圖示</strong>(三條線+方框),點它</li>
+                                <li>文字變成可選取狀態,長按拖曳<strong>選取所有成分</strong></li>
+                                <li>點「<strong>拷貝</strong>」</li>
+                                <li>回到這個頁面,在下方文字框長按「<strong>貼上</strong>」</li>
+                            </ol>
+                            <div class="platform-note">需 iOS 15 以上、繁中辨識需 iOS 16+。如果沒看到文字辨識圖示,代表系統版本太舊或裝置不支援。</div>
+                        </div>
+
+                        <div class="platform-content" data-platform="mac">
+                            <ol>
+                                <li>把照片拖進「<strong>預覽程式</strong>」或在 Safari 中開啟</li>
+                                <li>用滑鼠<strong>直接框選文字</strong>(就像在網頁上選字一樣)</li>
+                                <li><kbd>⌘</kbd>+<kbd>C</kbd> 拷貝</li>
+                                <li>回到這個頁面 <kbd>⌘</kbd>+<kbd>V</kbd> 貼上</li>
+                            </ol>
+                            <div class="platform-note">需 macOS Monterey (12) 以上。也可以對著 iPhone 傳來的圖片用 Spotlight 搜尋,Mac 會直接讀出文字。</div>
+                        </div>
+
+                        <div class="platform-content" data-platform="android">
+                            <ol>
+                                <li>打開「<strong>Google 相簿</strong>」或「<strong>Google Lens</strong>」app</li>
+                                <li>選擇成分標的照片</li>
+                                <li>點下方 <strong>「鏡頭 (Lens)」</strong> 圖示,Lens 會自動辨識文字</li>
+                                <li>長按選取所有成分文字 → <strong>「複製到剪貼簿」</strong></li>
+                                <li>回到這個頁面,長按文字框「貼上」</li>
+                            </ol>
+                            <div class="platform-note">沒有 Google Lens 的話,Google 翻譯 app 的「相機」模式也可以做到一樣的事。</div>
+                        </div>
+
+                        <div class="platform-content" data-platform="line">
+                            <ol>
+                                <li>把成分標照片<strong>傳到自己</strong>(例如 LINE Keep Memo)</li>
+                                <li>點開照片,點右下角的 <strong>「文字辨識 (T) 」</strong> 圖示</li>
+                                <li>LINE 會列出辨識結果,點「<strong>複製</strong>」</li>
+                                <li>回到這個頁面貼上</li>
+                            </ol>
+                            <div class="platform-note">LINE 的中文辨識也很準,沒有 iPhone 的人推薦這條路。</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-block">
-                    <label for="ingredient-text">
-                        📝 成分文字 <span class="hint">(可手動輸入或修正 OCR 結果,確認後再分析)</span>
-                    </label>
-                    <textarea id="ingredient-text" placeholder="範例: 去骨雞肉、糙米、雞油、鯡魚粉、蔓越莓、牛磺酸、葡萄糖胺、混合維生素E..."></textarea>
+                    <label for="ingredient-text">📝 貼上或輸入成分</label>
+                    <textarea id="ingredient-text" placeholder="例如:&#10;脫水雞肉、新鮮雞肉漿、豌豆、番薯、酵母、雞油、魚油、鮭魚油、甜菜、木質纖維、苜蓿、絲蘭、菊糖、果寡糖、益生菌、牛磺酸、混合維生素E..."></textarea>
                     <div class="sample-bar">
-                        <span style="color: var(--text-secondary); align-self: center;">沒有照片?試試:</span>
+                        <span class="label">沒有現成的?試試:</span>
                         <button type="button" class="sample-btn" id="btn-sample1">🍗 高品質配方範例</button>
                         <button type="button" class="sample-btn" id="btn-sample2">⚠️ 低品質配方範例</button>
+                        <button type="button" class="sample-btn clear" id="btn-clear-text">🗑️ 清空</button>
                     </div>
                 </div>
 
@@ -470,13 +531,11 @@
             <div id="analyze-results" class="hidden"></div>
 
             <div class="disclaimer">
-                ⚠️ 本工具僅供參考,資料庫持續擴充中。最終飼料選擇請考量主子個別狀況、過敏史與獸醫建議。
+                ⚠️ 本工具僅供參考,目前資料庫收錄約 50 種常見成分,持續擴充中。最終飼料選擇請考量主子個別狀況、過敏史與獸醫建議。
             </div>
         </main>
     </div>
 
-    <!-- Tesseract.js OCR (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
     <!-- Ingredient DB -->
     <script src="./assets/cat_ingredients_db.js"></script>
     <!-- Analyzer logic -->
