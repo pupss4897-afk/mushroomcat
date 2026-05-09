@@ -64,6 +64,7 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
 
     // ============== 體驗碼閘門 ==============
     const ACCESS_KEY = 'mushroom_analyzer_access';
+    const USED_KEY   = 'mushroom_analyzer_used_codes';
     const accessCard = document.getElementById('access-card');
 
     function getAccess() {
@@ -72,6 +73,19 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
     }
     function setAccess(data) { localStorage.setItem(ACCESS_KEY, JSON.stringify(data)); }
     function clearAccess() { localStorage.removeItem(ACCESS_KEY); }
+
+    // 已用過的碼清單(防止用完後再次輸入同碼重置次數)
+    function getUsedCodes() {
+        try { return JSON.parse(localStorage.getItem(USED_KEY)) || []; }
+        catch { return []; }
+    }
+    function markCodeUsed(code) {
+        const list = getUsedCodes();
+        if (!list.includes(code)) {
+            list.push(code);
+            localStorage.setItem(USED_KEY, JSON.stringify(list));
+        }
+    }
 
     function canAnalyze() {
         const d = getAccess();
@@ -96,9 +110,15 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
         if (!cfg) return { ok: false, msg: '體驗碼無效,請確認後再試一次' };
 
         const existing = getAccess();
+        // 同碼且仍有 access 紀錄 → 沿用現有剩餘次數(避免重複扣)
         if (existing && existing.code === code) {
-            return { ok: true, msg: '此碼已啟用過,沿用先前剩餘次數' };
+            return { ok: true };
         }
+        // 已用過的碼(非無限碼)不能再用
+        if (cfg.uses !== -1 && getUsedCodes().includes(code)) {
+            return { ok: false, msg: '這個體驗碼在此裝置已使用過,請輸入其他碼或加入 LINE 領取新的碼' };
+        }
+
         const data = {
             code, label: cfg.label,
             remaining: cfg.uses,
@@ -106,6 +126,8 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
             activatedAt: new Date().toISOString(),
         };
         setAccess(data);
+        // 啟用的當下就標記為「已使用過」,任何離開後重輸都會被擋
+        if (cfg.uses !== -1) markCodeUsed(code);
         return { ok: true };
     }
 
@@ -169,7 +191,11 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
                 <button class="badge-reset" id="badge-reset" type="button">重新輸入</button>
             </div>`;
         document.getElementById('badge-reset').addEventListener('click', () => {
-            if (confirm('確定要清除目前的體驗碼嗎?剩餘次數將會遺失。')) {
+            const isUnlimited = d.unlimited;
+            const msg = isUnlimited
+                ? '確定要登出無限體驗碼嗎?'
+                : '⚠️ 確定要清除目前的體驗碼嗎?\n\n剩餘次數會遺失,而且此碼之後不能再次啟用(需要使用新的體驗碼)。';
+            if (confirm(msg)) {
                 clearAccess();
                 renderAccess();
             }
