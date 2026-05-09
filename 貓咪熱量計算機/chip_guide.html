@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪晶片法規懶人包</title>
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        .chip-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+        .chip-alert {
+            background: linear-gradient(135deg, rgba(196, 108, 90, 0.12), rgba(206, 170, 61, 0.08));
+            border: 1px solid rgba(196, 108, 90, 0.3);
+            border-left: 4px solid var(--accent-red);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .chip-alert .alert-icon {
+            font-size: 32px;
+            line-height: 1;
+        }
+        .chip-alert .alert-content h3 {
+            color: var(--accent-red);
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .chip-alert .alert-content p {
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .chip-alert .alert-content strong {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 24px 0 8px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-green), #ceaa3d, var(--accent-red));
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--bg-surface);
+            border: 3px solid var(--accent-green);
+            box-shadow: 0 0 0 3px var(--bg-surface);
+        }
+        .timeline-item.warn::before { border-color: #ceaa3d; }
+        .timeline-item.danger::before { border-color: var(--accent-red); }
+        .timeline-date {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .timeline-item.warn .timeline-date { color: #ceaa3d; }
+        .timeline-item.danger .timeline-date { color: var(--accent-red); }
+        .timeline-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Section headers */
+        .chip-section-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .chip-section-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Info grid */
+        .info-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .info-tile {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        .info-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+        .info-tile h4 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-tile p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .info-tile .highlight {
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 22px;
+            font-family: var(--font-heading);
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            display: grid;
+            gap: 14px;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 18px 20px;
+            background-color: var(--bg-base);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .step-content h5 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .step-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            gap: 8px;
+        }
+        .faq-q::before {
+            content: 'Q';
+            color: var(--accent-blue);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+        .faq-a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            display: flex;
+            gap: 8px;
+            padding-left: 0;
+        }
+        .faq-a::before {
+            content: 'A';
+            color: var(--accent-green);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        /* Source note */
+        /* Fee filters */
+        .fee-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .fee-filter {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fee-filter:hover {
+            background: rgba(206, 170, 61, 0.12);
+            border-color: #ceaa3d;
+        }
+        .fee-filter.active {
+            background: linear-gradient(135deg, #d99a4a, #c47438);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 3px 10px rgba(196, 116, 56, 0.3);
+        }
+        .fee-filter .count {
+            opacity: 0.7;
+            font-size: 12px;
+        }
+        .fee-filter.active .count {
+            opacity: 1;
+        }
+
+        /* Fee table */
+        .fee-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
+        }
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-base);
+            font-size: 14px;
+        }
+        .fee-table thead {
+            background: linear-gradient(135deg, #d99a4a, #c47438);
+        }
+        .fee-table thead th {
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 15px;
+        }
+        .fee-table tbody tr {
+            border-top: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .fee-table tbody tr:nth-child(even) {
+            background: var(--bg-surface);
+        }
+        .fee-table tbody tr:hover {
+            background: rgba(206, 170, 61, 0.08);
+        }
+        .fee-table td {
+            padding: 14px 18px;
+            vertical-align: top;
+            line-height: 1.7;
+        }
+        .fee-table td.city {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--accent-red);
+            white-space: nowrap;
+            width: 100px;
+        }
+        .fee-table td.detail {
+            color: var(--text-primary);
+        }
+        .fee-table td.detail .free {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        .fee-table td.detail .price {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+        .fee-table td.contact {
+            white-space: nowrap;
+            font-size: 13px;
+        }
+        .fee-table td.contact .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+        .fee-table td.contact .contact-line:last-child {
+            margin-bottom: 0;
+        }
+        .fee-table td.contact a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .fee-table td.contact a:hover {
+            color: var(--accent-red);
+            text-decoration: underline;
+        }
+        .fee-table td.contact .agency-name {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+        .fee-table tr.row-hidden {
+            display: none;
+        }
+        .fee-empty {
+            padding: 30px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        @media (max-width: 720px) {
+            .fee-table td.contact {
+                white-space: normal;
+            }
+        }
+        .fee-disclaimer {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: rgba(109, 136, 150, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* CTA Button */
+        .cta-card {
+            background: linear-gradient(135deg, #7d8c6b 0%, #5e6e54 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(125, 140, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card::before {
+            content: '🐾';
+            position: absolute;
+            font-size: 220px;
+            opacity: 0.06;
+            right: -30px;
+            top: -50px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        .cta-card-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-text h3 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 6px;
+            font-family: var(--font-heading);
+        }
+        .cta-text p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .cta-text .official-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .cta-button {
+            background: #fff;
+            color: #5e6e54;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            border: 2px solid #fff;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+            background: #fdfbf7;
+        }
+        .cta-button .arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .cta-button:hover .arrow {
+            transform: translateX(4px);
+        }
+        @media (max-width: 640px) {
+            .cta-card-inner {
+                justify-content: flex-start;
+            }
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .source-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 16px;
+            font-style: italic;
+        }
+        .source-note a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        .source-note a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li><a href="#"><span class="list-icon">🥫</span> 飼料罐頭分析 (照片)</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li class="active"><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>💉 貓咪晶片法規懶人包</h2>
+                <p>📌 2026 年正式開罰！家裡有貓的請務必看完這份重點整理。</p>
+            </header>
+
+            <!-- Big Alert -->
+            <div class="chip-alert">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-content">
+                    <h3>2026/1/1 起正式裁罰</h3>
+                    <p>家貓未植入晶片並完成寵物登記,可處 <strong>新臺幣 3,000 ~ 15,000 元</strong> 罰鍰,限期未改善可<strong>按次處罰</strong>。把握 2025 年緩衝期趕快辦!</p>
+                </div>
+            </div>
+
+            <!-- CTA: Official Pet Registration -->
+            <div class="cta-card">
+                <div class="cta-card-inner">
+                    <div class="cta-text">
+                        <span class="official-tag">✓ 農業部官方入口</span>
+                        <h3>🐾 立即線上預先登錄</h3>
+                        <p>填好飼主與貓咪資料,印出表單帶到登記站植晶片就完成!<br>全國寵物登記管理資訊網,免費使用。</p>
+                    </div>
+                    <a href="https://www.pet.gov.tw/" target="_blank" rel="noopener" class="cta-button">
+                        前往 pet.gov.tw <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="chip-card">
+                <div class="chip-section-title">🗓️ 重要時程表</div>
+                <div class="chip-section-subtitle">記住這三個關鍵日期,別錯過上路時間!</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025/1/1</div>
+                        <div class="timeline-text">貓咪正式納入「寵物登記制度」,所有家貓都必須植晶片並完成登記。</div>
+                    </div>
+                    <div class="timeline-item warn">
+                        <div class="timeline-date">2025 全年</div>
+                        <div class="timeline-text">緩衝期 — 政府宣導期間,未完成登記暫不裁罰,請把握黃金時間趕快辦理。</div>
+                    </div>
+                    <div class="timeline-item danger">
+                        <div class="timeline-date">2026/1/1 起</div>
+                        <div class="timeline-text">緩衝期結束,正式開罰!未完成者將處 3,000~15,000 元罰鍰,且可按次處罰。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick facts -->
+            <div class="chip-card">
+                <div class="chip-section-title">📋 必懂重點</div>
+                <div class="chip-section-subtitle">最常被問到的幾個關鍵資訊一次看。</div>
+                <div class="info-grid-2">
+                    <div class="info-tile">
+                        <h4>👥 適用對象</h4>
+                        <p><strong style="color: var(--text-primary);">所有家貓飼主</strong>,不論品種、年齡、是否外出皆需完成。</p>
+                    </div>
+                    <div class="info-tile">
+                        <h4>💸 違規罰鍰</h4>
+                        <p><span class="highlight">$3,000~15,000</span><br>限期未改善可按次處罰。</p>
+                    </div>
+                    <div class="info-tile">
+                        <h4>💵 辦理費用</h4>
+                        <p>晶片植入約 <strong style="color: var(--text-primary);">250~300 元</strong>;登記費依縣市/絕育狀況而定,已絕育多為免費或優惠。</p>
+                    </div>
+                    <div class="info-tile">
+                        <h4>📍 哪裡可以辦</h4>
+                        <p>全國各<strong style="color: var(--text-primary);">寵物登記站</strong>(動物醫院為主),可至「全國寵物登記管理資訊網」查詢。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps -->
+            <div class="chip-card">
+                <div class="chip-section-title">🪜 申辦四步驟</div>
+                <div class="chip-section-subtitle">流程其實沒你想的麻煩,跟著做就對了!</div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <h5>線上預先填寫資料</h5>
+                            <p>至「全國寵物登記管理資訊網」線上輸入飼主與貓咪資料。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <h5>列印申辦表單</h5>
+                            <p>把線上系統產生的申辦表印出來,帶到登記站。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <h5>1 週內到登記站植入晶片</h5>
+                            <p>由獸醫師將米粒大小的晶片植入頸後皮下,過程像打疫苗。</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-content">
+                            <h5>領取寵物登記證</h5>
+                            <p>完成登記後會拿到登記證明,記得保留。資料異動時要更新!</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: rgba(196, 108, 90, 0.06); border-left: 3px solid var(--accent-red); padding: 12px 16px; margin-top: 20px; border-radius: var(--radius-sm); font-size: 13px; color: var(--text-primary);">
+                    ⚠️ <strong>注意:</strong> 線上填寫只是「預先登錄」,<strong>必須實際到登記站完成晶片植入</strong>才算完成法定登記!
+                </div>
+            </div>
+
+            <!-- Fee Comparison Table -->
+            <div class="chip-card">
+                <div class="chip-section-title">💰 各縣市費用 & 動保處資訊</div>
+                <div class="chip-section-subtitle">每個縣市優惠不同,有些絕育就免錢、有些縣民還免費,辦之前先看清楚!電話可直接點擊撥打。</div>
+
+                <div class="fee-filters" id="fee-filters">
+                    <button class="fee-filter active" data-filter="all">🐾 全部 <span class="count">(13)</span></button>
+                    <button class="fee-filter" data-filter="has-free">🎁 有免費優惠 <span class="count">(8)</span></button>
+                    <button class="fee-filter" data-filter="spayed-free">💚 絕育免登記費 <span class="count">(7)</span></button>
+                    <button class="fee-filter" data-filter="resident-free">🏠 縣民/活動免費 <span class="count">(2)</span></button>
+                </div>
+
+                <div class="fee-table-wrapper">
+                    <table class="fee-table" id="fee-table">
+                        <thead>
+                            <tr>
+                                <th>縣市</th>
+                                <th>寵物登記與晶片植入費用</th>
+                                <th>動保處聯絡</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-tags="has-free">
+                                <td class="city">台北市</td>
+                                <td class="detail"><span class="free">免登記費</span>,晶片手續費 <span class="price">250 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護處</div>
+                                    <div class="contact-line">📞 <a href="tel:0287897158">02-8789-7158</a></div>
+                                    <div class="contact-line">🌐 <a href="https://www.tcapo.gov.taipei/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free resident-free">
+                                <td class="city">新北市</td>
+                                <td class="detail">依方案不同,部分活動期間 <span class="free">免費</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護防疫處</div>
+                                    <div class="contact-line">📞 <a href="tel:0229596353">02-2959-6353</a></div>
+                                    <div class="contact-line">🌐 <a href="https://www.ahiqo.ntpc.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="">
+                                <td class="city">桃園市</td>
+                                <td class="detail">登記費 <span class="price">100 元</span>,晶片植入費 <span class="price">250~300 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護處</div>
+                                    <div class="contact-line">📞 <a href="tel:033326742">03-332-6742</a></div>
+                                    <div class="contact-line">🌐 <a href="https://animal.tycg.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free">
+                                <td class="city">新竹縣</td>
+                                <td class="detail">晶片及植入費 <span class="price">300 元</span>;已絕育 <span class="free">免登記費</span>,未絕育登記費 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護防疫所</div>
+                                    <div class="contact-line">📞 <a href="tel:035519548">03-551-9548</a></div>
+                                    <div class="contact-line">🌐 <a href="https://apc.hsinchu.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free">
+                                <td class="city">苗栗縣</td>
+                                <td class="detail">晶片植入費約 <span class="price">300 元</span>;絕育 <span class="free">免登記費</span>,未絕育 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護防疫所</div>
+                                    <div class="contact-line">📞 <a href="tel:037320049">037-320-049</a></div>
+                                    <div class="contact-line">🌐 <a href="https://animal.miaoli.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="">
+                                <td class="city">台中市</td>
+                                <td class="detail">晶片及植入手術費 <span class="price">300 元</span>;登記費:已絕育 <span class="price">500 元</span>、未絕育 <span class="price">1,000 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護防疫處</div>
+                                    <div class="contact-line">📞 <a href="tel:0423869420">04-2386-9420</a></div>
+                                    <div class="contact-line">🌐 <a href="https://www.animal.taichung.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="">
+                                <td class="city">南投縣</td>
+                                <td class="detail">晶片植入費 <span class="price">300 元</span>;登記費已絕育 <span class="price">500 元</span>、未絕育 <span class="price">1,000 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">家畜疾病防治所</div>
+                                    <div class="contact-line">📞 <a href="tel:0492222542">049-222-2542</a></div>
+                                    <div class="contact-line">🌐 <a href="https://adcc.nantou.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free resident-free">
+                                <td class="city">彰化縣</td>
+                                <td class="detail">縣民植入晶片 <span class="free">免費</span>;登記費已絕育 <span class="free">免費</span>、未絕育 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物防疫所</div>
+                                    <div class="contact-line">📞 <a href="tel:047620774">04-762-0774</a></div>
+                                    <div class="contact-line">🌐 <a href="https://www.chcgadcc.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free">
+                                <td class="city">嘉義縣</td>
+                                <td class="detail">晶片植入費 <span class="price">300 元</span>;登記費已絕育 <span class="free">免費</span>、未絕育 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">家畜疾病防治所</div>
+                                    <div class="contact-line">📞 <a href="tel:053620025">05-362-0025</a></div>
+                                    <div class="contact-line">🌐 <a href="https://www.ldcc.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="">
+                                <td class="city">臺南市</td>
+                                <td class="detail">未絕育 <span class="price">350 元</span>、已絕育 <span class="price">250 元</span>;晶片由市府補助</td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物防疫保護處</div>
+                                    <div class="contact-line">📞 <a href="tel:062130958">06-213-0958</a></div>
+                                    <div class="contact-line">🌐 <a href="https://ahipo.tainan.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free">
+                                <td class="city">高雄市</td>
+                                <td class="detail">晶片植入費 <span class="price">300 元</span>;登記費已絕育 <span class="free">免費</span>、未絕育 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動物保護處</div>
+                                    <div class="contact-line">📞 <a href="tel:077462368">07-746-2368</a></div>
+                                    <div class="contact-line">🌐 <a href="https://livestock.kcg.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="">
+                                <td class="city">宜蘭縣</td>
+                                <td class="detail">晶片植入費 <span class="price">300 元</span>;登記費已絕育 <span class="price">500 元</span>、未絕育 <span class="price">1,000 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動植物防疫所</div>
+                                    <div class="contact-line">📞 <a href="tel:039602350">03-960-2350</a></div>
+                                    <div class="contact-line">🌐 <a href="https://animal.e-land.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr data-tags="has-free spayed-free">
+                                <td class="city">花蓮縣</td>
+                                <td class="detail">植入晶片 <span class="price">300 元</span>;已絕育 <span class="free">免收登記費</span>、未絕育登記費減為 <span class="price">100 元</span></td>
+                                <td class="contact">
+                                    <div class="contact-line agency-name">動植物防疫所</div>
+                                    <div class="contact-line">📞 <a href="tel:038227431">038-227-431</a></div>
+                                    <div class="contact-line">🌐 <a href="https://acdc.hl.gov.tw/" target="_blank" rel="noopener">官方網站</a></div>
+                                </td>
+                            </tr>
+                            <tr id="fee-empty-row" style="display:none;">
+                                <td colspan="3" class="fee-empty">😺 沒有符合條件的縣市,試試其他篩選吧!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fee-disclaimer">
+                    💡 <strong>香菇爸提醒:</strong>絕育後幾乎都有大幅優惠,有些縣市還能免登記費!各縣市時常有「免費植晶片」活動,出發前建議先<strong>打電話到當地動保處</strong>或常去的動物醫院確認最新方案。<br>
+                    📞 全國動物保護專線:<a href="tel:1959" style="color: var(--accent-red); font-weight: 700; text-decoration: none;">1959</a> | 動物虐待/棄養通報:<a href="tel:1959" style="color: var(--accent-red); font-weight: 700; text-decoration: none;">1959</a>
+                </div>
+            </div>
+
+            <script>
+                (function() {
+                    const filters = document.querySelectorAll('#fee-filters .fee-filter');
+                    const rows = document.querySelectorAll('#fee-table tbody tr[data-tags]');
+                    const emptyRow = document.getElementById('fee-empty-row');
+                    filters.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            filters.forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            const f = btn.dataset.filter;
+                            let visible = 0;
+                            rows.forEach(r => {
+                                const tags = (r.dataset.tags || '').split(' ');
+                                const show = (f === 'all') || tags.includes(f);
+                                r.classList.toggle('row-hidden', !show);
+                                if (show) visible++;
+                            });
+                            emptyRow.style.display = visible === 0 ? '' : 'none';
+                        });
+                    });
+                })();
+            </script>
+
+            <!-- FAQ -->
+            <div class="chip-card">
+                <div class="chip-section-title">❓ 香菇爸常被問</div>
+                <div class="chip-section-subtitle">飼主最常有的疑慮,一次幫你解答。</div>
+
+                <div class="faq-item">
+                    <div class="faq-q">植晶片會痛嗎?貓咪能承受嗎?</div>
+                    <div class="faq-a">過程像打針,幾秒就好。針頭比疫苗略粗,大部分貓咪只會輕微不適,並不需要麻醉。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">晶片會發射訊號或追蹤位置嗎?</div>
+                    <div class="faq-a">不會!寵物晶片是被動式 RFID,只有靠近專用掃描器時才能讀出 15 碼編號,沒有 GPS、不會發熱、終生不需充電。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">完全不出門的家貓也要植嗎?</div>
+                    <div class="faq-a">要!法規不分室內外,只要是家貓都要登記。萬一意外走失或地震逃出,晶片是唯一找回管道。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">貓咪太老或太小可以等等嗎?</div>
+                    <div class="faq-a">建議幼貓打完核心疫苗後(約 3~4 月齡)再植入。年紀大或慢性病貓請先諮詢獸醫,衡量身體狀況。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">搬家、換電話要做什麼?</div>
+                    <div class="faq-a">要登入寵物登記網站<strong>更新飼主資料</strong>。資料若是舊的,即使有晶片也聯絡不到你,等於白做。</div>
+                </div>
+            </div>
+
+            <div class="source-note">
+                📚 資料整理自衛福部、各縣市動保處公告,以及 <a href="https://health.businessweekly.com.tw/article/ARTL003017840" target="_blank">商業週刊健康報導</a>。實際規定請以官方公告為準。
+            </div>
+        </main>
+    </div>
+</body>
+</html>
