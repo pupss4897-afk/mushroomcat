@@ -97,7 +97,7 @@ const INGREDIENTS_DB = [
     },
     {
         name: '鱈魚',
-        aliases: ['鱈魚', 'cod'],
+        aliases: ['去骨鱈魚', '鱈魚粉', '鱈魚乾', '鱈魚', 'cod'],
         level: 'good', function: 'protein-meat', category: '低脂蛋白',
         pros: '低脂高蛋白,適合腸胃敏感、過敏或減重貓咪。'
     },
@@ -480,9 +480,17 @@ const INGREDIENTS_DB = [
     },
     {
         name: '微量礦物質群',
-        aliases: ['硫酸鋅', '蛋白鋅', '硫酸亞鐵', '甘氨酸鐵', '硫酸銅', '蛋白銅', '亞硒酸鈉', 'zinc', 'iron', 'copper', 'selenium'],
+        aliases: [
+            '硫酸鋅', '蛋白鋅', '鋅蛋白鹽', '氧化鋅', '甘氨酸鋅',
+            '硫酸亞鐵', '甘氨酸鐵', '鐵蛋白鹽',
+            '硫酸銅', '蛋白銅', '銅蛋白鹽',
+            '錳蛋白鹽', '氧化錳', '硫酸錳',
+            '碘酸鈣', '碘化鉀',
+            '亞硒酸鈉', '硒酵母',
+            'zinc', 'iron', 'copper', 'selenium', 'manganese', 'iodine'
+        ],
         level: 'good', function: 'vit-min', category: '微量元素',
-        pros: '鋅(皮膚毛髮)、鐵(紅血球)、銅(毛色)、硒(抗氧化)等微量元素。完整主食都應該有。'
+        pros: '鋅(皮膚毛髮)、鐵(紅血球)、銅(毛色)、錳(骨骼酵素)、碘(甲狀腺)、硒(抗氧化)等微量元素。完整主食都應該有。'
     },
     {
         name: '綜合維生素',
@@ -634,6 +642,165 @@ const INGREDIENTS_DB = [
         aliases: ['食鹽', '鹽', 'salt'],
         level: 'warn', function: 'vit-min', category: '礦物質',
         cons: '貓咪需求量極低,過量增加腎臟負擔,腎貓尤其要避免。'
+    },
+
+    // ===== 動物性蛋白擴充 =====
+    {
+        name: '內臟(肝心)',
+        aliases: ['動物內臟', '雞內臟', '禽類內臟', '雞心', '雞肝', '鴨肝', '雞肝臟', '內臟'],
+        level: 'good', function: 'protein-meat', category: '動物性蛋白(營養豐富部位)',
+        pros: '富含維生素A、鐵、B群、牛磺酸,是貓咪自然飲食中重要部位,優於純肌肉肉。',
+        cons: '若標籤只寫「內臟」未指明來源,品質仍視品牌透明度而定。'
+    },
+    {
+        name: '肝粉(雞/豬肝)',
+        aliases: ['雞肝粉', '豬肝粉', '鴨肝粉', '肝粉'],
+        level: 'good', function: 'protein-meat', category: '濃縮肝臟蛋白 / 適口性',
+        pros: '誘惑力極高,提升貓咪食慾。同時富含維生素A、鐵與B群。',
+        cons: '若品牌未標明動物來源,品質難判斷。'
+    },
+    {
+        name: '動物消化液 (Animal Digest)',
+        aliases: ['動物消化液', '消化液', 'animal digest'],
+        level: 'warn', function: 'protein-meat', category: '適口性增強劑(來源模糊)', isVague: true,
+        cons: '由動物內臟酵素分解液製成,噴塗在飼料表面提升適口性。但「動物」常未指明物種,透明度低。優質品牌會明確標示「雞肝萃取液」等。'
+    },
+
+    // ===== 植物澱粉/碳水擴充 =====
+    {
+        name: '青豆',
+        aliases: ['青豆', 'green pea'],
+        level: 'warn', function: 'carb', category: '無穀澱粉/植物蛋白',
+        cons: '與豌豆同屬豆科,常與「豌豆蛋白、豌豆纖維」一起拆名出現,加總比例可能過高。對貓的吸收率不如動物蛋白。'
+    },
+    {
+        name: '扁豆',
+        aliases: ['扁豆', 'lentil'],
+        level: 'warn', function: 'carb', category: '無穀澱粉/植物蛋白',
+        cons: '無穀飼料常見替代,但植物蛋白對肉食的貓吸收率較低。'
+    },
+    {
+        name: '鷹嘴豆',
+        aliases: ['鷹嘴豆', 'chickpea', 'garbanzo'],
+        level: 'warn', function: 'carb', category: '無穀澱粉/植物蛋白',
+        cons: '同屬豆科,常用於無穀配方。FDA 已調查豆類過量可能與貓犬擴張型心肌病(DCM)有關聯。'
+    },
+    {
+        name: '燕麥',
+        aliases: ['燕麥', 'oat', 'oatmeal'],
+        level: 'neutral', function: 'carb', category: '碳水化合物 / 全穀',
+        pros: '相對溫和的全穀,提供 β-葡聚醣纖維、緩釋能量,過敏率比小麥低。',
+        cons: '貓對碳水需求低,前位出現代表蛋白比例可能偏低。'
+    },
+
+    // ===== 泌尿保健 / 必需氨基酸擴充 =====
+    {
+        name: 'DL-甲硫胺酸',
+        aliases: ['DL-甲硫胺酸', 'DL-蛋胺酸', 'dl-methionine', 'methionine'],
+        level: 'good', function: 'urinary', category: '必需氨基酸 / 泌尿', isPremium: true,
+        pros: '酸化尿液、預防磷酸銨鎂結石形成,常用於泌尿保健配方。同時是合成毛髮角質的關鍵氨基酸。'
+    },
+
+    // ===== 香草類(天然抗氧化/增香) =====
+    {
+        name: '迷迭香',
+        aliases: ['迷迭香萃取物', '迷迭香萃取', '迷迭香', 'rosemary'],
+        level: 'good', function: 'vit-min', category: '天然抗氧化劑',
+        pros: '天然防腐方式,可替代 BHA/BHT 等人工防腐劑。富含迷迭香酸,抗氧化效果佳。'
+    },
+    {
+        name: '百里香',
+        aliases: ['百里香', 'thyme'],
+        level: 'good', function: 'vit-min', category: '天然植物萃取',
+        pros: '天然抗氧化、抗菌,溫和增香。'
+    },
+    {
+        name: '鼠尾草',
+        aliases: ['鼠尾草', 'sage'],
+        level: 'good', function: 'vit-min', category: '天然植物萃取',
+        pros: '富含抗氧化成分,溫和增香,常見於高階配方。'
+    },
+    {
+        name: '牛至',
+        aliases: ['牛至', 'oregano'],
+        level: 'good', function: 'vit-min', category: '天然植物萃取',
+        pros: '天然抗氧化、抗菌成分,香氣溫和。'
+    },
+    {
+        name: '薄荷',
+        aliases: ['薄荷', 'mint', 'peppermint'],
+        level: 'neutral', function: 'vit-min', category: '天然植物萃取',
+        pros: '溫和清香,微量使用安全。',
+        cons: '部分貓咪不喜歡薄荷氣味。'
+    },
+    {
+        name: '洋甘菊',
+        aliases: ['洋甘菊', 'chamomile'],
+        level: 'good', function: 'neural', category: '舒緩植物', isPremium: true,
+        pros: '具有溫和舒緩特性,天然成分,常用於放鬆/情緒類配方。'
+    },
+    {
+        name: '薑黃',
+        aliases: ['薑黃', 'turmeric', 'curcumin'],
+        level: 'good', function: 'immune', category: '抗氧化 / 免疫', isPremium: true,
+        pros: '富含薑黃素,具強抗氧化作用,對免疫支持與關節保健有助益。'
+    },
+    {
+        name: '生薑',
+        aliases: ['生薑', '薑根', 'ginger'],
+        level: 'neutral', function: 'gut', category: '腸胃輔助',
+        pros: '溫和促進腸胃蠕動,微量添加可幫助消化。'
+    },
+    {
+        name: '羽衣甘藍',
+        aliases: ['羽衣甘藍', '衣甘藍', 'kale'],
+        level: 'good', function: 'vit-min', category: '超級食物 / 葉菜',
+        pros: '富含維生素 K、A、C 與抗氧化物,被列為超級食物,提供綠色蔬菜營養。'
+    },
+    {
+        name: '菠菜',
+        aliases: ['菠菜', 'spinach'],
+        level: 'neutral', function: 'vit-min', category: '葉菜',
+        pros: '富含葉酸、鐵、抗氧化物。',
+        cons: '含草酸,腎結石或腎病貓不建議過量。'
+    },
+    {
+        name: '芹菜種子',
+        aliases: ['芹菜種子', '芹菜籽', 'celery seed'],
+        level: 'neutral', function: 'urinary', category: '草本',
+        pros: '傳統認為有助泌尿系統,部分配方使用。'
+    },
+
+    // ===== 維生素 B 群完整版 =====
+    {
+        name: '維生素 B 群',
+        aliases: [
+            '維生素B群', '綜合B群',
+            '維生素B1', '硫胺素', '鹽胺素', 'thiamine',
+            '維生素B2', '核黃素', 'riboflavin',
+            '維生素B3', '菸酸', '菸鹼醯胺', '菸鹼酸', 'niacin', 'niacinamide',
+            '維生素B5', 'D-泛酸鈣', '泛酸鈣', '泛酸', 'pantothenic', 'pantothenate',
+            '維生素B6', '鹽酸吡哆醇', '吡哆醇', 'pyridoxine',
+            '維生素B12', '氰鈷胺素', 'cyanocobalamin',
+            '生物素', '維生素H', 'biotin',
+            'B12', 'vitamin b'
+        ],
+        level: 'good', function: 'vit-min', category: '能量代謝 / 神經',
+        pros: '完整 B 群協同支援能量代謝、神經、皮膚、紅血球生成。完整主食必加。'
+    },
+
+    // ===== 應避免/爭議成分擴充 =====
+    {
+        name: '卡拉膠',
+        aliases: ['卡拉膠', 'carrageenan'],
+        level: 'warn', function: 'additive-bad', category: '增稠劑(罐頭常見)',
+        cons: '從紅藻萃取的增稠劑,在貓罐頭中常見。部分動物研究指出與腸道發炎反應有關,長期食用建議避免。'
+    },
+    {
+        name: '煙燻香料',
+        aliases: ['煙燻香料', 'smoke flavor', 'smoke flavour', 'liquid smoke'],
+        level: 'warn', function: 'additive-bad', category: '人工香料',
+        cons: '主打「炭烤」「煙燻」風味的飼料常用,實質上多為香料模擬。優質品牌應該用真實食材自帶香氣。'
     }
 ];
 
