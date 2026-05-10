@@ -7,10 +7,8 @@
 //  輸入時不分大小寫 (內部會轉成大寫)
 // ============================================================
 const ACCESS_CODES = {
-    'MUSHROOM2026': { uses: 3,  label: '基本體驗碼' },
-    'IGFANS':       { uses: 3,  label: 'IG 粉絲碼' },
-    'LINEVIP':      { uses: 5,  label: 'LINE VIP 碼' },
-    'MUSHROOMDAD':  { uses: -1, label: '香菇爸後台' }
+    '100': { uses: 3,  label: '三次體驗碼' },
+    '520': { uses: -1, label: '永久使用碼' }
 };
 
 const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
@@ -142,7 +140,7 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
                         <h3>輸入體驗碼解鎖分析功能</h3>
                         <p>輸入體驗碼可免費試用 3 次完整成分分析。沒有碼?加入香菇爸 LINE 社群免費領取!</p>
                         <div class="access-form">
-                            <input id="code-input" type="text" placeholder="例如:MUSHROOM2026" autocomplete="off" maxlength="32">
+                            <input id="code-input" type="text" placeholder="輸入體驗碼..." autocomplete="off" maxlength="32">
                             <button id="code-submit" type="button">啟用</button>
                         </div>
                         <div class="access-msg" id="access-msg"></div>
