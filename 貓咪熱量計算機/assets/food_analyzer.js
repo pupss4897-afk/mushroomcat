@@ -551,7 +551,7 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
                         </div>
                         <div class="fake-col fake-col-bad">
                             <h5>🎭 這款的設計</h5>
-                            <p>前 5 項以<strong>澱粉/植物蛋白</strong>為主,然後在後面<strong>「灑」一些保健粉</strong>提高賣相。底子問題沒解決。</p>
+                            <p>前 5 項<strong>植物蛋白與澱粉占比偏高</strong>,然後在後面「灑」一些保健粉提高賣相。<strong>主食結構的「比例與排序」沒到位</strong>。</p>
                         </div>
                     </div>
                     <div class="fake-takeaway">
@@ -592,15 +592,18 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
         const totalFlag = counts.flag;
         const totalGood = counts.good;
 
-        if (totalFlag >= 2) {
+        if (totalFlag >= 3) {
             cardClass = 'top-bad';
-            takeaway = `🚩 <strong>前 ${topAnalysis.length} 項有 ${totalFlag} 個紅旗</strong> — 這代表這款其實是<strong>「澱粉/植物為主」</strong>的飼料,只是把肉(或模糊蛋白)放在最前位給人看。對肉食性的貓來說,這種配方蛋白質吸收率低、容易引起過敏。`;
+            takeaway = `🚩 <strong>前 ${topAnalysis.length} 項有 ${totalFlag} 個紅旗</strong> — 這款主要結構是<strong>植物蛋白與澱粉為主體</strong>。植物蛋白並非「不能吃」,但對肉食性的貓而言,<strong>動物蛋白的氨基酸譜更完整、生物利用率更高</strong>。同價位有更多「前段動物蛋白比例更高」的配方可以挑。`;
+        } else if (totalFlag === 2) {
+            cardClass = 'top-bad';
+            takeaway = `🚩 <strong>前 ${topAnalysis.length} 項有 ${totalFlag} 個紅旗</strong> — 前段雖然有肉類,但也<strong>混入不少植物蛋白與豆類來源</strong>。重點不是「植物蛋白不好」,而是<strong>「比例 + 排序 + 吸收率」</strong>這三件事 — 對肉食性的貓,前段動物蛋白比例越高越合適。`;
         } else if (totalGood >= topAnalysis.length - 1 && counts.flag === 0) {
             cardClass = 'top-good';
-            takeaway = `✅ <strong>前 ${topAnalysis.length} 項主要是指明物種的肉類</strong> — 這正是肉食性貓咪該有的主食結構,蛋白吸收率與飽足感都會很好。`;
+            takeaway = `✅ <strong>前 ${topAnalysis.length} 項主要是指明物種的肉類</strong> — 這正是肉食性貓咪該有的主食結構,動物蛋白的氨基酸譜完整、吸收率高。`;
         } else {
             cardClass = 'top-mixed';
-            takeaway = `⚠️ 前 ${topAnalysis.length} 項<strong>有亮點也有疑慮</strong> — 不算糟,但離「全肉前位」還有距離,可以拿同價位的其他選項比一比。`;
+            takeaway = `⚠️ 前 ${topAnalysis.length} 項<strong>有亮點也有疑慮</strong> — 不算糟,但離「前段純動物蛋白」還有距離,同價位的其他選項可以比一比。`;
         }
 
         const stats = [];
@@ -703,7 +706,9 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
         let verdict, emoji, cls;
 
         if (flagCount >= 2 || gutRisk.risk === 'high') {
-            verdict = `我自己比較在意的是,這款<strong>前位成分以澱粉或模糊蛋白為主</strong>${gutRisk.risk === 'high' ? ',加上腸道風險偏高' : ''}。對肉食性的貓咪來說,這種結構蛋白吸收率比較低。如果主子已經有軟便、皮膚癢、淚痕等狀況,可以考慮換更乾淨的配方試試。`;
+            verdict = (flagCount >= 3)
+                ? `我自己比較在意的是,這款<strong>前段以植物蛋白與澱粉為主體</strong>${gutRisk.risk === 'high' ? ',加上腸道風險偏高' : ''}。植物蛋白並非完全不能吃,但對肉食性的貓而言,<strong>動物蛋白的吸收率與氨基酸完整度都更合適</strong>。同價位有更多前段動物蛋白比例高的配方可以挑。`
+                : `我自己比較在意的是,這款<strong>前段雖有肉類,但混入不少植物蛋白與豆類來源</strong>${gutRisk.risk === 'high' ? ',加上腸道風險偏高' : ''}。問題不是「植物蛋白不好」,而是「<strong>比例 + 排序 + 吸收率</strong>」這三件事 — 對肉食性的貓,前段動物蛋白越多越合適。`;
             emoji = '🚩'; cls = 'verdict-bad';
         } else if (isHighEnd && bad === 0) {
             verdict = `這款已經達到<strong>「主食保健一體化」</strong>的等級 — 涵蓋 ${premiumFnsHit.length} 種保健功能,前位成分達標。如果不是處方需求,這已經是台灣可買到的高水準配方,香菇爸自己會放心給主子吃。`;
