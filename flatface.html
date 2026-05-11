@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>扁臉貓星人俱樂部 · 喵喵照護懶人包</title>
     <meta name="description" content="貓咪能吃的、不能吃的，扁臉貓特別照護重點 — 加入 LINE 免費領取完整懶人包！">
+    <meta property="og:type" content="website">
     <meta property="og:title" content="扁臉貓星人俱樂部 · 喵喵照護懶人包">
     <meta property="og:description" content="貓咪能吃的、不能吃的，扁臉貓特別照護重點 — 加入 LINE 免費領取完整懶人包！">
+    <!-- ⬇️ 預覽圖：請把 flatface-og.jpg 放進 repo 根目錄（建議 1200×630）⬇️ -->
+    <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/flatface-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -295,9 +301,9 @@
             </a>
             <p class="line-hint" id="lineHint">點了沒反應?長按按鈕「在外部瀏覽器開啟」,就能跳到 LINE 加入</p>
 
-            <!-- 電腦版顯示 QR -->
+            <!-- 電腦版顯示 QR(用 data-src 延遲載入,避免 FB 把 QR 當成預覽圖) -->
             <div class="qr-block">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Freurl.cc%2FGagEGG" alt="LINE QR Code">
+                <img id="qrImg" data-src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Freurl.cc%2FGagEGG" alt="LINE QR Code">
                 <p>用手機掃描 QR code 加入</p>
             </div>
         </div>
@@ -331,6 +337,10 @@
                     window.addEventListener('blur', () => clearTimeout(t), { once: true });
                 });
             }
+
+            // 延遲載入 QR 圖(避免被 FB 爬蟲當成預覽圖)
+            const qr = document.getElementById('qrImg');
+            if (qr && qr.dataset.src) qr.src = qr.dataset.src;
         })();
     </script>
 </body>
