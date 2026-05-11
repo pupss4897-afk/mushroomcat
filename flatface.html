@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扁臉貓星人俱樂部 · 喵喵照護懶人包</title>
+    <meta name="description" content="貓咪能吃的、不能吃的，扁臉貓特別照護重點 — 加入 LINE 免費領取完整懶人包！">
+    <meta property="og:title" content="扁臉貓星人俱樂部 · 喵喵照護懶人包">
+    <meta property="og:description" content="貓咪能吃的、不能吃的，扁臉貓特別照護重點 — 加入 LINE 免費領取完整懶人包！">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #faf4ea;
+            --cream-deep: #f3e8d4;
+            --brown: #5a4632;
+            --brown-deep: #3f3120;
+            --brown-soft: #8c7459;
+            --accent: #c98a4b;       /* warm caramel */
+            --green: #06C755;        /* LINE green */
+            --green-deep: #05a548;
+            --safe: #4a9d6e;         /* edible green */
+            --danger: #c0504a;       /* danger red */
+            --safe-bg: #eaf5ee;
+            --danger-bg: #faecea;
+            --card-bg: #ffffff;
+            --border: #e7dcc8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans TC', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--brown);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 640px; margin: 0 auto; padding: 0 18px; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(160deg, #6b5640 0%, #4a3a28 100%);
+            color: #fff;
+            text-align: center;
+            padding: 38px 18px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '🐾'; position: absolute; font-size: 180px; opacity: 0.06;
+            top: -30px; right: -20px; transform: rotate(-15deg); pointer-events: none;
+        }
+        .hero .logo-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 999px; padding: 6px 16px; font-size: 13px; font-weight: 700;
+            letter-spacing: 1px; margin-bottom: 16px; backdrop-filter: blur(4px);
+        }
+        .hero h1 {
+            font-size: 26px; font-weight: 900; line-height: 1.4; margin-bottom: 8px;
+        }
+        .hero h1 .hl { color: #f0c889; }
+        .hero p.sub { font-size: 14.5px; opacity: 0.9; margin-bottom: 22px; }
+        .hero .scroll-hint { font-size: 13px; opacity: 0.7; }
+        .hero .scroll-hint .arrow { display: inline-block; animation: bounce 1.6s infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
+
+        /* Section */
+        section { padding: 32px 0; }
+        .sec-head { text-align: center; margin-bottom: 22px; }
+        .sec-head h2 {
+            font-size: 21px; font-weight: 900; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .sec-head p { font-size: 13px; color: var(--brown-soft); margin-top: 4px; }
+
+        /* Food list cards */
+        .food-list { display: grid; gap: 10px; }
+        .food-item {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+            padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+        }
+        .food-item .ico { font-size: 24px; flex-shrink: 0; line-height: 1.3; }
+        .food-item .body .name { font-weight: 700; font-size: 15.5px; }
+        .food-item .body .note { font-size: 13px; color: var(--brown-soft); margin-top: 2px; }
+        .food-item.safe { border-left: 4px solid var(--safe); }
+        .food-item.danger { border-left: 4px solid var(--danger); }
+        .food-item.danger .name { color: var(--danger); }
+
+        .sec-safe { background: var(--safe-bg); }
+        .sec-danger { background: var(--danger-bg); }
+        .sec-safe .sec-head h2 { color: var(--safe); }
+        .sec-danger .sec-head h2 { color: var(--danger); }
+
+        /* Flat-face tips */
+        .sec-flat { background: var(--cream-deep); }
+        .tip-grid { display: grid; gap: 12px; }
+        .tip-card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+            padding: 16px 18px;
+        }
+        .tip-card h3 { font-size: 15.5px; font-weight: 800; display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+        .tip-card p { font-size: 13.5px; color: var(--brown-soft); }
+
+        /* CTA */
+        .cta-sec {
+            background: linear-gradient(160deg, #5a4632 0%, #3f3120 100%);
+            color: #fff; text-align: center; padding: 40px 18px 48px;
+        }
+        .cta-sec .teaser {
+            background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.25);
+            border-radius: 16px; padding: 18px 20px; margin-bottom: 24px; text-align: left;
+        }
+        .cta-sec .teaser h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; color: #f0c889; }
+        .cta-sec .teaser ul { list-style: none; }
+        .cta-sec .teaser li { font-size: 14px; padding: 4px 0; padding-left: 24px; position: relative; }
+        .cta-sec .teaser li::before { content: '✅'; position: absolute; left: 0; }
+        .cta-sec h2 { font-size: 22px; font-weight: 900; margin-bottom: 6px; line-height: 1.4; }
+        .cta-sec p.cta-sub { font-size: 14px; opacity: 0.9; margin-bottom: 20px; }
+
+        .line-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--green); color: #fff; font-size: 18px; font-weight: 900;
+            padding: 16px 24px; border-radius: 999px; text-decoration: none;
+            box-shadow: 0 8px 24px rgba(6,199,85,0.35); transition: all 0.2s;
+            max-width: 380px; margin: 0 auto;
+        }
+        .line-btn:active { transform: scale(0.98); }
+        .line-btn .li-logo { font-size: 22px; }
+        .line-btn .pulse {
+            display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+            background: #fff; animation: pulse-dot 1.2s infinite;
+        }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+        .line-hint { font-size: 12.5px; opacity: 0.7; margin-top: 12px; }
+
+        /* QR — desktop only */
+        .qr-block { display: none; margin-top: 22px; }
+        .qr-block img { width: 160px; height: 160px; border-radius: 12px; background: #fff; padding: 8px; }
+        .qr-block p { font-size: 12.5px; opacity: 0.75; margin-top: 8px; }
+        @media (min-width: 768px) {
+            .qr-block { display: block; }
+        }
+
+        footer {
+            background: var(--brown-deep); color: rgba(255,255,255,0.55);
+            text-align: center; padding: 22px 18px; font-size: 12px;
+        }
+        footer .fb-link { color: #f0c889; text-decoration: none; }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .cta-sec h2 { font-size: 19px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="wrap">
+            <span class="logo-badge">😺 扁臉貓星人俱樂部</span>
+            <h1>哈囉,扁臉貓家長 👋<br>來領一份 <span class="hl">喵喵照護懶人包</span></h1>
+            <p class="sub">先給你最實用的「能吃 / 不能吃」+ 扁臉貓專屬照護重點 — 完整版在最下面領</p>
+            <div class="scroll-hint">往下滑看內容 <span class="arrow">⌄</span></div>
+        </div>
+    </header>
+
+    <!-- 能吃的 -->
+    <section class="sec-safe">
+        <div class="wrap">
+            <div class="sec-head">
+                <h2>🟢 貓咪可以吃的(適量、無調味)</h2>
+                <p>當零食或鮮食點綴 OK,但都不能取代主食</p>
+            </div>
+            <div class="food-list">
+                <div class="food-item safe"><span class="ico">🍗</span><div class="body"><div class="name">水煮雞胸肉 / 雞肉</div><div class="note">無鹽無調味,撕小塊。優質動物蛋白,適口性高</div></div></div>
+                <div class="food-item safe"><span class="ico">🐟</span><div class="body"><div class="name">熟鮭魚 / 鱈魚(去刺)</div><div class="note">含 Omega-3,煮熟去刺。偶爾吃,別過量(汞)</div></div></div>
+                <div class="food-item safe"><span class="ico">🥚</span><div class="body"><div class="name">白煮蛋</div><div class="note">完整氨基酸,蛋白質黃金標準。少數貓會過敏</div></div></div>
+                <div class="food-item safe"><span class="ico">🎃</span><div class="body"><div class="name">南瓜泥</div><div class="note">溫和纖維,對軟便、便祕、毛球都有幫助</div></div></div>
+                <div class="food-item safe"><span class="ico">🍠</span><div class="body"><div class="name">蒸地瓜(少量)</div><div class="note">膳食纖維 + β-胡蘿蔔素,GI 比馬鈴薯低</div></div></div>
+                <div class="food-item safe"><span class="ico">🌿</span><div class="body"><div class="name">貓草 / 木天蓼</div><div class="note">幫助排毛球、轉移情緒。觀察主子反應,別過量</div></div></div>
+                <div class="food-item safe"><span class="ico">💧</span><div class="body"><div class="name">無調味肉湯 / 寵物用湯包</div><div class="note">不愛喝水的貓的補水神器。沒喝完 1-2 小時要丟</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 不能吃的 -->
+    <section class="sec-danger">
+        <div class="wrap">
+            <div class="sec-head">
+                <h2>🔴 貓咪千萬不能碰(有毒!)</h2>
+                <p>誤食後黃金時間 1-2 小時,別等症狀出現直接聯絡獸醫</p>
+            </div>
+            <div class="food-list">
+                <div class="food-item danger"><span class="ico">🧅</span><div class="body"><div class="name">洋蔥 / 大蒜 / 韭菜 / 蔥</div><div class="note">有機硫化合物破壞紅血球→溶血。加熱、乾燥都無法解毒</div></div></div>
+                <div class="food-item danger"><span class="ico">🍇</span><div class="body"><div class="name">葡萄 / 葡萄乾</div><div class="note">會引發急性腎衰竭,沒有「安全量」</div></div></div>
+                <div class="food-item danger"><span class="ico">🍫</span><div class="body"><div class="name">巧克力 / 可可</div><div class="note">可可鹼中毒,越苦越毒。可能心律不整、癲癇</div></div></div>
+                <div class="food-item danger"><span class="ico">🍬</span><div class="body"><div class="name">木糖醇(無糖口香糖、代糖)</div><div class="note">嚴重低血糖 + 肝損傷,一片口香糖就危險</div></div></div>
+                <div class="food-item danger"><span class="ico">🍷</span><div class="body"><div class="name">酒精 / 發酵水果</div><div class="note">快速進入腦部,中樞神經抑制、昏迷</div></div></div>
+                <div class="food-item danger"><span class="ico">☕</span><div class="body"><div class="name">咖啡 / 茶 / 能量飲</div><div class="note">咖啡因中毒,心跳過快、震顫、癲癇。茶包咖啡渣也別亂丟</div></div></div>
+                <div class="food-item danger"><span class="ico">🥑</span><div class="body"><div class="name">酪梨</div><div class="note">果肉含 persin + 高油脂,可能嘔吐、胰臟發炎</div></div></div>
+                <div class="food-item danger"><span class="ico">🥛</span><div class="body"><div class="name">牛奶(成貓)</div><div class="note">多數成貓乳糖不耐,會腹瀉。要喝請選貓專用羊奶/牛奶</div></div></div>
+                <div class="food-item danger"><span class="ico">🦴</span><div class="body"><div class="name">煮熟的骨頭 / 雞骨</div><div class="note">煮熟易碎裂成尖刺,刺傷消化道</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 扁臉貓專屬 -->
+    <section class="sec-flat">
+        <div class="wrap">
+            <div class="sec-head">
+                <h2>😻 扁臉貓星人 特別照護</h2>
+                <p>波斯、加菲、異短、英短摺耳... 扁臉品種要多注意這些</p>
+            </div>
+            <div class="tip-grid">
+                <div class="tip-card"><h3>💧 淚痕清潔</h3><p>扁臉貓淚腺結構容易溢淚,每天用<strong>溫和濕紙巾</strong>輕擦眼周。飲食單純、無穀低敏可減少溢淚;發紅或大量分泌物請看醫生。</p></div>
+                <div class="tip-card"><h3>🫁 呼吸道照顧</h3><p>短鼻品種容易打呼、呼吸聲重。<strong>避免太熱太悶</strong>的環境,夏天開冷氣;運動後喘很久或張嘴呼吸要警覺。</p></div>
+                <div class="tip-card"><h3>⚖️ 體重控制</h3><p>扁臉貓常偏靜、容易胖,胖了又加重呼吸負擔。<strong>定量餵食、別放飼料吃到飽</strong>,多用逗貓棒玩到喘。</p></div>
+                <div class="tip-card"><h3>🍽️ 食盆選擇</h3><p>扁臉貓嘴巴構造特殊,深窄碗不好吃。選<strong>寬口淺盤</strong>,讓他不用埋頭、鬍鬚不會卡碗壁。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-sec">
+        <div class="wrap">
+            <div class="teaser">
+                <h3>🎁 完整版懶人包還有這些(LINE 領取)</h3>
+                <ul>
+                    <li>扁臉貓專屬：淚痕護理全攻略 + 呼吸道日常檢查清單</li>
+                    <li>貓咪營養比例：蛋白 / 脂肪 / 含水量怎麼看才對</li>
+                    <li>看懂飼料成分標：哪些字代表「好」、哪些代表「灌水」</li>
+                    <li>毛孩晶片法規 + 各縣市費用一覽</li>
+                    <li>不愛喝水的 7 個對策 + 換糧不軟便 SOP</li>
+                </ul>
+            </div>
+            <h2>想要完整懶人包?<br>👉 點下面加入 LINE 免費領取</h2>
+            <p class="cta-sub">加入後直接傳「<strong>懶人包</strong>」兩個字,自動發給你 📩</p>
+
+            <!-- ⬇️ 把下面這個 href 換成「扁臉貓」的 LINE 加好友連結 ⬇️ -->
+            <a id="lineBtn" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" class="line-btn">
+                <span class="li-logo">💬</span>
+                <span>加入 LINE 領懶人包</span>
+                <span class="pulse"></span>
+            </a>
+            <p class="line-hint">點了沒反應?長按按鈕「在新分頁開啟」,或直接搜尋我們的 LINE ID</p>
+
+            <!-- 電腦版顯示 QR(把 src 換成扁臉貓 LINE 的 QR 圖) -->
+            <div class="qr-block">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fs.luckycat.no8.io%2Flink%2Fchannels%2FifVUGO3ckT" alt="LINE QR Code">
+                <p>用手機掃描 QR code 加入</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>😺 扁臉貓星人俱樂部 · 貓奴知識小百科</p>
+        <p style="margin-top:6px;">內容僅供參考,毛孩個別狀況請諮詢獸醫</p>
+    </footer>
+
+    <script>
+        // 行動裝置點按鈕時,先嘗試用 LINE App 開啟;失敗再走原本的網頁連結
+        (function() {
+            const btn = document.getElementById('lineBtn');
+            if (!btn) return;
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            btn.addEventListener('click', function(e) {
+                if (!isMobile) return; // 桌機就照原本連結開
+                const webUrl = btn.getAttribute('href');
+                // 試著用 LINE 自家瀏覽器 scheme 開啟外部連結(在 FB 內建瀏覽器較能跳出)
+                // LINE 的通用作法:直接讓系統處理 https 連結即可,這裡保留 fallback
+                // 若 1.2 秒後頁面還在(代表 App 沒開),就直接導向 webUrl
+                const t = setTimeout(function() {
+                    window.location.href = webUrl;
+                }, 1200);
+                // 嘗試喚起 LINE App(line:// 對 OA 連結支援有限,主要靠 https,所以這裡只做保險)
+                window.addEventListener('pagehide', () => clearTimeout(t), { once: true });
+                window.addEventListener('blur', () => clearTimeout(t), { once: true });
+            });
+        })();
+    </script>
+</body>
+</html>
