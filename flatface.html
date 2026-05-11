@@ -42,13 +42,42 @@
             background: linear-gradient(160deg, #6b5640 0%, #4a3a28 100%);
             color: #fff;
             text-align: center;
-            padding: 38px 18px 48px;
+            padding: 56px 18px 48px;
             position: relative;
             overflow: hidden;
         }
         .hero::before {
             content: '🐾'; position: absolute; font-size: 180px; opacity: 0.06;
             top: -30px; right: -20px; transform: rotate(-15deg); pointer-events: none;
+        }
+        /* 漂浮的貓咪/肉球裝飾 */
+        .hero-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+        .hero-deco span {
+            position: absolute; opacity: 0.12; line-height: 1; user-select: none;
+            animation: floaty 6s ease-in-out infinite;
+        }
+        .hero-deco span:nth-child(1) { font-size: 38px; top: 18px; left: 22px; animation-delay: 0s; }
+        .hero-deco span:nth-child(2) { font-size: 28px; top: 64%; left: 10%; animation-delay: 1.2s; }
+        .hero-deco span:nth-child(3) { font-size: 44px; top: 12px; right: 30%; animation-delay: 2.4s; transform: rotate(12deg); }
+        .hero-deco span:nth-child(4) { font-size: 24px; bottom: 24px; right: 14%; animation-delay: 0.8s; }
+        .hero-deco span:nth-child(5) { font-size: 30px; bottom: 60px; left: 42%; animation-delay: 3s; }
+        @keyframes floaty { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-10px) rotate(8deg);} }
+        /* 貓耳朵(從 hero 頂端探出) */
+        .cat-ears { position: absolute; top: -2px; left: 50%; transform: translateX(-50%); display: flex; gap: 38px; z-index: 2; }
+        .cat-ears .ear {
+            width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent;
+            border-bottom: 26px solid #4a3a28; filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+        }
+        .cat-ears .ear::after {
+            content: ''; position: absolute; width: 0; height: 0;
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-bottom: 13px solid #c98a4b; left: -8px; bottom: -26px;
+        }
+
+        /* 肉球分隔線 */
+        .paw-divider {
+            text-align: center; padding: 4px 0; opacity: 0.35; font-size: 16px;
+            letter-spacing: 14px; user-select: none; color: var(--brown-soft);
         }
         .hero .logo-badge {
             display: inline-flex; align-items: center; gap: 8px;
@@ -105,7 +134,13 @@
         .cta-sec {
             background: linear-gradient(160deg, #5a4632 0%, #3f3120 100%);
             color: #fff; text-align: center; padding: 40px 18px 48px;
+            position: relative; overflow: hidden;
         }
+        .cta-sec::before {
+            content: '😻'; position: absolute; font-size: 200px; opacity: 0.05;
+            left: -40px; bottom: -50px; transform: rotate(10deg); pointer-events: none;
+        }
+        .cta-sec > .wrap { position: relative; z-index: 1; }
         .cta-sec .teaser {
             background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.25);
             border-radius: 16px; padding: 18px 20px; margin-bottom: 24px; text-align: left;
@@ -157,6 +192,10 @@
 
     <!-- HERO -->
     <header class="hero">
+        <div class="cat-ears"><span class="ear"></span><span class="ear"></span></div>
+        <div class="hero-deco" aria-hidden="true">
+            <span>🐱</span><span>🐾</span><span>😺</span><span>🐈</span><span>🐾</span>
+        </div>
         <div class="wrap">
             <span class="logo-badge">😺 扁臉貓星人俱樂部</span>
             <h1>哈囉,扁臉貓家長 👋<br>來領一份 <span class="hl">喵喵照護懶人包</span></h1>
@@ -184,6 +223,8 @@
         </div>
     </section>
 
+    <div class="paw-divider">🐾 🐾 🐾</div>
+
     <!-- 不能吃的 -->
     <section class="sec-danger">
         <div class="wrap">
@@ -205,6 +246,8 @@
         </div>
     </section>
 
+    <div class="paw-divider">🐾 🐾 🐾</div>
+
     <!-- 扁臉貓專屬 -->
     <section class="sec-flat">
         <div class="wrap">
@@ -220,6 +263,8 @@
             </div>
         </div>
     </section>
+
+    <div class="paw-divider">🐾 🐾 🐾</div>
 
     <!-- CTA -->
     <section class="cta-sec">
