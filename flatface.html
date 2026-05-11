@@ -237,12 +237,18 @@
             <h2>想要完整懶人包?<br>👉 點下面加入 LINE 免費領取</h2>
             <p class="cta-sub">加入後直接傳「<strong>懶人包</strong>」兩個字,自動發給你 📩</p>
 
+            <!-- FB / IG 內建瀏覽器提示(自動顯示) -->
+            <div id="inappTip" style="display:none; background:rgba(255,220,150,0.15); border:1px solid rgba(255,220,150,0.4); border-radius:14px; padding:14px 16px; margin-bottom:18px; text-align:left; font-size:13.5px; line-height:1.7;">
+                ⚠️ <strong style="color:#f0c889;">你是從 Facebook / IG 點進來的</strong> ── 直接點下面按鈕可能加不進 LINE。<br>
+                建議:點畫面<strong>右上角的「⋯」或「︙」</strong> → 選「<strong>用 Safari / Chrome 開啟</strong>」→ 再點一次按鈕,就能順利加入 ✅
+            </div>
+
             <a id="lineBtn" href="https://reurl.cc/GagEGG" target="_blank" rel="noopener" class="line-btn">
                 <span class="li-logo">💬</span>
                 <span>加入 LINE 領懶人包</span>
                 <span class="pulse"></span>
             </a>
-            <p class="line-hint">點了沒反應?長按按鈕「在外部瀏覽器開啟」,就能跳到 LINE 加入</p>
+            <p class="line-hint" id="lineHint">點了沒反應?長按按鈕「在外部瀏覽器開啟」,就能跳到 LINE 加入</p>
 
             <!-- 電腦版顯示 QR -->
             <div class="qr-block">
@@ -258,24 +264,28 @@
     </footer>
 
     <script>
-        // 行動裝置點按鈕時,先嘗試用 LINE App 開啟;失敗再走原本的網頁連結
         (function() {
+            const ua = navigator.userAgent || '';
+            // 偵測 FB / Messenger / IG 內建瀏覽器
+            const inApp = /FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\//i.test(ua);
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
+
+            // 若在 App 內建瀏覽器,顯示提示
+            if (inApp) {
+                const tip = document.getElementById('inappTip');
+                if (tip) tip.style.display = 'block';
+            }
+
+            // 行動裝置點 LINE 按鈕:給系統機會把外連交給 LINE/瀏覽器處理;否則 fallback
             const btn = document.getElementById('lineBtn');
-            if (!btn) return;
-            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-            btn.addEventListener('click', function(e) {
-                if (!isMobile) return; // 桌機就照原本連結開
-                const webUrl = btn.getAttribute('href');
-                // 試著用 LINE 自家瀏覽器 scheme 開啟外部連結(在 FB 內建瀏覽器較能跳出)
-                // LINE 的通用作法:直接讓系統處理 https 連結即可,這裡保留 fallback
-                // 若 1.2 秒後頁面還在(代表 App 沒開),就直接導向 webUrl
-                const t = setTimeout(function() {
-                    window.location.href = webUrl;
-                }, 1200);
-                // 嘗試喚起 LINE App(line:// 對 OA 連結支援有限,主要靠 https,所以這裡只做保險)
-                window.addEventListener('pagehide', () => clearTimeout(t), { once: true });
-                window.addEventListener('blur', () => clearTimeout(t), { once: true });
-            });
+            if (btn && isMobile) {
+                btn.addEventListener('click', function() {
+                    const webUrl = btn.getAttribute('href');
+                    const t = setTimeout(function() { window.location.href = webUrl; }, 1500);
+                    window.addEventListener('pagehide', () => clearTimeout(t), { once: true });
+                    window.addEventListener('blur', () => clearTimeout(t), { once: true });
+                });
+            }
         })();
     </script>
 </body>
