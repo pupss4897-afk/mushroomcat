@@ -345,7 +345,7 @@
     <div class="share-bar">
         <span class="lbl">分享給愛貓的朋友 👉</span>
         <a class="sb sb-fb" id="shareFb" href="#" rel="noopener" target="_blank">📘 Facebook</a>
-        <a class="sb sb-line" id="shareLine" href="#" rel="noopener" target="_blank">💬 LINE</a>
+        <a class="sb sb-line" id="shareLine" href="https://s.luckycat.no8.io/link/channels/yNee06zl1C" rel="noopener" target="_blank">💬 LINE</a>
         <button class="sb-copy" id="shareCopy" type="button">🔗 複製連結</button>
     </div>
 
@@ -353,10 +353,8 @@
         (function() {
             const url = location.href.split('#')[0];
             const fb = document.getElementById('shareFb');
-            const ln = document.getElementById('shareLine');
             const cp = document.getElementById('shareCopy');
             if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
-            if (ln) ln.href = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url);
             if (cp) cp.addEventListener('click', async function() {
                 try {
                     if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
