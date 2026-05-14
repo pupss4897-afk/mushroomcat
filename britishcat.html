@@ -309,8 +309,8 @@
 
     <!-- 浮動分享列 -->
     <div class="share-bar">
-        <span class="lbl">分享給養英短的朋友 👉</span>
-        <a class="sb sb-fb" id="shareFb" href="#" rel="noopener" target="_blank">📘 Facebook</a>
+        <span class="lbl">追蹤 / 分享 👉</span>
+        <a class="sb sb-fb" href="https://www.facebook.com/profile.php?id=61584568534584" rel="noopener" target="_blank">📘 追蹤 FB 粉專</a>
         <a class="sb sb-line" id="shareLine" href="#" rel="noopener" target="_blank">💬 LINE</a>
         <button class="sb-copy" id="shareCopy" type="button">🔗 複製連結</button>
     </div>
@@ -319,8 +319,7 @@
         // 分享列
         (function() {
             const url = location.href.split('#')[0];
-            const fb = document.getElementById('shareFb'), ln = document.getElementById('shareLine'), cp = document.getElementById('shareCopy');
-            if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+            const ln = document.getElementById('shareLine'), cp = document.getElementById('shareCopy');
             if (ln) ln.href = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url);
             if (cp) cp.addEventListener('click', async function() {
                 try { if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { await navigator.share({ title: document.title, url }); return; } } catch(e){}
