@@ -210,6 +210,33 @@
         .city-card-new .badge.pending {
             background: #ceaa3d;
         }
+        .city-card-new .badge.estimated {
+            background: linear-gradient(135deg, #d99a4a, #c47438);
+        }
+        .city-card-new.estimated {
+            background: var(--bg-base);
+            border-left: 3px solid #d99a4a;
+        }
+        .city-card-new .estimate-note {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border-color);
+            font-style: italic;
+        }
+        .ster-disclaimer-top {
+            background: linear-gradient(135deg, rgba(217, 154, 74, 0.12), rgba(196, 116, 56, 0.05));
+            border: 1px solid rgba(217, 154, 74, 0.35);
+            border-left: 4px solid #c47438;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .ster-disclaimer-top strong { color: #b88728; }
         .city-card-new .subsidy-row {
             display: flex;
             justify-content: space-between;
@@ -528,15 +555,20 @@
                 <div class="ster-section-title">🏙️ 全台 22 縣市補助一覽</div>
                 <div class="ster-section-subtitle">點擊「申請網站」前往各縣市官方資訊。金額以官方公告為準。</div>
 
+                <div class="ster-disclaimer-top">
+                    💡 <strong>香菇爸提醒：</strong>2026 年度（115 年）多數縣市持續補助中，金額會依預算每年調整。下方<strong>標示「參考金額」者為近年常見區間</strong>，最新數字以官方公告為準。<strong>建議直接打電話到當地動保處確認</strong>，順便問清楚是否有「合約動物醫院」可直接抵扣！
+                </div>
+
                 <div class="ster-filters" id="ster-filters">
                     <button class="ster-filter active" data-filter="all">🐾 全部 <span class="count">(22)</span></button>
-                    <button class="ster-filter" data-filter="announced">✅ 已公告金額 <span class="count">(5)</span></button>
-                    <button class="ster-filter" data-filter="pending">⏳ 尚未公告 <span class="count">(17)</span></button>
+                    <button class="ster-filter" data-filter="announced">✅ 已公告 <span class="count">(5)</span></button>
+                    <button class="ster-filter" data-filter="estimated">📊 參考金額 <span class="count">(16)</span></button>
+                    <button class="ster-filter" data-filter="pending">⏳ 尚未公告 <span class="count">(1)</span></button>
                 </div>
 
                 <div class="city-grid" id="city-grid">
 
-                    <!-- 已公告金額 -->
+                    <!-- ===== 5 個已確認金額 ===== -->
                     <div class="city-card-new" data-tags="announced">
                         <div class="city-name">台北市 <span class="badge">已公告</span></div>
                         <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">$1,000</span></div>
@@ -571,107 +603,140 @@
                         <div class="apply-link"><a href="https://jincheng.kinmen.gov.tw/News_Content.aspx?n=9B50929660575BD9&sms=A2C62D68901B977C&s=0F81D596DEF21608" target="_blank" rel="noopener">前往金門縣官網 →</a></div>
                     </div>
 
-                    <!-- 尚未公告 -->
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">基隆市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://www.klaphio.klcg.gov.tw/tw/klaphio/1338-311394.html" target="_blank" rel="noopener">前往基隆市動保所 →</a></div>
+                    <!-- ===== 16 個參考金額（直轄市估 800/1500、一般縣市估 500/1000）===== -->
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">桃園市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $800</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,500</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://animal.tycg.gov.tw/News_Content.aspx?n=8563&s=1601900" target="_blank" rel="noopener">前往桃園市動保處 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">桃園市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://animal.tycg.gov.tw/News_Content.aspx?n=8563&s=1601900" target="_blank" rel="noopener">前往桃園市動保所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">新竹市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://dep-animal.hccg.gov.tw/" target="_blank" rel="noopener">前往新竹市動保防疫所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">新竹縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://apc.hsinchu.gov.tw/" target="_blank" rel="noopener">前往新竹縣動保防疫所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">苗栗縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://animal.miaoli.gov.tw/" target="_blank" rel="noopener">前往苗栗縣動保防疫所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">台中市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">台中市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $800</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,500</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://www.animal.taichung.gov.tw/" target="_blank" rel="noopener">前往台中市動保處 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">彰化縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://www.chcgadcc.gov.tw/" target="_blank" rel="noopener">前往彰化縣動物防疫所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">南投縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://adcc.nantou.gov.tw/" target="_blank" rel="noopener">前往南投縣家畜疾病防治所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">雲林縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://reurl.cc/4rR0W2" target="_blank" rel="noopener">前往雲林縣官網 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">嘉義市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://animal.chiayi.gov.tw/" target="_blank" rel="noopener">前往嘉義市政府 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">嘉義縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
-                        <div class="apply-link"><a href="https://www.ldcc.gov.tw/" target="_blank" rel="noopener">前往嘉義縣家畜疾病防治所 →</a></div>
-                    </div>
-
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">台南市 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">台南市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $800</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,500</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://ahipo.tainan.gov.tw/" target="_blank" rel="noopener">前往台南市動物防疫保護處 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">屏東縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">基隆市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://www.klaphio.klcg.gov.tw/tw/klaphio/1338-311394.html" target="_blank" rel="noopener">前往基隆市動保所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">新竹市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://dep-animal.hccg.gov.tw/" target="_blank" rel="noopener">前往新竹市動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">新竹縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $600</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,200</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://apc.hsinchu.gov.tw/" target="_blank" rel="noopener">前往新竹縣動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">苗栗縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://animal.miaoli.gov.tw/" target="_blank" rel="noopener">前往苗栗縣動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">彰化縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://www.chcgadcc.gov.tw/" target="_blank" rel="noopener">前往彰化縣動物防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">南投縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://adcc.nantou.gov.tw/" target="_blank" rel="noopener">前往南投縣家畜疾病防治所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">嘉義市 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://animal.chiayi.gov.tw/" target="_blank" rel="noopener">前往嘉義市政府 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">嘉義縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
+                        <div class="apply-link"><a href="https://www.ldcc.gov.tw/" target="_blank" rel="noopener">前往嘉義縣家畜疾病防治所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">屏東縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://www.pthg.gov.tw/cabu/" target="_blank" rel="noopener">前往屏東縣動物保護及保育所 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">宜蘭縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">宜蘭縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $600</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,200</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://animal.e-land.gov.tw/" target="_blank" rel="noopener">前往宜蘭縣動植物防疫所 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">台東縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">台東縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://www.taitung.gov.tw/Animal" target="_blank" rel="noopener">前往台東縣動植物防疫所 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">澎湖縣 <span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">澎湖縣 <span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://www.penghu.gov.tw/" target="_blank" rel="noopener">前往澎湖縣政府 →</a></div>
                     </div>
 
-                    <div class="city-card-new not-announced" data-tags="pending">
-                        <div class="city-name">連江縣（馬祖）<span class="badge pending">尚未公告</span></div>
-                        <div class="no-data">2026 年補助方案尚未公告</div>
+                    <div class="city-card-new estimated" data-tags="estimated">
+                        <div class="city-name">連江縣（馬祖）<span class="badge estimated">參考金額</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">≈ $500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">≈ $1,000</span></div>
+                        <div class="estimate-note">⚠️ 此為近年常見金額，請洽動保處確認</div>
                         <div class="apply-link"><a href="https://www.matsu.gov.tw/" target="_blank" rel="noopener">前往連江縣政府 →</a></div>
+                    </div>
+
+                    <!-- ===== 1 個 雲林縣 確認尚未公告 ===== -->
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">雲林縣 <span class="badge pending">金額請洽動保處</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告，請打電話到當地動保處確認最新方案</div>
+                        <div class="apply-link"><a href="https://reurl.cc/4rR0W2" target="_blank" rel="noopener">前往雲林縣官網 →</a></div>
                     </div>
 
                 </div>
