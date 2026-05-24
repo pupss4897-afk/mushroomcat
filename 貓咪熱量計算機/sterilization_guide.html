@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 2026 寵物結紮補助懶人包</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        .ster-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+        .ster-alert {
+            background: linear-gradient(135deg, rgba(206, 170, 61, 0.15), rgba(196, 116, 56, 0.08));
+            border: 1px solid rgba(206, 170, 61, 0.35);
+            border-left: 4px solid #ceaa3d;
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .ster-alert .alert-icon { font-size: 32px; line-height: 1; }
+        .ster-alert .alert-content h3 { color: #b88728; font-size: 18px; margin-bottom: 6px; }
+        .ster-alert .alert-content p { color: var(--text-primary); font-size: 14px; line-height: 1.6; }
+        .ster-alert .alert-content strong { color: #b88728; font-weight: 700; }
+
+        .ster-section-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .ster-section-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* 5 條件清單 */
+        .condition-list {
+            display: grid;
+            gap: 12px;
+            counter-reset: cond;
+        }
+        .condition-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background-color: var(--bg-base);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .condition-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+        .condition-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-green), #7d8c6b);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .condition-text {
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.6;
+            padding-top: 4px;
+        }
+        .condition-text strong {
+            color: var(--accent-red);
+        }
+
+        /* 統計資訊 grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .stat-tile {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 22px 18px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .stat-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        }
+        .stat-icon { font-size: 28px; margin-bottom: 8px; }
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--accent-red);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* 篩選 */
+        .ster-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .ster-filter {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ster-filter:hover {
+            background: rgba(206, 170, 61, 0.12);
+            border-color: #ceaa3d;
+        }
+        .ster-filter.active {
+            background: linear-gradient(135deg, #d99a4a, #c47438);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 3px 10px rgba(196, 116, 56, 0.3);
+        }
+        .ster-filter .count { opacity: 0.7; font-size: 12px; }
+        .ster-filter.active .count { opacity: 1; }
+
+        /* 縣市卡片網格 */
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .city-card-new {
+            background: var(--bg-base);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .city-card-new:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            border-color: rgba(206, 170, 61, 0.5);
+        }
+        .city-card-new.not-announced {
+            background: rgba(0, 0, 0, 0.02);
+            opacity: 0.85;
+        }
+        .city-card-new .city-name {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .city-card-new.not-announced .city-name {
+            color: var(--text-secondary);
+        }
+        .city-card-new .badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--accent-green);
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .city-card-new .badge.pending {
+            background: #ceaa3d;
+        }
+        .city-card-new .subsidy-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 14px;
+        }
+        .city-card-new .subsidy-row:last-of-type {
+            border-bottom: none;
+        }
+        .city-card-new .subsidy-label {
+            color: var(--text-secondary);
+        }
+        .city-card-new .subsidy-amount {
+            font-weight: 700;
+            color: var(--accent-red);
+            font-family: var(--font-heading);
+        }
+        .city-card-new .no-data {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-style: italic;
+            padding: 10px 0;
+        }
+        .city-card-new .apply-link {
+            margin-top: auto;
+            padding-top: 16px;
+        }
+        .city-card-new .apply-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .city-card-new .apply-link a:hover {
+            color: var(--accent-red);
+            transform: translateX(3px);
+        }
+        .city-card-new.row-hidden {
+            display: none;
+        }
+
+        /* CTA */
+        .cta-card-ster {
+            background: linear-gradient(135deg, #c47438 0%, #a55a26 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(196, 116, 56, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card-ster::before {
+            content: '✂️';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.08;
+            right: -20px;
+            top: -40px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        .cta-card-inner-ster {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .cta-text-ster h3 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 6px;
+            font-family: var(--font-heading);
+        }
+        .cta-text-ster p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .cta-text-ster .official-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .cta-button-ster {
+            background: #fff;
+            color: #a55a26;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+        .cta-button-ster:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+        }
+        .cta-button-ster .arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        .cta-button-ster:hover .arrow {
+            transform: translateX(4px);
+        }
+        @media (max-width: 640px) {
+            .cta-card-inner-ster { justify-content: flex-start; }
+            .cta-button-ster { width: 100%; justify-content: center; }
+        }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            display: flex;
+            gap: 8px;
+        }
+        .faq-q::before {
+            content: 'Q';
+            color: var(--accent-blue);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+        .faq-a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            display: flex;
+            gap: 8px;
+        }
+        .faq-a::before {
+            content: 'A';
+            color: var(--accent-green);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        .ster-disclaimer {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: rgba(109, 136, 150, 0.08);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .source-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 16px;
+            font-style: italic;
+        }
+        .source-note a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+        .source-note a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="#"><span class="list-icon">😸</span> 貓咪讀心術 (影片)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li class="active"><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>✂️ 2026 寵物結紮補助懶人包</h2>
+                <p>📝 全台 22 縣市最高補助 2,000 元，申請條件、金額、官方連結一次看完！</p>
+            </header>
+
+            <!-- Alert -->
+            <div class="ster-alert">
+                <span class="alert-icon">💡</span>
+                <div class="alert-content">
+                    <h3>為什麼要幫毛孩結紮？</h3>
+                    <p>不只減少流浪動物、降低乳腺/子宮疾病風險，多數縣市還提供 <strong>500 ~ 2,000 元補助</strong>。手術費負擔大幅減輕，名額有限請盡早申請！</p>
+                </div>
+            </div>
+
+            <!-- 統計快覽 -->
+            <div class="ster-card">
+                <div class="ster-section-title">📊 一眼看完台灣補助現況</div>
+                <div class="ster-section-subtitle">2026 年（115 年度）全台補助概況。</div>
+                <div class="stat-grid">
+                    <div class="stat-tile">
+                        <div class="stat-icon">🗺️</div>
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">縣市開放申請</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">$2,000</div>
+                        <div class="stat-label">母犬貓最高補助</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="stat-icon">♂️</div>
+                        <div class="stat-value">$1,000</div>
+                        <div class="stat-label">公犬貓常見金額</div>
+                    </div>
+                    <div class="stat-tile">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-value">115年</div>
+                        <div class="stat-label">補助申辦年度</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-card-ster">
+                <div class="cta-card-inner-ster">
+                    <div class="cta-text-ster">
+                        <span class="official-tag">✓ 香菇爸 LINE 群</span>
+                        <h3>🐾 結紮 / 護貓知識一次學會</h3>
+                        <p>加入 LINE 群隨時更新各縣市最新優惠，還能問結紮前後的照護細節。</p>
+                    </div>
+                    <a href="https://s.luckycat.no8.io/link/channels/3QhbOsujsl" target="_blank" rel="noopener" class="cta-button-ster">
+                        加入香菇爸 LINE <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5 條件 -->
+            <div class="ster-card">
+                <div class="ster-section-title">✅ 申請補助 5 大條件</div>
+                <div class="ster-section-subtitle">大多數縣市都遵循這 5 項標準，先檢查自己有沒有符合。</div>
+                <div class="condition-list">
+                    <div class="condition-item">
+                        <div class="condition-num">1</div>
+                        <div class="condition-text">毛家長<strong>設籍於該補助縣市</strong>（部分縣市可放寬，請先洽當地動保處）</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-num">2</div>
+                        <div class="condition-text">犬貓<strong>已植入晶片</strong>並完成寵物登記</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-num">3</div>
+                        <div class="condition-text">完成<strong>狂犬病疫苗接種</strong>（1 年內有效）</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-num">4</div>
+                        <div class="condition-text">手術在<strong>規定期間（115 年度）內</strong>完成</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-num">5</div>
+                        <div class="condition-text">在規定期限內提出申請（<strong>額滿為止</strong>，建議盡早辦理）</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 22 縣市 -->
+            <div class="ster-card">
+                <div class="ster-section-title">🏙️ 全台 22 縣市補助一覽</div>
+                <div class="ster-section-subtitle">點擊「申請網站」前往各縣市官方資訊。金額以官方公告為準。</div>
+
+                <div class="ster-filters" id="ster-filters">
+                    <button class="ster-filter active" data-filter="all">🐾 全部 <span class="count">(22)</span></button>
+                    <button class="ster-filter" data-filter="announced">✅ 已公告金額 <span class="count">(5)</span></button>
+                    <button class="ster-filter" data-filter="pending">⏳ 尚未公告 <span class="count">(17)</span></button>
+                </div>
+
+                <div class="city-grid" id="city-grid">
+
+                    <!-- 已公告金額 -->
+                    <div class="city-card-new" data-tags="announced">
+                        <div class="city-name">台北市 <span class="badge">已公告</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">$1,000</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">$2,000</span></div>
+                        <div class="apply-link"><a href="https://www.tcapo.gov.taipei/cp.aspx?n=76F07E383A77CF84" target="_blank" rel="noopener">前往台北市動保處 →</a></div>
+                    </div>
+
+                    <div class="city-card-new" data-tags="announced">
+                        <div class="city-name">新北市 <span class="badge">已公告</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">$600</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">$1,200</span></div>
+                        <div class="apply-link"><a href="https://www.neuter.ntpc.gov.tw/" target="_blank" rel="noopener">前往新北市動物絕育系統 →</a></div>
+                    </div>
+
+                    <div class="city-card-new" data-tags="announced">
+                        <div class="city-name">高雄市 <span class="badge">已公告</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">$800</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">$1,500</span></div>
+                        <div class="apply-link"><a href="https://livestock.kcg.gov.tw/Pets/ChongwuJueyu/JueyuBuzhu.htm" target="_blank" rel="noopener">前往高雄市動保處 →</a></div>
+                    </div>
+
+                    <div class="city-card-new" data-tags="announced">
+                        <div class="city-name">花蓮縣 <span class="badge">已公告</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♂️ 公犬貓</span><span class="subsidy-amount">$500</span></div>
+                        <div class="subsidy-row"><span class="subsidy-label">♀️ 母犬貓</span><span class="subsidy-amount">$1,000</span></div>
+                        <div class="apply-link"><a href="https://acdc.hl.gov.tw/News_Content.aspx?n=27041&s=201388" target="_blank" rel="noopener">前往花蓮縣動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new" data-tags="announced">
+                        <div class="city-name">金門縣 <span class="badge">已公告</span></div>
+                        <div class="no-data">補助金額請詳官網公告</div>
+                        <div class="apply-link"><a href="https://jincheng.kinmen.gov.tw/News_Content.aspx?n=9B50929660575BD9&sms=A2C62D68901B977C&s=0F81D596DEF21608" target="_blank" rel="noopener">前往金門縣官網 →</a></div>
+                    </div>
+
+                    <!-- 尚未公告 -->
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">基隆市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.klaphio.klcg.gov.tw/tw/klaphio/1338-311394.html" target="_blank" rel="noopener">前往基隆市動保所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">桃園市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://animal.tycg.gov.tw/News_Content.aspx?n=8563&s=1601900" target="_blank" rel="noopener">前往桃園市動保所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">新竹市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://dep-animal.hccg.gov.tw/" target="_blank" rel="noopener">前往新竹市動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">新竹縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://apc.hsinchu.gov.tw/" target="_blank" rel="noopener">前往新竹縣動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">苗栗縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://animal.miaoli.gov.tw/" target="_blank" rel="noopener">前往苗栗縣動保防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">台中市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.animal.taichung.gov.tw/" target="_blank" rel="noopener">前往台中市動保處 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">彰化縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.chcgadcc.gov.tw/" target="_blank" rel="noopener">前往彰化縣動物防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">南投縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://adcc.nantou.gov.tw/" target="_blank" rel="noopener">前往南投縣家畜疾病防治所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">雲林縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://reurl.cc/4rR0W2" target="_blank" rel="noopener">前往雲林縣官網 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">嘉義市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://animal.chiayi.gov.tw/" target="_blank" rel="noopener">前往嘉義市政府 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">嘉義縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.ldcc.gov.tw/" target="_blank" rel="noopener">前往嘉義縣家畜疾病防治所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">台南市 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://ahipo.tainan.gov.tw/" target="_blank" rel="noopener">前往台南市動物防疫保護處 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">屏東縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.pthg.gov.tw/cabu/" target="_blank" rel="noopener">前往屏東縣動物保護及保育所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">宜蘭縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://animal.e-land.gov.tw/" target="_blank" rel="noopener">前往宜蘭縣動植物防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">台東縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.taitung.gov.tw/Animal" target="_blank" rel="noopener">前往台東縣動植物防疫所 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">澎湖縣 <span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.penghu.gov.tw/" target="_blank" rel="noopener">前往澎湖縣政府 →</a></div>
+                    </div>
+
+                    <div class="city-card-new not-announced" data-tags="pending">
+                        <div class="city-name">連江縣（馬祖）<span class="badge pending">尚未公告</span></div>
+                        <div class="no-data">2026 年補助方案尚未公告</div>
+                        <div class="apply-link"><a href="https://www.matsu.gov.tw/" target="_blank" rel="noopener">前往連江縣政府 →</a></div>
+                    </div>
+
+                </div>
+
+                <div class="ster-disclaimer">
+                    💡 <strong>香菇爸提醒：</strong>多數縣市補助名額有限、「<strong>額滿為止</strong>」！建議在 1~2 月先洽詢當地動保處，跟自己常去的動物醫院確認是否為「補助合約醫院」，這樣才能直接抵扣補助款。<br>
+                    📞 全國動物保護專線：<a href="tel:1959" style="color: var(--accent-red); font-weight: 700; text-decoration: none;">1959</a>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="ster-card">
+                <div class="ster-section-title">❓ 香菇爸常被問</div>
+                <div class="ster-section-subtitle">毛家長結紮前最常有的疑慮，一次幫你解答。</div>
+
+                <div class="faq-item">
+                    <div class="faq-q">幾個月可以結紮？太小或太大有差嗎？</div>
+                    <div class="faq-a">一般建議 6 ~ 8 月齡，體重 2 公斤以上即可。母貓建議第一次發情前完成，可大幅降低乳腺腫瘤機率。年紀大或慢性病貓請先檢查心腎功能。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">補助是直接扣抵還是先付再申請？</div>
+                    <div class="faq-a">看縣市！多數採「合約動物醫院 → 直接抵扣」，部分縣市要先全額付款再憑收據到動保處請款。出發前先打電話確認是 A 還是 B 流程。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">沒有設籍當地的毛家長能領補助嗎？</div>
+                    <div class="faq-a">原則上不行，補助是地方財源。但 <strong>動保團體 / 流浪動物 TNR 計畫</strong>有另一條路，可以洽詢當地動保處的 TNVR 專案。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">結紮後要注意什麼？</div>
+                    <div class="faq-a">術後 7~10 天注意傷口、戴頭套防舔咬；母貓會多 1~2 週恢復期。飲食改「絕育配方」避免發胖。動完手術後 2 週內不要洗澡。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">家裡完全不出門的貓也要結紮嗎？</div>
+                    <div class="faq-a">建議要！未結紮母貓乳腺/子宮疾病風險高，公貓會噴尿、半夜叫春。結紮不是「為了不生」，更是<strong>為了健康與生活品質</strong>。</div>
+                </div>
+            </div>
+
+            <div class="source-note">
+                📚 資料整理自各縣市動保處公告。實際金額、申請期間以官方最新公告為準。<br>
+                💌 發現資料有誤或要更新請<a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank">私訊香菇爸 IG</a> 通知 🙏
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            const filters = document.querySelectorAll('#ster-filters .ster-filter');
+            const cards = document.querySelectorAll('#city-grid .city-card-new');
+            filters.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filters.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const f = btn.dataset.filter;
+                    cards.forEach(card => {
+                        const tags = (card.dataset.tags || '').split(' ');
+                        const show = (f === 'all') || tags.includes(f);
+                        card.classList.toggle('row-hidden', !show);
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
