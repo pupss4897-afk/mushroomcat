@@ -140,7 +140,7 @@ const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
                         <h3>輸入體驗碼解鎖分析功能</h3>
                         <p>輸入體驗碼可免費試用 3 次完整成分分析。沒有碼?加入香菇爸 LINE 社群免費領取!</p>
                         <div class="access-form">
-                            <input id="code-input" type="text" placeholder="輸入體驗碼..." autocomplete="off" maxlength="32">
+                            <input id="code-input" type="text" placeholder="輸入 100" autocomplete="off" maxlength="32">
                             <button id="code-submit" type="button">啟用</button>
                         </div>
                         <div class="access-msg" id="access-msg"></div>

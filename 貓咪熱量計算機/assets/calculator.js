@@ -13,6 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcBtn = document.getElementById('calculate-btn');
     const resultsPanel = document.getElementById('results-panel');
 
+    // ============================================================
+    //  驗證碼設定 — 香菇爸可以自行新增/修改
+    //  uses: 使用次數;設為 -1 = 無限次
+    // ============================================================
+    const ACCESS_CODES = {
+        '100': { uses: 3,  label: '三次驗證碼' },
+        '520': { uses: -1, label: '永久使用碼' }
+    };
+    const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
+    const ACCESS_KEY = 'mushroom_calc_access';
+    const USED_KEY   = 'mushroom_calc_used_codes';
+    const verifyCard = document.getElementById('verify-card');
+
     // Result Elements
     const resCalories = document.getElementById('res-calories');
     const resFoodRatio = document.getElementById('res-food-ratio');
@@ -119,8 +132,165 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // ============== 驗證碼閘門 ==============
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => (
+            { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+        ));
+    }
+    function getAccess() {
+        try { return JSON.parse(localStorage.getItem(ACCESS_KEY)) || null; }
+        catch { return null; }
+    }
+    function setAccess(data) { localStorage.setItem(ACCESS_KEY, JSON.stringify(data)); }
+    function clearAccess() { localStorage.removeItem(ACCESS_KEY); }
+
+    // 已用過的碼清單(防止用完後再次輸入同碼重置次數)
+    function getUsedCodes() {
+        try { return JSON.parse(localStorage.getItem(USED_KEY)) || []; }
+        catch { return []; }
+    }
+    function markCodeUsed(code) {
+        const list = getUsedCodes();
+        if (!list.includes(code)) {
+            list.push(code);
+            localStorage.setItem(USED_KEY, JSON.stringify(list));
+        }
+    }
+    function canCalc() {
+        const d = getAccess();
+        if (!d) return false;
+        return d.unlimited || d.remaining > 0;
+    }
+    function consumeUse() {
+        const d = getAccess();
+        if (!d) return false;
+        if (d.unlimited) return true;
+        if (d.remaining <= 0) return false;
+        d.remaining--;
+        setAccess(d);
+        return true;
+    }
+    function activateCode(rawCode) {
+        const code = (rawCode || '').trim().toUpperCase();
+        if (!code) return { ok: false, msg: '請先輸入驗證碼' };
+        const cfg = ACCESS_CODES[code];
+        if (!cfg) return { ok: false, msg: '驗證碼無效，請確認後再試一次' };
+
+        const existing = getAccess();
+        if (existing && existing.code === code) return { ok: true };
+        if (cfg.uses !== -1 && getUsedCodes().includes(code)) {
+            return { ok: false, msg: '這個驗證碼在此裝置已使用過，請輸入其他碼或加入 LINE 領取新的碼' };
+        }
+        setAccess({
+            code, label: cfg.label,
+            remaining: cfg.uses,
+            unlimited: cfg.uses === -1,
+            activatedAt: new Date().toISOString(),
+        });
+        if (cfg.uses !== -1) markCodeUsed(code);
+        return { ok: true };
+    }
+
+    function renderAccess() {
+        const d = getAccess();
+
+        // 尚未啟用 → 顯示輸入欄
+        if (!d) {
+            verifyCard.className = 'verify-card locked';
+            verifyCard.innerHTML = `
+                <div class="verify-locked">
+                    <span class="verify-ico">🔑</span>
+                    <div class="verify-body">
+                        <h4>輸入驗證碼解鎖計算機</h4>
+                        <p>輸入驗證碼可免費試用 <strong>3 次</strong>熱量計算。沒有碼？加入香菇爸 LINE 社群免費領取！</p>
+                        <div class="verify-form">
+                            <input id="verify-code" type="text" inputmode="numeric" placeholder="輸入 100" autocomplete="off" maxlength="32">
+                            <button id="verify-submit" type="button">啟用</button>
+                        </div>
+                        <p id="verify-msg" class="verify-msg hidden"></p>
+                        <a href="${LINE_INVITE_URL}" target="_blank" rel="noopener" class="verify-line-cta">📲 加入香菇爸 LINE 領取驗證碼</a>
+                    </div>
+                </div>`;
+            const input = document.getElementById('verify-code');
+            document.getElementById('verify-submit').addEventListener('click', () => trySubmit(input.value));
+            input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); trySubmit(input.value); } });
+            updateCalcBtnLock();
+            return;
+        }
+
+        // 次數用完 → 顯示體驗結束
+        if (!d.unlimited && d.remaining <= 0) {
+            verifyCard.className = 'verify-card depleted';
+            verifyCard.innerHTML = `
+                <h4>🍄 體驗結束 — 感謝你的試用！</h4>
+                <p>覺得這個工具有用嗎？加入<strong>香菇爸 LINE 社群</strong>領取新的驗證碼，還能收看「護貓直播」、和其他毛家長一起交流。</p>
+                <div class="verify-depleted-actions">
+                    <a href="${LINE_INVITE_URL}" target="_blank" rel="noopener" class="verify-line-cta">📲 加入香菇爸 LINE 社群</a>
+                    <button class="verify-reenter" id="verify-reenter" type="button">🔑 輸入新的驗證碼</button>
+                </div>`;
+            document.getElementById('verify-reenter').addEventListener('click', () => { clearAccess(); renderAccess(); });
+            updateCalcBtnLock();
+            return;
+        }
+
+        // 已啟用
+        verifyCard.className = 'verify-card unlocked';
+        const countHtml = d.unlimited
+            ? '<span class="verify-count unlimited">⭐ 無限次</span>'
+            : `<span class="verify-count">剩餘 <strong>${d.remaining}</strong> 次</span>`;
+        verifyCard.innerHTML = `
+            <div class="verify-badge-row">
+                <span class="verify-badge-ico">✨</span>
+                <span class="verify-badge-label">已啟用 · ${escapeHtml(d.label)}</span>
+                ${countHtml}
+                <button class="verify-reset" id="verify-reset" type="button">重新輸入</button>
+            </div>`;
+        document.getElementById('verify-reset').addEventListener('click', () => {
+            const msg = d.unlimited
+                ? '確定要登出無限驗證碼嗎？'
+                : '⚠️ 確定要清除目前的驗證碼嗎？\n\n剩餘次數會遺失，而且此碼之後不能再次啟用（需要使用新的驗證碼）。';
+            if (confirm(msg)) { clearAccess(); renderAccess(); }
+        });
+        updateCalcBtnLock();
+    }
+
+    function trySubmit(value) {
+        const result = activateCode(value);
+        if (!result.ok) {
+            const msgEl = document.getElementById('verify-msg');
+            if (msgEl) { msgEl.textContent = '❌ ' + result.msg; msgEl.classList.remove('hidden'); }
+            return;
+        }
+        renderAccess();
+    }
+
+    function updateCalcBtnLock() {
+        if (canCalc()) {
+            calcBtn.classList.remove('locked');
+            calcBtn.textContent = '🍄 香菇爸幫我算！';
+        } else {
+            calcBtn.classList.add('locked');
+            calcBtn.textContent = '🔐 請先輸入驗證碼';
+        }
+    }
+
+    renderAccess();
+
     // --- Calculation Logic ---
     calcBtn.addEventListener('click', () => {
+        if (!canCalc()) {
+            verifyCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const input = document.getElementById('verify-code');
+            if (input) input.focus();
+            return;
+        }
+        if (!consumeUse()) { renderAccess(); return; }
+        runCalculation();
+        renderAccess(); // 更新剩餘次數
+    });
+
+    function runCalculation() {
         const weight = parseFloat(weightSlider.value);
         const age = parseFloat(ageSlider.value);
         const factor = parseFloat(conditionSelect.value);
@@ -153,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resFoodRatio.textContent = foodRatioText;
 
         const breedInfo = breedData[breedKey] || breedData['none'];
-        resBreedNotes.innerHTML = `${breedInfo.notes}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對${breedInfo.name}的體質與腸胃狀況，建議可以搭配我們的藍藻益生菌，讓腸道保持好菌平衡，不僅幫助吸收營養，也能提升保護力喔！`;
+        resBreedNotes.innerHTML = `${breedInfo.notes}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對主子的體質與腸胃狀況，建議可以搭配我們的藍藻益生菌，讓腸道保持好菌平衡，不僅幫助吸收營養，也能提升保護力喔！`;
 
         // Water tip processing
         let wTip = `目標每日水分攝取約 ${waterNeed} ml。`;
@@ -179,6 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
-    });
+    }
 
 });
