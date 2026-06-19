@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪讀心術・叫聲圖鑑</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css">
+    <style>
+        /* ===== 叫聲圖鑑專屬樣式（沿用全站柔霧奶藍粉彩變數）===== */
+        .sounds-intro {
+            background: linear-gradient(135deg, rgba(166,197,214,0.16), rgba(232,158,151,0.08));
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-green);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            margin-bottom: 34px;
+            font-size: 14px;
+            line-height: 1.85;
+            color: var(--text-primary);
+        }
+        .sounds-intro strong { color: var(--accent-green); }
+
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+            gap: 18px;
+            margin-bottom: 36px;
+        }
+        .sound-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 16px 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+        .sound-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .sound-card:hover { transform: translateY(-5px); box-shadow: 0 18px 38px rgba(99,126,148,0.18); }
+        .sound-card.active::before { opacity: 1; }
+        .sound-card.active {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px var(--accent-bg-green), var(--shadow-soft);
+        }
+        .sound-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, var(--accent-bg-blue), var(--accent-bg-red));
+        }
+        .sound-thumb img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.45s ease;
+        }
+        .sound-card:hover .sound-thumb img { transform: scale(1.08); }
+        .sound-thumb.noimg img { display: none; }
+        .sound-emoji {
+            position: absolute;
+            right: 7px; bottom: 7px;
+            font-size: 24px;
+            width: 42px; height: 42px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.92);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.20);
+            transition: transform 0.3s;
+        }
+        .sound-thumb.noimg .sound-emoji {
+            position: static;
+            width: 100%; height: 100%;
+            font-size: 54px;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        /* 肢體語言卡：圖內已自帶徽章，平時隱藏疊加的 emoji，僅圖片載入失敗時才顯示 */
+        .sound-thumb.baked .sound-emoji { display: none; }
+        .sound-thumb.baked.noimg .sound-emoji { display: flex; }
+        .sound-card.playing .sound-emoji { animation: catwiggle 0.45s ease-in-out infinite; }
+        @keyframes catwiggle {
+            0%,100% { transform: rotate(-9deg) scale(1.12); }
+            50%     { transform: rotate(9deg)  scale(1.18); }
+        }
+        .sound-name { font-family: var(--font-heading); font-weight: 600; font-size: 18px; color: var(--text-primary); }
+        .sound-sub  { font-size: 12.5px; color: var(--text-secondary); margin-top: 5px; }
+        .sound-hint {
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .sound-card.playing .sound-hint { color: var(--accent-red); }
+
+        /* 播放時的聲波動畫 */
+        .waves { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+        .waves span {
+            width: 3px; height: 4px; border-radius: 2px;
+            background: currentColor; display: inline-block;
+        }
+        .sound-card.playing .waves span { animation: wavebar 0.6s ease-in-out infinite; }
+        .sound-card.playing .waves span:nth-child(2){ animation-delay: 0.12s; }
+        .sound-card.playing .waves span:nth-child(3){ animation-delay: 0.24s; }
+        .sound-card.playing .waves span:nth-child(4){ animation-delay: 0.36s; }
+        @keyframes wavebar { 0%,100%{ height:4px; } 50%{ height:12px; } }
+
+        /* 解讀面板 */
+        .reveal-panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 34px 36px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+        }
+        .reveal-panel.empty {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 15px;
+            padding: 50px 36px;
+            border-style: dashed;
+        }
+        .reveal-head { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+        .reveal-img {
+            width: 84px; height: 84px;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-soft);
+        }
+        .reveal-emoji { font-size: 44px; }
+        .reveal-titles h3 { font-size: 23px; margin-bottom: 2px; }
+        .reveal-titles span { font-size: 13px; color: var(--text-secondary); }
+        .reveal-replay {
+            margin-left: auto;
+            background: linear-gradient(135deg, #8fb6cd 0%, #6f9bb5 100%);
+            color: #fff; border: none;
+            padding: 10px 18px; border-radius: var(--radius-md);
+            font-family: var(--font-heading); font-weight: 600; font-size: 14px;
+            cursor: pointer; transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+        }
+        .reveal-replay:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(111,155,181,0.4); }
+        .reveal-block { margin-bottom: 20px; }
+        .reveal-block:last-child { margin-bottom: 0; }
+        .reveal-block h5 { font-size: 15px; margin-bottom: 8px; color: var(--accent-green); }
+        .reveal-block p { font-size: 15px; line-height: 1.85; color: var(--text-primary); }
+        .reveal-tip {
+            background-color: var(--bg-elevated);
+            border-left: 4px solid var(--accent-red);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+        }
+        .reveal-tip h5 { color: var(--accent-red); }
+
+        .sounds-foot {
+            margin-top: 30px;
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸，專精於貓科動物行為與營養分享，具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識，守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li class="active"><a href="cat_sounds.html"><span class="list-icon">😸</span> 貓咪讀心術 (叫聲)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>😸 貓咪讀心術・叫聲圖鑑</h2>
+                <p>🔊 點點看每張卡片，聽聽主子不同心情的叫聲，秒懂牠在說什麼！</p>
+            </header>
+
+            <div class="sounds-intro">
+                貓咪一天可以發出超過 <strong>20 種</strong>不同的聲音，每一種都藏著小情緒。
+                點下方卡片，香菇爸幫你「翻譯」主子的叫聲——<strong>記得開喇叭或戴耳機</strong> 🎧
+            </div>
+
+            <div class="sound-grid" id="soundGrid"></div>
+
+            <div class="reveal-panel empty" id="revealPanel">
+                👆 點上面任何一張卡片，這裡就會出現叫聲解讀與香菇爸的照顧建議
+            </div>
+
+            <header class="page-header" style="margin-top: 60px;">
+                <h2>🐾 肢體語言・表情圖鑑</h2>
+                <p>👀 叫聲之外，貓咪的尾巴、耳朵、眼神也都在說話！點卡片看解讀。</p>
+            </header>
+
+            <div class="sound-grid" id="bodyGrid"></div>
+
+            <div class="reveal-panel empty" id="bodyPanel">
+                👆 點上面任何一張卡片，這裡就會出現肢體語言解讀
+            </div>
+
+            <p class="sounds-foot">
+                🎵 本頁叫聲為「電腦即時模擬」，方便你快速體會差異，與真實貓叫略有不同。<br>
+                每隻貓的「語言」都是獨一無二的，最準的翻譯永遠是你日復一日的陪伴 🤍
+            </p>
+        </main>
+    </div>
+
+    <script>
+    /* ============================================================
+       貓叫聲合成引擎 — 純 Web Audio API，不需任何音檔
+       ============================================================ */
+    let _ctx, _master;
+    function ac() {
+        if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+        return _ctx;
+    }
+    function master() {
+        if (!_master) {
+            _master = ac().createDynamicsCompressor(); // 防爆音
+            _master.connect(ac().destination);
+        }
+        return _master;
+    }
+
+    // 基礎「喵」聲：滑音 + 母音共振峰掃頻 + 顫音
+    function meow({ base = 550, dur = 0.6, riseTo = 1.25, fallTo = 0.72, vol = 0.45, startAt = 0, soft = false, harsh = false }) {
+        const ctx = ac(), t0 = ctx.currentTime + startAt;
+        const osc = ctx.createOscillator();
+        osc.type = soft ? 'triangle' : 'sawtooth';
+        osc.frequency.setValueAtTime(base, t0);
+        osc.frequency.linearRampToValueAtTime(base * riseTo, t0 + dur * 0.3);
+        osc.frequency.linearRampToValueAtTime(base * fallTo, t0 + dur);
+        // 顫音
+        const lfo = ctx.createOscillator(); lfo.frequency.value = harsh ? 20 : 6;
+        const lfg = ctx.createGain(); lfg.gain.value = base * (harsh ? 0.06 : 0.025);
+        lfo.connect(lfg).connect(osc.frequency);
+        // 母音掃頻 (ee → ah → ow)
+        const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 4;
+        bp.frequency.setValueAtTime(1750, t0);
+        bp.frequency.linearRampToValueAtTime(1050, t0 + dur * 0.35);
+        bp.frequency.linearRampToValueAtTime(820, t0 + dur);
+        const pk = ctx.createBiquadFilter(); pk.type = 'peaking'; pk.frequency.value = 2500; pk.gain.value = 7; pk.Q.value = 3;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(vol, t0 + 0.05);
+        g.gain.setValueAtTime(vol * 0.85, t0 + dur * 0.7);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(bp); bp.connect(pk); pk.connect(g); g.connect(master());
+        osc.start(t0); lfo.start(t0);
+        osc.stop(t0 + dur + 0.05); lfo.stop(t0 + dur + 0.05);
+    }
+
+    // 呼嚕：低頻轟鳴 + 約 24Hz 振幅調變
+    function purr({ dur = 1.5, vol = 0.28, startAt = 0 }) {
+        const ctx = ac(), t0 = ctx.currentTime + startAt;
+        const osc = ctx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 42;
+        const am = ctx.createOscillator(); am.type = 'sine'; am.frequency.value = 24;
+        const amg = ctx.createGain(); amg.gain.value = 0.45;
+        const modg = ctx.createGain(); modg.gain.value = 0.55;
+        am.connect(amg).connect(modg.gain);
+        const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 320;
+        const env = ctx.createGain();
+        env.gain.setValueAtTime(0, t0);
+        env.gain.linearRampToValueAtTime(vol, t0 + 0.15);
+        env.gain.setValueAtTime(vol, t0 + dur * 0.8);
+        env.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(lp); lp.connect(modg); modg.connect(env); env.connect(master());
+        osc.start(t0); am.start(t0);
+        osc.stop(t0 + dur + 0.05); am.stop(t0 + dur + 0.05);
+    }
+
+    // 低吼：低頻鋸齒 + 較快振幅調變 + 低通
+    function growl({ dur = 0.7, vol = 0.32, startAt = 0 }) {
+        const ctx = ac(), t0 = ctx.currentTime + startAt;
+        const osc = ctx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 82;
+        const am = ctx.createOscillator(); am.type = 'sine'; am.frequency.value = 26;
+        const amg = ctx.createGain(); amg.gain.value = 0.4;
+        const modg = ctx.createGain(); modg.gain.value = 0.6;
+        am.connect(amg).connect(modg.gain);
+        const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 550;
+        const env = ctx.createGain();
+        env.gain.setValueAtTime(0, t0);
+        env.gain.linearRampToValueAtTime(vol, t0 + 0.08);
+        env.gain.setValueAtTime(vol, t0 + dur * 0.7);
+        env.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(lp); lp.connect(modg); modg.connect(env); env.connect(master());
+        osc.start(t0); am.start(t0);
+        osc.stop(t0 + dur + 0.05); am.stop(t0 + dur + 0.05);
+    }
+
+    // 哈氣：高頻白噪音
+    function hiss({ dur = 0.6, vol = 0.3, startAt = 0 }) {
+        const ctx = ac(), t0 = ctx.currentTime + startAt;
+        const buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        const src = ctx.createBufferSource(); src.buffer = buf;
+        const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 2200;
+        const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 5500; bp.Q.value = 0.6;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(vol, t0 + 0.04);
+        g.gain.setValueAtTime(vol, t0 + dur * 0.6);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        src.connect(hp); hp.connect(bp); bp.connect(g); g.connect(master());
+        src.start(t0); src.stop(t0 + dur);
+    }
+
+    // 啾啾顫音 (看到獵物時的興奮聲)
+    function chirp({ base = 700, startAt = 0, vol = 0.35 }) {
+        const ctx = ac(), t0 = ctx.currentTime + startAt, dur = 0.13;
+        const osc = ctx.createOscillator(); osc.type = 'sine';
+        osc.frequency.setValueAtTime(base, t0);
+        osc.frequency.linearRampToValueAtTime(base * 1.5, t0 + dur);
+        const am = ctx.createOscillator(); am.type = 'sine'; am.frequency.value = 35;
+        const amg = ctx.createGain(); amg.gain.value = base * 0.04;
+        am.connect(amg).connect(osc.frequency);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t0);
+        g.gain.linearRampToValueAtTime(vol, t0 + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+        osc.connect(g).connect(master());
+        osc.start(t0); am.start(t0);
+        osc.stop(t0 + dur + 0.02); am.stop(t0 + dur + 0.02);
+    }
+
+    /* ============================================================
+       各情緒的聲音組合（回傳總長度，秒）
+       ============================================================ */
+    const SOUNDS = {
+        hungry() {
+            const t = [0, 0.42, 0.85, 1.25], b = [600, 625, 590, 645];
+            t.forEach((s, i) => meow({ base: b[i], dur: 0.4, riseTo: 1.3, fallTo: 1.0, vol: 0.45, startAt: s }));
+            return 1.75;
+        },
+        love() {
+            purr({ dur: 1.1, vol: 0.15, startAt: 0 });
+            meow({ base: 730, dur: 0.32, riseTo: 1.35, fallTo: 0.95, vol: 0.4, startAt: 0.12, soft: true });
+            return 1.2;
+        },
+        angry() {
+            growl({ dur: 0.7, vol: 0.32, startAt: 0 });
+            hiss({ dur: 0.5, vol: 0.32, startAt: 0.6 });
+            return 1.2;
+        },
+        purr() { purr({ dur: 2.2, vol: 0.3, startAt: 0 }); return 2.3; },
+        play() {
+            const t = [0, 0.16, 0.32, 0.5], b = [680, 760, 720, 810];
+            t.forEach((s, i) => chirp({ base: b[i], startAt: s, vol: 0.35 }));
+            return 0.8;
+        },
+        help() { meow({ base: 360, dur: 1.1, riseTo: 1.15, fallTo: 0.68, vol: 0.42 }); return 1.25; },
+        greeting() { meow({ base: 660, dur: 0.26, riseTo: 1.4, fallTo: 1.1, vol: 0.4, soft: true }); return 0.45; },
+        howl() {
+            meow({ base: 430, dur: 0.8, riseTo: 1.5, fallTo: 0.9, vol: 0.45, harsh: true, startAt: 0 });
+            meow({ base: 400, dur: 0.9, riseTo: 1.45, fallTo: 0.7, vol: 0.45, harsh: true, startAt: 0.72 });
+            return 1.7;
+        }
+    };
+
+    /* ============================================================
+       卡片資料
+       ============================================================ */
+    const MOODS = [
+        {
+            id: 'hungry', emoji: '🍽️', name: '肚子餓了', sub: '快開飯！',
+            meaning: '連續、急促又帶點不耐煩的「喵～喵～喵」，音調偏高、尾音上揚像在問問題。這是主子最常見的「服務鈴」，多半出現在飯點前後、或你一走進廚房的時候。',
+            tip: '別一叫就立刻餵，容易養成奪命連環喵。建議固定時間餵食，並用「熱量計算機」抓對每餐份量，貓咪生理時鐘穩定後反而更安靜。'
+        },
+        {
+            id: 'love', emoji: '🥰', name: '對你撒嬌', sub: '我好愛你',
+            meaning: '短促、上揚、尾巴帶顫音的「喵♪」，常伴隨呼嚕聲、磨蹭你的腿、尾巴豎直微微抖動。這是貓咪把你當成最信任家人的告白。',
+            tip: '一定要回應牠！對牠「慢慢眨眼」（這是貓界的飛吻），再順著毛摸下巴與臉頰兩側，感情會升溫得很快。'
+        },
+        {
+            id: 'angry', emoji: '😾', name: '生氣警告', sub: '別惹我',
+            meaning: '低沉的「嗚嗚」低吼，或瞬間爆出的「哈氣」。同時耳朵往後壓、瞳孔放大、身體壓低或炸毛。這是最後通牒，再進一步很可能就出爪了。',
+            tip: '立刻停手、退開給空間，千萬別硬抱或處罰。讓牠自己冷靜下來，事後再用零食慢慢重建信任，硬碰硬只會更怕人。'
+        },
+        {
+            id: 'purr', emoji: '😻', name: '滿足呼嚕', sub: '好舒服～',
+            meaning: '低頻、規律的「呼嚕嚕」震動聲。大多代表放鬆與滿足；但少數時候貓咪緊張或不舒服時，也會用呼嚕自我安撫，要搭配整體狀態一起判斷。',
+            tip: '這是和主子培養感情的黃金時刻！但若呼嚕同時出現食慾下降、躲起來、呼吸變快，就要留意是不是身體不適。'
+        },
+        {
+            id: 'play', emoji: '🎾', name: '想玩狩獵', sub: '陪我玩啦',
+            meaning: '像鳥叫的短促「啾啾、咕咕」聲，常在盯著逗貓棒、或看到窗外飛鳥時出現，身體會壓低、屁股扭動，呈現蓄勢待發的狩獵姿態。',
+            tip: '每天陪牠玩 10～15 分鐘逗貓棒「狩獵遊戲」，最後讓牠成功抓到並餵一口，能大幅消耗精力、減少半夜暴衝與亂叫。'
+        },
+        {
+            id: 'help', emoji: '😿', name: '討拍／不舒服', sub: '我需要你',
+            meaning: '拉得很長、低沉又哀怨的「喵嗚～」，反覆出現卻找不到明顯原因。可能是孤單、焦慮想討關注，也可能是身體哪裡不舒服在求救。',
+            tip: '先排除無聊與孤單（多陪玩、多互動）。若叫聲伴隨食慾或排泄異常、躲藏、明顯變多，請盡快帶去看醫生，別只當成單純討拍。'
+        },
+        {
+            id: 'greeting', emoji: '👋', name: '跟你打招呼', sub: '你回來啦',
+            meaning: '又短又輕、單獨一聲上揚的「喵！」，常在你開門回家、或走過牠身邊時冒出來，有時還會小跑步來迎接。這是貓咪友善的問候，代表牠有注意到你、也信任你。',
+            tip: '回牠一聲、蹲下來和牠平視打招呼。長期這樣互動，牠會越來越黏你、越來越愛在門口等你回家。'
+        },
+        {
+            id: 'howl', emoji: '🌙', name: '半夜嚎叫', sub: '嗚喵嗚～',
+            meaning: '拉得又長又大聲、忽高忽低像在哭嚎的「嗚喵～嗚喵～」。常見原因有三：未結紮的發情、半夜精力過剩討關注、或老貓認知退化與身體不適。',
+            tip: '若是未結紮的發情嚎叫，結紮後通常會大幅改善（可看側欄「結紮補助懶人包」）；若已結紮仍持續，建議檢查環境、作息，必要時就醫。'
+        }
+    ];
+
+    /* ============================================================
+       渲染與互動
+       ============================================================ */
+    const grid = document.getElementById('soundGrid');
+    const panel = document.getElementById('revealPanel');
+    let playTimer = null;
+
+    MOODS.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'sound-card';
+        card.dataset.id = m.id;
+        card.innerHTML = `
+            <div class="sound-thumb baked">
+                <img src="assets/sounds/${m.id}.jpg" alt="${m.name}" loading="lazy"
+                     onerror="this.closest('.sound-thumb').classList.add('noimg')">
+                <span class="sound-emoji">${m.emoji}</span>
+            </div>
+            <div class="sound-name">${m.name}</div>
+            <div class="sound-sub">${m.sub}</div>
+            <div class="sound-hint">
+                <span class="waves"><span></span><span></span><span></span><span></span></span>
+                點我聽聽看
+            </div>`;
+        card.addEventListener('click', () => select(m.id));
+        grid.appendChild(card);
+    });
+
+    function play(id) {
+        try { ac().resume(); } catch (e) {}
+        const dur = SOUNDS[id] ? SOUNDS[id]() : 0;
+        // 播放動畫
+        const card = grid.querySelector(`[data-id="${id}"]`);
+        clearTimeout(playTimer);
+        grid.querySelectorAll('.sound-card').forEach(c => c.classList.remove('playing'));
+        if (card) {
+            card.classList.add('playing');
+            playTimer = setTimeout(() => card.classList.remove('playing'), dur * 1000 + 120);
+        }
+    }
+
+    function select(id) {
+        const m = MOODS.find(x => x.id === id);
+        if (!m) return;
+        grid.querySelectorAll('.sound-card').forEach(c =>
+            c.classList.toggle('active', c.dataset.id === id));
+        panel.classList.remove('empty');
+        panel.innerHTML = `
+            <div class="reveal-head">
+                <img class="reveal-img" src="assets/sounds/${m.id}.jpg" alt="${m.name}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+                <span class="reveal-emoji" style="display:none">${m.emoji}</span>
+                <div class="reveal-titles">
+                    <h3>${m.name}</h3>
+                    <span>「${m.sub}」</span>
+                </div>
+                <button class="reveal-replay" id="replayBtn">🔊 再聽一次</button>
+            </div>
+            <div class="reveal-block">
+                <h5>🐱 這樣叫，其實是…</h5>
+                <p>${m.meaning}</p>
+            </div>
+            <div class="reveal-block reveal-tip">
+                <h5>🍄 香菇爸的建議</h5>
+                <p>${m.tip}</p>
+            </div>`;
+        document.getElementById('replayBtn').addEventListener('click', () => play(id));
+        play(id);
+    }
+
+    /* ============================================================
+       肢體語言・表情圖鑑（看的，不發聲）
+       ============================================================ */
+    const BODY = [
+        {
+            id: 'tail_up', emoji: '🙋', name: '尾巴高高豎起', sub: '哈囉～',
+            meaning: '尾巴像天線一樣直直豎起、尖端微微勾起，是貓咪最友善的打招呼。代表牠心情好、對你有好感，看到你很開心。',
+            tip: '這時最適合靠近互動！伸出手指讓牠聞一下、再順著毛摸摸頭，牠通常會很享受。'
+        },
+        {
+            id: 'tail_puff', emoji: '🐡', name: '尾巴炸毛膨大', sub: '我嚇到了',
+            meaning: '尾巴瞬間炸成「松鼠尾」、甚至全身炸毛、弓背側站，是受到驚嚇或想威嚇對方。牠在讓自己看起來更大隻來保護自己。',
+            tip: '先別靠近也別出聲嚇牠，移除嚇到牠的來源（陌生聲響、其他動物），給空間讓牠自己冷靜。'
+        },
+        {
+            id: 'tail_swish', emoji: '💢', name: '尾巴快速甩動', sub: '我煩了喔',
+            meaning: '尾巴大幅度、快速地左右拍打地板，是煩躁、不耐煩的明確訊號（和狗搖尾巴完全相反！）。再逗下去很可能會生氣。',
+            tip: '看到這個就先停手、別再摸或逗。讓牠喘口氣，等情緒過了再互動，可以避免被咬被抓。'
+        },
+        {
+            id: 'plane_ear', emoji: '✈️', name: '飛機耳（耳朵壓平）', sub: '別過來',
+            meaning: '兩隻耳朵往兩側或後方壓平、貼向頭部，代表害怕、緊張或正在防衛。情緒已經很緊繃，準備進入戰鬥或逃跑模式。',
+            tip: '立刻降低威脅感：放慢動作、別直視牠的眼睛、給退路。等耳朵回正再接近會安全很多。'
+        },
+        {
+            id: 'slow_blink', emoji: '😌', name: '對你慢慢眨眼', sub: '我愛你',
+            meaning: '看著你、緩緩地閉上又張開眼睛，這是貓咪界最高級的「我愛你」與信任表現，又叫「貓咪飛吻」。',
+            tip: '回牠一個慢慢眨眼吧！這是貓咪聽得懂的告白，常常這樣做，能讓牠對你更安心、更親近。'
+        },
+        {
+            id: 'knead', emoji: '🍞', name: '在你身上踩奶踏踏', sub: '好放鬆～',
+            meaning: '用前掌一下一下交替按壓你的肚子或腿，這是回到幼貓時期討奶的動作，代表極度放鬆、滿足，把你當成最安心的媽媽。',
+            tip: '是滿滿的信任！如果指甲會痛，可以墊條毯子，並定期幫牠剪指甲，就能安心享受這份撒嬌。'
+        },
+        {
+            id: 'belly', emoji: '🙃', name: '翻肚露出肚皮', sub: '我超安心',
+            meaning: '在你面前翻肚、露出最脆弱的肚子，代表牠對環境和你非常放心。但要注意：多數貓這不是邀請你摸肚子，而是純粹放鬆。',
+            tip: '別急著去搓肚子，很多貓會反射性抱手咬人。先摸牠喜歡的頭和下巴，慢慢觀察牠接受度再說。'
+        },
+        {
+            id: 'butt', emoji: '🍑', name: '屁股對著你 / 翹高', sub: '信任你喔',
+            meaning: '把屁股對著你、尾巴翹高，看起來沒禮貌，其實是貓咪之間互相聞屁股問候的禮貌延伸，代表牠信任你、把你當自己人。',
+            tip: '不用真的去聞牠（笑），輕輕摸摸牠的背或尾巴根部回應即可，牠就知道你收到這份友好了。'
+        }
+    ];
+
+    const bodyGrid = document.getElementById('bodyGrid');
+    const bodyPanel = document.getElementById('bodyPanel');
+
+    BODY.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'sound-card';
+        card.dataset.id = m.id;
+        card.innerHTML = `
+            <div class="sound-thumb baked">
+                <img src="assets/sounds/${m.id}.jpg" alt="${m.name}" loading="lazy"
+                     onerror="this.closest('.sound-thumb').classList.add('noimg')">
+                <span class="sound-emoji">${m.emoji}</span>
+            </div>
+            <div class="sound-name">${m.name}</div>
+            <div class="sound-sub">${m.sub}</div>
+            <div class="sound-hint">👀 點我看解讀</div>`;
+        card.addEventListener('click', () => selectBody(m.id));
+        bodyGrid.appendChild(card);
+    });
+
+    function selectBody(id) {
+        const m = BODY.find(x => x.id === id);
+        if (!m) return;
+        bodyGrid.querySelectorAll('.sound-card').forEach(c =>
+            c.classList.toggle('active', c.dataset.id === id));
+        bodyPanel.classList.remove('empty');
+        bodyPanel.innerHTML = `
+            <div class="reveal-head">
+                <img class="reveal-img" src="assets/sounds/${m.id}.jpg" alt="${m.name}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+                <span class="reveal-emoji" style="display:none">${m.emoji}</span>
+                <div class="reveal-titles">
+                    <h3>${m.name}</h3>
+                    <span>「${m.sub}」</span>
+                </div>
+            </div>
+            <div class="reveal-block">
+                <h5>🐱 這個動作，其實是…</h5>
+                <p>${m.meaning}</p>
+            </div>
+            <div class="reveal-block reveal-tip">
+                <h5>🍄 香菇爸的建議</h5>
+                <p>${m.tip}</p>
+            </div>`;
+        bodyPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    </script>
+</body>
+</html>
