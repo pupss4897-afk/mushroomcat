@@ -647,7 +647,8 @@ input[type=range]::-webkit-slider-thumb:hover {
    ☰ 按鈕與遮罩由 assets/mobile-nav.js 自動注入
    ============================================================ */
 .mobile-nav-toggle,
-.mobile-nav-overlay { display: none; }
+.mobile-nav-overlay,
+.app-bottom-nav { display: none; }
 
 @media (max-width: 900px) {
     /* 左上角 ☰ 浮動按鈕 */
@@ -710,6 +711,41 @@ input[type=range]::-webkit-slider-thumb:hover {
     .main-content {
         padding: 68px 20px 30px;
     }
+
+    /* App 底部分頁列 */
+    .app-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: saturate(1.4) blur(8px);
+        border-top: 1px solid var(--border-color);
+        padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+        z-index: 1000;
+    }
+    .app-bottom-nav a {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .app-bottom-nav img {
+        width: 32px; height: 32px;
+        object-fit: contain;
+        opacity: 0.5;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    .app-bottom-nav a.active { color: var(--accent-red); }
+    .app-bottom-nav a.active img { opacity: 1; transform: translateY(-2px) scale(1.08); }
+
+    /* 有底部列時，內容底部留白避免被擋 */
+    body.has-app-nav .main-content { padding-bottom: 84px; }
 }
 
 /* --- Verification Code Gate --- */

@@ -37,6 +37,34 @@
 
         document.body.appendChild(btn);
         document.body.appendChild(overlay);
+
+        // ---- App 底部分頁列（手機）----
+        if (!document.querySelector('.app-bottom-nav')) {
+            var items = [
+                { ic: 'nav-home', label: '首頁', href: '../index測試版.html', tab: '首頁' },
+                { ic: 'nav-tools', label: '工具', href: '../index測試版.html#tools', tab: '工具' },
+                { ic: 'nav-wiki', label: '百科', href: '../index測試版.html#wiki', tab: '百科' },
+                { ic: 'nav-community', label: '社群', href: '../index測試版.html#community', tab: '社群' }
+            ];
+            var activeMap = {
+                'calculator.html': '工具', 'food_analyzer.html': '工具',
+                'cat_sounds.html': '百科', 'breed_guide.html': '百科',
+                'nutrition_guide.html': '百科', 'chip_guide.html': '百科',
+                'sterilization_guide.html': '百科'
+            };
+            var page = location.pathname.split('/').pop();
+            var nav = document.createElement('nav');
+            nav.className = 'app-bottom-nav';
+            items.forEach(function (it) {
+                var a = document.createElement('a');
+                a.href = it.href;
+                if (activeMap[page] === it.tab) a.className = 'active';
+                a.innerHTML = '<img src="../icons/' + it.ic + '.png" alt="">' + it.label;
+                nav.appendChild(a);
+            });
+            document.body.appendChild(nav);
+            document.body.classList.add('has-app-nav');
+        }
     }
 
     if (document.readyState === 'loading') {
