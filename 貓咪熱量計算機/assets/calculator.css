@@ -5,21 +5,21 @@
 
 :root {
     /* Colors — Clean Airy Pastel · 清透療癒系 */
-    --bg-base: #f2f6f9;     /* 透氣冷白 (明亮) */
+    --bg-base: #faf4e8;     /* 溫暖奶油底 (與 App 一致) */
     --bg-surface: #ffffff;  /* 純白卡片 */
     --bg-elevated: #ffffff; /* 純白 */
-    --text-primary: #404a56;/* 乾淨石板藍灰 */
-    --text-secondary: #8893a1;/* 柔灰 */
-    --border-color: #e6edf2;
+    --text-primary: #5a5246;/* 暖石板棕 */
+    --text-secondary: #9a8f7e;/* 暖柔灰 */
+    --border-color: #ece2d0;
 
-    /* Accents */
-    --accent-red: #e89e97;  /* 乾淨腮紅粉 (點綴) */
+    /* Accents — 與 App 奶油/腮紅/鼠尾草綠一致 */
+    --accent-red: #e8a39b;  /* 腮紅粉 */
     --accent-red-hover: #dd897f;
-    --accent-green: #6f9bb5;/* 清透霧藍 (主色・白字可讀) */
-    --accent-blue: #a6c5d6; /* 粉藍 (柔光・邊框) */
-    --accent-bg-red: rgba(232, 158, 151, 0.12);
-    --accent-bg-blue: rgba(166, 197, 214, 0.14);
-    --accent-bg-green: rgba(111, 155, 181, 0.12);
+    --accent-green: #8fb89a;/* 鼠尾草綠 (主色・白字可讀) */
+    --accent-blue: #9fc1d4; /* 粉藍 (柔光・邊框) */
+    --accent-bg-red: rgba(232, 163, 155, 0.12);
+    --accent-bg-blue: rgba(159, 193, 212, 0.14);
+    --accent-bg-green: rgba(143, 184, 154, 0.12);
 
     /* Typography */
     --font-heading: 'Noto Serif TC', serif;
@@ -31,7 +31,7 @@
     --radius-sm: 6px;
     --transition: all 0.3s ease;
     /* 柔和、帶冷藍調、多層次 — 取代原本髒灰的純黑陰影 */
-    --shadow-soft: 0 16px 40px rgba(99, 126, 148, 0.12), 0 3px 10px rgba(99, 126, 148, 0.06);
+    --shadow-soft: 0 16px 40px rgba(150, 130, 100, 0.12), 0 3px 10px rgba(150, 130, 100, 0.06);
 }
 
 * {
@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(ellipse at 0% 100%, rgba(141,162,176,0.07) 0%, transparent 60%),
+    background-image: radial-gradient(ellipse at 0% 100%, rgba(184, 170, 150,0.07) 0%, transparent 60%),
                       radial-gradient(ellipse at 100% 0%, rgba(214,168,160,0.06) 0%, transparent 50%);
     pointer-events: none;
 }
@@ -259,7 +259,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(2px);
 }
 .nav-selector li.active a {
-    background: linear-gradient(90deg, rgba(141,162,176,0.18) 0%, rgba(141,162,176,0.04) 100%);
+    background: linear-gradient(90deg, rgba(184, 170, 150,0.18) 0%, rgba(184, 170, 150,0.04) 100%);
     color: var(--text-primary);
     font-weight: 600;
     box-shadow: inset 3px 0 0 var(--accent-green);
@@ -287,7 +287,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .settings-link:hover {
     color: var(--text-primary);
-    background: rgba(141,162,176,0.10);
+    background: rgba(184, 170, 150,0.10);
 }
 
 /* Main Content */
@@ -296,8 +296,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 60px 80px;
     max-width: 1000px;
     overflow-y: auto;
-    background-image: radial-gradient(circle at 12% 8%, rgba(141,162,176,0.06) 0%, transparent 45%),
-                      radial-gradient(circle at 92% 95%, rgba(214,168,160,0.05) 0%, transparent 45%);
+    background-image: radial-gradient(circle at 12% 8%, rgba(143,184,154,0.07) 0%, transparent 45%),
+                      radial-gradient(circle at 92% 95%, rgba(232,163,155,0.06) 0%, transparent 45%);
 }
 
 .page-header {
@@ -490,7 +490,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .submit-btn {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, #8fb6cd 0%, #6f9bb5 100%);
+    background: linear-gradient(135deg, #a6c8b0 0%, #8fb89a 100%);
     color: white;
     border: none;
     border-radius: var(--radius-md);
@@ -500,13 +500,13 @@ input[type=range]::-webkit-slider-thumb:hover {
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 6px 18px rgba(111, 155, 181, 0.32);
+    box-shadow: 0 6px 18px rgba(143, 184, 154, 0.34);
 }
 
 .submit-btn:hover {
-    background: linear-gradient(135deg, #7ea9c2 0%, #5e8aa4 100%);
+    background: linear-gradient(135deg, #96bca2 0%, #7fa98c 100%);
     transform: translateY(-2px);
-    box-shadow: 0 10px 26px rgba(111, 155, 181, 0.42);
+    box-shadow: 0 10px 26px rgba(143, 184, 154, 0.44);
 }
 
 /* Results Section */
@@ -651,65 +651,14 @@ input[type=range]::-webkit-slider-thumb:hover {
 .app-bottom-nav { display: none; }
 
 @media (max-width: 900px) {
-    /* 左上角 ☰ 浮動按鈕 */
-    .mobile-nav-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 12px;
-        left: 12px;
-        z-index: 1003;
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        background: var(--bg-surface);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-soft);
-        color: var(--text-primary);
-        font-size: 22px;
-        line-height: 1;
-        cursor: pointer;
-    }
-    body.drawer-open .mobile-nav-toggle { font-size: 20px; }
+    /* 手機上整片側邊欄與 ☰ 抽屜都收掉，導覽改用底部 App 列，避免兩套選單造成混亂 */
+    .sidebar,
+    .mobile-nav-toggle,
+    .mobile-nav-overlay { display: none !important; }
 
-    /* 側邊欄改成從左滑出的抽屜 */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 86%;
-        max-width: 320px;
-        height: 100%;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        border-right: 1px solid var(--border-color);
-        border-bottom: none;
-        transform: translateX(-105%);
-        transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1002;
-        box-shadow: 8px 0 30px rgba(99, 126, 148, 0.18);
-    }
-    body.drawer-open .sidebar { transform: translateX(0); }
-
-    /* 遮罩 */
-    .mobile-nav-overlay {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(60, 70, 80, 0.45);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: 1001;
-    }
-    body.drawer-open .mobile-nav-overlay { opacity: 1; visibility: visible; }
-    body.drawer-open { overflow: hidden; }
-
-    /* 主內容滿版，留出 ☰ 按鈕的空間 */
+    /* 主內容滿版 */
     .main-content {
-        padding: 68px 20px 30px;
+        padding: 26px 18px 30px;
     }
 
     /* App 底部分頁列 */
@@ -756,18 +705,18 @@ input[type=range]::-webkit-slider-thumb:hover {
     transition: var(--transition);
 }
 .verify-card.locked {
-    background: linear-gradient(135deg, rgba(141,162,176,0.14), rgba(214,168,160,0.07));
-    border: 1px solid rgba(141,162,176,0.32);
+    background: linear-gradient(135deg, rgba(184, 170, 150,0.14), rgba(214,168,160,0.07));
+    border: 1px solid rgba(184, 170, 150,0.32);
     border-left: 5px solid var(--accent-blue);
 }
 .verify-card.unlocked {
-    background: linear-gradient(135deg, rgba(141,162,176,0.12), rgba(141,162,176,0.04));
-    border: 1px solid rgba(141,162,176,0.30);
+    background: linear-gradient(135deg, rgba(184, 170, 150,0.12), rgba(184, 170, 150,0.04));
+    border: 1px solid rgba(184, 170, 150,0.30);
     border-left: 5px solid var(--accent-green);
     padding: 14px 20px;
 }
 .verify-card.depleted {
-    background: linear-gradient(135deg, rgba(214,168,160,0.12), rgba(141,162,176,0.06));
+    background: linear-gradient(135deg, rgba(214,168,160,0.12), rgba(184, 170, 150,0.06));
     border: 1px solid rgba(214,168,160,0.32);
     border-left: 5px solid var(--accent-red);
 }
@@ -813,7 +762,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 .verify-form input:focus {
     outline: none;
     border-color: var(--accent-green);
-    box-shadow: 0 0 0 3px rgba(141,162,176,0.18);
+    box-shadow: 0 0 0 3px rgba(184, 170, 150,0.18);
 }
 .verify-form button {
     background: var(--accent-green);
@@ -830,7 +779,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 .verify-form button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(141,162,176,0.35);
+    box-shadow: 0 4px 12px rgba(184, 170, 150,0.35);
 }
 .verify-msg {
     font-size: 13px;
@@ -930,7 +879,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 /* Locked calculate button */
 .submit-btn.locked {
-    background: linear-gradient(135deg, #c5cfd7, #aab7c1);
+    background: linear-gradient(135deg, #d6c9b4, #bdb094);
     color: #fff;
     cursor: not-allowed;
     opacity: 0.95;
