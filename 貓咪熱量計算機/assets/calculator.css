@@ -642,6 +642,76 @@ input[type=range]::-webkit-slider-thumb:hover {
     }
 }
 
+/* ============================================================
+   手機抽屜選單 — 解決手機版要滑過整片側邊欄才碰到工具的問題
+   ☰ 按鈕與遮罩由 assets/mobile-nav.js 自動注入
+   ============================================================ */
+.mobile-nav-toggle,
+.mobile-nav-overlay { display: none; }
+
+@media (max-width: 900px) {
+    /* 左上角 ☰ 浮動按鈕 */
+    .mobile-nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1003;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-soft);
+        color: var(--text-primary);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+    }
+    body.drawer-open .mobile-nav-toggle { font-size: 20px; }
+
+    /* 側邊欄改成從左滑出的抽屜 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 86%;
+        max-width: 320px;
+        height: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        border-right: 1px solid var(--border-color);
+        border-bottom: none;
+        transform: translateX(-105%);
+        transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1002;
+        box-shadow: 8px 0 30px rgba(99, 126, 148, 0.18);
+    }
+    body.drawer-open .sidebar { transform: translateX(0); }
+
+    /* 遮罩 */
+    .mobile-nav-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(60, 70, 80, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 1001;
+    }
+    body.drawer-open .mobile-nav-overlay { opacity: 1; visibility: visible; }
+    body.drawer-open { overflow: hidden; }
+
+    /* 主內容滿版，留出 ☰ 按鈕的空間 */
+    .main-content {
+        padding: 68px 20px 30px;
+    }
+}
+
 /* --- Verification Code Gate --- */
 .verify-card {
     border-radius: var(--radius-md);
