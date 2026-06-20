@@ -49,6 +49,29 @@
             overflow: hidden;
         }
 
+        /* 內建瀏覽器提示條 */
+        .inapp-tip {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: linear-gradient(135deg, #e8a39b, #ecc196);
+            color: #fff;
+            padding: 9px 12px;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+        .inapp-tip[hidden] { display: none; }
+        .inapp-tip .ico { font-size: 15px; flex-shrink: 0; }
+        .inapp-tip .txt { flex: 1; }
+        .inapp-tip b { font-weight: 700; }
+        .inapp-tip .close {
+            flex-shrink: 0;
+            width: 22px; height: 22px;
+            border: none; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.28);
+            color: #fff; font-size: 11px; cursor: pointer;
+        }
+
         /* 頂部 */
         .app-header {
             display: flex;
@@ -185,6 +208,11 @@
 </head>
 <body>
     <div class="app-shell">
+        <div class="inapp-tip" id="inapp-tip" hidden>
+            <span class="ico">💡</span>
+            <span class="txt">你正在 <b id="inapp-name">App</b> 內建瀏覽器中 · 點右上角 <b>⋯</b> 選「用預設瀏覽器開啟」會更順喔！</span>
+            <button class="close" id="inapp-close" type="button" aria-label="關閉">✕</button>
+        </div>
         <header class="app-header">
             <span class="mushroom">🍄</span>
             <h1 id="page-title">關於香菇爸</h1>
@@ -324,6 +352,23 @@
     </nav>
 
     <script>
+        // 內建瀏覽器提示：只在 IG / FB / LINE 內建瀏覽器顯示
+        (function () {
+            var ua = navigator.userAgent || '';
+            var name = /Instagram/i.test(ua) ? 'Instagram'
+                : /FBAN|FBAV|FB_IAB/i.test(ua) ? 'Facebook'
+                : /\bLine\//i.test(ua) ? 'LINE' : null;
+            var tip = document.getElementById('inapp-tip');
+            if (!name || !tip) return;
+            try { if (sessionStorage.getItem('inapp-tip-dismiss')) return; } catch (e) {}
+            document.getElementById('inapp-name').textContent = name;
+            tip.hidden = false;
+            document.getElementById('inapp-close').addEventListener('click', function () {
+                tip.hidden = true;
+                try { sessionStorage.setItem('inapp-tip-dismiss', '1'); } catch (e) {}
+            });
+        })();
+
         (function () {
             var navItems = document.querySelectorAll('.nav-item');
             var panels = document.querySelectorAll('.tab-panel');
