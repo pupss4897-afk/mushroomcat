@@ -739,7 +739,7 @@
                     const target = btn.dataset.tab;
                     tabBtns.forEach(b => b.classList.toggle('active', b === btn));
                     sections.forEach(s => s.classList.toggle('active', s.id === 'tab-' + target));
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('tab-nav').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
         })();
