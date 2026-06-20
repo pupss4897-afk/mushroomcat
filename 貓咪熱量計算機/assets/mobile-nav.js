@@ -59,7 +59,7 @@
                 var a = document.createElement('a');
                 a.href = it.href;
                 if (activeMap[page] === it.tab) a.className = 'active';
-                a.innerHTML = '<img src="../icons/' + it.ic + '.png" alt="">' + it.label;
+                a.innerHTML = '<img src="../icons/' + it.ic + '.png?v=2" alt="">' + it.label;
                 nav.appendChild(a);
             });
             document.body.appendChild(nav);
