@@ -41,10 +41,10 @@
         // ---- App 底部分頁列（手機）----
         if (!document.querySelector('.app-bottom-nav')) {
             var items = [
-                { ic: 'nav-home', label: '首頁', href: '../index測試版.html', tab: '首頁' },
-                { ic: 'nav-tools', label: '工具', href: '../index測試版.html#tools', tab: '工具' },
-                { ic: 'nav-wiki', label: '百科', href: '../index測試版.html#wiki', tab: '百科' },
-                { ic: 'nav-community', label: '社群', href: '../index測試版.html#community', tab: '社群' }
+                { ic: 'nav-home', label: '首頁', href: '../app.html', tab: '首頁' },
+                { ic: 'nav-tools', label: '工具', href: '../app.html#tools', tab: '工具' },
+                { ic: 'nav-wiki', label: '百科', href: '../app.html#wiki', tab: '百科' },
+                { ic: 'nav-community', label: '社群', href: '../app.html#community', tab: '社群' }
             ];
             var activeMap = {
                 'calculator.html': '工具', 'food_analyzer.html': '工具',
