@@ -7,10 +7,10 @@
         if (document.querySelector('.app-bottom-nav')) return;
 
         var items = [
-            { ic: 'nav-home', label: '首頁', href: '../app.html' },
-            { ic: 'nav-tools', label: '工具', href: '../app.html#tools' },
-            { ic: 'nav-wiki', label: '百科', href: '../app.html#wiki' },
-            { ic: 'nav-community', label: '社群', href: '../app.html#community' }
+            { ic: 'nav-home', label: '首頁', href: '../index.html' },
+            { ic: 'nav-tools', label: '工具', href: '../index.html#tools' },
+            { ic: 'nav-wiki', label: '百科', href: '../index.html#wiki' },
+            { ic: 'nav-community', label: '社群', href: '../index.html#community' }
         ];
         var activeMap = {
             'calculator.html': '工具', 'food_analyzer.html': '工具',
