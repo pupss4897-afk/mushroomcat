@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoCons = document.getElementById('info-cons');
 
     // 已有「會動的療癒貓」影格的品種（畫好新品種就把 key 加進來）
-    const animatedBreeds = new Set(['none', 'british_shorthair', 'ragdoll']);
+    const animatedBreeds = new Set([
+        'none', 'british_shorthair', 'ragdoll',
+        'american_shorthair', 'exotic_shorthair', 'persian',
+        'maine_coon', 'russian_blue', 'siamese'
+    ]);
     const breedCat = document.getElementById('breed-cat');
     const catFrames = breedCat ? breedCat.querySelectorAll('.cat-frame') : [];
     function updateCat(breedKey) {
