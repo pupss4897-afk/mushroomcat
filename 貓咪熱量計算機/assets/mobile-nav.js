@@ -39,3 +39,19 @@
         init();
     }
 })();
+
+/* GA4：自動追蹤每個按鈕/連結的點擊 */
+(function () {
+    document.addEventListener('click', function (e) {
+        var el = e.target.closest('a, button');
+        if (!el) return;
+        var label = (el.getAttribute('data-ga') || el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+        if (!label) return;
+        if (typeof gtag === 'function') {
+            gtag('event', 'button_click', {
+                label: label,
+                page: location.pathname.split('/').pop() || 'home'
+            });
+        }
+    }, true);
+})();
