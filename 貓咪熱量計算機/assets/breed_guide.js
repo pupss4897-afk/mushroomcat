@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const animatedBreeds = new Set([
         'none', 'british_shorthair', 'ragdoll',
         'american_shorthair', 'exotic_shorthair', 'persian',
-        'maine_coon', 'russian_blue', 'siamese'
+        'maine_coon', 'russian_blue', 'siamese',
+        'sphynx', 'scottish_fold', 'munchkin',
+        'bengal', 'norwegian_forest', 'abyssinian'
     ]);
     const breedCat = document.getElementById('breed-cat');
     const catFrames = breedCat ? breedCat.querySelectorAll('.cat-frame') : [];
