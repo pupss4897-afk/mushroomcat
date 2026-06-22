@@ -4,6 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoPros = document.getElementById('info-pros');
     const infoCons = document.getElementById('info-cons');
 
+    // 已有「會動的療癒貓」影格的品種（畫好新品種就把 key 加進來）
+    const animatedBreeds = new Set(['none', 'british_shorthair', 'ragdoll']);
+    const breedCat = document.getElementById('breed-cat');
+    const catFrames = breedCat ? breedCat.querySelectorAll('.cat-frame') : [];
+    function updateCat(breedKey) {
+        if (!breedCat) return;
+        if (animatedBreeds.has(breedKey)) {
+            for (let i = 0; i < 3; i++) {
+                catFrames[i].src = `../icons/cats/cat-${breedKey}-${i + 1}.png?v=2`;
+            }
+            breedCat.hidden = false;
+        } else {
+            breedCat.hidden = true;
+        }
+    }
+
     // Populate dropdown with breeds from cat_data.js
     const breeds = Object.keys(breedData);
     breeds.forEach(breedKey => {
@@ -23,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const consText = data.cons || '目前尚無資料。';
             infoCons.innerHTML = `${consText}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對${data.name}的體質與常見健康隱患，建議可以搭配我們的「藍藻益生菌」，透過日常保養維持腸道健康與營養吸收，替毛孩建立強健的保護力！`;
         }
+        updateCat(breedKey);
     }
 
     breedSelect.addEventListener('change', (e) => {

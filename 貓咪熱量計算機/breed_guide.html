@@ -54,6 +54,45 @@
             line-height: 1.8;
             font-size: 15px;
         }
+
+        /* 會呼吸的療癒貓 */
+        .breed-cat {
+            position: relative;
+            width: 230px; height: 230px;
+            margin: 4px auto 22px;
+            animation: catFloat 5s ease-in-out infinite;
+        }
+        .breed-cat[hidden] { display: none; }
+        .breed-cat .cat-frame {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 14px rgba(120,100,70,0.20));
+            user-select: none; -webkit-user-select: none;
+        }
+        /* 只用單張圖，靠平滑變形做出「呼吸」感（肚子微微脹縮），不做跳張 */
+        .breed-cat .f1 { opacity: 1; transform-origin: 50% 88%; animation: catBreathe 3.8s ease-in-out infinite; }
+        .breed-cat .f2, .breed-cat .f3 { display: none; }
+        @keyframes catBreathe {
+            0%, 100% { transform: scaleY(1) scaleX(1); }
+            50% { transform: scaleY(1.04) scaleX(1.012); }
+        }
+        @keyframes catFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .breed-cat .zzz {
+            position: absolute; top: 4px; right: 30px;
+            font-size: 20px; opacity: 0;
+            animation: catZzz 4.5s ease-in-out infinite;
+        }
+        @keyframes catZzz {
+            0% { opacity: 0; transform: translateY(0) scale(.7); }
+            30% { opacity: .85; }
+            70% { opacity: .4; }
+            100% { opacity: 0; transform: translateY(-20px) scale(1.1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .breed-cat, .breed-cat .f2, .breed-cat .f3, .breed-cat .zzz { animation: none; }
+            .breed-cat .f2, .breed-cat .f3, .breed-cat .zzz { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -112,6 +151,13 @@
                     </div>
                 </div>
 
+                <div id="breed-cat" class="breed-cat" hidden>
+                    <span class="zzz">💤</span>
+                    <img class="cat-frame f1" alt="" draggable="false">
+                    <img class="cat-frame f2" alt="" draggable="false">
+                    <img class="cat-frame f3" alt="" draggable="false">
+                </div>
+
                 <div id="breed-info-panel">
                     <!-- Origin -->
                     <div class="content-section content-origin">
@@ -137,7 +183,7 @@
 
     <!-- Scripting -->
     <script src="./assets/cat_data.js"></script>
-    <script src="./assets/breed_guide.js"></script>
+    <script src="./assets/breed_guide.js?v=3"></script>
     <script src="./assets/mobile-nav.js?v=5"></script>
 </body>
 </html>
