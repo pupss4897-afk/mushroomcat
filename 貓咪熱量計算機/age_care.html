@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KD4Y1VHLGC');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 依年齡照顧</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css?v=4">
+    <style>
+        .age-hero {
+            background: linear-gradient(135deg, rgba(143,184,154,0.12), rgba(143,184,154,0.05));
+            border: 1px solid rgba(143,184,154,0.25);
+            border-left: 5px solid var(--accent-green);
+            border-radius: var(--radius-lg);
+            padding: 22px 26px;
+            margin-bottom: 22px;
+            display: flex; gap: 16px; align-items: flex-start;
+        }
+        .age-hero .ico { font-size: 34px; line-height: 1; }
+        .age-hero h3 { font-size: 17px; margin-bottom: 6px; color: var(--accent-green); }
+        .age-hero p { font-size: 13.5px; line-height: 1.7; color: var(--text-primary); }
+
+        /* Tab navigation */
+        .tab-nav {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;
+            padding: 6px; background: var(--bg-surface);
+            border: 1px solid var(--border-color); border-radius: 30px; overflow-x: auto;
+        }
+        .tab-btn {
+            background: transparent; border: none; color: var(--text-primary);
+            font-family: var(--font-body); font-weight: 600; font-size: 14px;
+            padding: 10px 16px; border-radius: 22px; cursor: pointer;
+            transition: var(--transition); white-space: nowrap; flex: 1; min-width: max-content;
+        }
+        .tab-btn:hover { background: rgba(143,184,154,0.10); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-green), #6f9b8a);
+            color: #fff; box-shadow: 0 4px 12px rgba(143,184,154,0.35);
+        }
+        .tab-section { display: none; }
+        .tab-section.active { display: block; }
+
+        .info-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); padding: 26px 30px; margin-bottom: 18px;
+            box-shadow: var(--shadow-soft);
+        }
+        .info-card h3 {
+            font-family: var(--font-heading); font-size: 20px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .info-card h4 { font-family: var(--font-heading); font-size: 16px; margin: 16px 0 7px; color: var(--text-primary); }
+        .info-card p, .info-card li { font-size: 14.5px; line-height: 1.85; color: var(--text-primary); }
+        .info-card ul { padding-left: 22px; margin-bottom: 8px; }
+        .info-card ul li { margin-bottom: 5px; }
+        .info-card strong { color: var(--text-primary); }
+
+        .age-band {
+            display: inline-block; font-family: var(--font-heading); font-weight: 700;
+            font-size: 13px; color: #fff; padding: 3px 12px; border-radius: 12px; margin-bottom: 4px;
+        }
+        .band-kitten { background: #e8a39b; }
+        .band-adult { background: #8fb89a; }
+        .band-senior { background: #b89a78; }
+
+        .tip-box {
+            background: rgba(143,184,154,0.08); border-left: 3px solid var(--accent-green);
+            padding: 12px 16px; border-radius: var(--radius-sm); margin-top: 12px; font-size: 13.5px;
+        }
+        .tip-box.warn { background: rgba(232,158,151,0.09); border-left-color: var(--accent-red); }
+        .tip-box.spirulina { background: rgba(143,184,154,0.10); border-left-color: var(--accent-green); }
+
+        .mini-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+        .mini-links a {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--bg-base); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 8px 14px; font-size: 13px; font-weight: 600;
+            color: var(--text-primary); text-decoration: none; transition: var(--transition);
+        }
+        .mini-links a:hover { background: rgba(143,184,154,0.12); border-color: var(--accent-green); }
+
+        /* 解鎖式內容（模糊＋加 LINE 解鎖） */
+        .locked { position: relative; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 18px; }
+        .locked .locked-content {
+            filter: blur(6px); user-select: none; pointer-events: none;
+            padding: 26px 30px; background: var(--bg-surface);
+            border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+        }
+        .locked .locked-content h3 { font-family: var(--font-heading); font-size: 20px; margin-bottom: 12px; }
+        .locked .locked-content ul { padding-left: 22px; }
+        .locked .locked-content li { font-size: 14.5px; line-height: 1.85; color: var(--text-primary); }
+        .locked .locked-overlay {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; gap: 9px; padding: 20px;
+            background: linear-gradient(180deg, rgba(250,244,232,0.45), rgba(250,244,232,0.85));
+        }
+        .locked .lock-ico { font-size: 30px; }
+        .locked .lock-title { font-family: var(--font-heading); font-weight: 700; font-size: 16.5px; color: var(--text-primary); }
+        .locked .lock-sub { font-size: 13px; color: var(--text-secondary); }
+        .locked .lock-btn {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+            background: #06C755; color: #fff; font-weight: 700; font-size: 14.5px;
+            padding: 11px 22px; border-radius: 24px; text-decoration: none;
+            box-shadow: 0 6px 16px rgba(6,199,85,0.3); transition: var(--transition);
+        }
+        .locked .lock-btn:active { transform: scale(0.97); }
+
+        .source-note { text-align: center; font-size: 12px; color: var(--text-secondary); padding: 18px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="cat_sounds.html"><span class="list-icon">😸</span> 貓咪讀心術 (叫聲)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li class="active"><a href="age_care.html"><span class="list-icon">🎂</span> 依年齡照顧</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🎂 依年齡照顧</h2>
+                <p>📖 主子在不同年齡，照顧重點完全不一樣<br>幼貓、成貓、熟齡貓各有要注意的地方<br>香菇爸幫你一頁看懂 🐾</p>
+            </header>
+
+            <div class="age-hero">
+                <span class="ico">🐱</span>
+                <div>
+                    <h3>先找到你家主子的階段</h3>
+                    <p>每隻貓成長速度略有不同，年齡只是參考。下面分成 <strong>幼貓(0–1歲)、成貓(1–7歲)、熟齡(7歲以上)</strong> 三段，點上面的分頁看對應重點。有任何健康疑慮，都建議和獸醫討論喔。</p>
+                </div>
+            </div>
+
+            <div class="tab-nav" id="tab-nav">
+                <button class="tab-btn active" data-tab="kitten">🍼 幼貓 0–1歲</button>
+                <button class="tab-btn" data-tab="adult">🐈 成貓 1–7歲</button>
+                <button class="tab-btn" data-tab="senior">🌳 熟齡 7歲+</button>
+            </div>
+
+            <!-- ========== 幼貓 ========== -->
+            <div class="tab-section active" id="tab-kitten">
+                <div class="info-card">
+                    <span class="age-band band-kitten">幼貓 0–1 歲</span>
+                    <h3>🍼 吃得對，地基才打得好</h3>
+                    <h4>餵食重點</h4>
+                    <ul>
+                        <li>選<strong>幼貓專用</strong>飼料或主食罐：幼貓需要更高的蛋白質與熱量來長身體。</li>
+                        <li><strong>少量多餐</strong>：未滿半歲一天約 3–4 餐，腸胃小、一次吃不多。</li>
+                        <li><strong>不能喝牛奶！</strong>幼貓乳糖不耐，會拉肚子。未離乳要喝「貓專用奶」。</li>
+                        <li>換食要慢，至少花 5–7 天慢慢混合，避免腸胃不適。</li>
+                    </ul>
+                    <div class="tip-box spirulina">🍄 換食或剛回家容易軟便，日常腸胃保養可搭配<strong>藍藻益生菌</strong>，幫助腸道穩定、營養好吸收。</div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🐾 社會化＋健康的黃金期</h3>
+                    <h4>把握社會化</h4>
+                    <ul>
+                        <li><strong>2–7 週是社會化黃金期</strong>：多溫柔接觸、讓牠習慣人聲、抱抱、梳毛、剪指甲，長大個性更穩。</li>
+                        <li>讓主子習慣外出籠，之後看醫生比較不緊張。</li>
+                    </ul>
+                    <h4>疫苗與驅蟲</h4>
+                    <ul>
+                        <li>依獸醫安排<strong>核心疫苗</strong>時程接種，並<strong>定期驅蟲</strong>。</li>
+                        <li>第一次健檢可順便和獸醫討論結紮時間。</li>
+                    </ul>
+                    <h4>環境安全</h4>
+                    <ul>
+                        <li>收好電線、橡皮筋、小物，避免誤食。</li>
+                        <li>把對貓有毒的食物、植物收好；陽台與窗戶記得做防墜。</li>
+                        <li>準備<strong>低邊好進出</strong>的貓砂盆，方便小貓如廁訓練。</li>
+                    </ul>
+                    <div class="mini-links">
+                        <a href="nutrition_guide.html">🥗 致命毒物清單</a>
+                        <a href="calculator.html">📊 算每日熱量</a>
+                        <a href="sterilization_guide.html">✂️ 結紮懶人包</a>
+                    </div>
+                </div>
+
+                <div class="locked">
+                    <div class="locked-content" aria-hidden="true">
+                        <h3>🔓 香菇爸獨家：幼貓照顧加碼包</h3>
+                        <ul>
+                            <li>各週齡「黃金餵食量」對照表，一眼知道該餵多少</li>
+                            <li>半夜討奶、夜哭不停，怎麼溫柔安撫不寵壞</li>
+                            <li>幼貓社會化 7 天訓練表，照做個性超穩</li>
+                            <li>第一次剪指甲不流血的固定手法</li>
+                        </ul>
+                    </div>
+                    <div class="locked-overlay">
+                        <span class="lock-ico">🔒</span>
+                        <span class="lock-title">想看香菇爸的私房詳解？</span>
+                        <span class="lock-sub">加入官方 LINE，免費解鎖完整版</span>
+                        <a class="lock-btn" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="解鎖-幼貓照顧">🔓 加 LINE 解鎖</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 成貓 ========== -->
+            <div class="tab-section" id="tab-adult">
+                <div class="info-card">
+                    <span class="age-band band-adult">成貓 1–7 歲</span>
+                    <h3>🐈 重點從「長大」變「維持」</h3>
+                    <h4>餵食與體重</h4>
+                    <ul>
+                        <li>換成<strong>成貓主食</strong>，一天約 2 餐，<strong>定量餵食</strong>避免放飯吃到飽。</li>
+                        <li><strong>肥胖是萬病之源</strong>：理想體型摸得到肋骨、從上看有腰身。用熱量計算機抓對份量。</li>
+                        <li>多顧<strong>水分</strong>：成貓最容易有泌尿道與腎臟負擔，濕食、多水碗、活水機都有幫助。</li>
+                    </ul>
+                    <div class="tip-box spirulina">🍄 想顧好日常營養與腸胃，可用<strong>高端主食餐＋藍藻益生菌</strong>當每天的保養組合。</div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🦷 別忽略的日常保養</h3>
+                    <h4>口腔與牙齒</h4>
+                    <ul>
+                        <li>牙結石、牙齦發炎很常見，平常可潔牙，定期請獸醫檢查口腔。</li>
+                    </ul>
+                    <h4>環境豐富化（減壓）</h4>
+                    <ul>
+                        <li>準備<strong>貓抓板、跳台、互動玩具</strong>，每天陪玩放電，避免無聊與壓力行為。</li>
+                        <li>多貓家庭注意資源（食碗、水碗、砂盆）要夠、要分開放。</li>
+                    </ul>
+                    <h4>定期健檢</h4>
+                    <ul>
+                        <li>建議<strong>一年一次健康檢查</strong>，及早發現問題。</li>
+                        <li>還沒結紮的，和獸醫討論安排。</li>
+                    </ul>
+                    <div class="mini-links">
+                        <a href="calculator.html">📊 熱量&喝水計算</a>
+                        <a href="food_analyzer.html">🥫 飼料成分分析</a>
+                        <a href="breed_guide.html">🐾 品種照顧重點</a>
+                    </div>
+                </div>
+
+                <div class="locked">
+                    <div class="locked-content" aria-hidden="true">
+                        <h3>🔓 香菇爸獨家：成貓減重不復胖</h3>
+                        <ul>
+                            <li>7 天減脂餵食份量表，吃飽又能瘦</li>
+                            <li>嘴饞主子的低卡點心清單</li>
+                            <li>多貓家庭餵食動線，不搶食、不偷吃</li>
+                            <li>看懂飼料標示，一眼挑對主食</li>
+                        </ul>
+                    </div>
+                    <div class="locked-overlay">
+                        <span class="lock-ico">🔒</span>
+                        <span class="lock-title">想看香菇爸的私房詳解？</span>
+                        <span class="lock-sub">加入官方 LINE，免費解鎖完整版</span>
+                        <a class="lock-btn" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="解鎖-成貓照顧">🔓 加 LINE 解鎖</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 熟齡 ========== -->
+            <div class="tab-section" id="tab-senior">
+                <div class="info-card">
+                    <span class="age-band band-senior">熟齡 7 歲以上</span>
+                    <h3>🌳 開始「慢下來」的照顧</h3>
+                    <h4>健檢更勤一點</h4>
+                    <ul>
+                        <li>建議<strong>每半年一次健檢</strong>，可和獸醫討論驗血、驗腎、驗甲狀腺。</li>
+                        <li>熟齡貓較<strong>容易有腎臟、甲狀腺、關節</strong>等狀況，定期監測能及早發現、及早照顧。</li>
+                    </ul>
+                    <h4>飲食調整</h4>
+                    <ul>
+                        <li>選<strong>好消化、適口性好</strong>的食物，維持足量優質蛋白幫助保住肌肉。</li>
+                        <li>更要顧<strong>水分</strong>；體重突然變輕或變重，都要留意。</li>
+                    </ul>
+                    <div class="tip-box spirulina">🍄 老貓腸胃與食慾較敏感，日常可搭配<strong>好消化主食＋藍藻益生菌</strong>幫助營養吸收。</div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🏠 讓家對老貓更友善</h3>
+                    <h4>關節與行動</h4>
+                    <ul>
+                        <li>跳不動是正常的：把<strong>跳台高度降低</strong>、加<strong>斜坡或踏階</strong>。</li>
+                        <li>換<strong>低邊好進出</strong>的貓砂盆，水碗食盆放在好取得的位置。</li>
+                        <li>多準備溫暖柔軟的睡窩，注意保暖。</li>
+                    </ul>
+                    <h4>用心觀察變化（健康警訊）</h4>
+                    <ul>
+                        <li>留意<strong>食慾、體重、喝水量、排泄、活動力、精神</strong>的變化。</li>
+                        <li>喝水變多、變瘦、躲起來、亂尿，都可能是身體在求救，<strong>盡快就醫</strong>。</li>
+                    </ul>
+                    <h4>多點陪伴</h4>
+                    <ul>
+                        <li>老貓更需要安全感，固定作息、溫柔陪伴，讓牠安心慢慢老。</li>
+                    </ul>
+                    <div class="mini-links">
+                        <a href="nutrition_guide.html">💧 水分與營養</a>
+                        <a href="calculator.html">📊 熱量&喝水計算</a>
+                    </div>
+                </div>
+
+                <div class="locked">
+                    <div class="locked-content" aria-hidden="true">
+                        <h3>🔓 香菇爸獨家：老貓在家健檢</h3>
+                        <ul>
+                            <li>每月「在家健康監測表」，變化早一步發現</li>
+                            <li>老貓回診必問獸醫的清單</li>
+                            <li>食慾下降時，先試這 5 個方法</li>
+                            <li>關節友善的居家改造重點</li>
+                        </ul>
+                    </div>
+                    <div class="locked-overlay">
+                        <span class="lock-ico">🔒</span>
+                        <span class="lock-title">想看香菇爸的私房詳解？</span>
+                        <span class="lock-sub">加入官方 LINE，免費解鎖完整版</span>
+                        <a class="lock-btn" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="解鎖-熟齡照顧">🔓 加 LINE 解鎖</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-note">⚠️ 本頁內容僅供日常照顧參考，個別健康狀況請諮詢獸醫。</div>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            const tabBtns = document.querySelectorAll('#tab-nav .tab-btn');
+            const sections = document.querySelectorAll('.tab-section');
+            function openTab(target, scroll) {
+                tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === target));
+                sections.forEach(s => s.classList.toggle('active', s.id === 'tab-' + target));
+                if (scroll) document.getElementById('tab-nav').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            tabBtns.forEach(btn => btn.addEventListener('click', () => openTab(btn.dataset.tab, true)));
+            // 從首頁卡片帶 #kitten/#adult/#senior 進來時，開對應分頁
+            const valid = ['kitten', 'adult', 'senior'];
+            const h = location.hash.replace('#', '');
+            if (valid.indexOf(h) !== -1) openTab(h, false);
+        })();
+    </script>
+    <script src="./assets/mobile-nav.js?v=7"></script>
+</body>
+</html>

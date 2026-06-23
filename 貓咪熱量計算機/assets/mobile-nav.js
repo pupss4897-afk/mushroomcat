@@ -16,7 +16,7 @@
             'calculator.html': '工具', 'food_analyzer.html': '工具',
             'cat_sounds.html': '百科', 'breed_guide.html': '百科',
             'nutrition_guide.html': '百科', 'chip_guide.html': '百科',
-            'sterilization_guide.html': '百科'
+            'sterilization_guide.html': '百科', 'age_care.html': '百科'
         };
         var page = location.pathname.split('/').pop();
 
