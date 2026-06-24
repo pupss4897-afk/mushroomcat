@@ -15,7 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'birman', 'oriental_shorthair', 'british_longhair'
     ]);
     // 已做好「完整照顧懶人包」的品種（breed_care.html 有資料的，新增就加進來）
-    const careBreeds = new Set(['american_shorthair']);
+    const careBreeds = new Set([
+        'american_shorthair', 'british_shorthair', 'munchkin',
+        'ragdoll', 'norwegian_forest', 'maine_coon'
+    ]);
     const careLink = document.getElementById('breed-care-link');
     const careName = document.getElementById('care-breed-name');
     function updateCareLink(breedKey) {
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoOrigin.textContent = data.origin || '目前尚無這品種的故事資料。';
             infoPros.textContent = data.pros || '目前尚無資料。';
             const consText = data.cons || '目前尚無資料。';
-            infoCons.innerHTML = `${consText}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對${data.name}的體質與常見健康隱患，建議可以搭配我們的「藍藻益生菌」，透過日常保養維持腸道健康與營養吸收，替毛孩建立強健的保護力！`;
+            infoCons.innerHTML = `${consText}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸小提醒：</span>針對${data.name}的體質，平常多留意飲食均衡、體重控制與定期健檢，有任何狀況都建議諮詢專業獸醫師喔！`;
         }
         updateCat(breedKey);
         updateCareLink(breedKey);

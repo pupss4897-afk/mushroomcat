@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resFoodRatio.textContent = foodRatioText;
 
         const breedInfo = breedData[breedKey] || breedData['none'];
-        resBreedNotes.innerHTML = `${breedInfo.notes}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對主子的體質與腸胃狀況，建議可以搭配我們的藍藻益生菌，讓腸道保持好菌平衡，不僅幫助吸收營養，也能提升保護力喔！`;
+        resBreedNotes.innerHTML = `${breedInfo.notes}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸小提醒：</span>針對主子的體質，平常多注意飲食均衡、體重控制與水分攝取，有任何狀況都建議諮詢專業獸醫師喔！`;
 
         // Water tip processing
         let wTip = `目標每日水分攝取約 ${waterNeed} ml。`;
