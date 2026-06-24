@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
         'somali', 'siberian', 'burmese',
         'birman', 'oriental_shorthair', 'british_longhair'
     ]);
+    // 已做好「完整照顧懶人包」的品種（breed_care.html 有資料的，新增就加進來）
+    const careBreeds = new Set(['american_shorthair']);
+    const careLink = document.getElementById('breed-care-link');
+    const careName = document.getElementById('care-breed-name');
+    function updateCareLink(breedKey) {
+        if (!careLink) return;
+        if (careBreeds.has(breedKey) && breedData[breedKey]) {
+            careLink.href = 'breed_care.html?breed=' + breedKey;
+            if (careName) careName.textContent = breedData[breedKey].name;
+            careLink.hidden = false;
+        } else {
+            careLink.hidden = true;
+        }
+    }
+
     const breedCat = document.getElementById('breed-cat');
     const catFrames = breedCat ? breedCat.querySelectorAll('.cat-frame') : [];
     function updateCat(breedKey) {
@@ -48,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             infoCons.innerHTML = `${consText}<br><br><span style="color: var(--accent-red); font-weight: 600;">🍄 香菇爸特別推薦：</span>針對${data.name}的體質與常見健康隱患，建議可以搭配我們的「藍藻益生菌」，透過日常保養維持腸道健康與營養吸收，替毛孩建立強健的保護力！`;
         }
         updateCat(breedKey);
+        updateCareLink(breedKey);
         if (typeof gtag === 'function' && data) {
             gtag('event', 'view_breed', { breed: data.name });
         }

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KD4Y1VHLGC');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 品種照顧指南</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css?v=4">
+    <style>
+        .care-wrap { max-width: 760px; margin: 0 auto; }
+
+        /* Hero */
+        .care-hero {
+            background: linear-gradient(135deg, rgba(143,184,154,0.14), rgba(159,193,212,0.10));
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); padding: 24px 26px; margin-bottom: 20px;
+            display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+        }
+        .care-hero .htext { flex: 1; min-width: 200px; }
+        .care-hero .flag { font-size: 22px; }
+        .care-hero h2 { font-family: var(--font-heading); font-size: 30px; line-height: 1.2; margin-bottom: 6px; color: var(--text-primary); }
+        .care-hero .en { font-size: 12px; letter-spacing: 1.5px; color: var(--text-secondary); }
+        .care-hero .tagline { font-size: 14px; color: var(--accent-green); font-weight: 600; margin: 8px 0 0; }
+        .care-hero .hcat { width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(120,100,70,0.18)); }
+
+        .trait-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .trait-chip {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: 18px; padding: 6px 13px; font-size: 12.5px; font-weight: 600; color: var(--text-primary);
+        }
+        .lifespan { margin-top: 12px; font-size: 13.5px; color: var(--text-primary); }
+        .lifespan strong { color: var(--accent-green); }
+
+        /* Section card */
+        .care-card {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); padding: 22px 26px; margin-bottom: 16px; box-shadow: var(--shadow-soft);
+        }
+        .care-card h3 {
+            font-family: var(--font-heading); font-size: 19px; margin-bottom: 6px;
+            display: flex; align-items: center; gap: 9px; padding-bottom: 10px; border-bottom: 2px solid var(--bg-base);
+        }
+        .care-card .note { font-size: 14px; line-height: 1.8; color: var(--text-primary); margin: 12px 0; }
+        .care-card .lead { font-size: 13px; color: var(--text-secondary); font-weight: 600; margin-top: 10px; }
+        .care-list { list-style: none; padding: 0; margin: 8px 0 0; }
+        .care-list li { font-size: 14px; line-height: 1.7; padding: 4px 0 4px 26px; position: relative; color: var(--text-primary); }
+        .care-list li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-green); font-weight: 700; }
+        .care-list.x li::before { content: "✕"; color: var(--accent-red); }
+
+        /* 香菇爸提醒 */
+        .papa-tip {
+            background: linear-gradient(135deg, rgba(232,158,151,0.10), rgba(240,216,168,0.14));
+            border: 1px solid rgba(232,158,151,0.25); border-radius: var(--radius-lg);
+            padding: 20px 24px; margin-bottom: 16px;
+        }
+        .papa-tip h3 { font-family: var(--font-heading); font-size: 17px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .papa-tip p { font-size: 14px; line-height: 1.8; }
+        .papa-tip .key {
+            margin-top: 12px; padding: 12px 16px; background: var(--bg-surface);
+            border-left: 4px solid var(--accent-red); border-radius: var(--radius-sm); font-size: 15px;
+        }
+        .papa-tip .key b { color: var(--accent-red); font-size: 16px; }
+
+        /* 解鎖 */
+        .locked { position: relative; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 16px; }
+        .locked .locked-content { filter: blur(6px); user-select: none; pointer-events: none; }
+        .locked .locked-overlay {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; gap: 9px; padding: 22px;
+            background: linear-gradient(180deg, rgba(250,244,232,0.55), rgba(250,244,232,0.88));
+        }
+        .locked .lock-ico { font-size: 30px; }
+        .locked .lock-title { font-family: var(--font-heading); font-weight: 700; font-size: 17px; color: var(--text-primary); }
+        .locked .lock-sub { font-size: 13px; color: var(--text-secondary); max-width: 300px; }
+        .locked .lock-btn {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 4px;
+            background: #06C755; color: #fff; font-weight: 700; font-size: 15px;
+            padding: 12px 24px; border-radius: 24px; text-decoration: none;
+            box-shadow: 0 6px 16px rgba(6,199,85,0.3); transition: var(--transition);
+        }
+        .locked .lock-btn:active { transform: scale(0.97); }
+
+        .back-link { display: inline-block; font-size: 13px; color: var(--text-secondary); text-decoration: none; margin-bottom: 14px; }
+        .back-link:hover { color: var(--accent-green); }
+        .source-note { text-align: center; font-size: 12px; color: var(--text-secondary); padding: 16px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header"><span class="logo-icon">🍄</span><h1>關於香菇爸</h1></div>
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 看更多藍藻菌介紹</a>
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="cat_sounds.html"><span class="list-icon">😸</span> 貓咪讀心術 (叫聲)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li class="active"><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li><a href="age_care.html"><span class="list-icon">🎂</span> 依年齡照顧</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer"><a href="#" class="settings-link">⚙️ 設定</a></div>
+        </aside>
+
+        <main class="main-content">
+            <div class="care-wrap" id="care-wrap">
+                <a class="back-link" href="breed_guide.html">‹ 回貓咪品種百科</a>
+                <div id="care-body"><!-- JS 渲染 --></div>
+                <div class="source-note">⚠️ 本頁內容僅供日常照顧參考，個別健康狀況請諮詢獸醫。</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    // ====== 品種照顧資料（要新增品種，就照這個格式加一筆）======
+    const LINE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
+    const breedCare = {
+        american_shorthair: {
+            name: '美國短毛貓', en: 'AMERICAN SHORTHAIR CARE GUIDE', flag: '🇺🇸',
+            cat: 'american_shorthair',
+            tagline: '新手養美短一定要知道的事！',
+            traits: ['親人好相處', '適應力高', '活潑愛玩', '新手友善', '食慾通常不錯'],
+            lifespan: '12–16 歲以上',
+            diet: { note: '美短天生容易變成：圓臉 → 圓肚 → 圓整隻 🍙', tips: ['定時定量', '少量多餐', '零食不超過每日熱量 10%'] },
+            water: { note: '美短雖然不算泌尿道高風險品種，但喝水量不足仍可能增加身體負擔。', tips: ['多個水碗', '流動飲水機', '主食罐補充水分'] },
+            exercise: { note: '很多人以為美短很懶，其實牠們小時候精力超旺盛。', tips: ['每天 15–30 分鐘互動', '逗貓棒', '狩獵型玩具', '貓跳台'] },
+            grooming: { note: '美短屬於短毛貓，但換毛季掉毛量仍不少。', tips: ['每週梳毛 2–3 次', '換季增加梳毛頻率'] },
+            mistakes: ['零食當正餐', '長期不控制體重', '完全不陪玩', '忽略喝水量', '發現變胖才開始減量'],
+            observe: ['食慾是否正常', '飲水量是否正常', '排便狀況', '活動力是否改變', '體重是否持續增加'],
+            tip: '很多美短最大的問題不是挑食，而是：太會吃 🤣 從小養成良好的飲食與運動習慣，通常會比之後減重輕鬆很多。',
+            takeaway: '不是吃多好，而是維持穩定的生活習慣。'
+        }
+    };
+
+    function li(arr, x) {
+        return '<ul class="care-list' + (x ? ' x' : '') + '">' + arr.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+    }
+    function section(icon, title, note, tips) {
+        return '<div class="care-card"><h3>' + icon + ' ' + title + '</h3>' +
+            (note ? '<p class="note">' + note + '</p>' : '') +
+            (tips ? '<div class="lead">建議：</div>' + li(tips) : '') + '</div>';
+    }
+
+    (function () {
+        var params = new URLSearchParams(location.search);
+        var key = params.get('breed') || 'american_shorthair';
+        var d = breedCare[key];
+        var body = document.getElementById('care-body');
+
+        if (!d) {
+            body.innerHTML = '<div class="care-card"><h3>🚧 這隻主子的懶人包製作中</h3>' +
+                '<p class="note">香菇爸正在每天認識一隻貓、慢慢補齊各品種的照顧指南。先去看看其他品種，或加 LINE 跟香菇爸許願想看哪一隻！</p>' +
+                '<a class="lock-btn" style="display:inline-flex;align-items:center;gap:8px;background:#06C755;color:#fff;font-weight:700;padding:12px 24px;border-radius:24px;text-decoration:none;" href="' + LINE_URL + '" target="_blank" rel="noopener" data-ga="許願品種懶人包">🍄 加 LINE 許願</a></div>';
+            return;
+        }
+        document.title = '香菇爸 - ' + d.name + '照顧指南';
+
+        // ===== 免費區 =====
+        var html = '';
+        html += '<div class="care-hero">' +
+            '<div class="htext">' +
+            '<h2>' + d.name + '<br><span style="font-size:20px;">照顧指南</span></h2>' +
+            '<div class="tagline"><span class="flag">' + d.flag + '</span> ' + d.tagline + '</div>' +
+            '<div class="en">' + d.en + '</div>' +
+            '<div class="trait-row">' + d.traits.map(function (t) { return '<span class="trait-chip">' + t + '</span>'; }).join('') + '</div>' +
+            '<div class="lifespan">🐾 平均壽命：<strong>' + d.lifespan + '</strong></div>' +
+            '</div>' +
+            '<img class="hcat" src="../icons/cats/cat-' + d.cat + '-1.png?v=2" alt="' + d.name + '">' +
+            '</div>';
+
+        html += section('🍽️', '飲食重點', d.diet.note, d.diet.tips);
+        html += section('💧', '喝水重點', d.water.note, d.water.tips);
+        html += section('🏃', '運動需求', d.exercise.note, d.exercise.tips);
+        html += section('🪮', '毛髮照顧', d.grooming.note, d.grooming.tips);
+        html += '<div class="care-card"><h3>⚠️ 新手最常犯的 5 個錯誤</h3>' + li(d.mistakes, true) + '</div>';
+
+        // ===== 解鎖區（每日觀察 / 香菇爸私房提醒）=====
+        var lockedInner =
+            '<div class="care-card"><h3>🔍 每日觀察重點</h3>' + li(d.observe) + '</div>' +
+            '<div class="papa-tip"><h3>🐾 香菇爸提醒</h3><p>' + d.tip + '</p>' +
+            '<div class="key">照顧' + d.name + '最重要的關鍵：<br><b>' + d.takeaway + '</b></div></div>';
+
+        html += '<div class="locked">' +
+            '<div class="locked-content" aria-hidden="true">' + lockedInner + '</div>' +
+            '<div class="locked-overlay">' +
+            '<span class="lock-ico">🔒</span>' +
+            '<span class="lock-title">解鎖完整《' + d.name + '照顧懶人包》</span>' +
+            '<span class="lock-sub">每日觀察清單＋香菇爸私房提醒，加 LINE 免費領取完整懶人包，還能一對一諮詢 🍄</span>' +
+            '<a class="lock-btn" href="' + LINE_URL + '" target="_blank" rel="noopener" data-ga="領懶人包-' + d.cat + '">🔓 加 LINE 領完整懶人包</a>' +
+            '</div></div>';
+
+        body.innerHTML = html;
+
+        if (typeof gtag === 'function') gtag('event', 'view_breed_care', { breed: d.name });
+    })();
+    </script>
+    <script src="./assets/mobile-nav.js?v=8"></script>
+</body>
+</html>

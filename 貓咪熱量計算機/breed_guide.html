@@ -63,6 +63,18 @@
             font-size: 15px;
         }
 
+        /* 完整照顧指南 CTA */
+        .care-cta {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 22px; padding: 15px 20px;
+            background: linear-gradient(135deg, var(--accent-green), #6f9b8a);
+            color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 15.5px;
+            border-radius: var(--radius-md); text-decoration: none;
+            box-shadow: 0 6px 16px rgba(143,184,154,0.35); transition: var(--transition);
+        }
+        .care-cta:active { transform: scale(0.98); }
+        .care-cta[hidden] { display: none; }
+
         /* 會呼吸的療癒貓 */
         .breed-cat {
             position: relative;
@@ -185,13 +197,15 @@
                         <div class="section-text" id="info-cons">載入中...</div>
                     </div>
                 </div>
+
+                <a id="breed-care-link" class="care-cta" href="#" hidden>📋 看「<span id="care-breed-name"></span>」完整照顧指南 ›</a>
             </div>
         </main>
     </div>
 
     <!-- Scripting -->
     <script src="./assets/cat_data.js"></script>
-    <script src="./assets/breed_guide.js?v=7"></script>
-    <script src="./assets/mobile-nav.js?v=6"></script>
+    <script src="./assets/breed_guide.js?v=8"></script>
+    <script src="./assets/mobile-nav.js?v=8"></script>
 </body>
 </html>
