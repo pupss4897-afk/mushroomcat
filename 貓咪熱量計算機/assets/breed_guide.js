@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 已做好「完整照顧懶人包」的品種（breed_care.html 有資料的，新增就加進來）
     const careBreeds = new Set([
         'american_shorthair', 'british_shorthair', 'munchkin',
-        'ragdoll', 'norwegian_forest', 'maine_coon'
+        'ragdoll', 'norwegian_forest', 'maine_coon',
+        'exotic_shorthair', 'persian', 'siamese', 'scottish_fold'
     ]);
     const careLink = document.getElementById('breed-care-link');
     const careName = document.getElementById('care-breed-name');
