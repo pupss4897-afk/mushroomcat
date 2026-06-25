@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const careBreeds = new Set([
         'american_shorthair', 'british_shorthair', 'munchkin',
         'ragdoll', 'norwegian_forest', 'maine_coon',
-        'exotic_shorthair', 'persian', 'siamese', 'scottish_fold'
+        'exotic_shorthair', 'persian', 'siamese', 'scottish_fold',
+        'russian_blue'
     ]);
     const careLink = document.getElementById('breed-care-link');
     const careName = document.getElementById('care-breed-name');
