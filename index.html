@@ -226,6 +226,37 @@
         .nav-item.active .nav-ic { opacity: 1; transform: translateY(-2px) scale(1.08); }
 
         .hint { text-align: center; font-size: 11px; color: var(--text-soft); padding: 18px 20px 4px; opacity: 0.8; }
+
+        /* 成為菇粉 — 會員福利卡 */
+        .fan-hero {
+            border-radius: var(--radius);
+            padding: 20px 20px 18px;
+            background: linear-gradient(160deg, rgba(232,163,155,0.20), rgba(143,184,154,0.16) 55%, rgba(240,216,168,0.24));
+            border: 1px solid rgba(232,163,155,0.32);
+            box-shadow: var(--shadow);
+        }
+        .fan-hero .fan-top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+        .fan-hero .fan-top .m { font-size: 30px; line-height: 1; }
+        .fan-hero .fan-top h3 { font-size: 20px; letter-spacing: 1px; }
+        .fan-hero .lead { font-size: 13px; color: var(--text); margin-bottom: 14px; }
+        .fan-hero .divider {
+            text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            color: var(--text-soft); margin-bottom: 12px;
+        }
+        .fan-perks { list-style: none; display: grid; gap: 9px; margin-bottom: 14px; }
+        .fan-perks li {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.72); border: 1px solid var(--line);
+            border-radius: 13px; padding: 9px 12px;
+        }
+        .fan-perks li .pi { font-size: 19px; line-height: 1; flex-shrink: 0; }
+        .fan-perks li .pt { font-size: 13px; font-weight: 600; }
+        .fan-note {
+            font-size: 11.5px; color: var(--text-soft); line-height: 1.55;
+            background: rgba(255,255,255,0.55); border-radius: 12px;
+            padding: 10px 12px; margin-top: 4px;
+        }
+        .fan-note b { color: var(--pink); font-weight: 700; }
     </style>
 </head>
 <body>
@@ -246,6 +277,27 @@
             <div class="about-card">
                 <div class="who"><strong>香菇爸</strong><span class="badge">✔️ 特定寵物專業認證</span></div>
                 <p>嗨！我是香菇爸，專精於貓科動物行為與營養分享。致力於傳達最科學、專業的養育知識，陪每位毛家長守護主子們的健康日常。</p>
+            </div>
+
+            <div class="section-title">🍄 成為菇粉</div>
+            <div class="fan-hero">
+                <div class="fan-top"><span class="m">🍄</span><h3>加入菇粉</h3></div>
+                <p class="lead">香菇爸陪你一起把毛孩顧好。</p>
+                <div class="divider">—— 成為菇粉，你能享有 ——</div>
+                <ul class="fan-perks">
+                    <li><span class="pi">🎓</span><span class="pt">專業 Zoom 系列課程</span></li>
+                    <li><span class="pi">📢</span><span class="pt">每週 Livetalk 直播</span></li>
+                    <li><span class="pi">💬</span><span class="pt">專屬社群 ＋ 香菇爸諮詢</span></li>
+                    <li><span class="pi">🐱</span><span class="pt">菇粉專屬貓聚</span></li>
+                    <li><span class="pi">🎁</span><span class="pt">新品開團・優惠優先</span></li>
+                    <li><span class="pi">🏆</span><span class="pt">年度累積福利禮</span></li>
+                </ul>
+                <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="成為菇粉-加入LINE" style="margin-bottom:12px;">
+                    <span class="ico">🍄</span>
+                    <span class="tx"><span class="t">加入 LINE ，成為菇粉</span><span class="d">課程・直播・社群・貓聚都在這</span></span>
+                    <span class="arrow">›</span>
+                </a>
+                <p class="fan-note">跟團香菇同款好物・<b>累積滿 $2,000 即成為菇粉</b>（新朋友享 1 次免費體驗）</p>
             </div>
 
             <div class="section-title">⭐ 護貓直播</div>
