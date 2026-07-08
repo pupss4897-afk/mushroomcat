@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KD4Y1VHLGC');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪生活NG檢查表</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css?v=4">
+    <style>
+        .ng-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+        .ng-section-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+        .ng-section-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Intro alert */
+        .ng-alert {
+            background: linear-gradient(135deg, rgba(232,158,151, 0.12), rgba(232,158,151, 0.08));
+            border: 1px solid rgba(232,158,151, 0.3);
+            border-left: 4px solid var(--accent-red);
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .ng-alert .alert-icon { font-size: 32px; line-height: 1; }
+        .ng-alert .alert-content h3 { color: var(--accent-red); font-size: 18px; margin-bottom: 6px; }
+        .ng-alert .alert-content p { color: var(--text-primary); font-size: 14px; line-height: 1.6; }
+
+        /* Tables */
+        .ng-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .ng-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-base);
+            font-size: 14px;
+            min-width: 640px;
+        }
+        .ng-table.slim { min-width: 420px; }
+        .ng-table thead { background: linear-gradient(135deg, #f0b0a9, #dd897f); }
+        .ng-table thead th {
+            color: #fff;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+        .ng-table tbody tr {
+            border-top: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .ng-table tbody tr:nth-child(even) { background: var(--bg-surface); }
+        .ng-table tbody tr:hover { background: rgba(232,158,151, 0.08); }
+        .ng-table td {
+            padding: 14px 18px;
+            vertical-align: top;
+            line-height: 1.65;
+            color: var(--text-primary);
+        }
+        .ng-table td.type {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .ng-table td.watch { color: var(--accent-red); font-weight: 600; }
+        .ng-table td.note { color: var(--text-secondary); }
+
+        /* LINE CTA */
+        .line-cta {
+            background: linear-gradient(135deg, #06C755 0%, #04a145 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px 36px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(6,199,85, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .line-cta::before {
+            content: '🍄';
+            position: absolute;
+            font-size: 220px;
+            opacity: 0.08;
+            right: -30px;
+            top: -50px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        .line-cta-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .line-cta-text .line-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .line-cta-text h3 { color: #fff; font-size: 22px; margin-bottom: 6px; font-family: var(--font-heading); }
+        .line-cta-text p { color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.6; }
+        .line-btn {
+            background: #fff;
+            color: #06a349;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            border: 2px solid #fff;
+        }
+        .line-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+        }
+        .line-btn .arrow { font-size: 20px; transition: transform 0.3s ease; }
+        .line-btn:hover .arrow { transform: translateX(4px); }
+        @media (max-width: 640px) {
+            .line-cta-inner { justify-content: flex-start; }
+            .line-btn { width: 100%; justify-content: center; }
+        }
+
+        .source-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 16px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 香菇日常保養菜單</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="cat_sounds.html"><span class="list-icon">😸</span> 貓咪讀心術 (叫聲)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                        <li class="active"><a href="household_safety.html"><span class="list-icon">🏠</span> 生活NG檢查表</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🏠 貓咪生活NG檢查表</h2>
+                <p>🐾 家裡這些日常用品，貓咪可能碰不得！收藏這份，讓主子在家更安心。</p>
+            </header>
+
+            <div class="ng-alert">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-content">
+                    <h3>貓咪代謝方式和人不同</h3>
+                    <p>很多人用的清潔、香氛、精油產品，成分對貓咪可能較敏感。以下整理常見「要留意」的居家用品，<strong>建議選寵物專用產品、保持通風，並避免讓貓直接接觸</strong>。若貓咪出現異常，請盡快諮詢獸醫師。</p>
+                </div>
+            </div>
+
+            <!-- Table 1: 避雷懶人包 -->
+            <div class="ng-card">
+                <div class="ng-section-title">🐱 貓咪生活用品避雷懶人包</div>
+                <div class="ng-section-subtitle">常見用品 × 建議留意成分，選購前先對一下。</div>
+                <div class="ng-table-wrapper">
+                    <table class="ng-table">
+                        <thead>
+                            <tr>
+                                <th>類型</th>
+                                <th>常見用品</th>
+                                <th>建議留意成分</th>
+                                <th>備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="type">🧻 濕紙巾</td>
+                                <td>人用濕紙巾、清潔濕巾</td>
+                                <td class="watch">Propylene Glycol（丙二醇）</td>
+                                <td class="note">不建議直接擦拭貓咪，優先選擇寵物專用產品。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🧴 消毒用品</td>
+                                <td>消毒液、消毒濕巾</td>
+                                <td class="watch">Benzalkonium Chloride（苯扎氯銨）、Phenol（酚類）</td>
+                                <td class="note">家中有貓時，使用後應依產品說明並避免貓咪直接接觸未乾燥表面。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🧴 清潔用品</td>
+                                <td>地板清潔劑、浴廁清潔劑</td>
+                                <td class="watch">Phenol（酚類）</td>
+                                <td class="note">清潔後保持通風，並依產品建議避免讓貓直接接觸。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🌿 精油類</td>
+                                <td>茶樹、尤加利、薄荷、複方精油</td>
+                                <td class="watch">Tea Tree Oil、Eucalyptus Oil、Peppermint Oil</td>
+                                <td class="note">不建議讓貓直接接觸或長時間暴露於精油環境。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🕯️ 香氛用品</td>
+                                <td>擴香、香氛噴霧、香氛蠟燭</td>
+                                <td class="watch">精油、香精（Fragrance / Parfum）</td>
+                                <td class="note">家中有貓時應留意使用方式與通風。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🧴 保養用品</td>
+                                <td>人用乳液、防曬、保養品</td>
+                                <td class="watch">香精、酒精、精油</td>
+                                <td class="note">不建議把人用產品直接使用在貓咪身上。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🌾 防蚊用品</td>
+                                <td>防蚊液、精油噴霧</td>
+                                <td class="watch">精油類、驅蟲成分</td>
+                                <td class="note">使用前確認是否適合有貓家庭。</td>
+                            </tr>
+                            <tr>
+                                <td class="type">🧽 除臭用品</td>
+                                <td>除臭噴霧、空氣芳香劑</td>
+                                <td class="watch">香精、精油</td>
+                                <td class="note">避免讓貓咪直接吸入濃度過高的香氛。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Table 2: 居家用品檢查表 -->
+            <div class="ng-card">
+                <div class="ng-section-title">🏠 貓奴居家用品檢查表</div>
+                <div class="ng-section-subtitle">買回家、用之前，快速對照這張「看什麼」清單。</div>
+                <div class="ng-table-wrapper">
+                    <table class="ng-table slim">
+                        <thead>
+                            <tr>
+                                <th>到家先檢查</th>
+                                <th>看什麼</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="type">🧻 濕紙巾</td><td class="watch">丙二醇（Propylene Glycol）</td></tr>
+                            <tr><td class="type">🧼 消毒用品</td><td class="watch">苯扎氯銨、酚類</td></tr>
+                            <tr><td class="type">🌿 精油</td><td class="watch">茶樹、尤加利、薄荷</td></tr>
+                            <tr><td class="type">🕯️ 香氛</td><td class="watch">香精、複方精油</td></tr>
+                            <tr><td class="type">🧴 保養品</td><td class="watch">是否為人用產品</td></tr>
+                            <tr><td class="type">🌾 防蚊用品</td><td class="watch">是否含精油或其他不適合貓咪的成分</td></tr>
+                            <tr><td class="type">🧽 地板清潔劑</td><td class="watch">是否含酚類等需特別留意成分</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LINE CTA -->
+            <div class="line-cta">
+                <div class="line-cta-inner">
+                    <div class="line-cta-text">
+                        <span class="line-tag">🍄 香菇爸 LINE</span>
+                        <h3>不確定家裡的用品安不安全？</h3>
+                        <p>加入香菇爸 LINE，把成分標示拍給香菇爸，一起幫主子把關居家安全，還能收到護貓直播通知 🐾</p>
+                    </div>
+                    <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" class="line-btn" data-ga="生活NG檢查表-加入LINE">
+                        加入香菇爸 LINE <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="source-note">
+                📚 本表為居家安全提醒整理，僅供參考，不代表醫療建議。實際使用請參考各產品標示與說明；若貓咪出現異常，請諮詢專業獸醫師。
+            </div>
+        </main>
+    </div>
+    <script src="./assets/mobile-nav.js?v=6"></script>
+</body>
+</html>
