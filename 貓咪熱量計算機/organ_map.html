@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KD4Y1VHLGC');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香菇爸 - 貓咪器官地圖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/calculator.css?v=4">
+    <style>
+        .organ-hero {
+            background: linear-gradient(135deg, rgba(111,155,181,0.10), rgba(111,155,181,0.04));
+            border: 1px solid var(--accent-blue);
+            border-radius: var(--radius-md);
+            padding: 15px 18px; margin-bottom: 18px;
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .organ-hero .ico { font-size: 24px; line-height: 1; }
+        .organ-hero h3 { font-size: 16px; color: var(--accent-blue); margin-bottom: 3px; }
+        .organ-hero p { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+        /* 解剖圖 */
+        .organ-figure {
+            background: #fff; border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); padding: 10px; margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .organ-figure img { width: 100%; height: auto; border-radius: 12px; display: block; }
+        .figure-cap { text-align: center; font-size: 12.5px; color: var(--text-secondary); margin: 8px 0 20px; }
+        .figure-cap b { color: var(--accent-green); }
+        /* 按摩提醒 */
+        .massage-note {
+            background: linear-gradient(135deg, rgba(143,184,154,0.10), var(--bg-base));
+            border: 1px solid var(--accent-green); border-radius: var(--radius-md);
+            padding: 14px 18px; margin-bottom: 22px; font-size: 13.5px; line-height: 1.75; color: var(--text-primary);
+        }
+        .massage-note h4 { font-size: 15px; color: var(--accent-green); margin-bottom: 5px; }
+        /* 器官手風琴 */
+        .organ-list { display: flex; flex-direction: column; gap: 10px; }
+        .organ-item { border: 1px solid var(--border-color); border-radius: 16px; background: #fff; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .organ-head {
+            width: 100%; display: flex; align-items: center; gap: 12px;
+            background: #fff; border: none; cursor: pointer; text-align: left;
+            padding: 15px 16px; font-family: var(--font-body); transition: var(--transition);
+        }
+        .organ-head:hover { background: rgba(111,155,181,0.06); }
+        .organ-head .oemoji { font-size: 24px; flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(143,184,154,0.14); border-radius: 11px; }
+        .organ-head .otx { flex: 1; min-width: 0; }
+        .organ-head .oname { font-family: var(--font-heading); font-weight: 700; font-size: 16.5px; color: var(--text-primary); display: block; }
+        .organ-head .ohint { font-size: 12px; color: var(--text-secondary); display: block; margin-top: 2px; }
+        .organ-head .ochev { font-size: 15px; color: var(--accent-green); transition: transform .28s ease; flex-shrink: 0; }
+        .organ-item.open .organ-head { background: linear-gradient(135deg, var(--accent-green), #5a7f97); }
+        .organ-item.open .organ-head .oname,
+        .organ-item.open .organ-head .ohint,
+        .organ-item.open .organ-head .ochev { color: #fff; }
+        .organ-item.open .organ-head .oemoji { background: rgba(255,255,255,0.22); }
+        .organ-item.open .ochev { transform: rotate(180deg); }
+        .organ-body { max-height: 0; overflow: hidden; transition: max-height .32s ease; }
+        .organ-item.open .organ-body { max-height: 900px; }
+        .organ-body-inner { padding: 4px 16px 16px; }
+        .orow { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px dashed var(--border-color); font-size: 13.8px; line-height: 1.7; }
+        .orow:last-child { border-bottom: none; }
+        .orow b { flex-shrink: 0; width: 92px; color: var(--accent-green); font-weight: 700; }
+        .orow span { flex: 1; color: var(--text-primary); }
+        .orow.warn b { color: var(--accent-red); }
+        .orow.warn span strong { color: var(--accent-red); }
+        .orow.massage b { color: var(--accent-blue); }
+        /* CTA + 免責 */
+        .organ-cta {
+            display: block; text-align: center; margin: 22px 0 8px;
+            background: var(--accent-green); color: #fff; font-weight: 700; font-size: 15px;
+            text-decoration: none; padding: 13px 22px; border-radius: 26px;
+            box-shadow: 0 4px 12px rgba(111,155,181,0.3);
+        }
+        .organ-disclaimer { font-size: 12px; color: var(--text-secondary); line-height: 1.7; text-align: center; padding: 6px 4px 20px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🍄</span>
+                <h1>關於香菇爸</h1>
+            </div>
+            <div class="sidebar-profile">
+                <p>嗨！我是香菇爸,專精於貓科動物行為與營養分享,具備「特定寵物專業認證」。致力於傳達最科學、專業的養育知識,守護主子們的健康日常。</p>
+            </div>
+            <nav class="sidebar-nav">
+                <h3>🐾 追蹤更多</h3>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" class="nav-btn"><span class="btn-icon">📺</span> 前往香菇爸的頻道</a>
+                <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" class="nav-btn" style="background-color: #06C755; color: white;"><span class="btn-icon">🍄</span> 加入香菇爸line報名護貓直播</a>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="nav-btn" style="background-color: var(--accent-blue); color: white;"><span class="btn-icon">💬</span> 加入喵喵交流群</a>
+                <a href="https://mushroomlove.zeabur.app" target="_blank" class="nav-btn btn-primary"><span class="btn-icon">🎁</span> 香菇日常保養菜單</a>
+
+                <div class="nav-selector">
+                    <h4>請選擇功能：</h4>
+                    <ul>
+                        <li><a href="cat_sounds.html"><span class="list-icon">😸</span> 貓咪讀心術 (叫聲)</a></li>
+                        <li><a href="food_analyzer.html"><span class="list-icon">🥫</span> 飼料罐頭成分分析</a></li>
+                        <li><a href="calculator.html"><span class="list-icon">📊</span> 熱量&喝水計算機</a></li>
+                        <li><a href="breed_guide.html"><span class="list-icon">🐾</span> 貓咪百科與故事</a></li>
+                        <li><a href="nutrition_guide.html"><span class="list-icon">🥗</span> 貓咪營養基礎</a></li>
+                        <li class="active"><a href="organ_map.html"><span class="list-icon">🫀</span> 貓咪器官地圖</a></li>
+                        <li><a href="chip_guide.html"><span class="list-icon">💉</span> 晶片法規懶人包</a></li>
+                        <li><a href="sterilization_guide.html"><span class="list-icon">✂️</span> 結紮補助懶人包</a></li>
+                        <li><a href="household_safety.html"><span class="list-icon">🏠</span> 生活NG檢查表</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="settings-link">⚙️ 設定</a>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main-content">
+            <header class="page-header">
+                <h2>🫀 貓咪器官地圖</h2>
+                <p>📚 認識你家主子的身體<br>點下面的器官,看它<strong>在哪、多大、負責什麼、平常怎麼顧</strong> 🐾</p>
+            </header>
+
+            <div class="organ-hero">
+                <span class="ico">👆</span>
+                <div>
+                    <h3>怎麼用</h3>
+                    <p>先看下面這張結構圖認位置,再點器官卡片<strong>下拉看重點</strong>。器官大小是概略值,會依貓體型、年齡不同。</p>
+                </div>
+            </div>
+
+            <!-- 解剖圖 -->
+            <div class="organ-figure">
+                <img src="organ_map.png" alt="貓咪主要器官結構圖">
+            </div>
+            <p class="figure-cap">🐱 貓咪主要器官結構圖 · <b>點下面卡片看每個器官的詳細</b></p>
+
+            <!-- 按摩提醒 -->
+            <div class="massage-note">
+                <h4>🖐️ 幫貓按摩小提醒</h4>
+                溫柔的撫摸與按摩能幫貓<strong>放鬆、增進信任、舒服地促進循環</strong>,尤其沿著<strong>臉頰、下巴、肩頸、背部</strong>。重點:力道要輕、順著毛、貓不喜歡就停。按摩是<strong>陪伴與放鬆,不是治療</strong>——器官不舒服請看醫生,別自己揉。
+            </div>
+
+            <!-- 器官手風琴 -->
+            <div class="organ-list" id="organList">
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🧠</span><span class="otx"><span class="oname">腦</span><span class="ohint">行為・情緒・感官・協調</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>頭骨內,成貓約 25–30 克(差不多乒乓球大小)。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>掌管行為、情緒、五感、平衡與全身協調。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>環境穩定、減少緊迫;用玩具、探索、互動讓大腦有刺激,情緒穩了行為也穩。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>抽搐、原地轉圈、失去平衡、突然性情大變</strong>→ 儘快就醫。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🌬️</span><span class="otx"><span class="oname">氣管</span><span class="ohint">空氣進出的通道</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>頸部延伸到胸腔,連接喉嚨與肺,像一條有彈性的軟管。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>空氣進出肺部的主要通道。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>遠離二手菸、精油擴香、粉塵與強烈香氛(貓呼吸道很敏感)。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span>持續<strong>乾咳、呼吸有雜音、像卡東西</strong>→ 檢查。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🫁</span><span class="otx"><span class="oname">肺臟</span><span class="ohint">呼吸換氣</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>胸腔內左右兩側,像海綿一樣包住心臟。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>把氧氣送進血液、把二氧化碳排出去。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>室內通風、遠離菸味與刺激氣味。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>張嘴呼吸、肚子用力喘、舌頭/牙齦發紫</strong>→ 這是急診,立刻送醫!</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">❤️</span><span class="otx"><span class="oname">心臟</span><span class="ohint">把血液打到全身</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>胸腔偏左,大約<strong>一顆核桃/草莓</strong>大小。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>像幫浦一樣把血液(氧氣、養分)打到全身。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>維持理想體重、規律活動;好主食本身就含足夠<strong>牛磺酸</strong>(貓心臟必需的胺基酸)。7 歲後健檢聽心音。</span></div>
+                        <div class="orow massage"><b>🖐️ 按摩</b><span>胸口、下巴輕撫幫助放鬆與親密(放鬆用,非治療)。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span>呼吸急促、稍動就喘、<strong>後腳突然無力冰冷</strong>(血栓)→ 急診。貓常見<strong>肥厚性心肌病(HCM)</strong>,平常不易察覺,健檢很重要。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🫘</span><span class="otx"><span class="oname">肝臟</span><span class="ohint">代謝・解毒・製膽汁</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>腹腔最前段、橫膈後方,是<strong>體內最大的器官</strong>。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>代謝營養、解毒、儲存養分、製造幫助消化的膽汁。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span><strong>規律進食</strong>(貓連續 2–3 天不吃,很容易脂肪肝);絕不亂餵人類食物、成藥、精油。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span>食慾明顯下降、嘔吐、<strong>牙齦或眼白變黃(黃疸)</strong>→ 儘快就醫。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🍶</span><span class="otx"><span class="oname">胃</span><span class="ohint">暫存食物・初步消化</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>腹腔前段、肝臟後方,空腹小、吃飽會脹大。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>暫存食物、用胃酸做初步消化。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span><strong>少量多餐、定時定量</strong>;換糧要慢(7–10 天慢慢混),減少嘔吐與吐毛。</span></div>
+                        <div class="orow massage"><b>🖐️ 按摩</b><span>剛吃飽別壓肚子;平時輕揉肚子貓喜歡就好,別用力。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>頻繁嘔吐、吐完仍不吃、吐血</strong>→ 檢查。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🩸</span><span class="otx"><span class="oname">脾臟</span><span class="ohint">免疫・過濾血液</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>胃的旁邊、腹腔左側,長長扁扁的一條。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>過濾血液、參與免疫、儲存紅血球。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>平常沒什麼特別感覺,靠<strong>定期健檢/超音波</strong>追蹤最實在。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span>肚子摸起來變大、<strong>牙齦蒼白(貧血)</strong>→ 檢查。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🫘</span><span class="otx"><span class="oname">腎臟</span><span class="ohint">過濾廢物・調節水分（貓最常出問題）</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>一對,在腰部脊椎兩側,<strong>蠶豆/腰子形</strong>,成貓每顆約 3–4.5 公分(差不多一個大拇指)。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>過濾血液中的廢物、平衡水分與電解質、製造尿液,還幫忙造血。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span><strong>多喝水最關鍵</strong>(濕食、多放幾個水點、流動飲水機);注意飲食中的磷;<strong>7 歲後定期驗腎指數</strong>(抽血+驗尿),早發現最重要。</span></div>
+                        <div class="orow massage"><b>🖐️ 按摩</b><span>腰背保暖、輕柔順毛可以幫牠放鬆;但腎臟問題一定要看醫生,不能靠按摩處理。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>喝很多、尿很多、變瘦、精神差、口氣有阿摩尼亞味</strong>→ 貓最常見的<strong>慢性腎臟病</strong>徵兆,要驗。個別要怎麼補、怎麼調整飲食,<strong>問香菇爸</strong>依你家貓狀況給建議。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🌀</span><span class="otx"><span class="oname">小腸</span><span class="ohint">吸收大部分營養</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>腹腔中段,細細長長盤繞很多圈(展開比身體長好幾倍)。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>消化食物、<strong>吸收大部分的營養</strong>。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>選<strong>好消化的優質蛋白</strong>主食、換糧漸進;固定觀察便便狀態。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span>長期<strong>軟便、吃很多卻變瘦</strong>→ 檢查吸收狀況。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">🌾</span><span class="otx"><span class="oname">大腸</span><span class="ohint">吸水・成形糞便</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>腹腔後段,比小腸粗,通到肛門。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>吸收水分、把糞便成形、儲存後排出。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span>足夠<strong>水分</strong>與適量<strong>纖維</strong>;固定觀察排便次數與軟硬。</span></div>
+                        <div class="orow massage"><b>🖐️ 按摩</b><span>便秘時,順著肚子<strong>由前往後、輕輕順時針</strong>撫摸可幫助放鬆(嚴重便秘仍要就醫)。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>2–3 天沒大便、血便、一直蹲卻上不出來</strong>→ 就醫。</span></div>
+                    </div></div>
+                </div>
+
+                <div class="organ-item">
+                    <button class="organ-head" type="button"><span class="oemoji">💧</span><span class="otx"><span class="oname">膀胱</span><span class="ohint">儲存尿液（公貓要特別小心）</span></span><span class="ochev">▾</span></button>
+                    <div class="organ-body"><div class="organ-body-inner">
+                        <div class="orow"><b>📍 位置/大小</b><span>下腹靠近骨盆前方,儲尿時像小氣球一樣會脹大。</span></div>
+                        <div class="orow"><b>⚙️ 負責什麼</b><span>儲存尿液,滿了再排出。</span></div>
+                        <div class="orow"><b>🌿 平常怎麼顧</b><span><strong>多喝水</strong>、貓砂盆乾淨且數量足(貓數+1)、減少緊迫,降低泌尿問題。</span></div>
+                        <div class="orow warn"><b>⚠️ 要注意</b><span><strong>一直進砂盆卻尿不出、血尿、排尿哀叫</strong> → <strong>公貓尿道阻塞是會致命的急症,立刻送醫!</strong></span></div>
+                    </div></div>
+                </div>
+
+            </div>
+
+            <a class="organ-cta" href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener">有狀況想問?直接問香菇爸 →</a>
+            <p class="organ-disclaimer">※ 本頁為衛教參考,非醫療診斷。器官大小為概略值,會依貓的體型與年齡不同。發現異常請儘快就醫;個別的營養與照顧,問香菇爸依你家貓狀況建議。</p>
+
+        </main>
+    </div>
+
+    <script>
+        document.querySelectorAll('#organList .organ-head').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.organ-item');
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>
