@@ -259,6 +259,95 @@
             padding: 10px 12px; margin-top: 4px;
         }
         .fan-note b { color: var(--pink); font-weight: 700; }
+
+        /* 菇粉專區 — 直播/活動行事曆 */
+        .sched-card {
+            display: flex; align-items: center; gap: 12px;
+            background: var(--surface); border: 1px solid var(--line);
+            border-left: 4px solid var(--green); border-radius: 16px;
+            padding: 12px 14px; margin-bottom: 10px; box-shadow: var(--shadow);
+        }
+        .sched-card .badge {
+            flex-shrink: 0; width: 46px; height: 46px; border-radius: 13px;
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
+            background: rgba(143,184,154,0.18);
+        }
+        .sched-card .sx { flex: 1; }
+        .sched-card .sx .st { display: block; font-family: var(--font-h); font-weight: 700; font-size: 14.5px; }
+        .sched-card .sx .sd { display: block; margin-top: 2px; font-size: 12px; color: var(--text-soft); }
+        .sched-card .tag {
+            flex-shrink: 0; background: var(--pink); color: #fff; font-size: 10px; font-weight: 700;
+            padding: 3px 9px; border-radius: 10px; white-space: nowrap;
+        }
+        .sched-note { font-size: 11.5px; color: var(--text-soft); padding: 2px 6px 8px; }
+
+        /* 菇粉會員等級階梯 */
+        .tier-card {
+            display: flex; gap: 13px; align-items: center;
+            background: var(--surface); border: 1px solid var(--line);
+            border-radius: 18px; padding: 14px 16px; margin-bottom: 4px; box-shadow: var(--shadow);
+        }
+        .tier-card .tier-ic {
+            flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 25px;
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,.65);
+        }
+        .tier-card .tx2 { flex: 1; min-width: 0; }
+        .tier-card .tx2 .tn { font-family: var(--font-h); font-weight: 700; font-size: 15.5px; }
+        .tier-card .tx2 .tn .lvl-in {
+            font-family: var(--font-b); font-size: 10px; color: #fff; background: var(--text-soft);
+            border-radius: 7px; padding: 1px 7px; margin-left: 6px; vertical-align: middle; font-weight: 700; letter-spacing: .5px;
+        }
+        .tier-card .tx2 .tc { display: block; font-size: 11.5px; color: var(--text-soft); margin-top: 2px; }
+        .tier-card .tx2 .tu { display: block; font-size: 11.5px; color: var(--text); margin-top: 5px; line-height: 1.55; }
+        .tier-0 { border-left: 5px solid var(--green); } .tier-0 .tier-ic { background: rgba(143,184,154,.22); }
+        .tier-1 { border-left: 5px solid var(--pink); } .tier-1 .tier-ic { background: rgba(232,163,155,.22); }
+        .tier-1 .tx2 .tn .lvl-in { background: var(--pink); }
+        .tier-2 {
+            border-left: 5px solid #d9a441;
+            background: linear-gradient(135deg,#fffdf7,#fbf0d6);
+            box-shadow: 0 10px 26px rgba(217,164,65,.22);
+        }
+        .tier-2 .tier-ic { background: rgba(217,164,65,.26); }
+        .tier-2 .tx2 .tn .lvl-in { background: linear-gradient(135deg,#e0b34e,#c68c2a); }
+        .tier-conn { text-align: center; margin: 3px 0 7px; }
+        .tier-conn span { font-size: 10.5px; font-weight: 700; color: var(--text-soft); background: var(--cream-2); padding: 3px 12px; border-radius: 11px; }
+
+        /* 課程表 — 分組卡片＋清爽列表 */
+        .course-head {
+            display: flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, rgba(159,193,212,.20), rgba(143,184,154,.16));
+            border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; margin-bottom: 9px;
+        }
+        .course-head .ch-ic { font-size: 21px; }
+        .course-head .cht { font-family: var(--font-h); font-weight: 700; font-size: 14.5px; }
+        .course-head .chd { display: block; font-size: 11.5px; color: var(--text-soft); margin-top: 1px; }
+        .course-group { margin-bottom: 12px; }
+        .course-group .course-head { margin-bottom: 0; cursor: pointer; user-select: none; }
+        .course-head .chev { margin-left: auto; font-size: 12px; color: var(--text-soft); transition: transform .2s ease; }
+        .course-group.open .course-head .chev { transform: rotate(180deg); }
+        .course-block {
+            background: var(--surface); border: 1px solid var(--line);
+            border-radius: 14px; padding: 4px 14px; margin-top: 9px; box-shadow: var(--shadow);
+            display: none;
+        }
+        .course-group.open .course-block { display: block; }
+        .course-item {
+            display: flex; gap: 11px; align-items: center; padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+        .course-item:last-child { border-bottom: none; }
+        .course-item .cdate { flex-shrink: 0; min-width: 40px; font-family: var(--font-h); font-weight: 700; font-size: 13px; color: var(--blue); text-align: center; }
+        .course-item .cx { flex: 1; min-width: 0; }
+        .course-item .cx .ct { font-weight: 700; font-size: 13.5px; }
+        .course-item .cx .cd { display: block; font-size: 11px; color: var(--text-soft); margin-top: 1px; }
+        .course-item .lock { flex-shrink: 0; font-size: 11px; }
+        .member-note {
+            background: rgba(232,163,155,.10); border-left: 3px solid var(--pink);
+            border-radius: 10px; padding: 10px 12px; font-size: 12px; color: var(--text);
+            margin: 6px 0 10px; line-height: 1.65;
+        }
+        .member-note b { color: var(--pink); }
     </style>
 </head>
 <body>
@@ -280,6 +369,13 @@
                 <div class="who"><strong>香菇爸</strong><span class="badge">✔️ 特定寵物專業認證</span></div>
                 <p>嗨！我是香菇爸，專精於貓科動物行為與營養分享。致力於傳達最科學、專業的養育知識，陪每位毛家長守護主子們的健康日常。</p>
             </div>
+
+            <div class="section-title">🔰 新手先看這裡</div>
+            <a class="cta-line" href="貓咪熱量計算機/nutrition_guide.html#starter" style="border-left:4px solid var(--green);">
+                <span class="ico">🐱</span>
+                <span class="tx"><span class="t">我家貓有狀況，該補什麼？</span><span class="d">軟便・掉毛・吸收怪・不喝水・挑食 → 一頁看方向</span></span>
+                <span class="arrow">›</span>
+            </a>
 
             <div class="section-title">🍄 成為菇粉</div>
             <div class="fan-hero">
@@ -443,6 +539,131 @@
             </a>
         </section>
 
+        <!-- ===== 菇粉專區 ===== -->
+        <section class="tab-panel" id="tab-fan">
+            <div class="section-title">👑 菇粉福利</div>
+            <div class="fan-hero">
+                <div class="fan-top"><img class="cat" src="icons/fan-cat.png?v=3" alt=""><h3>菇粉專區</h3></div>
+                <p class="lead">香菇爸陪你一起把毛孩顧好。跟團香菇同款好物，累積滿 $2,000 即成為菇粉 👑</p>
+                <div class="divider">—— 成為菇粉，你能享有 ——</div>
+                <ul class="fan-perks">
+                    <li><img class="pi" src="icons/course.png?v=3" alt=""><span class="pt">專業 Zoom 系列課程</span></li>
+                    <li><img class="pi" src="icons/livetalk.png?v=3" alt=""><span class="pt">每週 Livetalk 直播</span></li>
+                    <li><img class="pi" src="icons/fan-chat.png?v=3" alt=""><span class="pt">專屬社群 ＋ 香菇爸諮詢</span></li>
+                    <li><img class="pi" src="icons/catmeet.png?v=3" alt=""><span class="pt">菇粉專屬貓聚</span></li>
+                    <li><img class="pi" src="icons/newdeal.png?v=3" alt=""><span class="pt">新品開團・優惠優先</span></li>
+                    <li><img class="pi" src="icons/reward.png?v=3" alt=""><span class="pt">年度累積福利禮</span></li>
+                </ul>
+                <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉專區-加入LINE">
+                    <span class="ico">🍄</span>
+                    <span class="tx"><span class="t">加入 LINE ，成為菇粉</span><span class="d">課程・直播・社群・貓聚都在這</span></span>
+                    <span class="arrow">›</span>
+                </a>
+            </div>
+
+            <div class="section-title">🏅 菇粉會員等級</div>
+            <div class="tier-card tier-0">
+                <span class="tier-ic">🌱</span>
+                <div class="tx2"><span class="tn">新朋友・體驗生<b class="lvl-in">LV.0</b></span><span class="tc">還沒跟過團</span><span class="tu">🎟️ 看得到全部課程・專屬直播享 1 次免費體驗</span></div>
+            </div>
+            <div class="tier-conn"><span>↑ 跟團累積滿 $2,000 升級</span></div>
+            <div class="tier-card tier-1">
+                <span class="tier-ic">🍄</span>
+                <div class="tx2"><span class="tn">菇粉・正式生<b class="lvl-in">LV.1</b></span><span class="tc">正式入園</span><span class="tu">🔓 全部直播 · 特別進修 · 專屬社群 · 貓聚 · 開團優先</span></div>
+            </div>
+            <p class="member-note">💡 想知道你目前的等級？加入香菇爸 <b>LINE</b> 查詢；累積滿 <b>$2,000</b> 自動升級 🍄</p>
+
+            <div class="section-title">🎓 菇粉課程・直播表</div>
+            <div class="course-group open">
+                <div class="course-head">
+                    <span class="ch-ic">📖</span>
+                    <span><span class="cht">毛孩健康大講堂</span><span class="chd">每週一 19:30・行為 × 健康 × Q&A</span></span>
+                    <span class="chev">▾</span>
+                </div>
+                <div class="course-block">
+                    <div class="course-item"><span class="cdate">7/6</span><span class="cx"><span class="ct">幼貓結紮</span><span class="cd">公母差別＋術前術後照護</span></span></div>
+                    <div class="course-item"><span class="cdate">7/13</span><span class="cx"><span class="ct">軟便臭便</span><span class="cd">找出原因與改善方法</span></span></div>
+                    <div class="course-item"><span class="cdate">7/20</span><span class="cx"><span class="ct">牙齒認識</span><span class="cd">牙齒構造與日常清潔攻略</span></span></div>
+                    <div class="course-item"><span class="cdate">7/27</span><span class="cx"><span class="ct">夏天莫名行為</span><span class="cd">夏季常見行為大解析</span></span></div>
+                    <div class="course-item"><span class="cdate">7/31</span><span class="cx"><span class="ct">腎臟保健</span><span class="cd">早期徵兆與日常保養</span></span></div>
+                </div>
+            </div>
+
+            <div class="course-group">
+                <div class="course-head">
+                    <span class="ch-ic">📚</span>
+                    <span><span class="cht">特別進修系列</span><span class="chd">進階專題 · 🔒 菇粉專屬</span></span>
+                    <span class="chev">▾</span>
+                </div>
+                <div class="course-block">
+                    <div class="course-item"><span class="cdate">7/7</span><span class="cx"><span class="ct">看懂飼料標示</span><span class="cd">別再被包裝上的漂亮話騙了</span></span><span class="lock">🔒</span></div>
+                    <div class="course-item"><span class="cdate">7/18</span><span class="cx"><span class="ct">毛孩健康不是亂補</span><span class="cd">犬貓六大保健關鍵一次懂</span></span><span class="lock">🔒</span></div>
+                    <div class="course-item"><span class="cdate">7/21</span><span class="cx"><span class="ct">毛孩皮膚保衛戰</span><span class="cd">內服＋外用全方位照護</span></span><span class="lock">🔒</span></div>
+                    <div class="course-item"><span class="cdate">8/1</span><span class="cx"><span class="ct">犬貓腸胃照護實戰課</span><span class="cd">腸胃日常照護一次學會</span></span><span class="lock">🔒</span></div>
+                </div>
+            </div>
+
+            <div class="course-group">
+                <div class="course-head">
+                    <span class="ch-ic">🗓️</span>
+                    <span><span class="cht">每週固定小教室</span><span class="chd">週二 / 四 / 六 12:30</span></span>
+                    <span class="chev">▾</span>
+                </div>
+                <div class="course-block">
+                    <div class="course-item"><span class="cdate">週二</span><span class="cx"><span class="ct">品種貓之夜</span></span></div>
+                    <div class="course-item"><span class="cdate">週四</span><span class="cx"><span class="ct">毛孩 Q&A・行為學問答</span></span></div>
+                    <div class="course-item"><span class="cdate">週六</span><span class="cx"><span class="ct">新手貓教室</span></span></div>
+                </div>
+            </div>
+
+            <p class="member-note">🔒 <b>特別進修系列 &amp; 專屬直播</b>為菇粉專屬。沒跟過團的新朋友，可享 <b>1 次免費體驗</b>！加入 LINE 領取上課通知與連結 👇</p>
+            <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉課程-加入LINE" style="margin-bottom:14px;">
+                <span class="ico">🎓</span>
+                <span class="tx"><span class="t">加入 LINE ，解鎖菇粉課程</span><span class="d">上課通知・專屬直播連結都在這</span></span>
+                <span class="arrow">›</span>
+            </a>
+
+            <div class="section-title">🎉 菇粉活動</div>
+            <div class="sched-card">
+                <span class="badge">📸</span>
+                <span class="sx"><span class="st">曬貓日・抽逗貓棒</span><span class="sd">曬出你家主子萌照，抽香菇爸送的逗貓棒</span></span>
+                <span class="tag">每週</span>
+            </div>
+            <div class="sched-card">
+                <span class="badge">🐱</span>
+                <span class="sx"><span class="st">菇粉專屬貓聚</span><span class="sd">和其他毛家長、香菇爸面對面同樂</span></span>
+                <span class="tag">公告</span>
+            </div>
+            <div class="sched-card">
+                <span class="badge">🎁</span>
+                <span class="sx"><span class="st">新品開團・優惠優先</span><span class="sd">菇粉搶先跟團、享專屬優惠</span></span>
+                <span class="tag">不定期</span>
+            </div>
+            <p class="sched-note">📌 最新場次與報名，皆以香菇爸 LINE 公告為準。</p>
+
+            <div class="section-title">🔗 菇粉專屬入口</div>
+            <a class="row-card" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener">
+                <img class="rico" src="icons/live.png?v=3" alt="">
+                <span class="tx"><span class="t">報名護貓直播</span><span class="d">加入香菇爸 LINE，領直播通知</span></span>
+                <span class="arrow">›</span>
+            </a>
+            <a class="row-card" href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener">
+                <img class="rico" src="icons/group.png?v=3" alt="">
+                <span class="tx"><span class="t">菇粉專屬社群</span><span class="d">和毛家長一起聊主子、玩活動</span></span>
+                <span class="arrow">›</span>
+            </a>
+            <a class="row-card" href="https://s.luckycat.no8.io/link/channels/SlnRbJB6EK" target="_blank" rel="noopener">
+                <img class="rico" src="icons/newdeal.png?v=3" alt="">
+                <span class="tx"><span class="t">跟團香菇同款好物</span><span class="d">累積入園、成為菇粉</span></span>
+                <span class="arrow">›</span>
+            </a>
+            <a class="row-card" href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener">
+                <img class="rico" src="icons/ig.png?v=3" alt="">
+                <span class="tx"><span class="t">追蹤香菇爸 IG</span><span class="d">每天看香菇公主日常</span></span>
+                <span class="arrow">›</span>
+            </a>
+        </section>
+
         <p class="hint">🍄 香菇爸 · 陪你守護每一位主子</p>
     </div>
 
@@ -452,6 +673,7 @@
         <button class="nav-item" data-tab="tab-tools" data-title="貓咪工具箱"><img class="nav-ic" src="icons/nav-tools.png?v=3" alt="">工具</button>
         <button class="nav-item" data-tab="tab-wiki" data-title="貓咪百科大典"><img class="nav-ic" src="icons/nav-wiki.png?v=3" alt="">百科</button>
         <button class="nav-item" data-tab="tab-community" data-title="喵喵社群交流"><img class="nav-ic" src="icons/nav-community.png?v=3" alt="">社群</button>
+        <button class="nav-item" data-tab="tab-fan" data-title="菇粉專區"><img class="nav-ic" src="icons/logo.png?v=3" alt="">菇粉</button>
     </nav>
 
     <script>
@@ -487,13 +709,20 @@
             });
             // 從工具頁底部列帶 #tools/#wiki/#community 進來時，開對應分頁
             function applyHash() {
-                var map = { tools: 'tab-tools', wiki: 'tab-wiki', community: 'tab-community', home: 'tab-home' };
+                var map = { tools: 'tab-tools', wiki: 'tab-wiki', community: 'tab-community', home: 'tab-home', fan: 'tab-fan' };
                 var id = map[location.hash.replace('#', '')];
                 if (!id) return;
                 navItems.forEach(function (b) { if (b.dataset.tab === id) selectTab(b, false); });
             }
             applyHash();
             window.addEventListener('hashchange', applyHash);
+        })();
+
+        /* 課程表折疊 */
+        (function () {
+            document.querySelectorAll('.course-group .course-head').forEach(function (h) {
+                h.addEventListener('click', function () { h.parentElement.classList.toggle('open'); });
+            });
         })();
 
         /* GA4：自動追蹤每個按鈕/連結的點擊 */
