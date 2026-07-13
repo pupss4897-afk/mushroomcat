@@ -46,8 +46,8 @@
             overflow-x: auto;
         }
         .tab-btn {
-            background: transparent;
-            border: none;
+            background: #fff;
+            border: 1.5px solid var(--border-color);
             color: var(--text-primary);
             font-family: var(--font-body);
             font-weight: 600;
@@ -59,11 +59,45 @@
             white-space: nowrap;
             flex: 1;
             min-width: max-content;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .tab-btn:hover { background: rgba(111,155,181,0.08); }
+        .tab-btn:hover { background: rgba(111,155,181,0.12); border-color: var(--accent-green); }
         .tab-btn.active {
             background: linear-gradient(135deg, var(--accent-green), #5a7f97);
             color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(111,155,181,0.35);
+        }
+        /* 切換提示 */
+        .tab-hint {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 13px; font-weight: 600; color: var(--accent-green);
+            margin: 4px 2px 8px;
+        }
+        .tab-hint .swipe { animation: nudge 1.4s ease-in-out infinite; }
+        @keyframes nudge { 0%,100%{transform:translateX(0);} 50%{transform:translateX(5px);} }
+        /* 新手快速導引 */
+        .starter-guide {
+            background: linear-gradient(135deg, rgba(111,155,181,0.08), var(--bg-base));
+            border: 1px solid var(--accent-green);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            margin-bottom: 22px;
+        }
+        .starter-guide h3 { font-size: 17px; color: var(--accent-green); margin-bottom: 4px; }
+        .starter-guide > p { font-size: 13.5px; color: var(--text-secondary, #6b6b6b); margin-bottom: 12px; }
+        .starter-guide ul { list-style: none; padding: 0; margin: 0 0 14px; }
+        .starter-guide li {
+            font-size: 14px; line-height: 1.7; padding: 9px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .starter-guide li:last-child { border-bottom: none; }
+        .starter-guide li strong { color: var(--text-primary); }
+        .starter-cta {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--accent-green); color: #fff; font-weight: 700;
+            font-size: 14.5px; text-decoration: none;
+            padding: 11px 22px; border-radius: 24px;
             box-shadow: 0 4px 12px rgba(111,155,181,0.3);
         }
 
@@ -348,7 +382,7 @@
         <main class="main-content">
             <header class="page-header">
                 <h2>🥗 貓咪營養基礎</h2>
-                <p>📚 香菇爸把養貓最重要的觀念整理成這頁<br>從致命毒物、營養、喝水到成分挑選<br>讓你少走很多冤枉路 🐾</p>
+                <p>📚 香菇爸把養貓最重要的觀念整理成這頁<br>從危險食物、營養、喝水到成分挑選<br>讓你少走很多冤枉路 🐾</p>
             </header>
 
             <!-- Hero Alert -->
@@ -356,13 +390,29 @@
                 <span class="ico">⚠️</span>
                 <div>
                     <h3>家裡有貓必看</h3>
-                    <p>許多人類的日常食物對貓有<strong>致命毒性</strong>(葡萄、洋蔥、巧克力、木糖醇...)。這頁有完整中毒劑量、症狀與急救處理。<strong>建議加入書籤</strong>,真的有事時可以馬上查。</p>
+                    <p>許多人類的日常食物對貓有<strong>嚴重毒性</strong>(葡萄、洋蔥、巧克力、木糖醇...)。這頁有完整風險劑量、症狀與緊急處理。<strong>建議加入書籤</strong>,真的有事時可以馬上查。</p>
                 </div>
             </div>
 
+            <!-- 新手快速導引:症狀 → 怎麼辦 -->
+            <div class="starter-guide">
+                <h3>🐱 新手看這裡:我家貓有狀況,該補什麼?</h3>
+                <p>先對照最常見的狀況,抓到方向,再往下看細節 👇</p>
+                <ul>
+                    <li><strong>💩 軟便 / 便便不成形</strong> → 常見是換糧或腸胃還在適應。先讓<strong>飲食穩定、別頻繁換</strong>,觀察 3–5 天;還是不放心,問香菇爸幫你看。</li>
+                    <li><strong>🍽️ 吃得多 / 但你覺得怪怪的</strong> → 先從<strong>主食挑對</strong>開始,看下面「蛋白質」頁的品質重點。</li>
+                    <li><strong>🐾 掉毛多 / 毛沒光澤</strong> → 很多是「吃」出來的,看看飲食裡的<strong>油脂夠不夠</strong>(下面「脂肪」頁)。</li>
+                    <li><strong>💧 不愛喝水</strong> → 看「水分」頁,用<strong>濕食 + 多設幾個水點</strong>提高喝水量。</li>
+                    <li><strong>😾 挑食 / 一換糧就抗議</strong> → <strong>少量漸進換糧</strong>,別一次全換,7–10 天慢慢混。</li>
+                </ul>
+                <p style="font-size:12.5px;color:var(--text-secondary,#8a8a8a);margin:2px 0 12px;">※ 每隻貓狀況不同,這裡只給方向;個別怎麼調整、要不要補什麼,問香菇爸再依你家貓建議。</p>
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener" class="starter-cta">還是不確定?直接問香菇爸 →</a>
+            </div>
+
             <!-- Tabs -->
+            <div class="tab-hint">👇 點下面 <span class="swipe">5 個標籤</span> 切換不同主題</div>
             <div class="tab-nav" id="tab-nav">
-                <button class="tab-btn active" data-tab="poison">🚨 致命毒物</button>
+                <button class="tab-btn active" data-tab="poison">⚠️ 危險食物</button>
                 <button class="tab-btn" data-tab="water">💧 水分</button>
                 <button class="tab-btn" data-tab="protein">🥩 蛋白質</button>
                 <button class="tab-btn" data-tab="fat">🛢️ 脂肪</button>
@@ -372,12 +422,12 @@
             <!-- ========== POISON TAB ========== -->
             <div class="tab-section active" id="tab-poison">
                 <div class="info-card">
-                    <h3>🚨 貓咪不能吃的致命食物</h3>
-                    <p>下列為臨床確認對<strong>貓有毒性</strong>的常見人類食物。標籤代表嚴重程度:<span class="poison-tag tag-lethal">致命</span> <span class="poison-tag tag-severe">嚴重</span> <span class="poison-tag tag-moderate">中度</span>。發現主子誤食請<strong>立刻聯絡獸醫</strong>,別等症狀出現。</p>
+                    <h3>⚠️ 貓咪不能吃的危險食物</h3>
+                    <p>下列為臨床確認對<strong>貓有毒性</strong>的常見人類食物。標籤代表嚴重程度:<span class="poison-tag tag-lethal">高危</span> <span class="poison-tag tag-severe">嚴重</span> <span class="poison-tag tag-moderate">中度</span>。發現主子誤食請<strong>立刻聯絡獸醫</strong>,別等症狀出現。</p>
 
                     <div class="poison-grid">
                         <div class="poison-card lethal">
-                            <div class="poison-name">🧅 洋蔥 / 大蒜 / 韭菜<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-name">🧅 洋蔥 / 大蒜 / 韭菜<span class="poison-tag tag-lethal">高危</span></div>
                             <div class="poison-cause">主因:有機硫化合物造成「氧化性溶血」</div>
                             <div class="poison-row dose"><span class="label">劑量</span><span>貓只要 <strong>5 g/kg</strong> 就有臨床症狀(4kg 貓 = 20g 一小撮)</span></div>
                             <div class="poison-row symptom"><span class="label">症狀</span><span>嘔吐、腹瀉、蒼白黏膜、無力、呼吸心跳加快、黃疸、紅棕色尿液(攝食後 1~數天出現)</span></div>
@@ -385,7 +435,7 @@
                         </div>
 
                         <div class="poison-card lethal">
-                            <div class="poison-name">🍇 葡萄 / 葡萄乾<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-name">🍇 葡萄 / 葡萄乾<span class="poison-tag tag-lethal">高危</span></div>
                             <div class="poison-cause">主因:不明機轉導致急性腎衰竭</div>
                             <div class="poison-row dose"><span class="label">劑量</span><span>個體差異大!<strong>8kg 臘腸狗吃 4-5 顆葡萄就中毒</strong>。貓劑量更敏感,沒有「安全量」</span></div>
                             <div class="poison-row symptom"><span class="label">症狀</span><span>24 小時內嘔吐、腹瀉、厭食、嗜睡、腹痛 → 後續腎衰竭(少尿/無尿、肌酐酸氮升高)</span></div>
@@ -393,7 +443,7 @@
                         </div>
 
                         <div class="poison-card lethal">
-                            <div class="poison-name">🍫 巧克力 / 可可<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-name">🍫 巧克力 / 可可<span class="poison-tag tag-lethal">高危</span></div>
                             <div class="poison-cause">主因:甲基黃嘌呤(可可鹼、咖啡因)</div>
                             <div class="poison-row dose"><span class="label">劑量</span><span>越苦越毒!<strong>苦巧 14mg/g、半甜 5mg/g、牛奶巧 2mg/g</strong>。20mg/kg 體重輕症,40-60mg/kg 可致癲癇</span></div>
                             <div class="poison-row symptom"><span class="label">症狀</span><span>2-4 小時出現:躁動、多喝多尿、嘔吐、腹瀉、高熱、心跳過速、心律不整、癲癇、昏迷</span></div>
@@ -401,7 +451,7 @@
                         </div>
 
                         <div class="poison-card lethal">
-                            <div class="poison-name">🍬 木糖醇 (Xylitol)<span class="poison-tag tag-lethal">致命</span></div>
+                            <div class="poison-name">🍬 木糖醇 (Xylitol)<span class="poison-tag tag-lethal">高危</span></div>
                             <div class="poison-cause">主因:刺激胰島素過度分泌 → 嚴重低血糖 + 肝損傷</div>
                             <div class="poison-row dose"><span class="label">劑量</span><span><strong>0.1 g/kg</strong> 引起低血糖,<strong>0.5 g/kg</strong> 引起肝衰竭。一顆 Extra 口香糖含 0.5g 木糖醇</span></div>
                             <div class="poison-row symptom"><span class="label">症狀</span><span>30-60 分鐘出現:嘔吐、嗜睡、行動失調、休克、癲癇 → 後續黃疸、凝血異常</span></div>
