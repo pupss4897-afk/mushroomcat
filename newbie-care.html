@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸新手護貓導航：依照貓咪目前狀況，找到日常照護、常見問題與適合的直播。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="新手護貓導航｜香菇爸 App">
+  <meta property="og:description" content="不用一次全懂，先做對下一步。依照主子現在的狀況，找到照護方向與適合的直播。">
+  <meta property="og:image" content="flatface-og.jpg">
+  <title>新手護貓導航｜香菇爸 App</title>
+  <style>
+    :root{--cream:#fbf5e9;--cream2:#f4ead7;--white:#fff;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--blue:#9fc1d4;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12);--radius:20px}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.65;min-height:100vh}
+    button,input{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+    .hero{padding:24px 18px 18px}.hero-card{position:relative;padding:24px 20px 20px;border-radius:26px;background:linear-gradient(152deg,#6f9a7b 0%,#88b096 55%,#9cc0a6 100%);color:#fff;box-shadow:0 18px 38px rgba(95,135,105,.22);overflow:hidden}.hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 28px rgba(255,255,255,.05)}
+    .kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.2);font-size:10px;font-weight:800;letter-spacing:1px}.hero h1{position:relative;z-index:1;margin-top:12px;font-family:"Noto Serif TC","Songti TC",serif;font-size:28px;line-height:1.35;letter-spacing:.5px}.hero p{position:relative;z-index:1;margin-top:9px;color:rgba(255,255,255,.85);font-size:13px}.hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:17px;flex-wrap:wrap}.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.14);font-size:11px}
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}.title-row{margin-bottom:14px}.num{display:block;color:var(--green);font-size:10px;font-weight:900;letter-spacing:1.4px}.title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:22px;margin-top:3px}.title-row p{margin-top:5px;color:var(--soft);font-size:12px}
+    .situation-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.situation{min-height:86px;padding:13px;border:1px solid var(--line);border-radius:17px;background:#fff;text-align:left;box-shadow:0 5px 16px rgba(150,130,100,.07);transition:.18s}.situation b{display:block;font-size:13px;margin-top:7px}.situation span{font-size:21px}.situation.active{border-color:var(--green);background:var(--green2);transform:translateY(-2px)}
+    .answer{margin-top:12px;padding:18px;border-radius:21px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.tag{display:inline-flex;padding:4px 9px;border-radius:999px;background:var(--cream2);color:var(--soft);font-size:10px;font-weight:800}.answer h3{margin-top:10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;line-height:1.45}.answer>p{margin-top:6px;color:var(--soft);font-size:12.5px}.steps{list-style:none;display:grid;gap:8px;margin-top:14px}.steps li{display:grid;grid-template-columns:26px 1fr;gap:9px;align-items:start;padding:10px;border-radius:13px;background:#f8f3e9;font-size:12px}.steps i{width:24px;height:24px;display:grid;place-items:center;border-radius:8px;background:var(--green);color:#fff;font-style:normal;font-size:10px;font-weight:900}.caution{margin-top:11px;padding:10px 11px;border-left:3px solid var(--pink);border-radius:9px;background:rgba(232,163,155,.1);font-size:11px;color:#785f59}
+    .urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;margin-top:13px;padding:14px;border:1px solid rgba(185,101,89,.25);border-radius:17px;background:#fff6f2}.urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}.urgent b{color:var(--danger);font-size:12px}.urgent p{font-size:11px;color:#806962;margin-top:2px}
+    .filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{flex:0 0 auto;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:11px;font-weight:800}.filter.active{border-color:var(--green);background:var(--green);color:#fff}
+    .search{position:relative;margin:10px 0 12px}.search input{width:100%;height:43px;padding:0 42px 0 14px;border:1px solid var(--line);border-radius:14px;background:#fff}.search span{position:absolute;right:14px;top:8px;color:var(--soft)}
+    .topics{display:grid;gap:10px}.topic{padding:14px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}.topic-head{width:100%;display:grid;grid-template-columns:39px 1fr auto;gap:10px;align-items:center;border:0;background:none;text-align:left}.topic-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:20px}.topic h3{font-size:14px}.topic small{display:block;color:var(--soft);font-size:10.5px;margin-top:1px}.plus{font-size:20px;color:var(--soft);transition:.2s}.topic.open .plus{transform:rotate(45deg)}.topic-body{display:none;padding:12px 3px 1px;border-top:1px dashed var(--line);margin-top:11px}.topic.open .topic-body{display:block}.topic-body ul{padding-left:18px}.topic-body li{font-size:11.5px;margin:5px 0}.topic-tip{margin-top:9px;padding:8px 10px;border-radius:10px;background:var(--green2);font-size:10.5px;font-weight:700}.empty{padding:24px;text-align:center;color:var(--soft);font-size:12px;border:1px dashed var(--line);border-radius:16px}
+    .days{display:flex;gap:7px;margin-bottom:12px}.day{flex:1;padding:9px 5px;border:1px solid var(--line);border-radius:13px;background:#fff;font-size:10.5px;font-weight:800}.day.active{background:var(--pink);border-color:var(--pink);color:#fff}.plan{padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow)}.progress{height:6px;border-radius:999px;background:#eee7da;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--pink);transition:.2s}.plan h3{margin-top:12px;font-family:"Noto Serif TC","Songti TC",serif;font-size:17px}.plan p{margin-top:4px;color:var(--soft);font-size:11.5px}.checks{display:grid;gap:8px;margin-top:12px}.check{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;padding:10px;border-radius:12px;background:#f8f3e9;font-size:11.5px;cursor:pointer}.check input{width:18px;height:18px;accent-color:var(--green)}.check b{display:block}.check small{display:block;color:var(--soft);font-size:10px;margin-top:1px}.count{display:block;text-align:right;margin-top:8px;color:var(--soft);font-size:10px}
+    .faq{border-top:1px solid var(--line)}.faq-item{border-bottom:1px solid var(--line)}.faq-q{width:100%;display:flex;justify-content:space-between;gap:12px;padding:15px 2px;border:0;background:none;text-align:left;font-size:13px;font-weight:800}.faq-a{display:none;padding:0 28px 14px 2px;color:var(--soft);font-size:11.5px}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q span:last-child{transform:rotate(45deg)}
+    .live-picks{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:11px}.live-picks::-webkit-scrollbar{display:none}.live-pick{flex:0 0 auto;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:10.5px;font-weight:800}.live-pick.active{color:#fff;background:var(--blue);border-color:var(--blue)}.live-reco{padding:11px 12px;border-radius:13px;background:rgba(159,193,212,.18);font-size:11.5px;margin-bottom:10px}.live-list{display:grid;gap:8px}.live-card{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:#fff}.live-card.reco{border-color:var(--blue);box-shadow:inset 3px 0 0 var(--blue)}.live-day{font-size:10px;color:var(--soft);font-weight:800}.live-card b{font-size:12.5px}.live-card small{display:block;color:var(--soft);font-size:10px}.save{border:0;background:none;font-size:17px}.save.saved{filter:none;color:var(--pink)}
+    .sources{padding:18px;background:var(--cream2);font-size:9.5px;color:var(--soft)}.sources strong{display:block;color:var(--ink);margin-bottom:4px}.sources a{text-underline-offset:2px}.sources p+p{margin-top:4px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}.bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    .toast{position:fixed;left:50%;bottom:76px;z-index:40;transform:translate(-50%,12px);padding:9px 13px;border-radius:999px;background:#5a5246;color:#fff;font-size:10.5px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>新手護貓導航</strong><small>香菇爸陪你找下一步</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">NEW CAT PARENT GUIDE</span>
+      <h1>不用一次全懂，<br>先做對下一步。</h1>
+      <p>香菇爸陪每位毛家長，依主子現在的狀況，找到先觀察什麼、能做什麼，什麼時候不要再等。</p>
+      <div class="hero-mini"><span>✓ 情境判斷</span><span>✓ 七日照護</span><span>✓ 直播導覽</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="situation">
+    <div class="title-row"><span class="num">01｜先看現在</span><h2>你家主子是哪種狀況？</h2><p>選最接近的情況，不用先翻完整本百科。</p></div>
+    <div class="situation-grid">
+      <button class="situation active" data-state="hide"><span>📦</span><b>剛到家一直躲</b></button>
+      <button class="situation" data-state="eat"><span>🍚</span><b>不吃也不太喝</b></button>
+      <button class="situation" data-state="stool"><span>💩</span><b>軟便／便便怪</b></button>
+      <button class="situation" data-state="night"><span>🌙</span><b>半夜叫或焦慮</b></button>
+    </div>
+    <article class="answer" aria-live="polite"><span class="tag" id="stateTag"></span><h3 id="stateTitle"></h3><p id="stateText"></p><ol class="steps" id="stateSteps"></ol><div class="caution" id="stateCaution"></div></article>
+    <div class="urgent"><span>!</span><div><b>這些情況不要等直播</b><p>張口呼吸或明顯喘、昏倒／抽搐、反覆嘔吐又沒精神、一直蹲砂盆卻尿不出來或只有幾滴，請立即聯絡獸醫院。</p></div></div>
+  </section>
+
+  <section class="section alt" id="topics">
+    <div class="title-row"><span class="num">02｜照護主題</span><h2>一次只看一件事</h2><p>用分類或關鍵字找到重點，點卡片展開。</p></div>
+    <div class="filters" role="group" aria-label="照護分類"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="new">新貓到家</button><button class="filter" data-filter="daily">日常</button><button class="filter" data-filter="health">健康觀察</button><button class="filter" data-filter="behavior">行為</button></div>
+    <label class="search"><input id="search" type="search" placeholder="搜尋：喝水、便便、換糧…" aria-label="搜尋照護主題"><span>⌕</span></label>
+    <div class="topics" id="topicList"></div>
+  </section>
+
+  <section class="section" id="plan">
+    <div class="title-row"><span class="num">03｜新貓第一週</span><h2>7 日安心路線</h2><p>勾選紀錄只保存在這台裝置，離線重開也還在。</p></div>
+    <div class="days" id="days"></div>
+    <article class="plan"><div class="progress"><span id="progress"></span></div><h3 id="planTitle"></h3><p id="planText"></p><div class="checks" id="checks"></div><span class="count" id="count"></span></article>
+  </section>
+
+  <section class="section alt" id="faq">
+    <div class="title-row"><span class="num">04｜常見問題</span><h2>新手最容易慌的事</h2><p>突然惡化或你直覺覺得不對，請優先請獸醫評估。</p></div>
+    <div class="faq" id="faqList"></div>
+  </section>
+
+  <section class="section" id="live">
+    <div class="title-row"><span class="num">05｜直播導覽</span><h2>帶著問題來直播</h2><p>選想問的方向，幫你標出適合的場次。</p></div>
+    <div class="live-picks" role="group" aria-label="直播問題分類"><button class="live-pick active" data-live="new">剛養貓</button><button class="live-pick" data-live="breed">品種照護</button><button class="live-pick" data-live="health">健康營養</button><button class="live-pick" data-live="qa">具體問題</button></div>
+    <div class="live-reco" id="liveReco"></div><div class="live-list" id="liveList"></div>
+  </section>
+
+  <footer class="sources"><strong>照護資料校對｜截至 2026/07/14</strong><p>參考 AAHA／AAFP 貓生命階段照護清單、WSAVA 2024 疫苗指引、FelineVMA 新貓導入指南與 Cornell Feline Health Center。</p><p>本頁提供照護導覽，不取代獸醫診斷、檢查與治療。</p></footer>
+</main>
+
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener">💬 加入 LINE・領直播通知</a></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const states={
+ hide:{tag:'先安頓，不急著抱',title:'先給牠一個能放心躲的地方',text:'剛換環境時躲藏，多半是在處理陌生刺激。空間越可預測，牠越容易慢慢走出來。',steps:['準備安靜的安全房，食物、水和砂盆分開擺。','坐在附近做自己的事，不硬抱、不拖出來。','記下第一次吃、喝、尿尿和便便的時間。'],caution:'如果同時呼吸異常、站不穩、持續嘔吐或完全無尿，請直接聯絡獸醫。'},
+ eat:{tag:'先確認時間與精神',title:'「多久沒吃」和其他症狀一起看',text:'緊張可能讓食慾暫時下降，但貓咪長時間不吃不能只靠等待；幼貓、高齡與慢性病貓要更早詢問。',steps:['確認最後進食、喝水與排尿時間。','提供原本熟悉的食物和安靜位置，不要一次狂換很多種。','健康成貓接近或超過 24 小時未進食，或更早出現虛弱、嘔吐、呼吸異常，請聯絡獸醫。'],caution:'不要自行灌食、灌水或餵人用藥，以免嗆入或延誤。'},
+ stool:{tag:'先拍照並記錄',title:'把便便變化留下來，再找變因',text:'搬家、換糧、零食、寄生蟲或疾病都可能影響排便；一次偏軟和持續惡化不是同一件事。',steps:['拍下顏色與形狀，記錄次數、有沒有血或黏液。','列出最近的換糧、零食、壓力和用藥。','反覆腹瀉、黑便／鮮血、同時嘔吐或精神差，請就醫。'],caution:'不要直接使用人的止瀉藥；飲食紀錄與糞便樣本能幫助獸醫判斷。'},
+ night:{tag:'先排除身體不舒服',title:'規律作息，比半夜責罵更有效',text:'夜間叫聲或亂跑可能與精力、壓力和資源位置有關；若是突然改變，也要留意健康狀況。',steps:['睡前安排追逐遊戲，結束後給一小餐。','白天增加可躲、爬高、抓和探索的環境。','伴隨頻繁跑砂盆、疼痛叫聲或食慾下降時，先詢問獸醫。'],caution:'行為問題不是故意搗蛋；先找環境與健康原因，再談調整。'}
+};
+
+const topics=[
+ {id:'room',cat:'new',icon:'🏠',title:'安全房怎麼準備？',sub:'先縮小世界，反而更安心',items:['選安靜、能關門且沒有危險縫隙的空間。','食物、水、砂盆和睡窩分區擺放。','提供紙箱或遮蔽窩，讓牠有選擇。'],tip:'安全房不是關禁閉，是降低陌生刺激。'},
+ {id:'first',cat:'new',icon:'👀',title:'前 24 小時看什麼？',sub:'吃、喝、尿、精神四個基準',items:['記錄最後進食時間和大約食量。','確認砂盆是否有新尿塊和便便。','觀察呼吸是否平順、走路是否穩定。'],tip:'先知道牠的平常，後面才看得出改變。'},
+ {id:'water',cat:'daily',icon:'💧',title:'不愛喝水怎麼辦？',sub:'先增加水點與選擇',items:['不同位置放乾淨水碗，和食物、砂盆分開。','測試寬口碗、流動水與不同材質。','可用合適濕食增加水分，換食需循序。'],tip:'突然喝水暴增或明顯減少，都值得詢問獸醫。'},
+ {id:'food',cat:'daily',icon:'🥣',title:'換糧要一次換完嗎？',sub:'循序混合通常更穩定',items:['確認新食物符合生命階段與健康需求。','數天逐步提高新食物比例。','一次只改一個主要變因，才能看懂反應。'],tip:'處方飲食或慢性病請依獸醫指示。'},
+ {id:'litter',cat:'daily',icon:'🧹',title:'砂盆怎麼擺才肯用？',sub:'安靜、可到達、出口不被堵',items:['不要貼著食物與飲水區。','多貓家庭把資源分散，不要全部並排。','常用「貓口數＋1」作為數量起點。'],tip:'一直蹲砂盆卻尿不出來是急症警訊。'},
+ {id:'poop',cat:'health',icon:'💩',title:'軟便、臭便怎麼記？',sub:'照片、頻率與伴隨症狀',items:['記下顏色、形狀、次數和血／黏液。','列出最近 7 天飲食與壓力變化。','幼貓、反覆腹瀉或同時精神差請就醫。'],tip:'一次軟便可觀察，「反覆＋精神差」要升級處理。'},
+ {id:'vomit',cat:'health',icon:'⚠️',title:'吐毛還是嘔吐？',sub:'看頻率、內容物和吐完狀態',items:['拍下吐出物與發生時間。','觀察是否反覆乾嘔、腹部用力或腹瀉。','確認是否可能吞線、塑膠、植物或人用藥。'],tip:'常吐不應直接當成正常吐毛。'},
+ {id:'multi',cat:'behavior',icon:'🐈',title:'新舊貓能直接見面嗎？',sub:'氣味、隔離、視覺接觸循序來',items:['先分開生活區並交換氣味。','在門兩側用食物建立正向連結。','穩定後才短暫見面，逐步增加時間。'],tip:'哈氣、追逐加劇時，回到上一個階段。'},
+ {id:'night',cat:'behavior',icon:'🌙',title:'半夜一直叫怎麼辦？',sub:'先排健康，再調整活動節奏',items:['睡前玩追逐遊戲，結束後給小餐。','白天增加探索、抓板與爬高。','保持回應一致，不一下陪玩一下責罵。'],tip:'高齡貓突然夜叫，值得安排健康評估。'}
+];
+
+const plans=[
+ {id:'d1',label:'Day 1',title:'先安頓，不急著親密',text:'第一天的目標，是讓牠知道這裡安全、資源找得到。',tasks:[['安全房完成','食物、水、砂盆和睡窩分區'],['記下第一餐','時間和大約食量'],['確認第一次排尿','砂盆裡出現新尿塊']]},
+ {id:'d3',label:'Day 2–3',title:'開始看懂生活節奏',text:'先確認吃、喝、尿、便和精神逐漸穩定。',tasks:[['固定餵食與清砂時間','讓每天的事件可預測'],['短時間互動','由牠主動靠近，不追著抱'],['整理觀察紀錄','食慾、尿塊、便便和行為']]},
+ {id:'d7',label:'Day 4–7',title:'穩定後慢慢探索',text:'正常進食、使用砂盆並主動探索後，再擴大空間。',tasks:[['逐區開放空間','先排除門窗、電線和危險植物'],['建立玩耍儀式','固定時間、短而正向'],['安排獸醫計畫','帶齊病史、疫苗和用藥資料']]}
+];
+
+const faqs=[
+ ['一直躲，是不是不喜歡我？','通常不是。躲藏是面對陌生環境的常見方式。給牠遮蔽、規律資源和自己走出來的選擇，比一直抱出來更能建立信任。'],
+ ['多久沒吃需要擔心？','要一起看年齡、疾病史、精神和其他症狀。健康成貓接近或超過 24 小時未進食應聯絡獸醫；幼貓、高齡、慢性病或同時虛弱嘔吐者要更早求助。'],
+ ['砂盆到底要幾個？','常見起點是貓口數加一，並分散在不同、安靜又容易到達的位置。尺寸、清潔、砂材和出口是否被堵也很重要。'],
+ ['換飼料後軟便，繼續吃看看嗎？','先停下新增變因，記錄換食比例、排便次數與精神食慾。若持續、惡化、有血、嘔吐或精神差，請詢問獸醫。'],
+ ['常吐毛球算正常嗎？','偶發不一定嚴重，但常常吐不應直接視為正常。記錄頻率、吐出物和精神食慾；反覆乾嘔、無法進食飲水或疑似吞異物要就醫。'],
+ ['室內貓也需要疫苗和健檢嗎？','需要個別風險評估。疫苗種類和間隔應依地區、生活型態、年齡、健康史與獸醫建議制定。']
+];
+
+const lives=[
+ {id:'mon',day:'週一',time:'19:30',title:'今夜貓事多',sub:'生活話題 × 陪聊',types:['qa']},
+ {id:'tue',day:'週二',time:'12:30',title:'品種貓之夜',sub:'品種特性 × 照護',types:['breed']},
+ {id:'thu',day:'週四',time:'12:30',title:'毛孩 Q&A',sub:'帶著問題直接問',types:['qa','health']},
+ {id:'fri',day:'週五',time:'12:30',title:'健康知識局',sub:'營養 × 健康觀察',types:['health']},
+ {id:'sat',day:'週六',time:'12:30',title:'新手貓教室',sub:'到家 × 日常基本功',types:['new']}
+];
+
+let activeState='hide',activeFilter='all',activePlan='d1',activeLive='new';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
+function renderState(key){activeState=key;const d=states[key];$$('.situation').forEach(b=>b.classList.toggle('active',b.dataset.state===key));$('#stateTag').textContent=d.tag;$('#stateTitle').textContent=d.title;$('#stateText').textContent=d.text;$('#stateSteps').innerHTML=d.steps.map((x,i)=>`<li><i>${i+1}</i><span>${x}</span></li>`).join('');$('#stateCaution').textContent='香菇爸提醒｜'+d.caution}
+function renderTopics(){const q=$('#search').value.trim().toLowerCase();const list=topics.filter(t=>(activeFilter==='all'||t.cat===activeFilter)&&(t.title+t.sub+t.items.join('')).toLowerCase().includes(q));$('#topicList').innerHTML=list.length?list.map(t=>`<article class="topic" data-id="${t.id}"><button class="topic-head" aria-expanded="false"><span class="topic-icon">${t.icon}</span><span><h3>${t.title}</h3><small>${t.sub}</small></span><span class="plus">＋</span></button><div class="topic-body"><ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul><div class="topic-tip">香菇爸提醒｜${t.tip}</div></div></article>`).join(''):'<div class="empty">沒有找到相同主題，試試「喝水」或「便便」。</div>'}
+function getProgress(){try{return JSON.parse(localStorage.getItem('mushroomNewbiePlan')||'{}')}catch(e){return {}}}
+function renderPlan(){const p=plans.find(x=>x.id===activePlan),saved=getProgress(),done=p.tasks.filter((_,i)=>saved[`${p.id}-${i}`]).length;$('#days').innerHTML=plans.map(x=>`<button class="day ${x.id===activePlan?'active':''}" data-day="${x.id}">${x.label}</button>`).join('');$('#planTitle').textContent=p.title;$('#planText').textContent=p.text;$('#checks').innerHTML=p.tasks.map((t,i)=>`<label class="check"><input type="checkbox" data-check="${p.id}-${i}" ${saved[`${p.id}-${i}`]?'checked':''}><span><b>${t[0]}</b><small>${t[1]}</small></span></label>`).join('');$('#progress').style.width=(done/3*100)+'%';$('#count').textContent=`已完成 ${done} / 3`}
+function renderFaq(){$('#faqList').innerHTML=faqs.map((f,i)=>`<article class="faq-item ${i===0?'open':''}"><button class="faq-q" aria-expanded="${i===0}"><span>${f[0]}</span><span>＋</span></button><div class="faq-a">${f[1]}</div></article>`).join('')}
+function getSavedLives(){try{return JSON.parse(localStorage.getItem('mushroomLiveSaved')||'[]')}catch(e){return []}}
+function renderLive(){const msg={new:'推薦：週六「新手貓教室」｜準備年齡、到家多久與目前吃喝排泄情況。',breed:'推薦：週二「品種貓之夜」｜準備品種、年齡與最困擾的照護問題。',health:'推薦：週五「健康知識局」或週四「毛孩 Q&A」｜帶上飲食、便便與就醫紀錄。',qa:'推薦：週四「毛孩 Q&A」｜把問題整理成發生多久、做過什麼、目前狀態。'}[activeLive],saved=getSavedLives();$('#liveReco').textContent=msg;$('#liveList').innerHTML=lives.map(l=>`<article class="live-card ${l.types.includes(activeLive)?'reco':''}"><span class="live-day">${l.day}<br>${l.time}</span><span><b>${l.title}</b><small>${l.sub}</small></span><button class="save ${saved.includes(l.id)?'saved':''}" data-save="${l.id}" aria-label="${saved.includes(l.id)?'取消收藏':'收藏'}${l.title}">${saved.includes(l.id)?'♥':'♡'}</button></article>`).join('')}
+let toastTimer;function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),1800)}
+
+document.addEventListener('click',e=>{
+ const s=e.target.closest('[data-state]');if(s)renderState(s.dataset.state);
+ const f=e.target.closest('[data-filter]');if(f){activeFilter=f.dataset.filter;$$('.filter').forEach(b=>b.classList.toggle('active',b===f));renderTopics()}
+ const th=e.target.closest('.topic-head');if(th){const card=th.closest('.topic');card.classList.toggle('open');th.setAttribute('aria-expanded',String(card.classList.contains('open')))}
+ const d=e.target.closest('[data-day]');if(d){activePlan=d.dataset.day;renderPlan()}
+ const fq=e.target.closest('.faq-q');if(fq){const item=fq.closest('.faq-item');item.classList.toggle('open');fq.setAttribute('aria-expanded',String(item.classList.contains('open')))}
+ const lp=e.target.closest('[data-live]');if(lp){activeLive=lp.dataset.live;$$('.live-pick').forEach(b=>b.classList.toggle('active',b===lp));renderLive()}
+ const sv=e.target.closest('[data-save]');if(sv){let saved=getSavedLives(),id=sv.dataset.save;saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];localStorage.setItem('mushroomLiveSaved',JSON.stringify(saved));renderLive();toast(saved.includes(id)?'已收藏這場直播':'已取消收藏')}
+});
+$('#search').addEventListener('input',renderTopics);
+$('#checks').addEventListener('change',e=>{if(!e.target.matches('[data-check]'))return;const saved=getProgress();saved[e.target.dataset.check]=e.target.checked;localStorage.setItem('mushroomNewbiePlan',JSON.stringify(saved));renderPlan();const p=plans.find(x=>x.id===activePlan);if(p.tasks.every((_,i)=>saved[`${p.id}-${i}`]))toast('完成這階段！主子幫你蓋章 ✓')});
+
+renderState(activeState);renderTopics();renderPlan();renderFaq();renderLive();
+</script>
+</body>
+</html>
