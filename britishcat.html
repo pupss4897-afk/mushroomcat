@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英短胖嘟嘟俱樂部 · 懶貓照顧手冊</title>
+    <meta name="description" content="養貓＝養一顆馬鈴薯 🥔 英短能吃的、不能吃的，胖嘟嘟英短的專屬照護重點 — 加入 LINE 領《懶貓照顧手冊》！">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="英短胖嘟嘟俱樂部 · 懶貓照顧手冊">
+    <meta property="og:description" content="養貓＝養一顆馬鈴薯 🥔 英短能吃的、不能吃的，胖嘟嘟英短的專屬照護重點 — 加入 LINE 領《懶貓照顧手冊》！">
+    <!-- 預覽圖：先沿用既有的灰貓照片,有英短照片再換 britishcat-og.jpg -->
+    <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/flatface-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f3f6f8;
+            --bg-deep: #e7eef1;
+            --ink: #34454d;
+            --ink-soft: #6c7e87;
+            --steel: #5b7e8f;
+            --steel-deep: #3e5b69;
+            --teal: #6fae9f;
+            --gold: #c9a44b;
+            --safe: #4f9a76;
+            --danger: #bd5851;
+            --safe-bg: #eaf4ef;
+            --danger-bg: #f8ecea;
+            --card: #ffffff;
+            --border: #dde6ea;
+            --line: #06C755;
+            --line-deep: #05a548;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans TC', -apple-system, sans-serif;
+            background: var(--bg); color: var(--ink); line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 660px; margin: 0 auto; padding: 0 18px; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(155deg, #4e7283 0%, #3a5764 55%, #2f4853 100%);
+            color: #fff; text-align: center; padding: 52px 18px 46px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '🥔'; position: absolute; font-size: 200px; opacity: 0.07;
+            right: -36px; top: -34px; transform: rotate(-12deg); pointer-events: none;
+        }
+        .hero-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+        .hero-deco span { position: absolute; opacity: 0.13; line-height: 1; user-select: none; animation: bob 6s ease-in-out infinite; }
+        .hero-deco span:nth-child(1){ font-size: 34px; top: 22px; left: 24px; }
+        .hero-deco span:nth-child(2){ font-size: 26px; top: 60%; left: 12%; animation-delay: 1.4s; }
+        .hero-deco span:nth-child(3){ font-size: 40px; top: 14px; right: 28%; animation-delay: 2.6s; transform: rotate(10deg); }
+        .hero-deco span:nth-child(4){ font-size: 24px; bottom: 26px; right: 16%; animation-delay: 0.7s; }
+        .hero-deco span:nth-child(5){ font-size: 30px; bottom: 56px; left: 44%; animation-delay: 3.2s; }
+        @keyframes bob { 0%,100%{transform:translateY(0) rotate(0);} 50%{transform:translateY(-9px) rotate(6deg);} }
+
+        .hero .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 999px; padding: 6px 16px; font-size: 13px; font-weight: 700;
+            letter-spacing: 1.5px; margin-bottom: 16px; backdrop-filter: blur(4px);
+        }
+        .hero h1 { font-size: 26px; font-weight: 900; line-height: 1.4; margin-bottom: 6px; }
+        .hero h1 .hl { color: #ddc176; }
+        .hero .tagline {
+            display: inline-block; background: rgba(0,0,0,0.18); border-radius: 12px;
+            padding: 5px 16px; font-size: 14.5px; font-weight: 700; margin: 4px 0 16px;
+        }
+        .hero .sub { font-size: 14px; opacity: 0.92; margin-bottom: 22px; }
+        .hero .scroll { font-size: 13px; opacity: 0.7; }
+        .hero .scroll .a { display: inline-block; animation: down 1.6s infinite; }
+        @keyframes down { 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
+
+        /* Sections */
+        section { padding: 32px 0; }
+        .sh { text-align: center; margin-bottom: 22px; }
+        .sh h2 { font-size: 21px; font-weight: 900; display: inline-flex; align-items: center; gap: 8px; }
+        .sh p { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+        .sec-safe { background: var(--safe-bg); }
+        .sec-danger { background: var(--danger-bg); }
+        .sec-care { background: var(--bg-deep); }
+        .sec-safe .sh h2 { color: var(--safe); }
+        .sec-danger .sh h2 { color: var(--danger); }
+        .sec-care .sh h2 { color: var(--steel-deep); }
+
+        /* Food list */
+        .foods { display: grid; gap: 10px; }
+        .food {
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+        }
+        .food .ic { font-size: 24px; flex-shrink: 0; line-height: 1.3; }
+        .food .nm { font-weight: 700; font-size: 15.5px; }
+        .food .nt { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+        .food.s { border-left: 4px solid var(--safe); }
+        .food.d { border-left: 4px solid var(--danger); }
+        .food.d .nm { color: var(--danger); }
+
+        /* Care cards */
+        .care { display: grid; gap: 12px; }
+        .care-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 16px 18px; border-left: 4px solid var(--steel);
+        }
+        .care-card h3 { font-size: 15.5px; font-weight: 800; display: flex; gap: 8px; align-items: center; margin-bottom: 4px; color: var(--steel-deep); }
+        .care-card p { font-size: 13.5px; color: var(--ink-soft); }
+        .care-card.big { border-left-color: var(--gold); }
+        .care-card.big h3 { color: #9a7c2c; }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(155deg, #3e5b69 0%, #2c4350 100%);
+            color: #fff; text-align: center; padding: 40px 18px 46px;
+            position: relative; overflow: hidden;
+        }
+        .cta::before { content: '🐾'; position: absolute; font-size: 200px; opacity: 0.05; left: -40px; bottom: -50px; transform: rotate(8deg); pointer-events: none; }
+        .cta > .wrap { position: relative; z-index: 1; }
+        .cta .teaser {
+            background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.25);
+            border-radius: 16px; padding: 18px 20px; margin-bottom: 24px; text-align: left;
+        }
+        .cta .teaser h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; color: #ddc176; }
+        .cta .teaser ul { list-style: none; }
+        .cta .teaser li { font-size: 14px; padding: 4px 0 4px 24px; position: relative; }
+        .cta .teaser li::before { content: '✅'; position: absolute; left: 0; }
+        .cta h2 { font-size: 22px; font-weight: 900; margin-bottom: 6px; line-height: 1.4; }
+        .cta .cs { font-size: 14px; opacity: 0.9; margin-bottom: 20px; }
+
+        /* in-app browser tip */
+        #inappTip {
+            display: none; background: rgba(221,193,118,0.14); border: 1px solid rgba(221,193,118,0.4);
+            border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; text-align: left;
+            font-size: 13.5px; line-height: 1.7;
+        }
+
+        .line-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--line); color: #fff; font-size: 18px; font-weight: 900;
+            padding: 16px 24px; border-radius: 999px; text-decoration: none;
+            box-shadow: 0 8px 24px rgba(6,199,85,0.32); transition: all 0.2s;
+            max-width: 400px; margin: 0 auto;
+        }
+        .line-btn:active { transform: scale(0.98); }
+        .line-btn .lg { font-size: 22px; }
+        .line-btn .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: pd 1.2s infinite; }
+        @keyframes pd { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+        .line-hint { font-size: 12.5px; opacity: 0.7; margin-top: 12px; }
+
+        .qr-block { display: none; margin-top: 22px; }
+        .qr-block img { width: 160px; height: 160px; border-radius: 12px; background: #fff; padding: 8px; }
+        .qr-block p { font-size: 12.5px; opacity: 0.75; margin-top: 8px; }
+        @media (min-width: 768px) { .qr-block { display: block; } }
+
+        footer {
+            background: #243944; color: rgba(255,255,255,0.55);
+            text-align: center; padding: 22px 18px 90px; font-size: 12px;
+        }
+
+        /* paw divider */
+        .paw-div { text-align: center; padding: 4px 0; opacity: 0.3; font-size: 16px; letter-spacing: 14px; color: var(--ink-soft); user-select: none; }
+
+        /* floating share bar */
+        .share-bar {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+            background: rgba(243,246,248,0.97); backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border); box-shadow: 0 -6px 20px rgba(0,0,0,0.08);
+            padding: 10px 12px; display: flex; align-items: center; gap: 8px; justify-content: center;
+        }
+        .share-bar .lbl { font-size: 12.5px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+        @media (max-width: 420px) { .share-bar .lbl { display: none; } }
+        .share-bar button, .share-bar a.sb {
+            display: inline-flex; align-items: center; gap: 6px; border: none; cursor: pointer;
+            text-decoration: none; font-size: 13px; font-weight: 700; font-family: inherit;
+            padding: 9px 14px; border-radius: 999px; transition: all 0.15s; white-space: nowrap;
+        }
+        .share-bar button:active, .share-bar a.sb:active { transform: scale(0.96); }
+        .sb-fb { background: #1877f2; color: #fff; }
+        .sb-line { background: var(--line); color: #fff; }
+        .sb-copy { background: #fff; color: var(--ink); border: 1px solid var(--border) !important; }
+        .sb-copy.copied { background: #eaf4ef; color: var(--safe); border-color: #bfe0d0 !important; }
+
+        @media (max-width: 480px) { .hero h1 { font-size: 22px; } .cta h2 { font-size: 19px; } }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-deco" aria-hidden="true"><span>🥔</span><span>🐾</span><span>😸</span><span>🥔</span><span>🐈</span></div>
+        <div class="wrap">
+            <span class="badge">😺 英短胖嘟嘟俱樂部</span>
+            <h1>哈囉,<span class="hl">英短家長</span> 👋</h1>
+            <div class="tagline">🥔 養貓 ＝ 養一顆馬鈴薯</div>
+            <p class="sub">先給你最實用的「能吃 / 不能吃」+ 英短專屬照護重點 — 完整《懶貓照顧手冊》在最下面領</p>
+            <div class="scroll">往下滑看內容 <span class="a">⌄</span></div>
+        </div>
+    </header>
+
+    <!-- 能吃 -->
+    <section class="sec-safe">
+        <div class="wrap">
+            <div class="sh">
+                <h2>🟢 英短可以吃的(適量、無調味)</h2>
+                <p>當零食或鮮食點綴 OK,但都不能取代主食</p>
+            </div>
+            <div class="foods">
+                <div class="food s"><span class="ic">🍗</span><div><div class="nm">水煮雞胸肉 / 雞肉</div><div class="nt">無鹽無調味,撕小塊。優質動物蛋白,適口性高</div></div></div>
+                <div class="food s"><span class="ic">🐟</span><div><div class="nm">熟鮭魚 / 鱈魚(去刺)</div><div class="nt">含 Omega-3,煮熟去刺。偶爾吃別過量(汞)</div></div></div>
+                <div class="food s"><span class="ic">🥚</span><div><div class="nm">白煮蛋</div><div class="nt">完整氨基酸,蛋白質黃金標準。少數貓會過敏</div></div></div>
+                <div class="food s"><span class="ic">🎃</span><div><div class="nm">南瓜泥</div><div class="nt">溫和纖維,對軟便、便祕、毛球都有幫助 — 英短毛球多,很需要</div></div></div>
+                <div class="food s"><span class="ic">🍠</span><div><div class="nm">蒸地瓜(少量)</div><div class="nt">膳食纖維 + β-胡蘿蔔素,GI 比馬鈴薯低</div></div></div>
+                <div class="food s"><span class="ic">🌿</span><div><div class="nm">貓草 / 木天蓼</div><div class="nt">幫助排毛球、轉移情緒。觀察主子反應,別過量</div></div></div>
+                <div class="food s"><span class="ic">💧</span><div><div class="nm">無調味肉湯 / 寵物用湯包</div><div class="nt">英短不愛喝水的補水神器。沒喝完 1-2 小時要丟</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="paw-div">🐾 🐾 🐾</div>
+
+    <!-- 不能吃 -->
+    <section class="sec-danger">
+        <div class="wrap">
+            <div class="sh">
+                <h2>🔴 英短千萬不能碰(有毒!)</h2>
+                <p>誤食後黃金時間 1-2 小時,別等症狀出現直接聯絡獸醫</p>
+            </div>
+            <div class="foods">
+                <div class="food d"><span class="ic">🧅</span><div><div class="nm">洋蔥 / 大蒜 / 韭菜 / 蔥</div><div class="nt">有機硫化合物破壞紅血球→溶血。加熱、乾燥都無法解毒</div></div></div>
+                <div class="food d"><span class="ic">🍇</span><div><div class="nm">葡萄 / 葡萄乾</div><div class="nt">會引發急性腎衰竭,沒有「安全量」</div></div></div>
+                <div class="food d"><span class="ic">🍫</span><div><div class="nm">巧克力 / 可可</div><div class="nt">可可鹼中毒,越苦越毒。可能心律不整、癲癇</div></div></div>
+                <div class="food d"><span class="ic">🍬</span><div><div class="nm">木糖醇(無糖口香糖、代糖)</div><div class="nt">嚴重低血糖 + 肝損傷,一片口香糖就危險</div></div></div>
+                <div class="food d"><span class="ic">🍷</span><div><div class="nm">酒精 / 發酵水果</div><div class="nt">快速進入腦部,中樞神經抑制、昏迷</div></div></div>
+                <div class="food d"><span class="ic">☕</span><div><div class="nm">咖啡 / 茶 / 能量飲</div><div class="nt">咖啡因中毒,心跳過快、震顫、癲癇。茶包咖啡渣也別亂丟</div></div></div>
+                <div class="food d"><span class="ic">🥑</span><div><div class="nm">酪梨</div><div class="nt">果肉含 persin + 高油脂,可能嘔吐、胰臟發炎</div></div></div>
+                <div class="food d"><span class="ic">🥛</span><div><div class="nm">牛奶(成貓)</div><div class="nt">多數成貓乳糖不耐,會腹瀉。要喝請選貓專用羊奶/牛奶</div></div></div>
+                <div class="food d"><span class="ic">🦴</span><div><div class="nm">煮熟的骨頭 / 雞骨</div><div class="nt">煮熟易碎裂成尖刺,刺傷消化道</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="paw-div">🐾 🐾 🐾</div>
+
+    <!-- 英短照護 -->
+    <section class="sec-care">
+        <div class="wrap">
+            <div class="sh">
+                <h2>🥔 英短胖嘟嘟 專屬照護</h2>
+                <p>圓圓一顆很可愛,但這些英短特有的眉角要注意</p>
+            </div>
+            <div class="care">
+                <div class="care-card big"><h3>⚖️ 體重控制是頭等大事</h3><p>英短天生圓潤、代謝慢、又愛賴著不動 — 超容易胖成真馬鈴薯。<strong>定量餵食、別放飼料吃到飽</strong>,每天用逗貓棒玩到他喘。胖了關節、心臟負擔都會變大。</p></div>
+                <div class="care-card"><h3>🪮 毛量爆炸,梳毛是日常</h3><p>英短是雙層厚毛,換毛季掉毛掉到天荒地老。<strong>每天梳一次</strong>,減少吞進去的毛球(也少嘔吐),家裡也清爽。</p></div>
+                <div class="care-card"><h3>❤️ 心臟健康要留意</h3><p>英短是肥厚性心肌病(HCM)的好發品種。建議<strong>定期帶去做心臟超音波檢查</strong>,早發現早照顧 — 平常觀察有沒有呼吸變快、活動力下降。</p></div>
+                <div class="care-card"><h3>🙅 不愛被抱,別硬抱</h3><p>英短個性獨立,喜歡待在你旁邊但不愛黏 TT 抱抱。<strong>尊重他的距離</strong>,他會用「坐在你腳邊」「跟著你走」這種方式愛你。</p></div>
+                <div class="care-card"><h3>💧 容易便祕,多補水</h3><p>厚毛 + 不愛喝水,英短特別容易便祕。<strong>多放水碗、用流動飲水機、加點濕食或肉湯</strong>,搭配南瓜泥幫助腸道蠕動。</p></div>
+                <div class="care-card"><h3>🍽️ 寬口淺盤最舒服</h3><p>胖嘟嘟的臉吃深窄碗容易卡鬍鬚、要埋頭。換成<strong>寬口淺盤</strong>,他吃得舒服、也吃得乾淨。</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="paw-div">🐾 🐾 🐾</div>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="wrap">
+            <div class="teaser">
+                <h3>🎁 完整《懶貓照顧手冊》還有這些(LINE 領取)</h3>
+                <ul>
+                    <li>體重判斷對照表 + 心臟健康檢查清單</li>
+                    <li>主食 / 副食怎麼挑:蛋白比例、含水量、看成分標教學</li>
+                    <li>懶貓保健怎麼補:益生菌、化毛、關節、泌尿一次搞懂</li>
+                    <li>毛孩晶片法規 + 各縣市費用一覽</li>
+                    <li>不愛喝水的 7 個對策 + 換糧不軟便 SOP</li>
+                    <li>每週一直播 Livetalk,有問題直接問</li>
+                </ul>
+            </div>
+            <h2>📩 領取更多懶人包<br>👉 點下面加入 LINE 免費取得</h2>
+            <p class="cs">加入後直接傳「<strong>懶貓手冊</strong>」四個字,小編自動發完整懶人包給你 🎁</p>
+
+            <div id="inappTip">
+                ⚠️ <strong style="color:#ddc176;">你是從 Facebook / IG 點進來的</strong> ── 直接點下面按鈕可能加不進 LINE。<br>
+                建議:點畫面<strong>右上角的「⋯」或「︙」</strong> → 選「<strong>用 Safari / Chrome 開啟</strong>」→ 再點一次按鈕,就能順利加入 ✅
+            </div>
+
+            <a id="lineBtn" href="https://s.luckycat.no8.io/link/channels/6BIw2vl4FT" target="_blank" rel="noopener" class="line-btn">
+                <span class="lg">💬</span><span>加入 LINE 領取更多懶人包</span><span class="pulse"></span>
+            </a>
+            <p class="line-hint" id="lineHint">點了沒反應?長按按鈕「在外部瀏覽器開啟」,就能跳到 LINE 加入</p>
+
+            <div class="qr-block">
+                <img id="qrImg" data-src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fs.luckycat.no8.io%2Flink%2Fchannels%2F6BIw2vl4FT" alt="LINE QR Code">
+                <p>用手機掃描 QR code 加入</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>😺 英短胖嘟嘟俱樂部 · 英國短毛貓</p>
+        <p style="margin-top:6px;">內容僅供參考,毛孩個別狀況請諮詢獸醫</p>
+    </footer>
+
+    <!-- 浮動分享列 -->
+    <div class="share-bar">
+        <span class="lbl">追蹤 / 分享 👉</span>
+        <a class="sb sb-fb" href="https://www.facebook.com/profile.php?id=61584568534584" rel="noopener" target="_blank">📘 追蹤 FB 粉專</a>
+        <a class="sb sb-line" id="shareLine" href="#" rel="noopener" target="_blank">💬 LINE</a>
+        <button class="sb-copy" id="shareCopy" type="button">🔗 複製連結</button>
+    </div>
+
+    <script>
+        // 分享列
+        (function() {
+            const url = location.href.split('#')[0];
+            const ln = document.getElementById('shareLine'), cp = document.getElementById('shareCopy');
+            if (ln) ln.href = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url);
+            if (cp) cp.addEventListener('click', async function() {
+                try { if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { await navigator.share({ title: document.title, url }); return; } } catch(e){}
+                try { await navigator.clipboard.writeText(url); }
+                catch(e){ const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); }
+                cp.textContent = '✅ 已複製!'; cp.classList.add('copied');
+                setTimeout(()=>{ cp.textContent='🔗 複製連結'; cp.classList.remove('copied'); }, 2000);
+            });
+        })();
+        // in-app browser 提示 + LINE 按鈕 fallback + 延遲載入 QR
+        (function() {
+            const ua = navigator.userAgent || '';
+            const inApp = /FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\//i.test(ua);
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(ua);
+            if (inApp) { const t = document.getElementById('inappTip'); if (t) t.style.display = 'block'; }
+            const btn = document.getElementById('lineBtn');
+            if (btn && isMobile) {
+                btn.addEventListener('click', function() {
+                    const webUrl = btn.getAttribute('href');
+                    const tm = setTimeout(()=>{ window.location.href = webUrl; }, 1500);
+                    window.addEventListener('pagehide', ()=>clearTimeout(tm), { once:true });
+                    window.addEventListener('blur', ()=>clearTimeout(tm), { once:true });
+                });
+            }
+            const qr = document.getElementById('qrImg');
+            if (qr && qr.dataset.src) qr.src = qr.dataset.src;
+        })();
+    </script>
+</body>
+</html>
