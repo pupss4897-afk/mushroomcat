@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸幼貓不挑嘴養成表：三個養出挑嘴貓的習慣、每天四件事的養成清單、七天實作進度">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="幼貓不挑嘴養成表｜香菇爸 App">
+  <meta property="og:description" content="挑嘴不是天生的，是被養出來的 ~ 三個習慣先停掉，四件事每天做">
+  <meta property="og:image" content="flatface-og.jpg">
+  <title>幼貓不挑嘴養成表｜香菇爸 App</title>
+  <style>
+    :root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--gold:#cfa563;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12)}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.65;min-height:100vh}
+    button,input{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}img{max-width:100%;height:auto;display:block}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+    .hero{padding:22px 18px 16px}
+    .hero-card{position:relative;padding:23px 20px 20px;border-radius:26px;background:linear-gradient(152deg,#c2704f 0%,#d98a63 50%,#e8ab86 100%);color:#fff;box-shadow:0 18px 38px rgba(180,110,75,.26);overflow:hidden}
+    .hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22);box-shadow:0 0 0 28px rgba(255,255,255,.06)}
+    .kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:800;letter-spacing:1px}
+    .hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:27px;line-height:1.35}
+    .hero p{position:relative;z-index:1;margin-top:8px;color:rgba(255,255,255,.92);font-size:12.5px}
+    .hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.16);font-size:11px}
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+    .title-row{margin-bottom:13px}.num{display:block;color:var(--danger);font-size:10px;font-weight:900;letter-spacing:1.4px}
+    .title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:21px;margin-top:3px}
+    .title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+    /* 三個習慣（診斷） */
+    .habits{display:grid;gap:9px}
+    .habit{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07);cursor:pointer;transition:.15s}
+    .habit input{width:20px;height:20px;accent-color:var(--danger);margin-top:2px}
+    .habit b{display:block;font-size:13.5px}
+    .habit small{display:block;color:var(--soft);font-size:11px;margin-top:3px;line-height:1.75}
+    .habit.on{border-color:rgba(185,101,89,.45);background:#fff8f5}
+    .verdict{margin-top:12px;padding:15px;border-radius:16px;background:var(--cream2);text-align:center}
+    .verdict b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:18px}
+    .verdict p{margin-top:4px;font-size:11.5px;color:#7a6a4f}
+    /* 養成表 */
+    .table{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+    .trow{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;padding:14px 13px;border-bottom:1px solid var(--line);cursor:pointer}
+    .trow:last-child{border-bottom:0}
+    .trow input{width:20px;height:20px;accent-color:var(--green);margin-top:2px}
+    .trow b{display:block;font-size:13px}
+    .trow small{display:block;color:var(--soft);font-size:11px;margin-top:2px;line-height:1.75}
+    .bar{height:7px;border-radius:999px;background:#eee7da;overflow:hidden;margin-bottom:12px}
+    .bar span{display:block;height:100%;width:0;background:var(--green);transition:.25s}
+    .count{display:block;text-align:right;margin-top:9px;font-size:10.5px;color:var(--soft)}
+    /* 七天 */
+    .days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:11px}
+    .day{padding:9px 2px;border:1px solid var(--line);border-radius:11px;background:#fff;text-align:center;font-size:10.5px;font-weight:800;transition:.15s}
+    .day.done{background:var(--green);border-color:var(--green);color:#fff}
+    .daynote{padding:12px 13px;border-radius:13px;background:var(--green2);font-size:11.5px;line-height:1.8}
+    /* QA */
+    .qa{display:grid;gap:8px}
+    .qitem{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .qhead{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border:0;background:none;text-align:left;font-size:12.5px;font-weight:800}
+    .qplus{font-size:17px;color:#c9beab;transition:.2s}.qitem.open .qplus{transform:rotate(45deg)}
+    .qbody{display:none;padding:0 13px 13px;font-size:11.5px;color:#6f6658;line-height:1.85}.qitem.open .qbody{display:block}
+    .urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;padding:14px;border:1px solid rgba(185,101,89,.25);border-radius:17px;background:#fff6f2}
+    .urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+    .urgent b{color:var(--danger);font-size:12px}.urgent p{font-size:11px;color:#806962;margin-top:2px}
+    .links{display:grid;gap:9px;margin-top:12px}
+    .link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+    .link-card b{font-size:13px}.link-card small{display:block;color:var(--soft);font-size:10.5px}
+    .link-card i{font-style:normal;color:var(--soft)}
+    .sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+    .sources strong{display:block;color:var(--ink);margin-bottom:3px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="kitten-care.html#t-food" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>不挑嘴養成表</strong><small>挑嘴不是天生的</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">PICKY EATER CHECKLIST</span>
+      <h1>挑嘴貓<br>不是天生的</h1>
+      <p>是被養出來的 ~ 而且大部分在幼貓這半年就定型了</p>
+      <div class="hero-mini"><span>✓ 三個習慣自測</span><span>✓ 每天四件事</span><span>✓ 七天進度</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">01｜先看你中了幾個</span><h2>養出挑嘴貓的三個習慣</h2><p>老實勾就好 ~ 這三個我自己全部做過</p></div>
+    <div class="habits" id="habitList"></div>
+    <div class="verdict"><b id="vTitle">先勾勾看 👆</b><p id="vText">不是要你自責 ~ 是先知道從哪裡改</p></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">02｜反過來做</span><h2>每天固定這四件事</h2><p>勾選會存在這台裝置 ~ 關掉重開還在</p></div>
+    <div class="bar"><span id="bar"></span></div>
+    <div class="table" id="taskList"></div>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">03｜七天進度</span><h2>先撐過第一週</h2><p>四件事都做到，那天就會亮起來</p></div>
+    <div class="days" id="dayGrid"></div>
+    <div class="daynote" id="dayNote"></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">04｜最常被問的</span><h2>撐不下去的時候</h2></div>
+    <div class="qa" id="qaList"></div>
+  </section>
+
+  <section class="section">
+    <div class="urgent"><span>!</span><div><b>這些狀況不是挑嘴，先看獸醫</b><p>完全不吃不喝、精神變差、同時嘔吐或拉肚子、吃東西時像會痛或只用單邊咬、突然從正常變成什麼都不吃——這些要由獸醫評估 ~ 這頁講的是「日常容易被忽略的習慣」，不是說全部都是你造成的</p></div></div>
+    <div class="links">
+      <a class="link-card" href="kitten-care.html#t-food"><span>🥣</span><span><b>幼貓飲食怎麼安排</b><small>月齡餵食次數・七天換糧</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/calculator.html"><span>🧮</span><span><b>熱量計算機</b><small>先算出一天該吃多少</small></span><i>›</i></a>
+      <a class="link-card" href="mushroom-daily.html"><span>🕰️</span><span><b>香菇的一天</b><small>她 5.7 到 4.6 公斤那兩年</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <strong>關於這一頁</strong>
+    本頁提供日常餵養習慣的觀念與作法，屬經驗分享，不是醫療或營養建議<br>
+    每隻貓的年齡、體型與健康狀況差異很大，若有疾病、用藥中或處方飲食需求，請依你的獸醫指示調整
+  </footer>
+</main>
+
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="不挑嘴養成表-底部LINE">💬 加入 LINE・卡關了問香菇爸</a></nav>
+
+<script>
+const habits=[
+ {t:'牠不吃，我就馬上換一種',d:'貓學到的不是「這個不好吃」~ 是「我只要不吃，就會有更好的」'},
+ {t:'飯碗整天放著，隨牠吃',d:'沒有餓的感覺 ~ 就沒有吃的動力，定時收掉比買十種罐頭有用'},
+ {t:'心疼的時候用零食補',d:'最多人中的一個 ~ 零食變成溝通方式，正餐就再也贏不了'}
+];
+
+const tasks=[
+ {t:'定時放飯，15-20 分鐘收走',d:'沒吃完就收 ~ 下一餐時間到才再給'},
+ {t:'一天只給同一種主食',d:'要換也用七天遞進 ~ 一次只改一個變因'},
+ {t:'零食算進當天總量',d:'不是不能給 ~ 是給了就從正餐扣'},
+ {t:'不吃的時候不加料、不換牌',d:'最難的一項 ~ 撐過去牠就會回到正餐'}
+];
+
+const qas=[
+ ['牠整餐不吃，我真的很怕','健康的幼貓漏一餐通常還好，但幼貓體型小、撐不了太久 ~ 如果連續兩餐完全不吃，或同時精神變差，那就不是意志力的問題了，請聯絡獸醫'],
+ ['牠一直叫，我快撐不住了','叫是因為以前叫有用 ~ 你只要回應一次，就等於教牠「叫得夠久就會有」~ 可以陪牠、摸牠、跟牠說話，但不要在非餐時間給食物'],
+ ['家人偷偷餵怎麼辦','這是最常見的破功點 ~ 把規則寫下來貼在冰箱上，全家同一套 ~ 只要有一個人偷給，前面七天就白做了'],
+ ['要撐多久才會有效','多數會在三到七天出現變化 ~ 但如果超過一週完全沒有進展，先別硬撐，跟獸醫討論是不是有其他原因']
+];
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const KEY='mushroomPicky';
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function save(o){localStorage.setItem(KEY,JSON.stringify(o))}
+
+$('#habitList').innerHTML=habits.map((h,i)=>`<label class="habit"><input type="checkbox" data-h="${i}"><span><b>${i+1}. ${h.t}</b><small>${h.d}</small></span></label>`).join('');
+$('#taskList').innerHTML=tasks.map((t,i)=>`<label class="trow"><input type="checkbox" data-t="${i}"><span><b>${t.t}</b><small>${t.d}</small></span></label>`).join('');
+$('#qaList').innerHTML=qas.map(q=>`<article class="qitem"><button class="qhead"><span>${q[0]}</span><span class="qplus">＋</span></button><div class="qbody">${q[1]}</div></article>`).join('');
+
+function renderHabits(){
+ const n=$$('[data-h]').filter(x=>x.checked).length;
+ $$('[data-h]').forEach(x=>x.closest('.habit').classList.toggle('on',x.checked));
+ const r=[
+  ['先勾勾看 👆','不是要你自責 ~ 是先知道從哪裡改'],
+  ['中 1 個，很好處理','只要改這一個，兩週內就會有感 ~ 往下看第二區'],
+  ['中 2 個，是常見組合','大部分毛家長都在這裡 ~ 先改「馬上換一種」那個，它影響最大'],
+  ['三個全中，跟我一樣 😅','我當年也是三個全中，花了兩年才拉回來 ~ 但你現在就發現了，比我早很多']
+ ][n];
+ $('#vTitle').textContent=r[0];$('#vText').textContent=r[1];
+}
+function renderTasks(){
+ const d=load(),today=new Date().toISOString().slice(0,10);
+ const done=tasks.filter((_,i)=>(d[today]||[]).includes(i)).length;
+ $$('[data-t]').forEach((x,i)=>x.checked=(d[today]||[]).includes(i));
+ $('#bar').style.width=(done/tasks.length*100)+'%';
+ $('#count').textContent=`今天完成 ${done} / ${tasks.length}`;
+ renderDays();
+}
+function renderDays(){
+ const d=load(),out=[];
+ for(let i=6;i>=0;i--){
+  const dt=new Date();dt.setDate(dt.getDate()-i);
+  const k=dt.toISOString().slice(0,10);
+  const full=(d[k]||[]).length===tasks.length;
+  out.push(`<div class="day ${full?'done':''}">${dt.getMonth()+1}/${dt.getDate()}</div>`);
+ }
+ $('#dayGrid').innerHTML=out.join('');
+ const n=Object.values(d).filter(v=>v.length===tasks.length).length;
+ $('#dayNote').innerHTML=n===0?'今天是第一天 ~ 四件事都做到就會亮起來 💗'
+  :n<3?`已經完成 <b>${n}</b> 天 ~ 前三天最難，撐過去就順了`
+  :n<7?`已經完成 <b>${n}</b> 天 ~ 通常這時候會開始看到變化了`
+  :`已經完成 <b>${n}</b> 天 ~ 這已經是習慣不是撐了，你做到了 💗`;
+}
+
+document.addEventListener('change',e=>{
+ if(e.target.matches('[data-h]'))renderHabits();
+ if(e.target.matches('[data-t]')){
+  const d=load(),today=new Date().toISOString().slice(0,10);
+  d[today]=$$('[data-t]').map((x,i)=>x.checked?i:-1).filter(i=>i>=0);
+  save(d);renderTasks();
+ }
+});
+document.addEventListener('click',e=>{
+ const h=e.target.closest('.qhead');
+ if(h){const it=h.closest('.qitem');it.classList.toggle('open')}
+});
+
+renderHabits();renderTasks();
+</script>
+
+<!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
+<div style="clear:both;max-width:460px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;line-height:1.85;color:#a89f8c;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;background:transparent">© 2026 香菇爸 ｜ 原創內容，未經授權請勿轉載或重製<br>🍄 <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener" style="color:#8fb89a;text-decoration:none;font-weight:700">香菇爸 @love_mushroom55</a></div>
+</body>
+</html>
