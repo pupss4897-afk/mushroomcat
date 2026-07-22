@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇八歲了，這是她真實的一天：六餐的時間、固定的作息、每天在做的保養">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="香菇的一天｜香菇爸 App">
+  <meta property="og:description" content="八歲短腿曼赤肯的一天，六餐、固定作息、每年健檢，我家八年來的日常">
+  <meta property="og:image" content="flatface-og.jpg">
+  <title>香菇的一天｜香菇爸 App</title>
+  <style>
+    :root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--gold:#cfa563;--gold2:#f6ecd8;--shadow:0 8px 24px rgba(150,130,100,.12)}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.6;min-height:100vh}
+    button,input{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}img{max-width:100%;display:block}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+
+    /* HERO：圖為主 */
+    .hero{padding:20px 18px 14px}
+    .hero-card{position:relative;padding:22px 20px 0;border-radius:26px;background:linear-gradient(152deg,#c79a56 0%,#cfa563 46%,#e2c48f 100%);color:#fff;box-shadow:0 18px 38px rgba(180,145,90,.26);overflow:hidden}
+    .hero-card:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-70px;top:-80px;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 30px rgba(255,255,255,.05)}
+    .kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:800;letter-spacing:1px}
+    .hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:29px;line-height:1.32}
+    .hero .sub{position:relative;z-index:1;margin-top:7px;font-size:12.5px;color:rgba(255,255,255,.92)}
+    .hero-photo{position:relative;z-index:1;width:196px;height:auto;aspect-ratio:3/4;object-fit:cover;margin:14px auto -14px;border-radius:22px;border:4px solid rgba(255,255,255,.85);box-shadow:0 14px 30px rgba(90,70,40,.3);animation:float 5.5s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+    .title-row{margin-bottom:13px}.num{display:block;color:var(--gold);font-size:10px;font-weight:900;letter-spacing:1.4px}
+    .title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:21px;margin-top:3px}
+    .title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+
+    /* 數字牆 */
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .stat{padding:15px 12px;border:1px solid var(--line);border-radius:17px;background:#fff;text-align:center;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .stat b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:27px;color:var(--gold);line-height:1.15}
+    .stat span{display:block;font-size:11px;font-weight:800;margin-top:3px}
+    .stat small{display:block;color:var(--soft);font-size:10px;margin-top:1px}
+
+    /* 時間軸 */
+    .tl{position:relative;padding-left:15px}
+    .tl:before{content:"";position:absolute;left:4px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--gold),rgba(207,165,99,.15))}
+    .tlitem{position:relative;margin-bottom:7px}
+    .tlitem:before{content:"";position:absolute;left:-15px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--cream)}
+    .tlitem.meal:before{background:var(--pink)}
+    .tlcard{border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:0 4px 13px rgba(150,130,100,.06);overflow:hidden}
+    .tlhead{width:100%;display:grid;grid-template-columns:46px 1fr auto;gap:10px;align-items:center;padding:11px 13px;border:0;background:none;text-align:left}
+    .tltime{font-family:"Noto Serif TC","Songti TC",serif;font-size:14px;font-weight:700;color:var(--gold)}
+    .tlhead b{font-size:13px}.tlhead small{display:block;color:var(--soft);font-size:10.5px}
+    .tlplus{font-size:17px;color:#c9beab;transition:.2s}.tlitem.open .tlplus{transform:rotate(45deg)}
+    .tlbody{display:none;padding:0 13px 12px}.tlitem.open .tlbody{display:block}
+    .tlbody div{padding:9px 11px;border-radius:11px;background:#f8f3e9;border-left:3px solid var(--gold);font-size:11.5px;color:#6f6658}
+    .legend{display:flex;gap:12px;margin-bottom:11px;font-size:10.5px;color:var(--soft)}
+    .legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+
+    /* 影片卡 */
+    .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+    .vcard{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07);overflow:hidden}
+    .vwrap{position:relative;aspect-ratio:3/4;background:#efe7d8}
+    .vwrap video{width:100%;height:100%;object-fit:cover;display:block}
+    .vlabel{position:absolute;left:8px;top:8px;padding:4px 9px;border-radius:999px;background:rgba(90,82,70,.72);color:#fff;font-size:10px;font-weight:800;backdrop-filter:blur(4px)}
+    .vtext{padding:11px 12px 13px}
+    .vtext b{display:block;font-size:13px}
+    .vtext small{display:block;color:var(--soft);font-size:10.5px;margin-top:2px;line-height:1.65}
+
+    /* 每天固定：圖卡 */
+    .routine{display:grid;gap:10px}
+    .rcard{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .rcard img{width:64px;height:64px;object-fit:contain}
+    .rcard b{font-size:13.5px}
+    .rcard small{display:block;color:var(--soft);font-size:11px;margin-top:2px}
+    .plain{margin-top:12px;padding:12px 13px;border-radius:13px;background:rgba(159,193,212,.14);font-size:11px;color:#5f7382;line-height:1.9}
+
+    /* 對照 */
+    .quiz{padding:15px;border:1px solid var(--line);border-radius:19px;background:#fff;box-shadow:var(--shadow)}
+    .qbar{height:7px;border-radius:999px;background:#eee7da;overflow:hidden;margin-bottom:12px}
+    .qbar span{display:block;height:100%;width:0;background:var(--gold);transition:.25s}
+    .qlist{display:grid;gap:7px}
+    .qitem{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:center;padding:11px;border-radius:13px;background:#f8f3e9;font-size:12px;cursor:pointer}
+    .qitem input{width:18px;height:18px;accent-color:var(--gold)}
+    .qresult{margin-top:12px;padding:15px;border-radius:15px;background:var(--gold2);text-align:center}
+    .qresult b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:17px}
+    .qresult p{margin-top:4px;font-size:11.5px;color:#7a6a4f}
+
+    /* 誠實 */
+    .regret{display:grid;gap:9px}
+    .gcard{padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .gcard b{display:block;font-size:13px;margin-bottom:3px}
+    .gcard p{font-size:11.5px;color:#6f6658}
+    .gcard a{display:inline-block;margin-top:6px;font-size:11px;font-weight:800;color:var(--green);text-decoration:none}
+
+    .links{display:grid;gap:9px;margin-top:12px}
+    .link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+    .link-card b{font-size:13px}.link-card small{display:block;color:var(--soft);font-size:10.5px}
+    .link-card i{font-style:normal;color:var(--soft)}
+
+    .sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+    .sources strong{display:block;color:var(--ink);margin-bottom:3px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>香菇的一天</strong><small>八歲・短腿曼赤肯</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">A DAY WITH MUSHROOM</span>
+      <h1>香菇八歲了</h1>
+      <p class="sub">這是她很普通的一天 ~ 做了八年</p>
+      <img class="hero-photo" src="media/shroom-hero.jpg" width="750" height="1000" alt="香菇本尊，戴著藍色格紋圍兜" loading="eager">
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">01｜八年</span><h2>時間累積的東西</h2></div>
+    <div class="stats">
+      <div class="stat"><b>8</b><span>歲</span><small>母貓・曼赤肯</small></div>
+      <div class="stat"><b>6</b><span>餐 / 天</span><small>時間固定</small></div>
+      <div class="stat"><b>5.7→4.6</b><span>公斤</span><small>花了兩年</small></div>
+      <div class="stat"><b>1</b><span>年一次健檢</span><small>含抽血</small></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">02｜一天六餐</span><h2>她的吃飯與保養時間</h2><p>想知道為什麼這樣排 ~ 點開就好</p></div>
+    <div class="tl" id="timeline"></div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">03｜每天固定</span><h2>八年沒變的四件事</h2><p>就這幾件 ~ 真的沒有更多</p></div>
+    <div class="vgrid">
+      <article class="vcard">
+        <div class="vwrap">
+          <span class="vlabel">🍚 吃飯</span>
+          <video src="media/meal-food.mp4" poster="media/meal-food.jpg" autoplay muted loop playsinline preload="metadata" aria-label="香菇吃主食的影片"></video>
+        </div>
+        <div class="vtext"><b>主食：高端餐</b><small>六餐都吃這個 ~ 份量照現在的體重算</small></div>
+      </article>
+      <article class="vcard">
+        <div class="vwrap">
+          <span class="vlabel">🌿 保養</span>
+          <video src="media/care-supplement.mp4" poster="media/care-supplement.jpg" autoplay muted loop playsinline preload="metadata" aria-label="香菇的保養時間影片"></video>
+        </div>
+        <div class="vtext"><b>保養：藍藻菌</b><small>早晚各一次 ~ 八年沒斷過</small></div>
+      </article>
+    </div>
+    <div class="routine">
+      <div class="rcard"><img src="icons/calc.png?v=3" alt=""><span><b>固定量體重</b><small>同一個秤、同一個時間 ~ 看曲線不看單次</small></span></div>
+      <div class="rcard"><img src="icons/household.png?v=3" alt=""><span><b>作息盡量不變動</b><small>貓要的不是豐富 ~ 是可預測</small></span></div>
+    </div>
+    <div class="plain">
+      這區只寫<b>我家怎麼做</b> ~ 不是建議你也要一樣<br>
+      每隻貓差很多，怎麼安排、需不需要額外補充，請跟你的獸醫討論 💗
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">04｜換你了</span><h2>你家主子的一天呢</h2><p>勾你已經在做的 ~ 沒有標準答案</p></div>
+    <div class="quiz">
+      <div class="qbar"><span id="qbar"></span></div>
+      <div class="qlist" id="qlist"></div>
+      <div class="qresult"><b id="qTitle">先勾勾看 👆</b><p id="qText">不是考試 ~ 是看清楚現在做到哪</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">05｜誠實說</span><h2>我在香菇身上做錯的事</h2></div>
+    <div class="regret">
+      <div class="gcard"><b>她不吃，我就換一種</b><p>我以為那是寵愛 ~ 結果她學會的是「只要不吃就會有更好的」</p><a href="kitten-care.html#t-food">→ 幼貓飲食怎麼安排</a></div>
+      <div class="gcard"><b>心疼就用凍乾補</b><p>5.7 公斤那年她走路肉都在抖 ~ 後來花兩年才回到 4.6</p><a href="kitten-care.html#t-weight">→ 體重要怎麼看</a></div>
+      <div class="gcard"><b>只在健檢時才量體重</b><p>中間那半年怎麼胖起來的 ~ 我完全沒發現</p><a href="貓咪熱量計算機/calculator.html">→ 算一天該吃多少</a></div>
+    </div>
+    <div class="links">
+      <a class="link-card" href="kitten-care.html"><span>🍼</span><span><b>幼貓黃金成長期</b><small>還在 0-12 個月先看這個</small></span><i>›</i></a>
+      <a class="link-card" href="newbie-care.html"><span>🔰</span><span><b>新手護貓導航</b><small>現在就有狀況從這裡找</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <strong>關於這一頁</strong>
+    本頁記錄香菇爸自家貓「香菇」的實際日常安排，屬個人經驗分享，不是照護準則，也不是醫療或營養建議<br>
+    每隻貓的年齡、體型與健康狀況差異很大，飲食安排、體重管理與任何額外補充，請與你的獸醫討論後決定
+  </footer>
+</main>
+
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="香菇的一天-底部LINE">💬 加入 LINE・聊聊你家的一天</a></nav>
+
+<script>
+const timeline=[
+ {t:'07:00',title:'第一餐 ＋ 早上保養',sub:'一天的開始',meal:1,why:'保養卡在餵飯的同一個時間點 ~ 會持續八年的事一定是流程，不是靠意志力'},
+ {t:'09:00',title:'第二餐',sub:'',meal:1,why:'六餐把一天的量分散開 ~ 不會一次吃太多，也不會空腹太久'},
+ {t:'12:00',title:'第三餐',sub:'',meal:1,why:'定時定量她才有餓的感覺 ~ 整天放飯是我以前犯的錯'},
+ {t:'17:00',title:'第四餐',sub:'',meal:1,why:'只要某一餐反常沒吃，我當天就會發現 ~ 這是我最早的健康警報'},
+ {t:'19:00',title:'第五餐',sub:'',meal:1,why:'份量是用她現在的體重算的 ~ 不是用她五公斤時的舊習慣'},
+ {t:'22:00',title:'第六餐 ＋ 晚上保養',sub:'一天最後一餐',meal:1,why:'這餐讓她夜裡不會餓醒 ~ 保養也在這時候做完，跟早上一樣卡在固定點'}
+];
+
+const quiz=[
+ '餵食有固定時間，不是整天放著',
+ '我知道主子現在的體重',
+ '至少一年帶去健檢一次',
+ '每天有一段固定陪伴的時間',
+ '有一件每天在做的保養，沒斷過',
+ '某一餐反常沒吃，我當天會發現'
+];
+
+const results=[
+ {min:0,title:'先挑一件開始就好 💗',text:'從固定餵食時間開始 ~ 其他的會自己跟上'},
+ {min:2,title:'你已經有基礎了',text:'下一步建議是知道現在的體重 ~ 那是最早看出變化的地方'},
+ {min:4,title:'你比很多人用心了 💗',text:'難的不是做到，是持續 ~ 挑一件你確定能天天做的'},
+ {min:6,title:'這樣的日常，主子很幸運',text:'你在做的事，就是八年後會看見的東西 💗'}
+];
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
+$('#timeline').innerHTML=timeline.map(x=>`<article class="tlitem${x.meal?' meal':''}">
+  <div class="tlcard"><button class="tlhead" aria-expanded="false"><span class="tltime">${x.t}</span><span><b>${x.title}</b>${x.sub?`<small>${x.sub}</small>`:''}</span><span class="tlplus">＋</span></button>
+  <div class="tlbody"><div>${x.why}</div></div></div></article>`).join('');
+
+$('#qlist').innerHTML=quiz.map((q,i)=>`<label class="qitem"><input type="checkbox" data-q="${i}"><span>${q}</span></label>`).join('');
+
+function renderQuiz(){
+ const n=$$('[data-q]').filter(x=>x.checked).length;
+ $('#qbar').style.width=(n/quiz.length*100)+'%';
+ const r=[...results].reverse().find(x=>n>=x.min);
+ $('#qTitle').textContent=n===0?'先勾勾看 👆':`${n} / ${quiz.length}・${r.title}`;
+ $('#qText').textContent=n===0?'不是考試 ~ 是看清楚現在做到哪':r.text;
+}
+
+document.addEventListener('click',e=>{
+ const th=e.target.closest('.tlhead');
+ if(th){const it=th.closest('.tlitem');it.classList.toggle('open');th.setAttribute('aria-expanded',String(it.classList.contains('open')))}
+});
+$('#qlist').addEventListener('change',renderQuiz);
+renderQuiz();
+</script>
+
+<!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
+<div style="clear:both;max-width:460px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;line-height:1.85;color:#a89f8c;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;background:transparent">© 2026 香菇爸 ｜ 原創內容，未經授權請勿轉載或重製<br>🍄 <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener" style="color:#8fb89a;text-decoration:none;font-weight:700">香菇爸 @love_mushroom55</a></div>
+</body>
+</html>
