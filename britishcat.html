@@ -189,6 +189,14 @@
 
         @media (max-width: 480px) { .hero h1 { font-size: 22px; } .cta h2 { font-size: 19px; } }
     </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KD4Y1VHLGC');
+  </script>
 </head>
 <body>
 
@@ -290,7 +298,7 @@
                 建議:點畫面<strong>右上角的「⋯」或「︙」</strong> → 選「<strong>用 Safari / Chrome 開啟</strong>」→ 再點一次按鈕,就能順利加入 ✅
             </div>
 
-            <a id="lineBtn" href="https://s.luckycat.no8.io/link/channels/6BIw2vl4FT" target="_blank" rel="noopener" class="line-btn">
+            <a id="lineBtn" href="https://s.luckycat.no8.io/link/channels/6BIw2vl4FT" target="_blank" rel="noopener" class="line-btn" data-ga="英短俱樂部-加入LINE">
                 <span class="lg">💬</span><span>加入 LINE 領取更多懶人包</span><span class="pulse"></span>
             </a>
             <p class="line-hint" id="lineHint">點了沒反應?長按按鈕「在外部瀏覽器開啟」,就能跳到 LINE 加入</p>
@@ -348,5 +356,19 @@
             if (qr && qr.dataset.src) qr.src = qr.dataset.src;
         })();
     </script>
+<script>
+/* GA4：自動追蹤每個按鈕/連結的點擊 */
+(function () {
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, button');
+    if (!el) return;
+    var label = (el.getAttribute('data-ga') || el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+    if (!label) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'button_click', { label: label, page: 'britishcat' });
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>

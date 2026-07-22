@@ -220,6 +220,14 @@
             .cta-sec h2 { font-size: 19px; }
         }
     </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KD4Y1VHLGC');
+  </script>
 </head>
 <body>
 
@@ -345,7 +353,7 @@
     <div class="share-bar">
         <span class="lbl">分享給愛貓的朋友 👉</span>
         <a class="sb sb-fb" id="shareFb" href="#" rel="noopener" target="_blank">📘 Facebook</a>
-        <a class="sb sb-line" id="shareLine" href="https://s.luckycat.no8.io/link/channels/yNee06zl1C" rel="noopener" target="_blank">💬 LINE</a>
+        <a class="sb sb-line" id="shareLine" href="https://s.luckycat.no8.io/link/channels/yNee06zl1C" rel="noopener" target="_blank" data-ga="扁臉俱樂部-加入LINE">💬 LINE</a>
         <button class="sb-copy" id="shareCopy" type="button">🔗 複製連結</button>
     </div>
 
@@ -404,5 +412,19 @@
             if (qr && qr.dataset.src) qr.src = qr.dataset.src;
         })();
     </script>
+<script>
+/* GA4：自動追蹤每個按鈕/連結的點擊 */
+(function () {
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, button');
+    if (!el) return;
+    var label = (el.getAttribute('data-ga') || el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+    if (!label) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'button_click', { label: label, page: 'flatface' });
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>
