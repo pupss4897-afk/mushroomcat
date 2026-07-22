@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸主子體重紀錄：每週記一次，看的是曲線不是單次數字 ~ 資料只存在你自己的手機裡">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="主子體重紀錄｜香菇爸 App">
+  <meta property="og:description" content="單次數字沒有意義，有沒有持續往上才有意義 ~ 每週記一次就好">
+  <meta property="og:image" content="flatface-og.jpg">
+  <title>主子體重紀錄｜香菇爸 App</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KD4Y1VHLGC');
+  </script>
+  <style>
+    :root{
+      --cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;
+      --pink:#e8a39b;--green:#8fb89a;--danger:#b96559;
+      --series:#5f8b6e;            /* 曲線色：對白底 3:1 以上 */
+      --series-soft:rgba(95,139,110,.12);
+      --shadow:0 8px 24px rgba(150,130,100,.12);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.65;min-height:100vh}
+    button,input,select{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}img{max-width:100%;height:auto;display:block}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+    .title-row{margin-bottom:13px}.num{display:block;color:var(--series);font-size:10px;font-weight:900;letter-spacing:1.4px}
+    .title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:21px;margin-top:3px}
+    .title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+
+    /* 主子切換 */
+    .cats{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:12px}
+    .cats::-webkit-scrollbar{display:none}
+    .catchip{flex:0 0 auto;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:800;white-space:nowrap}
+    .catchip.on{border-color:var(--series);background:var(--series);color:#fff}
+    .catadd{flex:0 0 auto;padding:8px 13px;border:1px dashed var(--line);border-radius:999px;background:transparent;color:var(--soft);font-size:12px;font-weight:800}
+
+    /* 頭條數字 */
+    .hero-num{padding:18px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);text-align:center}
+    .hero-num .big{font-family:"Noto Serif TC","Songti TC",serif;font-size:44px;line-height:1.05;color:var(--ink)}
+    .hero-num .big em{font-style:normal;font-size:17px;color:var(--soft);margin-left:3px}
+    .hero-num .when{display:block;color:var(--soft);font-size:11px;margin-top:4px}
+    .deltas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin-top:14px}
+    .delta{padding:10px;border-radius:13px;background:#f8f3e9}
+    .delta b{display:block;font-size:15px;font-family:"Noto Serif TC","Songti TC",serif}
+    .delta small{display:block;color:var(--soft);font-size:10px;margin-top:1px}
+
+    /* 圖表 */
+    .chartwrap{margin-top:14px;padding:14px 10px 8px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);position:relative}
+    .chartwrap h3{font-size:12px;color:var(--soft);font-weight:800;letter-spacing:.5px;margin:0 6px 6px}
+    svg.chart{width:100%;height:auto;display:block;touch-action:pan-y}
+    .grid-line{stroke:var(--line);stroke-width:1}
+    .axis-txt{fill:var(--soft);font-size:9px;font-family:Inter,-apple-system,sans-serif}
+    .series-line{fill:none;stroke:var(--series);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .series-area{fill:var(--series-soft)}
+    .dot{fill:var(--series);stroke:#fff;stroke-width:2}
+    .dot-last{fill:var(--series);stroke:#fff;stroke-width:2.5}
+    .lastlabel{fill:var(--ink);font-size:11px;font-weight:800;font-family:Inter,-apple-system,sans-serif}
+    .cross{stroke:var(--soft);stroke-width:1;stroke-dasharray:3 3;opacity:0}
+    .hoverdot{fill:var(--series);stroke:#fff;stroke-width:2.5;opacity:0}
+    .tip{position:absolute;pointer-events:none;padding:7px 10px;border-radius:10px;background:#5a5246;color:#fff;font-size:11px;font-weight:700;white-space:nowrap;opacity:0;transform:translate(-50%,-130%);transition:opacity .12s;z-index:3}
+    .empty{padding:26px 16px;text-align:center;color:var(--soft);font-size:12px;border:1px dashed var(--line);border-radius:16px;background:#fff}
+
+    /* 輸入 */
+    .form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin-bottom:9px}
+    .form label{display:block;font-size:10.5px;color:var(--soft);font-weight:800;margin-bottom:4px}
+    .form input{width:100%;height:46px;padding:0 12px;border:1px solid var(--line);border-radius:13px;background:#fff}
+    .btn{width:100%;height:48px;border:0;border-radius:14px;background:var(--series);color:#fff;font-weight:900;font-size:14px;box-shadow:0 6px 16px rgba(95,139,110,.25)}
+    .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-size:12.5px;height:44px}
+
+    /* 紀錄表 */
+    .rows{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center;padding:12px 13px;border-bottom:1px solid var(--line);font-size:12.5px}
+    .row:last-child{border-bottom:0}
+    .row .d{color:var(--soft);font-size:11.5px}
+    .row .w{font-weight:800;font-variant-numeric:tabular-nums}
+    .row .diff{font-size:10.5px;color:var(--soft);min-width:46px;text-align:right;font-variant-numeric:tabular-nums}
+    .row button{border:0;background:none;color:var(--soft);font-size:15px;line-height:1;padding:2px 4px}
+
+    .urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;padding:14px;border:1px solid rgba(185,101,89,.25);border-radius:17px;background:#fff6f2;margin-top:14px}
+    .urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+    .urgent b{color:var(--danger);font-size:12px}.urgent p{font-size:11px;color:#806962;margin-top:2px}
+    .plain{padding:12px 13px;border-radius:13px;background:rgba(159,193,212,.14);font-size:11px;color:#5f7382;line-height:1.9}
+    .links{display:grid;gap:9px;margin-top:12px}
+    .link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+    .link-card b{font-size:13px}.link-card small{display:block;color:var(--soft);font-size:10.5px}
+    .link-card i{font-style:normal;color:var(--soft)}
+    .sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+    .sources strong{display:block;color:var(--ink);margin-bottom:3px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    .toast{position:fixed;left:50%;bottom:76px;z-index:40;transform:translate(-50%,12px);padding:9px 13px;border-radius:999px;background:#5a5246;color:#fff;font-size:10.5px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="kitten-care.html#t-weight" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>主子體重紀錄</strong><small>看曲線，不看單次</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="section">
+    <div class="cats" id="cats"></div>
+    <div id="mainArea"></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">記一筆</span><h2>今天量了多少</h2><p>每週固定同一個秤、同一個時間就好</p></div>
+    <div class="form">
+      <div><label for="inD">日期</label><input id="inD" type="date"></div>
+      <div><label for="inW">體重（公斤）</label><input id="inW" type="number" step="0.01" min="0.1" max="30" inputmode="decimal" placeholder="4.60"></div>
+    </div>
+    <button class="btn" id="addBtn" data-ga="體重紀錄-新增一筆">＋ 存進紀錄</button>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">全部紀錄</span><h2>一筆一筆看</h2></div>
+    <div id="rows"></div>
+    <div class="urgent"><span>!</span><div><b>這兩種情況要找獸醫</b><p>連續兩週沒有增加、或是體重開始往下掉 ~ 請讓獸醫評估，不要自己先加飯量 <br>幼貓體型小、變化快，比成貓更需要早一點確認</p></div></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">備份</span><h2>換手機不想重來的話</h2></div>
+    <div style="display:grid;gap:9px">
+      <button class="btn ghost" id="expBtn" data-ga="體重紀錄-匯出備份">⬇️ 匯出備份檔</button>
+      <button class="btn ghost" id="impBtn" data-ga="體重紀錄-匯入備份">⬆️ 匯入備份檔</button>
+      <input id="impFile" type="file" accept="application/json" hidden>
+    </div>
+    <div class="plain" style="margin-top:12px">
+      這頁的紀錄<b>只存在你這台裝置的瀏覽器裡</b> ~ 不會上傳，也沒有帳號<br>
+      換手機、清除瀏覽資料、或用無痕模式，紀錄都不會跟著走 ~ 想留著就先匯出備份 💗
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="links">
+      <a class="link-card" href="kitten-care.html#t-weight"><span>⚖️</span><span><b>幼貓體重月齡對照</b><small>幾個月大概幾公斤</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/calculator.html"><span>🧮</span><span><b>熱量計算機</b><small>用現在的體重重算一天該吃多少</small></span><i>›</i></a>
+      <a class="link-card" href="mushroom-daily.html"><span>🕰️</span><span><b>香菇的一天</b><small>她 5.7 到 4.6 那兩年怎麼過的</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <strong>關於這一頁</strong>
+    本頁僅提供體重紀錄與趨勢檢視，屬日常照護輔助工具，不是醫療建議，也不能取代獸醫的檢查與診斷<br>
+    每隻貓的品種、年齡與體型差異很大，理想體重請由你的獸醫評估
+  </footer>
+</main>
+
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="體重紀錄-底部LINE">💬 加入 LINE・體重卡關問香菇爸</a></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const KEY='mushroomWeightLog';
+const $=s=>document.querySelector(s);
+const todayStr=()=>new Date().toISOString().slice(0,10);
+
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY));return (d&&d.cats)?d:{cats:[],active:null}}catch(e){return {cats:[],active:null}}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+let db=load();
+function active(){return db.cats.find(c=>c.id===db.active)||db.cats[0]||null}
+
+let tt;function toast(m){$('#toast').textContent=m;$('#toast').classList.add('show');clearTimeout(tt);tt=setTimeout(()=>$('#toast').classList.remove('show'),1800)}
+const fmt=n=>Number(n).toFixed(2).replace(/\.?0+$/,'')||'0';
+const md=s=>{const p=s.split('-');return `${+p[1]}/${+p[2]}`};
+
+/* ---------- 主子切換 ---------- */
+function renderCats(){
+  const el=$('#cats');
+  el.innerHTML=db.cats.map(c=>`<button class="catchip ${c.id===db.active?'on':''}" data-cat="${c.id}">${c.name}</button>`).join('')
+    +`<button class="catadd" data-add="1">＋ 新增主子</button>`;
+}
+
+/* ---------- 主區 ---------- */
+function renderMain(){
+  const c=active();
+  if(!c){$('#mainArea').innerHTML='<div class="empty">還沒有主子 ~ 先按上面的「＋ 新增主子」💗</div>';return}
+  const L=[...c.logs].sort((a,b)=>a.d<b.d?-1:1);
+  if(!L.length){$('#mainArea').innerHTML=`<div class="empty">${c.name} 還沒有任何紀錄 ~ 往下捲記第一筆吧</div>`;return}
+
+  const last=L[L.length-1], prev=L[L.length-2];
+  // 找 28 天前最接近的一筆
+  const target=new Date(last.d); target.setDate(target.getDate()-28);
+  const ts=target.toISOString().slice(0,10);
+  let base=null; for(const x of L){ if(x.d<=ts) base=x; }
+  const dPrev=prev?last.w-prev.w:null;
+  const dBase=base?last.w-base.w:null;
+  const sign=v=>(v>0?'+':'')+fmt(v);
+
+  $('#mainArea').innerHTML=`
+    <div class="hero-num">
+      <div class="big">${fmt(last.w)}<em>kg</em></div>
+      <span class="when">${c.name}・${last.d} 量的</span>
+      <div class="deltas">
+        <div class="delta"><b>${dPrev===null?'—':sign(dPrev)}</b><small>比上次${prev?'（'+md(prev.d)+'）':''}</small></div>
+        <div class="delta"><b>${dBase===null?'—':sign(dBase)}</b><small>比四週前${base?'（'+md(base.d)+'）':'（資料不足）'}</small></div>
+      </div>
+    </div>
+    <div class="chartwrap">
+      <h3>體重變化・共 ${L.length} 筆</h3>
+      <div id="chart"></div>
+      <div class="tip" id="tip"></div>
+    </div>`;
+  drawChart(L);
+}
+
+/* ---------- 曲線圖（手寫 SVG，單一序列不需圖例）---------- */
+let CH=null;
+function drawChart(L){
+  const W=380,H=190,P={t:22,r:44,b:26,l:34};
+  const iw=W-P.l-P.r, ih=H-P.t-P.b;
+
+  const xs=L.map(p=>new Date(p.d+'T00:00:00').getTime());
+  const ys=L.map(p=>p.w);
+  const x0=Math.min(...xs), x1=Math.max(...xs);
+  let lo=Math.min(...ys), hi=Math.max(...ys);
+  if(hi-lo<0.4){const m=(hi+lo)/2; lo=m-0.2; hi=m+0.2}
+  const pad=(hi-lo)*0.18; lo-=pad; hi+=pad;
+  if(lo<0)lo=0;
+
+  const X=t=>x1===x0?P.l+iw/2:P.l+(t-x0)/(x1-x0)*iw;
+  const Y=v=>P.t+ih-(v-lo)/(hi-lo)*ih;
+  const pts=L.map((p,i)=>({x:X(xs[i]),y:Y(p.w),d:p.d,w:p.w}));
+
+  // 三條參考格線
+  const ticks=[lo+(hi-lo)*0.15, lo+(hi-lo)*0.5, lo+(hi-lo)*0.85];
+  const grid=ticks.map(v=>`<line class="grid-line" x1="${P.l}" y1="${Y(v).toFixed(1)}" x2="${P.l+iw}" y2="${Y(v).toFixed(1)}"/>
+    <text class="axis-txt" x="${P.l-6}" y="${(Y(v)+3).toFixed(1)}" text-anchor="end">${v.toFixed(1)}</text>`).join('');
+
+  const line=pts.map((p,i)=>`${i?'L':'M'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const area=pts.length>1?`<path class="series-area" d="${line} L${pts[pts.length-1].x.toFixed(1)},${(P.t+ih).toFixed(1)} L${pts[0].x.toFixed(1)},${(P.t+ih).toFixed(1)} Z"/>`:'';
+
+  // 點：少於 12 筆才每點都畫，多了只留最後一點（避免糊成一團）
+  const dots=pts.length<=12?pts.slice(0,-1).map(p=>`<circle class="dot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4"/>`).join(''):'';
+  const lastP=pts[pts.length-1];
+  const firstLbl=pts.length>1?`<text class="axis-txt" x="${pts[0].x.toFixed(1)}" y="${H-8}" text-anchor="middle">${md(pts[0].d)}</text>`:'';
+  const lastLbl=`<text class="axis-txt" x="${lastP.x.toFixed(1)}" y="${H-8}" text-anchor="middle">${md(lastP.d)}</text>`;
+
+  $('#chart').innerHTML=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="體重變化折線圖，共 ${L.length} 筆紀錄，最新 ${fmt(lastP.w)} 公斤">
+    ${grid}${area}
+    ${pts.length>1?`<path class="series-line" d="${line}"/>`:''}
+    ${dots}
+    <circle class="dot-last" cx="${lastP.x.toFixed(1)}" cy="${lastP.y.toFixed(1)}" r="5"/>
+    <text class="lastlabel" x="${(lastP.x+10).toFixed(1)}" y="${(lastP.y+4).toFixed(1)}">${fmt(lastP.w)}</text>
+    ${firstLbl}${lastLbl}
+    <line class="cross" id="cx" x1="0" y1="${P.t}" x2="0" y2="${P.t+ih}"/>
+    <circle class="hoverdot" id="hd" r="5"/>
+    <rect x="0" y="0" width="${W}" height="${H}" fill="transparent" id="hit"/>
+  </svg>`;
+  CH={pts,W};
+  bindHover();
+}
+
+function bindHover(){
+  const svg=$('#chart svg'), hit=$('#hit'), cx=$('#cx'), hd=$('#hd'), tip=$('#tip');
+  if(!svg)return;
+  const move=ev=>{
+    const r=svg.getBoundingClientRect();
+    const px=((ev.touches?ev.touches[0].clientX:ev.clientX)-r.left)/r.width*CH.W;
+    let best=CH.pts[0];
+    for(const p of CH.pts) if(Math.abs(p.x-px)<Math.abs(best.x-px)) best=p;
+    cx.setAttribute('x1',best.x);cx.setAttribute('x2',best.x);cx.style.opacity=.9;
+    hd.setAttribute('cx',best.x);hd.setAttribute('cy',best.y);hd.style.opacity=1;
+    tip.textContent=`${best.d}　${fmt(best.w)} kg`;
+    const wrap=tip.parentElement.getBoundingClientRect();
+    const k=r.width/CH.W;
+    tip.style.left=(r.left-wrap.left+best.x*k)+'px';
+    tip.style.top=(r.top-wrap.top+best.y*k-6)+'px';
+    tip.style.opacity=1;
+  };
+  const leave=()=>{cx.style.opacity=0;hd.style.opacity=0;tip.style.opacity=0};
+  hit.addEventListener('pointermove',move);
+  hit.addEventListener('pointerdown',move);
+  hit.addEventListener('pointerleave',leave);
+  svg.addEventListener('pointerleave',leave);
+}
+
+/* ---------- 紀錄表（同時是圖表的無障礙替代檢視）---------- */
+function renderRows(){
+  const c=active();
+  if(!c||!c.logs.length){$('#rows').innerHTML='<div class="empty">還沒有紀錄</div>';return}
+  const L=[...c.logs].sort((a,b)=>a.d<b.d?-1:1);
+  const html=L.map((p,i)=>{
+    const d=i?p.w-L[i-1].w:null;
+    const s=d===null?'—':(d>0?'+':'')+fmt(d);
+    return `<div class="row"><span class="d">${p.d}</span><span class="w">${fmt(p.w)} kg</span><span class="diff">${s}</span><button data-del="${p.d}" aria-label="刪除 ${p.d} 這筆">✕</button></div>`;
+  }).reverse().join('');
+  $('#rows').innerHTML=`<div class="rows">${html}</div>`;
+}
+
+function renderAll(){renderCats();renderMain();renderRows()}
+
+/* ---------- 事件 ---------- */
+document.addEventListener('click',e=>{
+  const cc=e.target.closest('[data-cat]');
+  if(cc){db.active=cc.dataset.cat;save(db);renderAll();return}
+
+  if(e.target.closest('[data-add]')){
+    const n=(prompt('主子叫什麼名字？')||'').trim();
+    if(!n)return;
+    const id='c'+Date.now();
+    db.cats.push({id,name:n.slice(0,12),logs:[]});db.active=id;save(db);renderAll();toast('已新增 '+n);
+    return;
+  }
+
+  const del=e.target.closest('[data-del]');
+  if(del){
+    const c=active();if(!c)return;
+    if(!confirm('刪掉 '+del.dataset.del+' 這筆紀錄？'))return;
+    c.logs=c.logs.filter(x=>x.d!==del.dataset.del);save(db);renderAll();toast('已刪除');
+  }
+});
+
+$('#addBtn').addEventListener('click',()=>{
+  let c=active();
+  if(!c){
+    const n=(prompt('先幫主子取個名字')||'').trim();
+    if(!n)return;
+    const id='c'+Date.now();c={id,name:n.slice(0,12),logs:[]};db.cats.push(c);db.active=id;
+  }
+  const d=$('#inD').value||todayStr();
+  const w=parseFloat($('#inW').value);
+  if(!(w>0)||w>30){toast('體重看起來怪怪的 ~ 再確認一下');return}
+  c.logs=c.logs.filter(x=>x.d!==d);
+  c.logs.push({d,w:Math.round(w*100)/100});
+  save(db);$('#inW').value='';renderAll();toast('記好了 💗');
+  if(typeof gtag==='function')gtag('event','weight_logged',{page:'weight-log'});
+});
+
+$('#expBtn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='香菇爸_體重紀錄_'+todayStr()+'.json';
+  a.click();URL.revokeObjectURL(a.href);toast('備份檔已下載');
+});
+$('#impBtn').addEventListener('click',()=>$('#impFile').click());
+$('#impFile').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(!d||!Array.isArray(d.cats))throw 0;
+      db=d;save(db);renderAll();toast('已匯入備份');
+    }catch(err){toast('這個檔案讀不出來 ~ 請用匯出的備份檔')}
+  };
+  r.readAsText(f);
+});
+
+/* GA4：點擊事件 */
+(function(){document.addEventListener('click',function(e){
+  var el=e.target.closest('a, button');if(!el)return;
+  var label=(el.getAttribute('data-ga')||el.textContent||el.getAttribute('aria-label')||'').trim().replace(/\s+/g,' ').slice(0,60);
+  if(!label)return;
+  if(typeof gtag==='function')gtag('event','button_click',{label:label,page:'weight-log'});
+},true)})();
+
+$('#inD').value=todayStr();
+renderAll();
+</script>
+
+<!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
+<div style="clear:both;max-width:460px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;line-height:1.85;color:#a89f8c;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;background:transparent">© 2026 香菇爸 ｜ 原創內容，未經授權請勿轉載或重製<br>🍄 <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener" style="color:#8fb89a;text-decoration:none;font-weight:700">香菇爸 @love_mushroom55</a></div>
+</body>
+</html>
