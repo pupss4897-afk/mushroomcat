@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸幼貓黃金成長期攻略：0-12 個月的咬人、換牙、社會化、飲食、體重、腸胃與日常營養，一個階段看一件事。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="幼貓黃金成長期｜香菇爸 App">
+  <meta property="og:description" content="0-12 個月只有一次。咬人、換牙、社會化、飲食、體重、腸胃、日常營養，照月齡陪你走完。">
+  <meta property="og:image" content="flatface-og.jpg">
+  <title>幼貓黃金成長期｜香菇爸 App</title>
+  <style>
+    :root{--cream:#fbf5e9;--cream2:#f4ead7;--white:#fff;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--blue:#9fc1d4;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12);--radius:20px}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.65;min-height:100vh}
+    button,input,select{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+    .hero{padding:24px 18px 18px}.hero-card{position:relative;padding:24px 20px 20px;border-radius:26px;background:linear-gradient(152deg,#d99a92 0%,#e8a39b 55%,#f0bcb2 100%);color:#fff;box-shadow:0 18px 38px rgba(200,140,130,.26);overflow:hidden}.hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22);box-shadow:0 0 0 28px rgba(255,255,255,.06)}
+    .kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:800;letter-spacing:1px}
+    .hero h1{position:relative;z-index:1;margin-top:12px;font-family:"Noto Serif TC","Songti TC",serif;font-size:28px;line-height:1.35;letter-spacing:.5px}
+    .hero p{position:relative;z-index:1;margin-top:9px;color:rgba(255,255,255,.9);font-size:13px}
+    .hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:17px;flex-wrap:wrap}.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.16);font-size:11px}
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+    .title-row{margin-bottom:14px}.num{display:block;color:var(--green);font-size:10px;font-weight:900;letter-spacing:1.4px}.title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:22px;margin-top:3px}.title-row p{margin-top:5px;color:var(--soft);font-size:12px}
+    /* 月齡選擇 */
+    .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+    .stage{padding:11px 4px;border:1px solid var(--line);border-radius:15px;background:#fff;text-align:center;box-shadow:0 5px 16px rgba(150,130,100,.07);transition:.18s}
+    .stage span{display:block;font-size:19px}.stage b{display:block;font-size:11.5px;margin-top:3px}.stage small{display:block;color:var(--soft);font-size:9.5px}
+    .stage.active{border-color:var(--pink);background:rgba(232,163,155,.13);transform:translateY(-2px)}
+    .answer{margin-top:12px;padding:18px;border-radius:21px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+    .tag{display:inline-flex;padding:4px 9px;border-radius:999px;background:var(--cream2);color:var(--soft);font-size:10px;font-weight:800}
+    .answer h3{margin-top:10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;line-height:1.45}.answer>p{margin-top:6px;color:var(--soft);font-size:12.5px}
+    .steps{list-style:none;display:grid;gap:8px;margin-top:14px}.steps li{display:grid;grid-template-columns:26px 1fr;gap:9px;align-items:start;padding:10px;border-radius:13px;background:#f8f3e9;font-size:12px}
+    .steps i{width:24px;height:24px;display:grid;place-items:center;border-radius:8px;background:var(--green);color:#fff;font-style:normal;font-size:10px;font-weight:900}
+    .caution{margin-top:11px;padding:10px 11px;border-left:3px solid var(--pink);border-radius:9px;background:rgba(232,163,155,.1);font-size:11px;color:#785f59}
+    .focus-now{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+    .focus-now b{width:100%;font-size:10.5px;color:var(--soft);font-weight:800;letter-spacing:.5px}
+    .focus-now a{padding:6px 11px;border-radius:999px;background:var(--green2);border:1px solid rgba(143,184,154,.4);font-size:11px;font-weight:800;text-decoration:none;color:#4d7358}
+    /* 主題卡 */
+    .topics{display:grid;gap:10px}
+    .topic{padding:14px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07);scroll-margin-top:74px}
+    .topic-head{width:100%;display:grid;grid-template-columns:39px 1fr auto;gap:10px;align-items:center;border:0;background:none;text-align:left}
+    .topic-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:20px}
+    .topic h3{font-size:14px}.topic small{display:block;color:var(--soft);font-size:10.5px;margin-top:1px}
+    .plus{font-size:20px;color:var(--soft);transition:.2s}.topic.open .plus{transform:rotate(45deg)}
+    .topic-body{display:none;padding:12px 3px 1px;border-top:1px dashed var(--line);margin-top:11px}.topic.open .topic-body{display:block}
+    .topic-body ul{padding-left:18px}.topic-body li{font-size:11.5px;margin:5px 0}
+    .topic-when{display:inline-block;margin-bottom:9px;padding:3px 9px;border-radius:999px;background:rgba(159,193,212,.2);color:#5d7f92;font-size:10px;font-weight:800}
+    .topic-tip{margin-top:9px;padding:8px 10px;border-radius:10px;background:var(--green2);font-size:10.5px;font-weight:700}
+    .topic-warn{margin-top:8px;padding:8px 10px;border-radius:10px;background:#fff6f2;border:1px solid rgba(185,101,89,.22);font-size:10.5px;color:#8a635c;font-weight:700}
+    /* 體重 */
+    .weight-box{padding:16px;border:1px solid var(--line);border-radius:19px;background:#fff;box-shadow:var(--shadow)}
+    .wrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+    .wrow select{height:44px;padding:0 12px;border:1px solid var(--line);border-radius:13px;background:#fff;width:100%}
+    .wout{margin-top:14px;padding:14px;border-radius:15px;background:#f8f3e9;text-align:center}
+    .wout b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:26px;color:var(--pink)}
+    .wout small{display:block;color:var(--soft);font-size:11px;margin-top:3px}
+    .wnote{margin-top:11px;font-size:10.5px;color:var(--soft);line-height:1.8}
+    /* 急症 */
+    .urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;margin-top:13px;padding:14px;border:1px solid rgba(185,101,89,.25);border-radius:17px;background:#fff6f2}
+    .urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+    .urgent b{color:var(--danger);font-size:12px}.urgent p{font-size:11px;color:#806962;margin-top:2px}
+    /* LINE 解鎖 */
+    .lockwrap{position:relative;border-radius:19px;overflow:hidden;border:1px solid var(--line)}
+    .lockwrap .locked{padding:18px;background:#fff;filter:blur(5px);user-select:none;pointer-events:none}
+    .lockwrap .locked h4{font-family:"Noto Serif TC","Songti TC",serif;font-size:16px;margin-bottom:8px}
+    .lockwrap .locked li{font-size:12px;margin:6px 0 6px 18px}
+    .lockmask{position:absolute;inset:0;display:grid;place-items:center;padding:18px;background:linear-gradient(180deg,rgba(251,245,233,.55),rgba(251,245,233,.94))}
+    .lockmask div{text-align:center}
+    .lockmask b{display:block;font-size:13px;margin-bottom:3px}
+    .lockmask small{display:block;color:var(--soft);font-size:11px;margin-bottom:11px}
+    .lockmask a{display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 20px;border-radius:14px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:12.5px;box-shadow:0 6px 16px rgba(6,199,85,.26)}
+    /* 相關 */
+    .links{display:grid;gap:9px}
+    .link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+    .link-card b{font-size:13px}.link-card small{display:block;color:var(--soft);font-size:10.5px}
+    .link-card i{font-style:normal;color:var(--soft)}
+    .sources{padding:18px;background:var(--cream2);font-size:9.5px;color:var(--soft)}.sources strong{display:block;color:var(--ink);margin-bottom:4px}.sources p+p{margin-top:4px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>幼貓黃金成長期</strong><small>0-12 個月只有一次</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">KITTEN GOLDEN YEAR</span>
+      <h1>牠的第一年，<br>會決定接下來十幾年。</h1>
+      <p>咬人、換牙、社會化、飲食、體重、腸胃、日常營養——這七件事都集中在同一年發生。香菇爸照月齡陪你一件一件來。</p>
+      <div class="hero-mini"><span>✓ 依月齡導覽</span><span>✓ 七大主題</span><span>✓ 體重對照</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="stage">
+    <div class="title-row"><span class="num">01｜先看現在</span><h2>你家主子現在幾個月？</h2><p>每個階段該顧的事不一樣，不用一次全學會。</p></div>
+    <div class="stages" role="group" aria-label="選擇月齡">
+      <button class="stage active" data-stage="s1"><span>🍼</span><b>0-2月</b><small>剛到家</small></button>
+      <button class="stage" data-stage="s2"><span>😼</span><b>2-4月</b><small>社會化</small></button>
+      <button class="stage" data-stage="s3"><span>🦷</span><b>4-6月</b><small>換牙期</small></button>
+      <button class="stage" data-stage="s4"><span>🐈</span><b>6-12月</b><small>定型期</small></button>
+    </div>
+    <article class="answer" aria-live="polite">
+      <span class="tag" id="stTag"></span>
+      <h3 id="stTitle"></h3>
+      <p id="stText"></p>
+      <ol class="steps" id="stSteps"></ol>
+      <div class="caution" id="stCaution"></div>
+      <div class="focus-now" id="stFocus"></div>
+    </article>
+  </section>
+
+  <section class="section alt" id="topics">
+    <div class="title-row"><span class="num">02｜七大照顧主題</span><h2>一次只看一件事</h2><p>點卡片展開。每張都標了「通常什麼時候發生」。</p></div>
+    <div class="topics" id="topicList"></div>
+  </section>
+
+  <section class="section" id="weight">
+    <div class="title-row"><span class="num">03｜體重對照</span><h2>牠長得算順嗎？</h2><p>看的是曲線，不是單次數字。</p></div>
+    <div class="weight-box">
+      <div class="wrow">
+        <select id="ageSel" aria-label="選擇月齡">
+          <option value="1">1 個月</option><option value="2">2 個月</option><option value="3" selected>3 個月</option>
+          <option value="4">4 個月</option><option value="5">5 個月</option><option value="6">6 個月</option>
+          <option value="8">8 個月</option><option value="10">10 個月</option><option value="12">12 個月</option>
+        </select>
+      </div>
+      <div class="wout"><b id="wVal">—</b><small id="wSub">一般家貓的常見參考範圍</small></div>
+      <p class="wnote">
+        ⚠️ 這只是<b>粗略參考</b>，品種差很多——曼赤肯、暹羅本來就偏輕，緬因、挪威森林會明顯超過這個範圍，米克斯個體差異也大。<br>
+        真正要看的是：<b>每週固定同一時間、同一個秤量，體重有沒有持續往上</b>。連續兩週沒增加、或開始往下掉，那要請獸醫看，不是自己加飯量。
+      </p>
+    </div>
+    <div class="urgent"><span>!</span><div><b>幼貓這些情況不要等</b><p>持續腹瀉或嘔吐超過 24 小時、完全不吃不喝、精神明顯萎靡叫不太動、牙齦或耳朵發白、體溫偏低身體冰冷、一直蹲砂盆尿不出來——幼貓體型小、脫水和低血糖都比成貓快很多，請直接聯絡獸醫院。</p></div></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">04｜香菇爸私房</span><h2>我自己養香菇時，最後悔的事</h2><p>基本照顧上面都寫完了，這區是我的個人經驗。</p></div>
+    <div class="lockwrap">
+      <div class="locked" aria-hidden="true">
+        <h4>幼貓期我做錯、後來花兩年修的三件事</h4>
+        <ul>
+          <li>我把「牠不吃就換一種」當成寵愛，結果她挑嘴挑到五歲</li>
+          <li>社會化黃金期我沒讓她習慣外出籠，第一次看醫生我們兩個都崩潰</li>
+          <li>體重我只在健檢時量，中間那半年怎麼胖起來的我完全沒發現</li>
+        </ul>
+      </div>
+      <div class="lockmask">
+        <div>
+          <b>🔒 香菇爸的幼貓私房提醒</b>
+          <small>加 LINE 免費看完整版</small>
+          <a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="幼貓攻略-解鎖私房提醒">💬 加 LINE 解鎖</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">05｜接下來看這些</span><h2>相關攻略</h2></div>
+    <div class="links">
+      <a class="link-card" href="newbie-care.html"><span>🔰</span><span><b>新手護貓導航</b><small>剛到家一直躲・不吃不喝・便便怪</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/calculator.html"><span>🧮</span><span><b>熱量計算機</b><small>算出主子一天需要多少</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/food_analyzer.html"><span>🔍</span><span><b>成分分析器</b><small>看懂飼料背面那一串</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/breed_guide.html"><span>🐱</span><span><b>品種百科</b><small>你家這個品種要注意什麼</small></span><i>›</i></a>
+      <a class="link-card" href="貓咪熱量計算機/age_care.html#adult"><span>🐈</span><span><b>依年齡照顧</b><small>滿一歲之後換這裡看</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <strong>照護資料校對｜截至 2026/07/22</strong>
+    <p>參考 AAHA／AAFP 貓生命階段照護指引、WSAVA 2024 疫苗指引、AAFP 幼貓照護與社會化建議、Cornell Feline Health Center。</p>
+    <p>本頁提供日常照護觀念與觀察方向，不是醫療建議，也不取代獸醫的診斷、檢查與治療。每隻貓狀況差很多，有疑慮請與你的獸醫討論。</p>
+  </footer>
+</main>
+
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="幼貓攻略-底部LINE">💬 加入 LINE・領幼貓照顧懶人包</a></nav>
+
+<script>
+const stages={
+ s1:{tag:'先安頓，不急著教',title:'0-2 個月：目標只有「穩定」兩個字',
+  text:'這階段多數幼貓剛離開母貓或剛到家。先別想訓練，先讓吃、喝、排泄和睡覺穩下來。',
+  steps:['空間先縮小到一個安靜房間，食物、水、砂盆分開擺。','沿用原本吃的食物，先不要換，環境跟食物不要同時變。','每天記錄有沒有吃、有沒有尿、便便長什麼樣。'],
+  caution:'兩個月以下的幼貓體溫調節和血糖都不穩定，如果整天不吃、身體冰冷或叫不太動，這是急事，請直接找獸醫。',
+  focus:['t-food','t-gut']},
+ s2:{tag:'黃金期，錯過補不回來',title:'2-4 個月：社會化的窗口就是現在',
+  text:'這段時間牠對新事物的接受度是一生中最高的。現在習慣的事，之後一輩子都輕鬆；現在沒碰過的，之後每次都是災難。',
+  steps:['每天讓牠接觸不同的人、聲音、觸摸，短時間、正向結束。','把外出籠打開放客廳當窩，別只有看醫生才拿出來。','開始練剪指甲、摸腳掌、摸嘴巴——不用真的剪，先讓牠習慣被碰。'],
+  caution:'社會化不是硬塞。牠退縮、哈氣或想逃，就退回上一步，強迫只會讓牠學到「這件事很可怕」。',
+  focus:['t-social','t-bite','t-food']},
+ s3:{tag:'會咬東西是正常的',title:'4-6 個月：換牙加上精力爆炸',
+  text:'乳牙開始換成恆牙，牙齦不舒服，會更想咬；同時體力大增，半夜暴衝多半發生在這段。',
+  steps:['提供安全可咬的東西，不要讓牠只能咬你的手或電線。','每天固定放電：睡前玩到牠躺下不追了，再餵最後一餐。','偶爾在地上撿到小小的乳牙是正常的，不用緊張。'],
+  caution:'如果恆牙都長出來了、乳牙卻還卡著沒掉（俗稱雙排牙），或是牙齦紅腫、有味道、一邊咀嚼，請讓獸醫看一下。',
+  focus:['t-teeth','t-bite','t-weight']},
+ s4:{tag:'習慣在這時候定型',title:'6-12 個月：吃什麼、怎麼吃，現在決定',
+  text:'成長速度變慢，但飲食習慣、體型和挑食與否會在這段定下來。絕育前後的食量與活動量也要重新看。',
+  steps:['幼貓糧通常吃到滿一歲左右，換成貓糧要用七天遞進。','餐數從三餐慢慢降到兩到三餐，開始固定時間。','絕育後代謝會變，改用當下體重重新算份量，不要照舊餵。'],
+  caution:'這階段最常見的錯誤是「牠不吃我就換一種」。換得越勤，牠越學會等更好的，挑嘴幾乎都是這樣養出來的。',
+  focus:['t-food','t-weight','t-nutrition']}
+};
+
+const topics=[
+ {id:'t-bite',icon:'😼',title:'咬人：牠不是壞，是把你當同伴',when:'2-6 個月最明顯',
+  items:['手永遠不當玩具，從第一天就把「手」跟「玩具」分開。','被咬的當下不要抽手——抽手像獵物在逃，牠會咬更緊；停住不動，牠反而會鬆口。','每天固定玩到牠喘、玩到躺下不追了，八成的咬都是精力沒地方去。','咬了不要打、不要彈鼻子，牠學到的會是怕你，不是不咬。'],
+  tip:'不是牠學壞了，是牠在學怎麼使用自己的身體——沒有人教牠力道，牠就拿你來測。',
+  warn:''},
+ {id:'t-teeth',icon:'🦷',title:'換牙：會流一點血、會亂咬',when:'約 3-7 個月',
+  items:['乳牙 26 顆會換成恆牙 30 顆，過程中牙齦不舒服，咬東西的慾望會變強。','在地上撿到小小的牙、或水碗裡有一點點血絲，通常是正常的。','給安全可咬的東西轉移目標，比一直罵有效。','這時候順便開始練刷牙，成年後才不會完全碰不得嘴巴。'],
+  tip:'換牙期亂咬是有原因的，不是脾氣變差。給替代品，不要只給禁止。',
+  warn:'恆牙已長出但乳牙沒掉（雙排牙）、牙齦紅腫出血、有明顯口臭、只用單邊咀嚼或不敢吃硬的——請讓獸醫評估，這不是等一等會自己好的事。'},
+ {id:'t-social',icon:'🤝',title:'社會化：一生只有這一次窗口',when:'2-4 個月是黃金期',
+  items:['讓牠接觸不同的人、聲音（吸塵器、門鈴）、地板材質、外出籠與車程。','每次都要短、要在牠還放鬆的時候結束，不要玩到牠崩潰才停。','練習被摸腳掌、摸嘴巴、被抱起來——不是為了現在，是為了以後看醫生。','外出籠平常就打開放著當窩，別讓它變成「拿出來就是要去可怕的地方」。'],
+  tip:'這段時間投資十分鐘，勝過之後花三年矯正。錯過了還是能練，只是慢很多。',
+  warn:''},
+ {id:'t-food',icon:'🥣',title:'飲食：餐數要跟著月齡改',when:'全期，6-12 個月是關鍵',
+  items:['2-4 個月：一天約 4-5 餐，牠胃很小，撐不住少量多餐以外的吃法。','4-6 個月：降到約 3 餐。','6-12 個月：2-3 餐，開始固定時間，收掉整天放飯的習慣。','幼貓糧通常吃到滿一歲；換成貓糧用七天遞進：四分之一 → 一半 → 四分之三 → 全換。'],
+  tip:'比「餵幾餐」更重要的是「這一口裡面有沒有東西」——幼貓每公斤需要的熱量是成貓的兩到三倍。',
+  warn:'處方飲食、慢性病或獸醫已有指示的情況，請依獸醫建議，不要照這裡的通則調整。'},
+ {id:'t-weight',icon:'⚖️',title:'體重：看曲線，不看單次數字',when:'全期，每週量一次',
+  items:['固定同一個秤、同一個時間量（例如每週日早上餵食前）。','前六個月大約每個月增加 0.4-0.6 公斤，但品種差異很大。','記下來比記在腦裡有用，變化才看得出來。','絕育後代謝會改變，要用當下體重重新算份量。'],
+  tip:'單次數字沒有意義，「有沒有持續往上」才有意義。',
+  warn:'連續兩週沒有增加、或體重開始下降，請請獸醫評估，不要自己先加飯量。'},
+ {id:'t-gut',icon:'💩',title:'腸胃：幼貓的軟便不能拖',when:'全期，換糧與剛到家時最常見',
+  items:['最常見的變因：換糧太快、剛到家的壓力、寄生蟲、偷吃到不該吃的東西。','拍照留下顏色與形狀，記錄一天幾次、有沒有血或黏液。','一次只改一個變因，才知道是什麼造成的。','驅蟲與疫苗的時程請依獸醫安排，不同來源的幼貓狀況差很多。'],
+  tip:'成貓軟便可以觀察一下，幼貓不行——牠體型小，脫水和營養流失都比你想的快。',
+  warn:'腹瀉或嘔吐持續超過 24 小時、便中帶血、同時精神變差或不吃不喝，請直接就醫，不要先自己換飼料試。'},
+ {id:'t-nutrition',icon:'🌿',title:'日常營養：先把主食做對',when:'全期',
+  items:['幼貓對蛋白質與熱量的需求明顯高於成貓，主食要標示適用於「生長期／全生命階段」。','牛磺酸是貓必須從食物取得的，缺乏會影響心臟與視力——選有完整營養標示的主食是最基本的一步。','鈣磷比例失衡會影響骨骼發育，這也是不建議自己配餐或長期只餵人食的原因。','把「每天穩定吃到均衡主食」做好，比一直加東加西重要。'],
+  tip:'保養不是一直加，是留下真正每天都能持續做的那一件事。',
+  warn:'任何保健品都不是必需品、也不能取代主食或醫療。要不要補、補什麼，請先跟你的獸醫討論——這題我不會幫你下結論。'}
+];
+
+// 一般家貓粗略參考範圍（公斤）
+const weights={1:[0.4,0.6],2:[0.8,1.2],3:[1.2,1.7],4:[1.7,2.3],5:[2.2,2.8],6:[2.6,3.4],8:[3.0,4.0],10:[3.2,4.5],12:[3.5,5.0]};
+
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let activeStage='s1';
+
+function renderStage(key){
+ activeStage=key;const d=stages[key];
+ $$('.stage').forEach(b=>b.classList.toggle('active',b.dataset.stage===key));
+ $('#stTag').textContent=d.tag;$('#stTitle').textContent=d.title;$('#stText').textContent=d.text;
+ $('#stSteps').innerHTML=d.steps.map((x,i)=>`<li><i>${i+1}</i><span>${x}</span></li>`).join('');
+ $('#stCaution').textContent='香菇爸提醒｜'+d.caution;
+ $('#stFocus').innerHTML='<b>這個階段先看這幾張 ↓</b>'+d.focus.map(id=>{
+   const t=topics.find(x=>x.id===id);
+   return `<a href="#${id}" data-jump="${id}">${t.icon} ${t.title.split('：')[0]}</a>`;
+ }).join('');
+}
+function renderTopics(){
+ $('#topicList').innerHTML=topics.map(t=>`<article class="topic" id="${t.id}">
+   <button class="topic-head" aria-expanded="false"><span class="topic-icon">${t.icon}</span><span><h3>${t.title}</h3><small>${t.when}</small></span><span class="plus">＋</span></button>
+   <div class="topic-body"><span class="topic-when">⏱ ${t.when}</span><ul>${t.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+   <div class="topic-tip">香菇爸提醒｜${t.tip}</div>
+   ${t.warn?`<div class="topic-warn">⚠️ ${t.warn}</div>`:''}</div></article>`).join('');
+}
+function renderWeight(){
+ const m=$('#ageSel').value,r=weights[m];
+ $('#wVal').textContent=`${r[0]} – ${r[1]} kg`;
+ $('#wSub').textContent=`${m} 個月・一般家貓的常見參考範圍`;
+}
+
+document.addEventListener('click',e=>{
+ const s=e.target.closest('[data-stage]');if(s)renderStage(s.dataset.stage);
+ const th=e.target.closest('.topic-head');
+ if(th){const card=th.closest('.topic');card.classList.toggle('open');th.setAttribute('aria-expanded',String(card.classList.contains('open')))}
+ const j=e.target.closest('[data-jump]');
+ if(j){const card=document.getElementById(j.dataset.jump);
+   if(card){card.classList.add('open');card.querySelector('.topic-head').setAttribute('aria-expanded','true')}}
+});
+$('#ageSel').addEventListener('change',renderWeight);
+
+renderStage(activeStage);renderTopics();renderWeight();
+</script>
+
+<!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
+<div style="clear:both;max-width:460px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;line-height:1.85;color:#a89f8c;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;background:transparent">© 2026 香菇爸 ｜ 原創內容，未經授權請勿轉載或重製<br>🍄 <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener" style="color:#8fb89a;text-decoration:none;font-weight:700">香菇爸 @love_mushroom55</a></div>
+</body>
+</html>
