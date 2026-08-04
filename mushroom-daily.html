@@ -160,14 +160,18 @@
           <span class="vlabel">🍚 吃飯</span>
           <video src="media/meal-food.mp4" poster="media/meal-food.jpg" autoplay muted loop playsinline preload="metadata" aria-label="香菇吃主食的影片"></video>
         </div>
-        <div class="vtext"><b>主食：高端餐</b><small>六餐都吃這個 ~ 份量照現在的體重算</small></div>
+        <div class="vtext"><b>主食：高端餐</b><small>六餐都吃這個 ~ 份量照現在的體重算</small>
+          <button type="button" class="infobtn" data-lb="media/food-info.jpg" data-lbalt="貓寶營養餐 專利凍乾益菌糧 規格與香菇的吃法">🍱 這是什麼？看規格</button>
+        </div>
       </article>
       <article class="vcard">
         <div class="vwrap">
           <span class="vlabel">🌿 保養</span>
           <video src="media/care-supplement.mp4" poster="media/care-supplement.jpg" autoplay muted loop playsinline preload="metadata" aria-label="香菇的保養時間影片"></video>
         </div>
-        <div class="vtext"><b>保養：藍藻菌</b><small>早晚各一次 ~ 八年沒斷過</small></div>
+        <div class="vtext"><b>保養：藍藻菌</b><small>早晚各一次 ~ 八年沒斷過</small>
+          <button type="button" class="infobtn" data-lb="media/spirulina-info.jpg" data-lbalt="藍藻益生菌膠囊 成分與香菇的吃法">🌿 這是什麼？看成分</button>
+        </div>
       </article>
     </div>
     <div class="routine">
@@ -277,5 +281,40 @@ renderQuiz();
   }, true);
 })();
 </script>
+
+<style>
+  .infobtn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    background:#eef4ee;color:#5a5246;border:1px solid #dce7dd;border-radius:999px;
+    padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+  .infobtn:active{background:#e2ece3}
+  .lb-mask{position:fixed;inset:0;background:rgba(50,44,36,.82);z-index:9999;
+    display:none;align-items:center;justify-content:center;padding:18px}
+  .lb-mask.on{display:flex}
+  .lb-mask img{max-width:100%;max-height:86vh;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  .lb-x{position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:50%;
+    border:0;background:rgba(255,255,255,.92);font-size:18px;cursor:pointer;color:#5a5246}
+</style>
+<script>
+(function(){
+  var mask=document.createElement("div");
+  mask.className="lb-mask";
+  mask.innerHTML='<button class="lb-x" type="button" aria-label="關閉">✕</button><img alt="">';
+  document.body.appendChild(mask);
+  var img=mask.querySelector("img");
+  document.addEventListener("click",function(e){
+    var b=e.target.closest("[data-lb]");
+    if(b){ img.src=b.getAttribute("data-lb"); img.alt=b.getAttribute("data-lbalt")||"";
+           mask.classList.add("on"); document.body.style.overflow="hidden"; return; }
+    if(e.target===mask||e.target.classList.contains("lb-x")){
+      mask.classList.remove("on"); document.body.style.overflow=""; }
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&mask.classList.contains("on")){
+      mask.classList.remove("on"); document.body.style.overflow=""; }
+  });
+})();
+</script>
+<script src="search-index.js"></script>
+<script src="search.js"></script>
 </body>
 </html>
