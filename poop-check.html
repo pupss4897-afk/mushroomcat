@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸便便觀察表：七型對照、四個觀察重點、要立刻看醫生的紅燈訊號 ~ 鏟屎的時候順手看一眼">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="便便觀察表｜香菇爸 App">
+  <meta property="og:description" content="七型對照 × 四個觀察重點 × 紅燈訊號 ~ 鏟屎時順手看一眼">
+  <title>便便觀察表｜香菇爸 App</title>
+<style>
+:root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;
+ --pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--brown:#a9835c;--brown2:#f0e5d8;
+ --danger:#d97a6c;--amber:#d9a441;--shadow:0 8px 22px rgba(150,130,100,.1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;
+ color:var(--ink);background:#e9e0d2;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.app{width:100%;max-width:440px;min-height:100vh;margin:auto;padding-bottom:78px;
+ background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 40px rgba(0,0,0,.06)}
+.head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;
+ gap:10px;padding:12px 16px;background:rgba(251,245,233,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;box-shadow:var(--shadow);font-size:19px}
+.head-title{text-align:center}
+.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}
+.head-title small{display:block;color:var(--soft);font-size:10px}
+
+.hero{padding:22px 18px 16px}
+.hero-card{position:relative;padding:23px 20px 20px;border-radius:26px;overflow:hidden;color:#fff;
+ background:linear-gradient(152deg,#8a6a49 0%,#a9835c 52%,#c9a880 100%)}
+.hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22)}
+.kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:900;letter-spacing:1.2px}
+.hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:27px;line-height:1.35}
+.hero p{position:relative;z-index:1;margin-top:8px;color:rgba(255,255,255,.92);font-size:12.5px}
+.hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.19);font-size:10.5px;font-weight:700}
+
+.section{padding:18px}
+.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+.title-row{margin-bottom:13px}
+.num{display:block;color:var(--brown);font-size:10px;font-weight:900;letter-spacing:1.4px}
+.title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;margin-top:2px}
+.title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+
+/* 七型 */
+.type{display:grid;grid-template-columns:34px 62px 1fr;gap:11px;align-items:center;padding:12px;
+ margin-bottom:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.type .no{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;
+ background:var(--brown2);color:#8a6a49;font-weight:900;font-size:13px}
+.shape{height:34px;display:flex;align-items:center;justify-content:center;gap:3px}
+.shape i{display:block;background:#a9835c;border-radius:50%}
+.type b{display:block;font-size:13.5px}
+.type small{display:block;color:var(--soft);font-size:10.8px;line-height:1.6;margin-top:2px}
+.flag{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;font-size:9.5px;font-weight:900}
+.f-hard{background:#f5e2dc;color:#b56552}
+.f-ok{background:var(--green2);color:#4a7d5c}
+.f-best{background:#8fb89a;color:#fff}
+.f-soft{background:#faeed6;color:#a8802c}
+.f-bad{background:#f7dcd7;color:#c25a48}
+
+/* 觀察四件事 */
+.chk{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;padding:12px;margin-bottom:9px;
+ border:1px solid var(--line);border-radius:15px;background:#fff}
+.chk i{width:26px;height:26px;display:grid;place-items:center;border-radius:9px;background:var(--green);
+ color:#fff;font-style:normal;font-size:13px;font-weight:900}
+.chk b{font-size:13px}
+.chk small{display:block;color:var(--soft);font-size:11px;margin-top:2px;line-height:1.7}
+
+/* 紅燈 */
+.urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start;padding:13px;margin-bottom:9px;
+ border:1px solid #f0d4ce;border-radius:16px;background:#fdf4f2}
+.urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+.urgent b{color:var(--danger);font-size:12.5px}
+.urgent p{font-size:11px;color:#806962;margin-top:2px;line-height:1.7}
+
+.link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;
+ margin-top:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+.link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+.link-card b{font-size:13px}
+.link-card small{display:block;color:var(--soft);font-size:10.5px}
+.link-card i{font-style:normal;color:var(--soft)}
+.line-btn{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:14px;margin-top:9px;
+ border-radius:16px;background:#06C755;color:#fff;box-shadow:0 8px 20px rgba(6,199,85,.22)}
+.line-btn span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.2);font-size:19px}
+.line-btn b{font-size:13.5px}
+.line-btn small{display:block;font-size:10.5px;opacity:.9}
+.sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+.sources strong{display:block;color:var(--ink);margin-bottom:3px}
+@media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>便便觀察表</strong><small>七型對照 × 紅燈訊號</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">DAILY POOP CHECK</span>
+      <h1>鏟屎的時候<br>順手看一眼</h1>
+      <p>便便是主子每天留給你的健康報告 ~ 只是大部分毛家長都直接鏟掉了</p>
+      <div class="hero-mini"><span>七型對照</span><span>四個重點</span><span>紅燈訊號</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row">
+      <span class="num">TYPE 01–07</span>
+      <h2>七型對照表</h2>
+      <p>先看形狀 ~ 第 3、4 型是理想的樣子</p>
+    </div>
+
+    <div class="type"><span class="no">1</span>
+      <span class="shape"><i style="width:9px;height:9px"></i><i style="width:9px;height:9px"></i><i style="width:9px;height:9px"></i></span>
+      <span><b>一顆顆硬球</b><small>又乾又硬、粒粒分明，很難排出來</small><span class="flag f-hard">便秘</span></span></div>
+
+    <div class="type"><span class="no">2</span>
+      <span class="shape"><i style="width:52px;height:15px;border-radius:9px"></i></span>
+      <span><b>香腸狀・表面凹凸</b><small>結成一條但表面坑坑疤疤，排的時候會用力</small><span class="flag f-hard">便秘</span></span></div>
+
+    <div class="type"><span class="no">3</span>
+      <span class="shape"><i style="width:54px;height:13px;border-radius:8px"></i></span>
+      <span><b>香腸狀・表面有裂痕</b><small>成形、稍微有點乾，屬於正常範圍</small><span class="flag f-ok">正常</span></span></div>
+
+    <div class="type"><span class="no">4</span>
+      <span class="shape"><i style="width:56px;height:12px;border-radius:8px;background:#8fb89a"></i></span>
+      <span><b>像香腸或蛇・表面光滑</b><small>最理想的樣子 ~ 好排、好鏟、不黏砂</small><span class="flag f-best">最理想</span></span></div>
+
+    <div class="type"><span class="no">5</span>
+      <span class="shape"><i style="width:16px;height:14px;border-radius:7px"></i><i style="width:16px;height:14px;border-radius:7px"></i></span>
+      <span><b>斷邊光滑的柔軟塊</b><small>偏軟但還算成形，容易通過</small><span class="flag f-soft">偏軟</span></span></div>
+
+    <div class="type"><span class="no">6</span>
+      <span class="shape"><i style="width:44px;height:17px;border-radius:11px;background:#c9a880"></i></span>
+      <span><b>粗邊蓬鬆・糊狀</b><small>幾乎不成形、黏在砂上鏟不太起來</small><span class="flag f-bad">腹瀉</span></span></div>
+
+    <div class="type"><span class="no">7</span>
+      <span class="shape"><i style="width:50px;height:9px;border-radius:6px;background:#dfc39c"></i></span>
+      <span><b>水狀・沒有固體塊</b><small>完全是液體 ~ 這型要特別留意脫水</small><span class="flag f-bad">腹瀉</span></span></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row">
+      <span class="num">CHECK POINTS</span>
+      <h2>除了形狀，還要看這四個</h2>
+      <p>形狀只是其中一項 ~ 這四個一起看才準</p>
+    </div>
+    <div class="chk"><i>1</i><span><b>顏色</b><small>正常是深褐色 ~ 太黑、灰白、鮮紅都要留意，吃的東西也會影響顏色</small></span></div>
+    <div class="chk"><i>2</i><span><b>次數</b><small>多數成貓一天 1–2 次 ~ 重點不是幾次，是「跟平常比有沒有變」</small></span></div>
+    <div class="chk"><i>3</i><span><b>氣味</b><small>本來就不會香 ~ 但突然變得特別臭、跟平常明顯不同就要注意</small></span></div>
+    <div class="chk"><i>4</i><span><b>裡面有什麼</b><small>黏液、血絲、沒消化的食物、毛、線頭、塑膠 ~ 看到都要記錄下來</small></span></div>
+  </section>
+
+  <section class="section">
+    <div class="title-row">
+      <span class="num">RED FLAGS</span>
+      <h2>看到這些先別觀察，直接找獸醫</h2>
+      <p>這幾種情況拖不得</p>
+    </div>
+    <div class="urgent"><span>!</span><div><b>血便</b><p>鮮紅色，或是像柏油一樣的黑色便便</p></div></div>
+    <div class="urgent"><span>!</span><div><b>腹瀉超過 24 小時</b><p>貓體型小，脫水比你想的快很多</p></div></div>
+    <div class="urgent"><span>!</span><div><b>超過 48–72 小時沒排便</b><p>完全沒有便便，不是「這幾天比較少」</p></div></div>
+    <div class="urgent"><span>!</span><div><b>一直進砂盆卻排不出來</b><p>又叫又用力卻沒東西 ~ 公貓可能是尿道阻塞，這是會致命的急症</p></div></div>
+    <div class="urgent"><span>!</span><div><b>同時有嘔吐、不吃、精神變差</b><p>便便異常加上這些，就不要再等了</p></div></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row">
+      <span class="num">NEXT</span>
+      <h2>還可以看這些</h2>
+    </div>
+    <a class="link-card" href="貓咪熱量計算機/organ_map.html">
+      <span>🗺️</span><span><b>貓咪身體地圖</b><small>每個部位在哪、負責什麼</small></span><i>›</i></a>
+    <a class="link-card" href="weight-log.html">
+      <span>⚖️</span><span><b>主子體重紀錄</b><small>每週記一筆 ~ 看曲線不看單次</small></span><i>›</i></a>
+    <a class="link-card" href="newbie-care.html">
+      <span>🔰</span><span><b>我家貓有狀況，先看哪裡</b><small>依症狀找下一步</small></span><i>›</i></a>
+
+    <a class="line-btn" href="https://lin.ee/9M4i0Vj" target="_blank" rel="noopener">
+      <span>💬</span><span><b>拍下來問香菇爸</b><small>不確定是哪一型 ~ 拍照傳給我看看</small></span><i>↗</i></a>
+  </section>
+
+  <p class="sources">
+    <strong>關於這份對照表</strong>
+    形狀分型參考布里斯托大便分類法（Bristol Stool Scale）~ 這是一份幫助你「描述」與「記錄」的觀察工具<br>
+    便便觀察不能取代獸醫診斷 ~ 主子身體有狀況請務必先就醫，這頁只是幫你把看到的東西講清楚<br>
+    © 2026 香菇爸・原創內容
+  </p>
+</main>
+<script src="search-index.js"></script>
+<script src="search.js"></script>
+</body>
+</html>
