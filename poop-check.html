@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fbf5e9">
-  <meta name="description" content="香菇爸便便觀察表：七型對照、四個觀察重點、要立刻看醫生的紅燈訊號 ~ 鏟屎的時候順手看一眼">
+  <meta name="description" content="香菇爸便便觀察表：三大類實拍對照、便便顏色觀察、完整七型、要立刻看醫生的紅燈訊號 ~ 鏟屎的時候順手看一眼">
   <meta property="og:type" content="website">
   <meta property="og:title" content="便便觀察表｜香菇爸 App">
   <meta property="og:description" content="七型對照 × 四個觀察重點 × 紅燈訊號 ~ 鏟屎時順手看一眼">
@@ -45,6 +45,21 @@ a{text-decoration:none;color:inherit}
 .title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;margin-top:2px}
 .title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
 
+.photo{display:grid;grid-template-columns:96px 1fr;gap:13px;align-items:center;padding:14px;
+ margin-bottom:10px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow)}
+.photo img{width:96px;height:66px;object-fit:contain}
+.photo b{display:block;font-size:15px}
+.photo small{display:block;color:var(--soft);font-size:11.5px;line-height:1.7;margin-top:3px}
+.photo.best{border-color:#a8cbb2;background:linear-gradient(160deg,#f2f9f4,#fff)}
+.pts{margin-top:6px}
+.pts span{display:inline-block;margin:2px 5px 0 0;padding:2px 9px;border-radius:999px;
+ background:var(--cream2);font-size:10.5px}
+.colors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.col{padding:12px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:center}
+.col img{width:100%;max-width:112px;height:56px;object-fit:contain}
+.col b{display:block;margin-top:6px;font-size:12.5px}
+.col small{display:block;color:var(--soft);font-size:10.5px;margin-top:2px;line-height:1.6}
+.col .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:1px}
 /* 七型 */
 .type{display:grid;grid-template-columns:34px 62px 1fr;gap:11px;align-items:center;padding:12px;
  margin-bottom:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
@@ -105,15 +120,59 @@ a{text-decoration:none;color:inherit}
       <span class="kicker">DAILY POOP CHECK</span>
       <h1>鏟屎的時候<br>順手看一眼</h1>
       <p>便便是主子每天留給你的健康報告 ~ 只是大部分毛家長都直接鏟掉了</p>
-      <div class="hero-mini"><span>七型對照</span><span>四個重點</span><span>紅燈訊號</span></div>
+      <div class="hero-mini"><span>三大類</span><span>顏色觀察</span><span>七型對照</span><span>紅燈訊號</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row">
+      <span class="num">MAIN 3</span>
+      <h2>先認得這三種</h2>
+      <p>90% 的情況都落在這三種裡面</p>
+    </div>
+
+    <div class="photo best">
+      <img src="media/poop-ideal.png" alt="理想便便">
+      <span><b>理想便便</b><small>健康的樣子 ~ 看到這種通常可以放心</small>
+      <span class="pts"><span>條狀</span><span>成形</span><span>好撿起來</span><span>不黏砂</span></span></span>
+    </div>
+
+    <div class="photo">
+      <img src="media/poop-soft.png" alt="軟便">
+      <span><b>軟便・值得觀察</b><small>不一定是大問題 ~ 但值得多觀察幾天</small>
+      <span class="pts"><span>一撿就散開</span><span>黏在砂上</span><span>氣味特別重</span><span>沾到屁屁毛</span></span></span>
+    </div>
+
+    <div class="photo">
+      <img src="media/poop-pellet.png" alt="一顆一顆便便">
+      <span><b>一顆一顆便便</b><small>調整生活習慣，便便會更順暢</small>
+      <span class="pts"><span>水喝太少</span><span>活動量下降</span><span>飲食變化</span></span></span>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row">
+      <span class="num">COLOR</span>
+      <h2>便便顏色觀察</h2>
+      <p>吃的東西也會影響顏色 ~ 重點是跟平常比有沒有變</p>
+    </div>
+    <div class="colors">
+      <div class="col"><img src="media/poop-c-brown.png" alt="咖啡色">
+        <b>咖啡色</b><small><span class="dot" style="background:#8fb89a"></span>常見狀態</small></div>
+      <div class="col"><img src="media/poop-c-yellow.png" alt="偏黃">
+        <b>偏黃</b><small><span class="dot" style="background:#d9a441"></span>飲食變化・可觀察</small></div>
+      <div class="col"><img src="media/poop-c-black.png" alt="偏黑">
+        <b>偏黑</b><small><span class="dot" style="background:#d98a41"></span>建議留意</small></div>
+      <div class="col"><img src="media/poop-c-red.png" alt="紅色有血絲">
+        <b>紅色／有血絲</b><small><span class="dot" style="background:#d97a6c"></span>建議詢問獸醫</small></div>
     </div>
   </section>
 
   <section class="section">
     <div class="title-row">
       <span class="num">TYPE 01–07</span>
-      <h2>七型對照表</h2>
-      <p>先看形狀 ~ 第 3、4 型是理想的樣子</p>
+      <h2>完整七型對照</h2>
+      <p>想看更細的分法 ~ 第 3、4 型是理想的樣子</p>
     </div>
 
     <div class="type"><span class="no">1</span>
