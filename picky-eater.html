@@ -6,12 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fbf5e9">
-  <meta name="description" content="香菇爸幼貓不挑嘴養成表：三個養出挑嘴貓的習慣、每天四件事的養成清單、七天實作進度">
+  <meta name="description" content="香菇爸貓咪挑食全解析：五個挑食徵兆自測、七個常見原因、三個養出挑食貓的習慣、長期挑食的風險、五個改善方法與七天實作進度">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="幼貓不挑嘴養成表｜香菇爸 App">
-  <meta property="og:description" content="挑嘴不是天生的，是被養出來的 ~ 三個習慣先停掉，四件事每天做">
+  <meta property="og:title" content="貓咪挑食怎麼辦｜香菇爸 App">
+  <meta property="og:description" content="挑食不是嘴刁 ~ 是生活習慣、飲食方式、身體狀況一起造成的，五個方法慢慢改回來">
   <meta property="og:image" content="flatface-og.jpg">
-  <title>幼貓不挑嘴養成表｜香菇爸 App</title>
+  <title>貓咪挑食怎麼辦｜香菇爸 App</title>
   <style>
     :root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--gold:#cfa563;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12)}
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -44,6 +44,44 @@
     .verdict{margin-top:12px;padding:15px;border-radius:16px;background:var(--cream2);text-align:center}
     .verdict b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:18px}
     .verdict p{margin-top:4px;font-size:11.5px;color:#7a6a4f}
+    .habit .res{display:block;margin-top:6px;padding:7px 10px;border-radius:11px;background:var(--cream2);font-size:11px;font-weight:700;color:#7a6a4f;line-height:1.7}
+    /* 示意圖 */
+    .fig{display:block;margin:0 0 14px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 6px 18px rgba(150,130,100,.10)}
+    .fig img{width:100%;display:block}
+    .strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px 7px;padding:2px 18px 8px;scrollbar-width:none}
+    .strip::-webkit-scrollbar{display:none}
+    .strip a{flex:0 0 74%;scroll-snap-align:center;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 6px 18px rgba(150,130,100,.10)}
+    .strip img{width:100%;display:block}
+    .swipe{margin:0 0 15px;text-align:center;font-size:10.5px;color:var(--soft);letter-spacing:.5px}
+    /* 症狀自測 */
+    .symp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .symp label{display:flex;align-items:center;gap:8px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:11.5px;font-weight:800;cursor:pointer;box-shadow:0 5px 16px rgba(150,130,100,.07);transition:.15s}
+    .symp label:last-child:nth-child(odd){grid-column:1/-1}
+    .symp input{width:18px;height:18px;accent-color:var(--danger);flex:none}
+    .symp label.on{border-color:rgba(185,101,89,.45);background:#fff8f5}
+    .symp-res{margin-top:12px;padding:15px;border-radius:16px;background:var(--cream2)}
+    .symp-res b{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;margin-bottom:3px}
+    .symp-res span{font-size:11.5px;color:#7a6a4f;line-height:1.8}
+    .whylead{margin:20px 0 9px;font-size:13px;font-weight:900}
+    .why{display:flex;flex-wrap:wrap;gap:7px}
+    .why span{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11.5px;font-weight:800;box-shadow:0 4px 12px rgba(150,130,100,.06)}
+    .why span.med{border-color:rgba(185,101,89,.3);background:#fff6f2;color:var(--danger)}
+    .note{margin-top:10px;font-size:11px;color:var(--soft);line-height:1.8}
+    /* 長期風險 */
+    .risk{display:grid;gap:0}
+    .risk div{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:12.5px;font-weight:800}
+    .risk div i{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--cream2);font-style:normal;font-size:10.5px;font-weight:900;color:#7a6a4f}
+    .risk em{display:block;height:16px;font-style:normal;text-align:center;color:#c9beab;font-size:12px;line-height:16px}
+    .risk div.last{border-color:rgba(185,101,89,.3);background:#fff6f2;color:var(--danger)}
+    .risk div.last i{background:rgba(185,101,89,.15);color:var(--danger)}
+    /* 五個方法 */
+    .methods{display:grid;gap:10px}
+    .method{display:grid;grid-template-columns:36px 1fr;gap:11px;padding:14px 13px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .method>b{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--green2);color:#5f8a6d;font-size:13px;font-weight:900}
+    .method h3{font-size:13.5px}
+    .method p{margin-top:3px;font-size:11.5px;color:#6f6658;line-height:1.85}
+    .method ul{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:0;list-style:none}
+    .method li{padding:5px 9px;border-radius:999px;background:var(--cream2);font-size:11px;font-weight:700;color:#7a6a4f}
     /* 養成表 */
     .table{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
     .trow{display:grid;grid-template-columns:22px 1fr;gap:11px;align-items:start;padding:14px 13px;border-bottom:1px solid var(--line);cursor:pointer}
@@ -93,45 +131,117 @@
 <main class="app">
   <header class="head">
     <a class="back" href="kitten-care.html#t-food" aria-label="回上一頁">‹</a>
-    <div class="head-title"><strong>不挑嘴養成表</strong><small>挑嘴不是天生的</small></div>
+    <div class="head-title"><strong>貓咪挑食怎麼辦</strong><small>挑食不是嘴刁</small></div>
     <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
   </header>
 
   <section class="hero">
     <div class="hero-card">
-      <span class="kicker">PICKY EATER CHECKLIST</span>
-      <h1>挑嘴貓<br>不是天生的</h1>
-      <p>是被養出來的 ~ 而且大部分在幼貓這半年就定型了</p>
-      <div class="hero-mini"><span>✓ 三個習慣自測</span><span>✓ 每天四件事</span><span>✓ 七天進度</span></div>
+      <span class="kicker">PICKY EATER GUIDE</span>
+      <h1>挑食，<br>其實不是嘴刁</h1>
+      <p>是生活習慣、飲食方式、身體狀況一起造成的 ~ 大部分的挑食，都能慢慢改回來</p>
+      <div class="hero-mini"><span>✓ 五個徵兆自測</span><span>✓ 七個原因</span><span>✓ 五個改善方法</span><span>✓ 七天進度</span></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="title-row"><span class="num">01｜先看你中了幾個</span><h2>養出挑嘴貓的三個習慣</h2><p>老實勾就好 ~ 這三個我自己全部做過</p></div>
+    <div class="title-row"><span class="num">01｜先看你家貓中了幾個</span><h2>挑食長什麼樣子</h2><p>不是牠故意的 ~ 是吃飯這件事出了狀況</p></div>
+    <a class="fig" href="media/picky-why.jpg" target="_blank" rel="noopener" aria-label="放大看：為什麼貓咪會挑食"><img src="media/picky-why.jpg" width="1000" height="563" alt="為什麼貓咪會挑食：五個常見徵兆與七個原因"></a>
+    <div class="symp" id="sympList"></div>
+    <div class="symp-res"><b id="sTitle">先勾勾看 👆</b><span id="sText">吃兩口就走、一直聞不吃、只吃肉泥 ~ 這些都是挑食最常見的樣子</span></div>
+    <p class="whylead">挑食最常見的 7 個原因</p>
+    <div class="why">
+      <span>換環境</span><span>壓力</span><span>飼料一直換</span><span>零食吃太多</span><span>吃飯沒有規律</span><span class="med">身體不舒服</span><span class="med">年紀增加</span>
+    </div>
+    <p class="note">前面五個，是我們自己可以調整的 ~ 後面兩個（紅色）要先讓獸醫看過，不要當成習慣問題硬撐</p>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">02｜最常見的三個</span><h2>養出挑食貓的三個習慣</h2><p>老實勾就好 ~ 這三個我自己全部做過</p></div>
+    <div class="strip">
+      <a href="media/picky-cause1.jpg" target="_blank" rel="noopener" aria-label="放大看：原因一 一直換口味"><img src="media/picky-cause1.jpg" width="518" height="781" alt="原因一 一直換口味：今天雞、明天魚、後天牛，結果貓學會不吃就有新的" loading="lazy"></a>
+      <a href="media/picky-cause2.jpg" target="_blank" rel="noopener" aria-label="放大看：原因二 零食太多"><img src="media/picky-cause2.jpg" width="520" height="748" alt="原因二 零食太多：正餐 VS 點心，吃太多主食自然沒吸引力" loading="lazy"></a>
+      <a href="media/picky-cause3.jpg" target="_blank" rel="noopener" aria-label="放大看：原因三 一直放飯"><img src="media/picky-cause3.jpg" width="507" height="781" alt="原因三 一直放飯：24 小時都有乾乾，沒有飢餓感就更容易挑食" loading="lazy"></a>
+    </div>
+    <p class="swipe">← 左右滑，看三個原因 →</p>
     <div class="habits" id="habitList"></div>
     <div class="verdict"><b id="vTitle">先勾勾看 👆</b><p id="vText">不是要你自責 ~ 是先知道從哪裡改</p></div>
   </section>
 
+  <section class="section">
+    <div class="title-row"><span class="num">03｜長期挑食會怎樣</span><h2>比不吃更麻煩的是後面</h2><p>這是長期、持續挑食才會走到的路 ~ 不是說你家貓現在就這樣</p></div>
+    <div class="risk">
+      <div><i>1</i>營養不均衡</div><em>↓</em>
+      <div><i>2</i>體重下降</div><em>↓</em>
+      <div><i>3</i>肌肉流失</div><em>↓</em>
+      <div><i>4</i>體力、抵抗力變差</div><em>↓</em>
+      <div class="last"><i>5</i>長期健康風險增加</div>
+    </div>
+    <p class="whylead">而且它會自己轉起來</p>
+    <a class="fig" href="media/picky-cycle.jpg" target="_blank" rel="noopener" aria-label="放大看：挑食的惡性循環"><img src="media/picky-cycle.jpg" width="820" height="746" alt="惡性循環：一直挑食 → 一直換飼料 → 腸胃更亂 → 更不吃" loading="lazy"></a>
+    <p class="note">所以重點不是「今天要怎麼讓牠吃下這一餐」~ 是把這個循環停下來</p>
+  </section>
+
   <section class="section alt">
-    <div class="title-row"><span class="num">02｜反過來做</span><h2>每天固定這四件事</h2><p>勾選會存在這台裝置 ~ 關掉重開還在</p></div>
+    <div class="title-row"><span class="num">04｜怎麼改善</span><h2>五個方法，慢慢改回來</h2><p>不用五個一起做 ~ 先做方法 1，它影響最大</p></div>
+    <div class="strip">
+      <a href="media/picky-fix1.jpg" target="_blank" rel="noopener" aria-label="放大看：方法一 固定吃飯時間"><img src="media/picky-fix1.jpg" width="507" height="786" alt="方法一 固定吃飯時間：20～30 分鐘收碗，建立吃飯節奏" loading="lazy"></a>
+      <a href="media/picky-fix2.jpg" target="_blank" rel="noopener" aria-label="放大看：方法二 不要一直換飼料"><img src="media/picky-fix2.jpg" width="509" height="786" alt="方法二 不要一直換飼料：至少觀察 7～10 天再評估" loading="lazy"></a>
+      <a href="media/picky-fix3.jpg" target="_blank" rel="noopener" aria-label="放大看：方法三 零食小於主食"><img src="media/picky-fix3.jpg" width="507" height="786" alt="方法三 零食 ＜ 主食：肉泥不要變正餐" loading="lazy"></a>
+      <a href="media/picky-aroma.jpg" target="_blank" rel="noopener" aria-label="放大看：方法四 增加食物吸引力"><img src="media/picky-aroma.jpg" width="675" height="790" alt="方法四 增加食物吸引力：溫熱、加水、主食罐，增加香氣" loading="lazy"></a>
+    </div>
+    <p class="swipe">← 左右滑，看四張圖 →</p>
+    <div class="methods">
+      <div class="method"><b>1</b><div>
+        <h3>固定吃飯時間</h3>
+        <p>放飯後 20～30 分鐘就收碗，沒吃完也收 ~ 不是要餓牠，是讓牠重新有「吃飯時間」這件事</p>
+        <ul><li>20～30 分鐘收碗</li><li>建立吃飯節奏</li><li>幼貓餐數別減，收碗時間抓短一點</li></ul>
+      </div></div>
+      <div class="method"><b>2</b><div>
+        <h3>不要一直換飼料</h3>
+        <p>吃兩天又不吃，很多時候不是飼料的問題 ~ 是牠學會了等新的</p>
+        <ul><li>同一種先觀察 7～10 天</li><li>一次只改一個變因</li><li>要換就七天遞進</li></ul>
+      </div></div>
+      <div class="method"><b>3</b><div>
+        <h3>零食 ＜ 主食</h3>
+        <p>肉泥、凍乾、副食罐都不能變成正餐 ~ 不是不能給，是給了就從當天總量扣掉</p>
+        <ul><li>肉泥不要變正餐</li><li>算進當天總量</li><li>抓在 10% 以內</li></ul>
+      </div></div>
+      <div class="method"><b>4</b><div>
+        <h3>增加食物的吸引力</h3>
+        <p>貓是先聞再吃的 ~ 香氣出來，食慾才會來</p>
+        <ul><li>溫熱到接近體溫</li><li>加一點溫水</li><li>主食罐</li><li>提香就好，不用一直加料</li></ul>
+      </div></div>
+      <div class="method"><b>5</b><div>
+        <h3>比「吃多少」更重要的是穩定</h3>
+        <p>先把主食吃回來，日常保養固定同一套 ~ 最怕的是今天補這個、明天換那個</p>
+        <ul><li>先把主食吃回來</li><li>保養固定同一套</li><li>讓牠的一天有規律</li></ul>
+      </div></div>
+    </div>
+    <a class="fig" href="media/picky-summary.jpg" target="_blank" rel="noopener" aria-label="放大看：挑食其實不是嘴刁"><img src="media/picky-summary.jpg" width="1000" height="563" alt="挑食其實不是嘴刁，是生活習慣、飲食方式、身體狀況共同造成，很多挑食都能慢慢改善" loading="lazy"></a>
+    <p class="note">這五個方法，下面第 05 區整理成每天可以打勾的四件事</p>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">05｜反過來做</span><h2>每天固定這四件事</h2><p>勾選會存在這台裝置 ~ 關掉重開還在</p></div>
     <div class="bar"><span id="bar"></span></div>
     <div class="table" id="taskList"></div>
     <span class="count" id="count"></span>
   </section>
 
-  <section class="section">
-    <div class="title-row"><span class="num">03｜七天進度</span><h2>先撐過第一週</h2><p>四件事都做到，那天就會亮起來</p></div>
+  <section class="section alt">
+    <div class="title-row"><span class="num">06｜七天進度</span><h2>先撐過第一週</h2><p>四件事都做到，那天就會亮起來</p></div>
     <div class="days" id="dayGrid"></div>
     <div class="daynote" id="dayNote"></div>
   </section>
 
-  <section class="section alt">
-    <div class="title-row"><span class="num">04｜最常被問的</span><h2>撐不下去的時候</h2></div>
+  <section class="section">
+    <div class="title-row"><span class="num">07｜最常被問的</span><h2>撐不下去的時候</h2></div>
     <div class="qa" id="qaList"></div>
   </section>
 
-  <section class="section">
-    <div class="urgent"><span>!</span><div><b>這些狀況不是挑嘴，先看獸醫</b><p>完全不吃不喝、精神變差、同時嘔吐或拉肚子、吃東西時像會痛或只用單邊咬、突然從正常變成什麼都不吃——這些要由獸醫評估 ~ 這頁講的是「日常容易被忽略的習慣」，不是說全部都是你造成的</p></div></div>
+  <section class="section alt">
+    <div class="urgent"><span>!</span><div><b>這些狀況不是挑食，先看獸醫</b><p>完全不吃不喝、精神變差、同時嘔吐或拉肚子、吃東西時像會痛或只用單邊咬、突然從正常變成什麼都不吃——這些要由獸醫評估 ~ 這頁講的是「日常容易被忽略的習慣」，不是說全部都是你造成的</p></div></div>
     <div class="links">
       <a class="link-card" href="kitten-care.html#t-food"><span>🥣</span><span><b>幼貓飲食怎麼安排</b><small>月齡餵食次數・七天換糧</small></span><i>›</i></a>
       <a class="link-card" href="貓咪熱量計算機/calculator.html"><span>🧮</span><span><b>熱量計算機</b><small>先算出一天該吃多少</small></span><i>›</i></a>
@@ -146,13 +256,15 @@
   </footer>
 </main>
 
-<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="不挑嘴養成表-底部LINE">💬 加入 LINE・卡關了問香菇爸</a></nav>
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="挑食怎麼辦-底部LINE">💬 加入 LINE・卡關了問香菇爸</a></nav>
 
 <script>
+const symptoms=['吃兩口就走','一直聞不吃','只吃肉泥','一直討食','一直等罐頭'];
+
 const habits=[
- {t:'牠不吃，我就馬上換一種',d:'貓學到的不是「這個不好吃」~ 是「我只要不吃，就會有更好的」'},
- {t:'飯碗整天放著，隨牠吃',d:'沒有餓的感覺 ~ 就沒有吃的動力，定時收掉比買十種罐頭有用'},
- {t:'心疼的時候用零食補',d:'最多人中的一個 ~ 零食變成溝通方式，正餐就再也贏不了'}
+ {t:'牠不吃，我就馬上換一種',d:'今天雞、明天魚、後天牛 ~ 貓學到的不是「這個不好吃」，是「我只要不吃，就會有更好的」',r:'結果：不吃，就有新的'},
+ {t:'飯碗整天放著，隨牠吃',d:'24 小時都有乾乾，沒有餓的感覺 ~ 就沒有吃的動力，定時收掉比買十種罐頭有用',r:'結果：沒有飢餓感，更容易挑食'},
+ {t:'心疼的時候用零食補',d:'最多人中的一個 ~ 肉泥、凍乾、副食罐吃太多，正餐自然就沒有吸引力了',r:'結果：吃太多點心，主食贏不了'}
 ];
 
 const tasks=[
@@ -174,10 +286,24 @@ const KEY='mushroomPicky';
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
 function save(o){localStorage.setItem(KEY,JSON.stringify(o))}
 
-$('#habitList').innerHTML=habits.map((h,i)=>`<label class="habit"><input type="checkbox" data-h="${i}"><span><b>${i+1}. ${h.t}</b><small>${h.d}</small></span></label>`).join('');
+$('#sympList').innerHTML=symptoms.map((s,i)=>`<label><input type="checkbox" data-s="${i}"><span>${s}</span></label>`).join('');
+$('#habitList').innerHTML=habits.map((h,i)=>`<label class="habit"><input type="checkbox" data-h="${i}"><span><b>${i+1}. ${h.t}</b><small>${h.d}</small><span class="res">${h.r}</span></span></label>`).join('');
 $('#taskList').innerHTML=tasks.map((t,i)=>`<label class="trow"><input type="checkbox" data-t="${i}"><span><b>${t.t}</b><small>${t.d}</small></span></label>`).join('');
 $('#qaList').innerHTML=qas.map(q=>`<article class="qitem"><button class="qhead"><span>${q[0]}</span><span class="qplus">＋</span></button><div class="qbody">${q[1]}</div></article>`).join('');
 
+function renderSymp(){
+ const n=$$('[data-s]').filter(x=>x.checked).length;
+ $$('[data-s]').forEach(x=>x.closest('label').classList.toggle('on',x.checked));
+ const r=[
+  ['先勾勾看 👆','吃兩口就走、一直聞不吃、只吃肉泥 ~ 這些都是挑食最常見的樣子'],
+  ['中 1 個，還在很前面','現在調整最輕鬆 ~ 往下看，通常改一個習慣就回來了'],
+  ['中 2 個，開始固定了','已經不是偶爾了 ~ 先把「吃飯時間」抓回來，這一項影響最大'],
+  ['中 3 個，是常見的樣子','大部分來問我的毛家長都在這裡 ~ 五個方法先做前三個'],
+  ['中 4 個，循環已經轉起來了','越換越不吃、越不吃越換 ~ 先停止換牌子，一次只改一個變因'],
+  ['五個全中，跟我當年一樣 😅','我也走過這一段 ~ 但你現在就發現了，比我早很多。如果同時有精神變差或體重掉，先看獸醫']
+ ][n];
+ $('#sTitle').textContent=r[0];$('#sText').textContent=r[1];
+}
 function renderHabits(){
  const n=$$('[data-h]').filter(x=>x.checked).length;
  $$('[data-h]').forEach(x=>x.closest('.habit').classList.toggle('on',x.checked));
@@ -214,6 +340,7 @@ function renderDays(){
 }
 
 document.addEventListener('change',e=>{
+ if(e.target.matches('[data-s]'))renderSymp();
  if(e.target.matches('[data-h]'))renderHabits();
  if(e.target.matches('[data-t]')){
   const d=load(),today=new Date().toISOString().slice(0,10);
@@ -226,7 +353,7 @@ document.addEventListener('click',e=>{
  if(h){const it=h.closest('.qitem');it.classList.toggle('open')}
 });
 
-renderHabits();renderTasks();
+renderSymp();renderHabits();renderTasks();
 </script>
 
 <!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
