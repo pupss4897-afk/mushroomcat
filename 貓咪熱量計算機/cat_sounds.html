@@ -262,8 +262,11 @@
             </div>
 
             <p class="sounds-foot">
-                🎵 本頁叫聲為「電腦即時模擬」，方便你快速體會差異，與真實貓叫略有不同。<br>
+                🎵 本頁叫聲為真實貓咪錄音 ~ 同一種情緒，每隻貓叫起來還是會不太一樣<br>
                 每隻貓的「語言」都是獨一無二的，最準的翻譯永遠是你日復一日的陪伴 🤍
+            </p>
+            <p class="sounds-foot" style="font-size:10.5px;opacity:.75">
+                錄音來源（皆為免費授權 CC0／公共領域）~ Freesound：Ñado、CatPhony、khenshom ~ Wikimedia Commons：Zabuhailo、Mattes 等貢獻者
             </p>
         </main>
     </div>
@@ -494,17 +497,30 @@
         grid.appendChild(card);
     });
 
+    // 真實貓叫錄音（CC0／公共領域，來源列在頁面最下方）；載入失敗才退回電腦模擬
+    let _nowAudio = null;
     function play(id) {
-        try { ac().resume(); } catch (e) {}
-        const dur = SOUNDS[id] ? SOUNDS[id]() : 0;
-        // 播放動畫
         const card = grid.querySelector(`[data-id="${id}"]`);
-        clearTimeout(playTimer);
-        grid.querySelectorAll('.sound-card').forEach(c => c.classList.remove('playing'));
-        if (card) {
-            card.classList.add('playing');
-            playTimer = setTimeout(() => card.classList.remove('playing'), dur * 1000 + 120);
-        }
+        const 動畫 = sec => {
+            clearTimeout(playTimer);
+            grid.querySelectorAll('.sound-card').forEach(c => c.classList.remove('playing'));
+            if (card) {
+                card.classList.add('playing');
+                playTimer = setTimeout(() => card.classList.remove('playing'), sec * 1000 + 120);
+            }
+        };
+        const 模擬 = () => {
+            try { ac().resume(); } catch (e) {}
+            動畫(SOUNDS[id] ? SOUNDS[id]() : 0);
+        };
+        if (_nowAudio) { _nowAudio.pause(); _nowAudio = null; }
+        const a = new Audio(`assets/sounds/${id}.mp3?v=1`);
+        _nowAudio = a;
+        a.addEventListener('loadedmetadata', () => 動畫(a.duration || 2));
+        a.addEventListener('ended', () => card && card.classList.remove('playing'));
+        a.addEventListener('error', 模擬);
+        動畫(2);
+        a.play().catch(() => { if (a.error) 模擬(); });
     }
 
     function select(id) {
