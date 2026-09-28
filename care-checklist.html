@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸貓咪照護頻率清單：每天、每週、每月、每季、每年該做哪些事，可以直接勾選，時間到自動重來">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="貓咪照護頻率清單｜香菇爸 App">
+  <meta property="og:description" content="每天・每週・每月・每季・每年 ~ 主子要照顧哪些事一次看懂，還能直接勾">
+  <meta property="og:image" content="media/care-poster-sm.jpg">
+  <title>貓咪照護頻率清單｜香菇爸 App</title>
+  <style>
+    :root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--blue:#7fa9c9;--blue2:#e6eff6;--gold:#cfa563;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12)}
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;color:var(--ink);background:#e9e0d2;line-height:1.65;min-height:100vh}
+    button,input{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}img{max-width:100%;height:auto;display:block}
+    :focus-visible{outline:3px solid rgba(232,163,155,.65);outline-offset:3px}
+    .app{width:100%;max-width:440px;min-height:100vh;margin:auto;background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 50px rgba(120,100,70,.18);padding-bottom:92px;overflow:hidden}
+    .head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:10px;padding:12px 16px;background:rgba(251,245,233,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;text-decoration:none;box-shadow:var(--shadow);font-weight:800}
+    .head-title{text-align:center}.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}.head-title small{display:block;color:var(--soft);font-size:10px;letter-spacing:1px}
+    .hero{padding:22px 18px 16px}
+    .hero-card{position:relative;padding:23px 20px 20px;border-radius:26px;background:linear-gradient(152deg,#6f9e7b 0%,#8fb89a 52%,#b4d0ba 100%);color:#fff;box-shadow:0 18px 38px rgba(111,158,123,.28);overflow:hidden}
+    .hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22);box-shadow:0 0 0 28px rgba(255,255,255,.06)}
+    .kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:800;letter-spacing:1px}
+    .hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:26px;line-height:1.35}
+    .hero p{position:relative;z-index:1;margin-top:8px;color:rgba(255,255,255,.94);font-size:12.5px}
+    .hero-mini{position:relative;z-index:1;display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.18);font-size:11px}
+    .section{padding:18px}.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+    .title-row{margin-bottom:13px}.num{display:block;color:#6f9e7b;font-size:10px;font-weight:900;letter-spacing:1.4px}
+    .title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:21px;margin-top:3px}
+    .title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+    .poster{display:block;border:1px solid var(--line);border-radius:18px;background:#fff;padding:9px;box-shadow:var(--shadow);text-decoration:none}
+    .poster img{border-radius:12px}
+    .poster span{display:block;margin-top:9px;text-align:center;font-size:11px;font-weight:800;color:#6f9e7b}
+
+    /* 頻率分頁 */
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+    .tab{padding:9px 0 7px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:center;box-shadow:0 4px 12px rgba(150,130,100,.06);transition:.15s}
+    .tab i{display:block;font-style:normal;font-size:18px;line-height:1.2}
+    .tab b{display:block;font-size:12px}
+    .tab small{display:block;font-size:9.5px;color:var(--soft);font-variant-numeric:tabular-nums}
+    .tab.on{border-color:transparent;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+    .tab.on small{color:rgba(255,255,255,.9)}
+    .panel{border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+    .phead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 15px 12px}
+    .phead b{font-family:"Noto Serif TC","Songti TC",serif;font-size:17px}
+    .phead small{display:block;color:var(--soft);font-size:10.5px}
+    .ring{--p:0;width:48px;height:48px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--cream2) 0);transition:.3s}
+    .ring span{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:11px;font-weight:900;font-variant-numeric:tabular-nums}
+    .items{list-style:none;border-top:1px solid var(--line)}
+    .item{display:grid;grid-template-columns:26px 1fr;gap:11px;align-items:start;padding:12px 15px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+    .item:last-child{border-bottom:0}
+    .box{width:24px;height:24px;margin-top:1px;border:2px solid #d8ccb8;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:900;transition:.15s}
+    .item b{display:block;font-size:13.5px;transition:.15s}
+    .item small{display:block;color:var(--soft);font-size:11px;margin-top:2px;line-height:1.7}
+    .item small a{color:#6f9e7b;font-weight:800;text-decoration:none;white-space:nowrap}
+    .item.done .box{border-color:transparent;background:var(--c)}
+    .item.done b{color:var(--soft);text-decoration:line-through;text-decoration-color:rgba(149,138,121,.5)}
+    .pfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 15px;background:var(--cream);font-size:10.5px;color:var(--soft)}
+    .pfoot button{border:0;background:none;color:var(--soft);font-size:10.5px;text-decoration:underline}
+    .cheer{display:none;padding:12px 15px;background:var(--green2);color:#4f7a5b;font-size:12px;font-weight:800;text-align:center}
+    .panel.all .cheer{display:block}
+
+    /* 幼貓五階段 */
+    .stages{display:grid;gap:8px}
+    .stage{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07);position:relative}
+    .stage .age{text-align:center;padding:7px 0;border-radius:12px;color:#fff;font-size:11px;font-weight:900;line-height:1.3}
+    .stage .age small{display:block;font-size:9.5px;font-weight:700;opacity:.92}
+    .stage b{font-size:13.5px}
+    .stage ul{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+    .stage li{font-size:10.5px;padding:2px 8px;border-radius:999px;background:var(--cream)}
+
+    /* 六大任務 */
+    .tasks{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .task{padding:13px 12px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .task i{font-style:normal;font-size:22px}
+    .task b{display:block;font-size:13px;margin-top:3px}
+    .task small{display:block;color:var(--soft);font-size:10.5px;margin-top:3px;line-height:1.7}
+
+    /* 留意 */
+    .signs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .sign{padding:12px 6px 10px;border:1px solid rgba(185,101,89,.22);border-radius:15px;background:#fff6f2;text-align:center}
+    .sign i{font-style:normal;font-size:22px}
+    .sign b{display:block;font-size:12px;color:var(--danger);margin-top:2px}
+    .sign small{display:block;font-size:9.5px;color:#9a7d76;line-height:1.5;margin-top:2px}
+    .urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;padding:14px;border:1px solid rgba(185,101,89,.25);border-radius:17px;background:#fff6f2;margin-top:11px}
+    .urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+    .urgent b{color:var(--danger);font-size:12px}.urgent p{font-size:11px;color:#806962;margin-top:2px}
+
+    .plain{margin-top:11px;padding:12px 13px;border-radius:13px;background:rgba(143,184,154,.14);font-size:11px;color:#5d7563;line-height:1.9}
+    .links{display:grid;gap:9px}
+    .link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff;text-decoration:none;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+    .link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+    .link-card b{font-size:13px}.link-card small{display:block;color:var(--soft);font-size:10.5px}
+    .link-card i{font-style:normal;color:var(--soft)}
+    .sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+    .sources strong{display:block;color:var(--ink);margin-bottom:3px}
+    .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
+    @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-KD4Y1VHLGC');
+  </script>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>照護頻率清單</strong><small>每天 × 每週 × 每月 × 每季 × 每年</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">CAT CARE CHECKLIST</span>
+      <h1>主子要照顧哪些事<br>分成五種頻率就不亂</h1>
+      <p>最近好多毛家長問我 ~ 每天、每週、每月到底要做什麼<br>我整理成一張表，還可以直接在這裡打勾</p>
+      <div class="hero-mini"><span>☀️ 每天 7 件</span><span>🗓️ 每週 7 件</span><span>✂️ 每月 8 件</span><span>🍃 每季 6 件</span><span>🩺 每年 5 件</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">01｜完整圖表</span><h2>一張圖先看全部</h2><p>點圖可以看大圖 ~ 存到手機比較好找</p></div>
+    <a class="poster" href="media/care-poster.jpg" target="_blank" rel="noopener" data-ga="照護清單-看大圖">
+      <img src="media/care-poster-sm.jpg" width="600" height="900" alt="0到1歲幼貓成長照護表：成長五階段、照護頻率清單、關鍵成長任務、要留意的狀況、居家環境檢查" loading="lazy">
+      <span>🔍 點一下看大圖</span>
+    </a>
+  </section>
+
+  <section class="section alt" id="checklist">
+    <div class="title-row"><span class="num">02｜照護頻率清單</span><h2>今天做了哪些 打個勾</h2><p>勾選會記在你的手機裡 ~ 時間到會自動重來</p></div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="panel" id="panel"></div>
+    <div class="plain">
+      這份清單大部分成貓也適用 ~ 不用一次全做到<br>
+      先把<b>每天</b>那 7 件變成習慣，其他的慢慢加進來就好 💚
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">03｜幼貓 0-1 歲</span><h2>每個階段的重點不一樣</h2><p>看看你家主子現在在哪一段</p></div>
+    <div class="stages" id="stages"></div>
+    <div class="links" style="margin-top:11px">
+      <a class="link-card" href="kitten-care.html"><span>🍼</span><span><b>幼貓黃金成長期</b><small>咬人・換牙・社會化・體重對照 ~ 每段怎麼陪</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">04｜關鍵成長任務</span><h2>第一年要幫牠建立的六件事</h2><p>打好基礎 ~ 長大後照顧起來輕鬆很多</p></div>
+    <div class="tasks" id="tasks"></div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">05｜要留意的訊號</span><h2>出現這些 早點問獸醫</h2><p>不用自己猜 ~ 越早讓醫生看越安心</p></div>
+    <div class="signs" id="signs"></div>
+    <div class="urgent"><span>!</span><div><b>這件事我不能幫你判斷</b><p>上面這些狀況的原因很多，只有獸醫實際檢查才知道 ~ 我能做的是提醒你「該問了」，不是醫療建議</p></div></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">06｜居家環境檢查</span><h2>家裡有沒有準備好</h2><p>打造安全、舒適又有得玩的空間 ~ 一樣可以打勾</p></div>
+    <div class="panel" id="homePanel" style="--c:#cfa563"></div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">07｜延伸閱讀</span><h2>清單裡提到的 這裡有細節</h2></div>
+    <div class="links">
+      <a class="link-card" href="cat-teeth.html"><span>🦷</span><span><b>貓咪牙齒圖解</b><small>怎麼檢查嘴巴・牙周病六階段</small></span><i>›</i></a>
+      <a class="link-card" href="weight-log.html"><span>⚖️</span><span><b>主子體重紀錄</b><small>每週記一筆・自動畫曲線</small></span><i>›</i></a>
+      <a class="link-card" href="poop-check.html"><span>💩</span><span><b>便便觀察表</b><small>鏟砂時順便看 ~ 七型對照</small></span><i>›</i></a>
+      <a class="link-card" href="mushroom-daily.html"><span>🕰️</span><span><b>香菇的一天</b><small>八歲貓的真實作息長這樣</small></span><i>›</i></a>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <strong>關於這一頁</strong>
+    圖表為香菇爸原創整理 ~ 內容是日常照護的提醒與觀念，不是醫療建議，也不能取代獸醫的檢查、診斷與治療<br>
+    驅蟲、疫苗、絕育與健康檢查的時間與方式，每隻貓不一樣，請依你的獸醫建議安排
+  </footer>
+</main>
+<nav class="bottom"><a href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener" data-ga="照護清單-底部LINE">💬 加入 LINE・領照護清單高清圖</a></nav>
+
+<script>
+/* ── 頻率清單資料：t=項目 d=白話說明（可含連結） ── */
+const freq = [
+ {k:'day', name:'每天', icon:'☀️', c:'#e8a39b', next:'明天會自動重來', items:[
+  ['更換新鮮飲水','水碗每天洗、水每天換 ~ 家裡多放幾個水碗，牠比較願意喝'],
+  ['準備營養均衡的餐食','固定時間、固定份量 ~ 幼貓胃小，少量多餐比較好'],
+  ['清理貓砂','每天至少鏟 1～2 次 ~ 順便看一眼便便和尿塊 <a href="poop-check.html">看便便對照 ›</a>'],
+  ['觀察食慾與精神','吃了多少、玩不玩、有沒有一直躲 ~ 跟平常不一樣就是訊號'],
+  ['簡單梳毛','幾分鐘就好 ~ 順便摸摸全身，有沒有腫塊或碰了會躲的地方'],
+  ['陪玩互動','一天 2～3 次，每次 10～15 分鐘 ~ 用逗貓棒讓牠追、撲、跳'],
+  ['檢查眼睛、下巴是否乾淨','眼屎用沾溫水的棉片輕輕擦 ~ 下巴有黑色小點也順手看一下']
+ ]},
+ {k:'week', name:'每週', icon:'🗓️', c:'#cfa563', next:'下週一會自動重來', items:[
+  ['刷牙','先從一週幾次開始 ~ 牠習慣了能每天刷最好 <a href="cat-teeth.html">牙齒圖解 ›</a>'],
+  ['深層梳毛','長毛貓要更勤 ~ 梳到底層，順便檢查有沒有打結'],
+  ['檢查皮膚與毛髮狀況','把毛撥開看皮膚 ~ 紅點、皮屑、禿一塊、黑色小顆粒都要留意'],
+  ['補充／更換貓砂','砂的高度大約維持 5～7 公分 ~ 太少牠會不想進去上'],
+  ['清潔食碗與飲水器','用熱水和溫和的清潔劑洗 ~ 飲水機記得拆開洗'],
+  ['檢查玩具是否破損','繩子、羽毛、小零件掉下來很容易被吞下去 ~ 壞了就收起來'],
+  ['簡單環境清潔','吸地、擦一擦牠常待的地方 ~ 毛會少很多']
+ ]},
+ {k:'month', name:'每月', icon:'✂️', c:'#8fb89a', next:'下個月 1 號會自動重來', items:[
+  ['剪指甲','只剪透明的尖端 ~ 看得到粉紅色的血線就停，不要剪到'],
+  ['耳朵清潔','先看有沒有耳垢或異味 ~ 用棉片擦外耳就好，不要用棉花棒往裡面戳'],
+  ['貓砂盆徹底清洗','整盆倒掉、洗乾淨、晾乾 ~ 再換上新的砂'],
+  ['貓窩與毯子清洗','牠睡的地方洗乾淨 ~ 睡得更舒服，家裡味道也比較好'],
+  ['擦拭爬架與常接觸區域','貓跳台、窗台、沙發邊 ~ 牠最常磨蹭的地方'],
+  ['體重測量與體態記錄','每個月固定量一次 ~ 幼貓長得快可以每週量 <a href="weight-log.html">記體重 ›</a>'],
+  ['檢查食物保存狀況','開封的飼料要密封、放陰涼處 ~ 順便看有效期限'],
+  ['檢查生活環境安全','電線、紗窗、會被吞下去的小東西 ~ 用牠的高度看一次家裡']
+ ]},
+ {k:'season', name:'每季', icon:'🍃', c:'#7fa9c9', next:'下一季會自動重來', items:[
+  ['體內外驅蟲','室內貓也需要 ~ 用什麼、多久一次請依獸醫建議'],
+  ['全家環境深度清潔','床底、沙發下、櫃子後面 ~ 平常掃不到的地方'],
+  ['檢查牙齒與口腔狀況','看牙齦顏色、牙齒有沒有黃黃硬硬的、嘴巴有沒有味道 <a href="cat-teeth.html">怎麼看 ›</a>'],
+  ['檢查毛髮與皮膚','換季容易掉毛 ~ 看看有沒有比平常掉得多或禿一塊'],
+  ['確認疫苗追加時程','翻一下疫苗卡上的「下次日期」~ 先記在手機行事曆'],
+  ['整理與汰換玩具、貓砂盆等用品','玩壞的玩具丟掉 ~ 貓砂盆刮痕多了容易卡味道，該換就換']
+ ]},
+ {k:'year', name:'每年', icon:'🩺', c:'#a99bc9', next:'明年會自動重來', items:[
+  ['健康檢查','至少一年一次 ~ 年紀大一點的主子，頻率請跟獸醫討論'],
+  ['疫苗追加','依獸醫建議的時間打 ~ 室內貓也不要跳過'],
+  ['絕育評估','依每隻貓的狀況和獸醫建議決定 <a href="貓咪熱量計算機/sterilization_guide.html">絕育懶人包 ›</a>'],
+  ['回顧飲食與營養補充是否合適','年紀、體重、活動量變了 ~ 吃的東西也要跟著調整'],
+  ['檢查器具與環境是否需要升級','主子長大了 ~ 貓砂盆、外出籠、跳台的尺寸要跟上']
+ ]}
+];
+const home = ['有足夠的活動與跳躍空間','貓砂盆數量與位置是否合適','食碗與飲水器擺放安全','避免危險物品與有毒植物','提供躲藏空間與高處觀察點','定期更新與清潔環境'];
+const homeTip = ['跳台、櫃子上面 ~ 貓需要往上爬','一般建議是「貓的數量 +1」個，放在安靜好進出的地方','水跟飯分開一點放 ~ 也要離貓砂盆遠一點','百合、藥品、橡皮筋、塑膠袋都要收好','紙箱、貓窩都可以 ~ 牠需要一個躲起來也安心的地方','玩具輪流換著出 ~ 環境有變化牠比較不無聊'];
+
+const stages = [
+ {age:'0-2 個月', name:'適應期', c:'#e8a39b', tips:['建立安全感','少量多餐','開始社會化']},
+ {age:'2-4 個月', name:'探索期', c:'#e3a878', tips:['打疫苗・驅蟲','適應各種聲音','開始練習觸摸']},
+ {age:'4-6 個月', name:'學習期', c:'#cfa563', tips:['換牙期照護','建立良好飲食習慣','進階社會化訓練']},
+ {age:'6-8 個月', name:'青春期', c:'#8fb89a', tips:['持續社會化','體重與體態管理','建立生活規律']},
+ {age:'8-12 個月', name:'成貓準備期', c:'#7fa9c9', tips:['完成絕育評估','飲食轉換確認','維持穩定作息']}
+];
+const tasks = [
+ ['🥣','飲食建立','從幼貓到成貓的主食選擇與轉換'],
+ ['🚽','良好習慣','貓砂使用、作息建立、喝水習慣'],
+ ['🧹','社會化訓練','適應聲音、陌生環境、被觸摸、外出籠、坐車'],
+ ['🪮','身體照護','刷牙、剪指甲、梳毛、清耳朵、日常檢查'],
+ ['🪶','心理需求','每天陪玩、讓環境有變化、給牠安全感'],
+ ['💉','醫療保健','疫苗、驅蟲、年度健檢、絕育評估']
+];
+const signs = [
+ ['🍽️','食慾變差','吃得比平常少'],['🤮','頻繁嘔吐','一直吐或吐很多次'],['💩','持續軟便','好幾天都不成形'],
+ ['😿','精神不佳','一直睡、不想動'],['🐾','頻繁抓癢','一直抓同一個地方'],['⚖️','體重異常','突然變輕或變重']
+];
+
+/* ── 勾選紀錄：存在手機，依週期自動重置 ── */
+function 週期代號(k){
+ const d=new Date(), y=d.getFullYear(), m=d.getMonth();
+ if(k==='day') return d.toDateString();
+ if(k==='week'){const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return 'W'+x.toDateString();}
+ if(k==='month') return y+'-'+m;
+ if(k==='season') return y+'-Q'+Math.floor(m/3);
+ if(k==='year') return 'Y'+y;
+ return 'forever';
+}
+function 讀(k){try{const s=JSON.parse(localStorage.getItem('shroom-care-'+k)||'{}');return s.p===週期代號(k)?s.d:[]}catch(e){return []}}
+function 存(k,d){try{localStorage.setItem('shroom-care-'+k,JSON.stringify({p:週期代號(k),d}))}catch(e){}}
+
+let 目前='day';
+const $=s=>document.querySelector(s);
+
+function 畫分頁(){
+ $('#tabs').innerHTML=freq.map(f=>{
+  const n=讀(f.k).length, on=f.k===目前;
+  return `<button class="tab${on?' on':''}" role="tab" aria-selected="${on}" data-k="${f.k}" style="${on?`background:${f.c}`:''}"><i>${f.icon}</i><b>${f.name}</b><small>${n}/${f.items.length}</small></button>`;
+ }).join('');
+}
+function 畫清單(el, k, items, c, 底){
+ const done=讀(k), 全=done.length===items.length;
+ const pct=Math.round(done.length/items.length*100);
+ el.style.setProperty('--c',c);
+ el.classList.toggle('all',全);
+ el.innerHTML=`<div class="phead"><div><b>${底.title}</b><small>${底.sub}</small></div><div class="ring" style="--p:${pct}"><span>${done.length}/${items.length}</span></div></div>
+  <ul class="items">${items.map((it,i)=>`<li class="item${done.includes(i)?' done':''}" data-k="${k}" data-i="${i}" role="checkbox" aria-checked="${done.includes(i)}" tabindex="0"><span class="box">${done.includes(i)?'✓':''}</span><span><b>${it[0]}</b><small>${it[1]}</small></span></li>`).join('')}</ul>
+  <div class="cheer">🎉 ${底.cheer}</div>
+  <div class="pfoot"><span>${底.next}</span><button data-reset="${k}">全部清除</button></div>`;
+}
+function 畫(){
+ const f=freq.find(x=>x.k===目前);
+ 畫分頁();
+ 畫清單($('#panel'), f.k, f.items, f.c, {title:`${f.icon} ${f.name}要做的事`, sub:`共 ${f.items.length} 件 ~ 點一下就打勾`, cheer:`${f.name}的都完成了！主子被照顧得好好的`, next:`🔄 ${f.next}`});
+ 畫清單($('#homePanel'), 'home', home.map((h,i)=>[h,homeTip[i]]), '#cfa563', {title:'🏠 居家環境', sub:'不會自動重置 ~ 環境有變動再回來看', cheer:'家裡準備得很完整！', next:'📌 這區的勾勾會一直留著'});
+}
+document.addEventListener('click',e=>{
+ if(e.target.closest('.item a')) return;
+ const t=e.target.closest('.tab');
+ if(t){目前=t.dataset.k;畫();return}
+ const r=e.target.closest('[data-reset]');
+ if(r){存(r.dataset.reset,[]);畫();return}
+ const it=e.target.closest('.item');
+ if(it){
+  const k=it.dataset.k,i=+it.dataset.i,d=讀(k);
+  const j=d.indexOf(i); j<0?d.push(i):d.splice(j,1);
+  存(k,d);畫();
+  if(typeof gtag==='function'&&j<0) gtag('event','care_check',{period:k,item:i});
+ }
+});
+document.addEventListener('keydown',e=>{
+ const it=e.target.closest&&e.target.closest('.item');
+ if(it&&(e.key===' '||e.key==='Enter')){e.preventDefault();it.click();}
+});
+
+$('#stages').innerHTML=stages.map(s=>`<div class="stage"><div class="age" style="background:${s.c}">${s.age}<small>${s.name}</small></div><div><b>${s.name}</b><ul>${s.tips.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`).join('');
+$('#tasks').innerHTML=tasks.map(t=>`<div class="task"><i>${t[0]}</i><b>${t[1]}</b><small>${t[2]}</small></div>`).join('');
+$('#signs').innerHTML=signs.map(s=>`<div class="sign"><i>${s[0]}</i><b>${s[1]}</b><small>${s[2]}</small></div>`).join('');
+畫();
+</script>
+<!--香菇爸-COPYRIGHT © 2026 香菇爸｜原創內容 未經授權請勿轉載或重製｜IG @love_mushroom55-->
+<div style="clear:both;max-width:460px;margin:0 auto;padding:16px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;line-height:1.85;color:#a89f8c;font-family:-apple-system,BlinkMacSystemFont,'Microsoft JhengHei',sans-serif;background:transparent">© 2026 香菇爸 ｜ 原創內容，未經授權請勿轉載或重製<br>🍄 <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener" style="color:#8fb89a;text-decoration:none;font-weight:700">香菇爸 @love_mushroom55</a></div>
+<script>
+/* GA4：自動追蹤每個按鈕/連結的點擊 */
+(function () {
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('a, button');
+    if (!el) return;
+    var label = (el.getAttribute('data-ga') || el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60);
+    if (!label) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'button_click', { label: label, page: 'care-checklist' });
+    }
+  }, true);
+})();
+</script>
+<script src="search-index.js"></script>
+<script src="search.js"></script>
+</body>
+</html>
