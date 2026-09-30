@@ -431,6 +431,40 @@
             .tab-panel:not(#tab-home) { max-width: 620px; margin: 0 auto; }
             #tab-home .card-grid { grid-template-columns: repeat(4, 1fr); }
         }
+
+        /* ════════ 首頁動畫（2026-09-30）：溫柔、不花俏；有開「減少動態效果」會自動關閉 ════════ */
+        .hx-photo video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hx-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+        .hx-stats > div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 12px 10px; box-shadow: 0 5px 14px rgba(150,130,100,.08); }
+        .hx-stats b { display: flex; align-items: baseline; gap: 3px; font-family: var(--font-h); font-size: 28px; color: #b77a70; line-height: 1.1; font-variant-numeric: tabular-nums; }
+        .hx-stats b i { font-style: normal; font-size: 13px; color: var(--text-soft); font-family: var(--font-b); font-weight: 700; }
+        .hx-stats small { display: block; font-size: 11px; color: var(--text-soft); margin-top: 3px; }
+        .hx-stat-note { font-size: 10.5px; color: var(--text-soft); line-height: 1.65; margin: 9px 4px 0; }
+        @media (min-width: 960px) { .hx-stats { grid-template-columns: repeat(4, 1fr); } }
+        @media (prefers-reduced-motion: no-preference) {
+            .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+            .reveal.in { opacity: 1; transform: none; }
+            .reveal .hx-quick a, .reveal .feature-card, .reveal .hx-stats > div, .reveal .hx-item { opacity: 0; transform: translateY(14px) scale(.98); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); }
+            .reveal.in .hx-quick a, .reveal.in .feature-card, .reveal.in .hx-stats > div, .reveal.in .hx-item { opacity: 1; transform: none; }
+            .reveal.in :is(.hx-quick a, .feature-card, .hx-stats > div, .hx-item):nth-child(2) { transition-delay: .08s; }
+            .reveal.in :is(.hx-quick a, .feature-card, .hx-stats > div, .hx-item):nth-child(3) { transition-delay: .16s; }
+            .reveal.in :is(.hx-quick a, .feature-card, .hx-stats > div, .hx-item):nth-child(4) { transition-delay: .24s; }
+            .hx-hero { animation: hxIn .9s cubic-bezier(.2,.7,.2,1) both; }
+            .hx-copy > * { animation: hxIn .8s cubic-bezier(.2,.7,.2,1) both; }
+            .hx-copy > *:nth-child(2) { animation-delay: .12s; } .hx-copy > *:nth-child(3) { animation-delay: .24s; } .hx-copy > *:nth-child(4) { animation-delay: .36s; }
+            @keyframes hxIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+            .hx-age button.on i { animation: hxPop .45s cubic-bezier(.3,1.6,.5,1); }
+            @keyframes hxPop { 0% { transform: scale(1); } 45% { transform: scale(1.35) rotate(-8deg); } 100% { transform: scale(1); } }
+            .hx-agelist .row-card { animation: hxSlide .45s cubic-bezier(.2,.7,.2,1) both; }
+            .hx-agelist .row-card:nth-of-type(2) { animation-delay: .07s; } .hx-agelist .row-card:nth-of-type(3) { animation-delay: .14s; }
+            @keyframes hxSlide { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+            .hx-item img { animation: hxKen 14s ease-in-out infinite alternate; }
+            .hx-item:nth-child(2) img { animation-delay: -7s; }
+            @keyframes hxKen { from { transform: scale(1); } to { transform: scale(1.09); } }
+            #tab-home .feature-card .fico { animation: hxFloat 3.6s ease-in-out infinite; }
+            #tab-home .feature-card:nth-child(2) .fico { animation-delay: -.9s; } #tab-home .feature-card:nth-child(3) .fico { animation-delay: -1.8s; } #tab-home .feature-card:nth-child(4) .fico { animation-delay: -2.7s; }
+            @keyframes hxFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        }
     </style>
   <script type="application/ld+json">
 {
@@ -487,7 +521,7 @@
 
             <!-- ① 開場：先說「你會在這裡得到什麼」 -->
             <div class="hx-hero">
-                <div class="hx-photo"><img src="media/shroom-hero.jpg" width="750" height="1000" alt="曼赤肯貓香菇戴著名字圍兜坐著看鏡頭"></div>
+                <div class="hx-photo"><video src="media/shroom-loop.mp4" poster="media/shroom-loop.jpg" autoplay muted loop playsinline preload="auto" aria-label="香菇本尊趴著慢慢眨眼"></video></div>
                 <div class="hx-copy">
                     <span class="hx-eyebrow">曼赤肯香菇爸 · 陪你養貓不孤單</span>
                     <h2>養貓的每個問題<br>都有人陪你一起想</h2>
@@ -497,7 +531,7 @@
             </div>
 
             <!-- ② 你家主子幾歲：選一次，下面自動換成該年齡的重點 -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-title"><b>你家主子現在幾歲？</b><small>點一下 ~ 下次來會記得</small></div>
                 <div class="hx-age" role="tablist">
                     <button type="button" data-age="kitten"><i>🍼</i>幼貓<small>0～1 歲</small></button>
@@ -508,7 +542,7 @@
             </div>
 
             <!-- ③ 今天想解決什麼 -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-title"><b>今天想解決什麼？</b></div>
                 <div class="hx-quick">
                     <a href="newbie-care.html" class="q1"><i>😿</i><b>我家貓怪怪的</b><small>一直躲・不吃・便便怪</small></a>
@@ -519,7 +553,7 @@
             </div>
 
             <!-- ④ 工具箱 -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-title"><b>貓咪工具箱</b><button type="button" class="hx-more" data-goto="tab-tools">看全部 ›</button></div>
                 <div class="card-grid">
                     <a class="feature-card" href="貓咪熱量計算機/cat_sounds.html"><img class="fico" src="icons/sound.png?v=3" alt=""><span class="t">貓咪讀心術</span><span class="d">真實叫聲 ~ 聽懂牠在說什麼</span></a>
@@ -528,11 +562,25 @@
                     <a class="feature-card" href="poop-check.html"><img class="fico" src="icons/household.png?v=3" alt=""><span class="t">便便觀察表</span><span class="d">鏟砂順便看 ~ 七型對照</span></a>
                 </div>
             </div>
+            <!-- 香菇的照顧日常：只講照顧方式，不連任何商品 -->
+            <div class="hx-block reveal">
+                <div class="hx-title"><b>香菇的照顧日常</b><small>不是等生病才照顧 ~ 是每天慢慢顧</small></div>
+                <div class="hx-stats">
+                    <div><b><span class="cnt" data-to="8">0</span><i>歲</i></b><small>曼赤肯・藍白賓士</small></div>
+                    <div><b><span class="cnt" data-to="6">0</span><i>餐</i></b><small>一天六餐・固定時間</small></div>
+                    <div><b><span class="cnt" data-to="1">0</span><i>次</i></b><small>每年健檢＋抽血</small></div>
+                    <div><b><span class="cnt" data-to="5.7" data-dec="1">0</span><i>→</i><span class="cnt" data-to="4.6" data-dec="1" data-from="5.7">5.7</span><i>kg</i></b><small>6 歲到 7 歲的體重</small></div>
+                </div>
+                <p class="hx-stat-note">體重是靠控制份量、一天六餐和固定作息，跟獸醫討論後慢慢調整的 ~ 每隻貓狀況不同，請先問你的獸醫</p>
+                <a class="hx-daily" href="mushroom-daily.html" style="margin-top:10px">
+                    <span><b>🕰️ 看香菇完整的一天</b><small>7:00 到 22:00 的作息表</small></span><i>›</i>
+                </a>
+            </div>
             </div><!-- /home-main -->
 
             <aside class="home-side">
             <!-- ⑤ 信任：香菇爸是誰 -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-title"><b>香菇爸是誰？</b></div>
                 <div class="hx-who">
                     <img src="icons/avatar.png?v=3" width="64" height="64" alt="香菇爸">
@@ -541,13 +589,10 @@
                         <p>台灣知名短影音創作者<a href="https://www.tiktok.com/@jolly81" target="_blank" rel="noopener">綸綸老師（TikTok 40 萬粉）</a>的貓咪照護品牌 ~ 通過特定寵物專業認證，專精貓咪行為與營養科普</p>
                     </div>
                 </div>
-                <a class="hx-daily" href="mushroom-daily.html">
-                    <span><b>🕰️ 香菇的一天</b><small>八歲了・一天六餐・固定作息 ~ 我家八年來的日常</small></span><i>›</i>
-                </a>
             </div>
 
             <!-- ⑥ 香菇每天在吃的（生活畫面，不寫療效） -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-title"><b>香菇每天在吃的</b><small>很多人問 ~ 就是這兩樣</small></div>
                 <div class="hx-shroom">
                     <a class="hx-item" href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="首頁-香菇同款藍藻菌">
@@ -566,7 +611,7 @@
             </div>
 
             <!-- ⑦ 只留一個 LINE 入口 -->
-            <div class="hx-block">
+            <div class="hx-block reveal">
                 <div class="hx-line">
                     <div class="hx-line-top"><img src="icons/fan-cat.png?v=3" width="44" height="44" alt=""><span><b>加入 LINE・成為菇粉</b><small>護貓直播通知・曬貓日抽獎・開團優惠</small></span></div>
                     <a class="cta-line" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="首頁-加入LINE成為菇粉" style="margin:12px 0 8px">
@@ -946,6 +991,34 @@
                     if (nav) nav.click();
                 });
             });
+        })();
+
+
+        /* 首頁動畫：捲到才浮現、數字跳動（減少動態效果時直接顯示） */
+        (function () {
+            var 減少 = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var 塊們 = document.querySelectorAll('#tab-home .reveal');
+            function 跳數字(el) {
+                var to = parseFloat(el.dataset.to), from = parseFloat(el.dataset.from || 0), dec = +(el.dataset.dec || 0);
+                if (減少) { el.textContent = to.toFixed(dec); return; }
+                var t0 = null, 長 = 1100;
+                function 走(t) {
+                    if (!t0) t0 = t;
+                    var p = Math.min(1, (t - t0) / 長), e = 1 - Math.pow(1 - p, 3);
+                    el.textContent = (from + (to - from) * e).toFixed(dec);
+                    if (p < 1) requestAnimationFrame(走);
+                }
+                requestAnimationFrame(走);
+            }
+            function 顯示(塊) {
+                塊.classList.add('in');
+                塊.querySelectorAll('.cnt').forEach(function (c, i) { setTimeout(function () { 跳數字(c); }, 減少 ? 0 : 200 + i * 120); });
+            }
+            if (減少 || !('IntersectionObserver' in window)) { 塊們.forEach(顯示); return; }
+            var io = new IntersectionObserver(function (es) {
+                es.forEach(function (e) { if (e.isIntersecting) { 顯示(e.target); io.unobserve(e.target); } });
+            }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+            塊們.forEach(function (b) { io.observe(b); });
         })();
 
         /* 課程表折疊 */
