@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '100': { uses: 3,  label: '三次驗證碼' },
         '520': { uses: -1, label: '永久使用碼' }
     };
-    const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
+    const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ckT';
     const ACCESS_KEY = 'mushroom_calc_access';
     const USED_KEY   = 'mushroom_calc_used_codes';
     const verifyCard = document.getElementById('verify-card');

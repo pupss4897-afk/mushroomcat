@@ -11,7 +11,7 @@ const ACCESS_CODES = {
     '520': { uses: -1, label: '永久使用碼' }
 };
 
-const LINE_INVITE_URL = 'https://s.luckycat.no8.io/link/channels/ifVUGO3ckT';
+const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ckT';
 
 (function() {
     const els = {
