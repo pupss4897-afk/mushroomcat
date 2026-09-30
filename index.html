@@ -351,6 +351,86 @@
             margin: 6px 0 10px; line-height: 1.65;
         }
         .member-note b { color: var(--pink); }
+
+        /* ════════ 2026-09 首頁改版：幫忙 → 信任 → 香菇同款 ════════ */
+        .hx-block { margin-top: 22px; }
+        .hx-title { display: flex; align-items: baseline; gap: 8px; margin: 0 4px 11px; flex-wrap: wrap; }
+        .hx-title b { font-family: var(--font-h); font-size: 18px; color: var(--text); }
+        .hx-title small { font-size: 11.5px; color: var(--text-soft); }
+        .hx-more { margin-left: auto; background: none; border: none; color: #6f9e7b; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; padding: 2px 0; }
+        .hx-hero { position: relative; display: grid; grid-template-columns: 118px 1fr; gap: 14px; align-items: center;
+            padding: 16px; border-radius: 24px; background: linear-gradient(150deg, #fff 0%, #fbf1e3 60%, #f3e4cf 100%);
+            border: 1px solid var(--line); box-shadow: 0 14px 34px rgba(150,130,100,.16); overflow: hidden; }
+        .hx-hero:after { content: ""; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%; background: rgba(232,163,155,.14); }
+        .hx-photo { position: relative; z-index: 1; border-radius: 18px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 8px 20px rgba(120,100,70,.2); }
+        .hx-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hx-copy { position: relative; z-index: 1; }
+        .hx-eyebrow { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 1px; color: #b77a70; margin-bottom: 5px; }
+        .hx-copy h2 { font-size: 20px; line-height: 1.4; color: var(--text); }
+        .hx-copy p { font-size: 12px; color: var(--text-soft); margin-top: 6px; line-height: 1.6; }
+        .hx-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+        .hx-chips span { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--text); }
+        .hx-age { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .hx-age button { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 11px 4px 9px; border-radius: 16px;
+            background: var(--surface); border: 1.5px solid var(--line); box-shadow: 0 5px 14px rgba(150,130,100,.08);
+            font: inherit; font-family: var(--font-h); font-weight: 700; font-size: 15px; color: var(--text); cursor: pointer; transition: .15s; }
+        .hx-age button i { font-style: normal; font-size: 24px; line-height: 1.3; }
+        .hx-age button small { font-family: var(--font-b); font-size: 10.5px; font-weight: 600; color: var(--text-soft); }
+        .hx-age button.on { border-color: var(--pink); background: linear-gradient(180deg, #fff, rgba(232,163,155,.16)); box-shadow: 0 8px 18px rgba(232,163,155,.28); transform: translateY(-1px); }
+        .hx-agelist { margin-top: 10px; }
+        .hx-empty { text-align: center; font-size: 12px; color: var(--text-soft); padding: 12px; border: 1.5px dashed var(--line); border-radius: 14px; }
+        .hx-agelist .row-card { margin-bottom: 8px; animation: fade .25s ease; }
+        .hx-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .hx-quick a { display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: 18px; text-decoration: none; color: var(--text);
+            border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform .15s ease; min-height: 108px; }
+        .hx-quick a:active { transform: scale(.97); }
+        .hx-quick i { font-style: normal; font-size: 26px; line-height: 1.2; margin-bottom: 4px; }
+        .hx-quick b { font-family: var(--font-h); font-size: 15px; }
+        .hx-quick small { font-size: 11px; color: var(--text-soft); line-height: 1.5; }
+        .hx-quick .q1 { background: linear-gradient(160deg, #fff, rgba(232,163,155,.20)); }
+        .hx-quick .q2 { background: linear-gradient(160deg, #fff, rgba(143,184,154,.24)); }
+        .hx-quick .q3 { background: linear-gradient(160deg, #fff, rgba(159,193,212,.26)); }
+        .hx-quick .q4 { background: linear-gradient(160deg, #fff, rgba(217,178,110,.24)); }
+        .hx-who { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px; box-shadow: var(--shadow); }
+        .hx-who img { width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--pink); object-fit: cover; flex-shrink: 0; }
+        .hx-who b { font-family: var(--font-h); font-size: 15px; }
+        .hx-who p { font-size: 12px; color: var(--text); margin-top: 3px; line-height: 1.65; }
+        .hx-who a { color: var(--pink); font-weight: 700; text-decoration: none; }
+        .hx-daily { display: flex; align-items: center; gap: 10px; margin-top: 9px; padding: 12px 14px; border-radius: 16px; text-decoration: none; color: var(--text);
+            background: linear-gradient(135deg, rgba(143,184,154,.18), rgba(255,255,255,.9)); border: 1px solid var(--line); }
+        .hx-daily span { flex: 1; } .hx-daily b { display: block; font-family: var(--font-h); font-size: 14.5px; }
+        .hx-daily small { display: block; font-size: 11.5px; color: var(--text-soft); } .hx-daily i { font-style: normal; color: var(--text-soft); font-size: 18px; }
+        .hx-shroom { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .hx-item { position: relative; display: block; border-radius: 18px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 10px 24px rgba(120,100,70,.18); text-decoration: none; }
+        .hx-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hx-item .lbl { position: absolute; top: 9px; left: 9px; font-size: 11px; font-weight: 700; color: #fff; background: rgba(0,0,0,.42); padding: 3px 9px; border-radius: 999px; backdrop-filter: blur(4px); }
+        .hx-item .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 11px 10px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.68)); }
+        .hx-item .cap b { display: block; font-family: var(--font-h); font-size: 15px; }
+        .hx-item .cap small { font-size: 11px; opacity: .92; }
+        .hx-buy { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 11px; padding: 14px; border-radius: 16px; text-decoration: none;
+            background: linear-gradient(135deg, #6f4f9e, #8a67b8); color: #fff; font-family: var(--font-h); font-weight: 700; font-size: 15.5px; box-shadow: 0 8px 20px rgba(111,79,158,.3); }
+        .hx-buy i { font-style: normal; }
+        .hx-note { font-size: 10.5px; color: var(--text-soft); text-align: center; margin-top: 8px; line-height: 1.6; }
+        .hx-line { border-radius: 20px; padding: 16px; background: linear-gradient(160deg, rgba(6,199,85,.08), #fff); border: 1px solid rgba(6,199,85,.22); box-shadow: var(--shadow); }
+        .hx-line-top { display: flex; gap: 10px; align-items: center; }
+        .hx-line-top img { width: 44px; height: 44px; object-fit: contain; }
+        .hx-line-top b { display: block; font-family: var(--font-h); font-size: 16px; }
+        .hx-line-top small { display: block; font-size: 11.5px; color: var(--text-soft); }
+        .hx-fanlink { display: block; margin: 0 auto; }
+        #tab-home > .home-grid > .home-main > .hx-hero { margin-top: 4px; }
+        /* 電腦版：首頁兩欄，其他分頁置中不過寬 */
+        @media (min-width: 960px) {
+            .app-shell { max-width: 1080px; }
+            .home-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 28px; align-items: start; padding: 6px 10px 0; }
+            .home-side { position: sticky; top: 90px; }
+            .home-side > .hx-block:first-child { margin-top: 4px; }
+            .hx-hero { grid-template-columns: 200px 1fr; padding: 22px; gap: 22px; }
+            .hx-copy h2 { font-size: 28px; } .hx-copy p { font-size: 14px; }
+            .hx-quick { grid-template-columns: repeat(4, 1fr); }
+            .card-grid { grid-template-columns: repeat(4, 1fr); }
+            .tab-panel:not(#tab-home) { max-width: 620px; margin: 0 auto; }
+            #tab-home .card-grid { grid-template-columns: repeat(4, 1fr); }
+        }
     </style>
   <script type="application/ld+json">
 {
@@ -396,116 +476,107 @@
         </div>
         <header class="app-header">
             <img class="mushroom" src="icons/logo.png?v=3" alt="🍄">
-            <h1 id="page-title">關於香菇爸</h1>
+            <h1 id="page-title">香菇爸・陪你養貓</h1>
             <div class="avatar"><img src="icons/avatar.png?v=3" alt="香菇爸"></div>
         </header>
 
         <!-- ===== 首頁 ===== -->
         <section class="tab-panel active" id="tab-home">
-            <div class="about-card">
-                <div class="who"><strong>曼赤肯香菇爸</strong><span class="badge">✔️ 特定寵物專業認證</span></div>
-                <p>嗨！我是香菇爸——台灣知名短影音創作者<a href="https://www.tiktok.com/@jolly81" target="_blank" rel="noopener" style="color:var(--pink);text-decoration:none;font-weight:700">綸綸老師（Jolly，TikTok 40 萬粉）</a>的貓咪照護品牌。通過特定寵物專業認證，專精貓科行為與營養科普，陪每位毛家長把主子顧好。日常主角是我家曼赤肯藍白賓士貓「香菇」🍄</p>
-            </div>
+          <div class="home-grid">
+            <div class="home-main">
 
-            <div class="section-title">🔰 新手先看這裡</div>
-            <a class="row-card newbie-card" href="newbie-care.html">
-                <span class="rico-emoji adult">🐱</span>
-                <span class="tx"><span class="t">我家貓有狀況，現在先看哪裡？</span><span class="d">一直躲・不吃不喝・便便怪・半夜叫 → 找到下一步</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card newbie-card" href="kitten-care.html">
-                <span class="rico-emoji adult">🍼</span>
-                <span class="tx"><span class="t">幼貓黃金成長期（0-12 個月）</span><span class="d">咬人・換牙・社會化・飲食・體重・腸胃・日常營養</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card newbie-card" href="care-checklist.html">
-                <span class="rico-emoji adult">✅</span>
-                <span class="tx"><span class="t">每天・每週・每月・每季・每年要做什麼</span><span class="d">照護頻率清單 ~ 可以直接打勾，時間到自動重來</span></span>
-                <span class="arrow">›</span>
-            </a>
-
-            <div class="section-title">🍄 香菇本尊</div>
-            <a class="row-card newbie-card" href="mushroom-daily.html">
-                <span class="rico-emoji adult">🕰️</span>
-                <span class="tx"><span class="t">香菇的一天</span><span class="d">八歲了・一天六餐・固定作息，我家八年來的日常</span></span>
-                <span class="arrow">›</span>
-            </a>
-
-            <div class="section-title">🍄 成為菇粉</div>
-            <div class="fan-hero">
-                <div class="fan-top"><img class="cat" src="icons/fan-cat.png?v=3" alt=""><h3>加入菇粉</h3></div>
-                <p class="lead">香菇爸陪你一起把毛孩顧好。</p>
-                <div class="divider">—— 成為菇粉，你能享有 ——</div>
-                <ul class="fan-perks">
-                    <li><img class="pi" src="icons/course.png?v=3" alt=""><span class="pt">專業 Zoom 系列課程</span></li>
-                    <li><img class="pi" src="icons/livetalk.png?v=3" alt=""><span class="pt">每週 Livetalk 直播</span></li>
-                    <li><img class="pi" src="icons/fan-chat.png?v=3" alt=""><span class="pt">專屬社群 ＋ 香菇爸諮詢</span></li>
-                    <li><img class="pi" src="icons/catmeet.png?v=3" alt=""><span class="pt">菇粉專屬貓聚</span></li>
-                    <li><img class="pi" src="icons/newdeal.png?v=3" alt=""><span class="pt">新品開團・優惠優先</span></li>
-                    <li><img class="pi" src="icons/reward.png?v=3" alt=""><span class="pt">年度累積福利禮</span></li>
-                </ul>
-                <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="成為菇粉-加入LINE" style="margin-bottom:12px;">
-                    <span class="ico">🍄</span>
-                    <span class="tx"><span class="t">加入 LINE ，成為菇粉</span><span class="d">課程・直播・社群・貓聚都在這</span></span>
-                    <span class="arrow">›</span>
-                </a>
-                <p class="fan-note">跟團香菇同款好物・<b>累積滿 $2,000 即成為菇粉</b>（新朋友享 1 次免費體驗）</p>
-            </div>
-
-            <div class="section-title">⭐ 護貓直播</div>
-            <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/ifVUGO3ckT" target="_blank" rel="noopener">
-                <span class="ico">🔴</span>
-                <span class="tx"><span class="t">報名香菇爸護貓直播</span><span class="d">加入 LINE 領取直播通知</span></span>
-                <span class="arrow">›</span>
-            </a>
-
-            <div class="section-title">🎉 每週活動</div>
-            <div class="event-card">
-                <span class="emoji">📸</span>
-                <div>
-                    <span class="tag">每週固定</span>
-                    <h3>曬貓日 · 抽逗貓棒</h3>
-                    <p>每週曬出你家主子的萌照，就有機會抽中香菇爸送的逗貓棒！</p>
+            <!-- ① 開場：先說「你會在這裡得到什麼」 -->
+            <div class="hx-hero">
+                <div class="hx-photo"><img src="media/shroom-hero.jpg" width="750" height="1000" alt="曼赤肯貓香菇戴著名字圍兜坐著看鏡頭"></div>
+                <div class="hx-copy">
+                    <span class="hx-eyebrow">曼赤肯香菇爸 · 陪你養貓不孤單</span>
+                    <h2>養貓的每個問題<br>都有人陪你一起想</h2>
+                    <p>把香菇顧了八年的方法 ~ 整理成工具和清單，全部免費用</p>
+                    <div class="hx-chips"><span>🏅 特定寵物專業認證</span><span>🍄 香菇 8 歲</span></div>
                 </div>
             </div>
-            <a class="cta-line" href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener" style="margin-top:11px;">
-                <span class="ico">💬</span>
-                <span class="tx"><span class="t">加入社群一起玩</span><span class="d">參加曬貓日、每週活動抽好禮</span></span>
-                <span class="arrow">›</span>
-            </a>
 
-            <div class="section-title">🐾 常用功能</div>
-            <div class="card-grid">
-                <a class="feature-card" href="貓咪熱量計算機/calculator.html">
-                    <img class="fico" src="icons/calc.png?v=3" alt=""><span class="t">熱量&喝水計算機</span><span class="d">算每天該吃多少</span>
-                </a>
-                <a class="feature-card" href="貓咪熱量計算機/food_analyzer.html">
-                    <img class="fico" src="icons/food.png?v=3" alt=""><span class="t">飼料罐頭分析</span><span class="d">看懂成分好壞</span>
-                </a>
-                <a class="feature-card" href="貓咪熱量計算機/cat_sounds.html">
-                    <img class="fico" src="icons/sound.png?v=3" alt=""><span class="t">貓咪讀心術</span><span class="d">聽懂主子在說什麼</span>
-                </a>
-                <a class="feature-card" href="貓咪熱量計算機/breed_guide.html">
-                    <img class="fico" src="icons/wiki.png?v=3" alt=""><span class="t">各品種怎麼照顧</span><span class="d">認識各品種主子</span>
+            <!-- ② 你家主子幾歲：選一次，下面自動換成該年齡的重點 -->
+            <div class="hx-block">
+                <div class="hx-title"><b>你家主子現在幾歲？</b><small>點一下 ~ 下次來會記得</small></div>
+                <div class="hx-age" role="tablist">
+                    <button type="button" data-age="kitten"><i>🍼</i>幼貓<small>0～1 歲</small></button>
+                    <button type="button" data-age="adult"><i>🐱</i>成貓<small>1～7 歲</small></button>
+                    <button type="button" data-age="senior"><i>🌳</i>熟齡<small>7 歲以上</small></button>
+                </div>
+                <div class="hx-agelist" id="hx-agelist"><p class="hx-empty">👆 先選一個 ~ 這裡會出現最適合你的三篇</p></div>
+            </div>
+
+            <!-- ③ 今天想解決什麼 -->
+            <div class="hx-block">
+                <div class="hx-title"><b>今天想解決什麼？</b></div>
+                <div class="hx-quick">
+                    <a href="newbie-care.html" class="q1"><i>😿</i><b>我家貓怪怪的</b><small>一直躲・不吃・便便怪</small></a>
+                    <a href="care-checklist.html" class="q2"><i>✅</i><b>今天該做什麼</b><small>每天到每年 ~ 直接打勾</small></a>
+                    <a href="貓咪熱量計算機/calculator.html" class="q3"><i>🧮</i><b>一天該吃多少</b><small>熱量＋喝水一秒算</small></a>
+                    <a href="貓咪熱量計算機/food_analyzer.html" class="q4"><i>🥫</i><b>飼料怎麼挑</b><small>貼上成分看懂好壞</small></a>
+                </div>
+            </div>
+
+            <!-- ④ 工具箱 -->
+            <div class="hx-block">
+                <div class="hx-title"><b>貓咪工具箱</b><button type="button" class="hx-more" data-goto="tab-tools">看全部 ›</button></div>
+                <div class="card-grid">
+                    <a class="feature-card" href="貓咪熱量計算機/cat_sounds.html"><img class="fico" src="icons/sound.png?v=3" alt=""><span class="t">貓咪讀心術</span><span class="d">真實叫聲 ~ 聽懂牠在說什麼</span></a>
+                    <a class="feature-card" href="貓咪熱量計算機/breed_guide.html"><img class="fico" src="icons/wiki.png?v=3" alt=""><span class="t">各品種怎麼照顧</span><span class="d">21 個品種圖鑑</span></a>
+                    <a class="feature-card" href="weight-log.html"><img class="fico" src="icons/calc.png?v=3" alt=""><span class="t">主子體重紀錄</span><span class="d">每週一筆 ~ 自動畫曲線</span></a>
+                    <a class="feature-card" href="poop-check.html"><img class="fico" src="icons/household.png?v=3" alt=""><span class="t">便便觀察表</span><span class="d">鏟砂順便看 ~ 七型對照</span></a>
+                </div>
+            </div>
+            </div><!-- /home-main -->
+
+            <aside class="home-side">
+            <!-- ⑤ 信任：香菇爸是誰 -->
+            <div class="hx-block">
+                <div class="hx-title"><b>香菇爸是誰？</b></div>
+                <div class="hx-who">
+                    <img src="icons/avatar.png?v=3" width="64" height="64" alt="香菇爸">
+                    <div>
+                        <b>曼赤肯香菇爸</b>
+                        <p>台灣知名短影音創作者<a href="https://www.tiktok.com/@jolly81" target="_blank" rel="noopener">綸綸老師（TikTok 40 萬粉）</a>的貓咪照護品牌 ~ 通過特定寵物專業認證，專精貓咪行為與營養科普</p>
+                    </div>
+                </div>
+                <a class="hx-daily" href="mushroom-daily.html">
+                    <span><b>🕰️ 香菇的一天</b><small>八歲了・一天六餐・固定作息 ~ 我家八年來的日常</small></span><i>›</i>
                 </a>
             </div>
 
-            <div class="section-title">🐱 幾歲該注意什麼</div>
-            <a class="row-card" href="貓咪熱量計算機/age_care.html#kitten">
-                <span class="rico-emoji kitten">🍼</span>
-                <span class="tx"><span class="t">幼貓照顧 0–1歲</span><span class="d">餵食、社會化、疫苗、環境安全</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card" href="貓咪熱量計算機/age_care.html#adult">
-                <span class="rico-emoji adult">🐈</span>
-                <span class="tx"><span class="t">成貓照顧 1–7歲</span><span class="d">體重管理、喝水、口腔、定期健檢</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card" href="貓咪熱量計算機/age_care.html#senior">
-                <span class="rico-emoji senior">🌳</span>
-                <span class="tx"><span class="t">熟齡照顧 7歲以上</span><span class="d">健檢、關節、飲食調整、健康警訊</span></span>
-                <span class="arrow">›</span>
-            </a>
+            <!-- ⑥ 香菇每天在吃的（生活畫面，不寫療效） -->
+            <div class="hx-block">
+                <div class="hx-title"><b>香菇每天在吃的</b><small>很多人問 ~ 就是這兩樣</small></div>
+                <div class="hx-shroom">
+                    <a class="hx-item" href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="首頁-香菇同款藍藻菌">
+                        <img src="media/care-supplement.jpg" width="720" height="1280" alt="香菇坐在藍藻益生菌瓶子旁邊" loading="lazy">
+                        <span class="lbl">🌿 保養</span>
+                        <span class="cap"><b>藍藻益生菌</b><small>早晚各一次 ~ 八年沒斷過</small></span>
+                    </a>
+                    <a class="hx-item" href="https://mushroomlove.zeabur.app/food.html" target="_blank" rel="noopener" data-ga="首頁-香菇同款高端餐">
+                        <img src="media/meal-food.jpg" width="720" height="1280" alt="香菇在吃主食高端餐" loading="lazy">
+                        <span class="lbl">🍚 主食</span>
+                        <span class="cap"><b>高端餐</b><small>一天六餐都吃這個</small></span>
+                    </a>
+                </div>
+                <a class="hx-buy" href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="首頁-看香菇同款按鈕">🍄 看香菇同款藍藻菌 <i>›</i></a>
+                <p class="hx-note">這是香菇爸自己家的日常 ~ 不是醫療建議，每隻貓狀況不同，有疑慮請先問獸醫</p>
+            </div>
+
+            <!-- ⑦ 只留一個 LINE 入口 -->
+            <div class="hx-block">
+                <div class="hx-line">
+                    <div class="hx-line-top"><img src="icons/fan-cat.png?v=3" width="44" height="44" alt=""><span><b>加入 LINE・成為菇粉</b><small>護貓直播通知・曬貓日抽獎・開團優惠</small></span></div>
+                    <a class="cta-line" href="https://s.luckycat.no8.io/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="首頁-加入LINE成為菇粉" style="margin:12px 0 8px">
+                        <span class="ico">💬</span><span class="tx"><span class="t">加入香菇爸 LINE</span><span class="d">有問題也可以直接問我</span></span><span class="arrow">›</span>
+                    </a>
+                    <button type="button" class="hx-more hx-fanlink" data-goto="tab-fan">看菇粉福利、直播課程表 ›</button>
+                </div>
+            </div>
+            </aside>
+          </div>
         </section>
 
         <!-- ===== 工具 ===== -->
@@ -786,7 +857,7 @@
 
     <!-- 底部導覽列 -->
     <nav class="bottom-nav">
-        <button class="nav-item active" data-tab="tab-home" data-title="關於香菇爸"><img class="nav-ic" src="icons/nav-home.png?v=3" alt="">首頁</button>
+        <button class="nav-item active" data-tab="tab-home" data-title="香菇爸・陪你養貓"><img class="nav-ic" src="icons/nav-home.png?v=3" alt="">首頁</button>
         <button class="nav-item" data-tab="tab-tools" data-title="貓咪工具箱"><img class="nav-ic" src="icons/nav-tools.png?v=3" alt="">工具</button>
         <button class="nav-item" data-tab="tab-wiki" data-title="養貓攻略大全"><img class="nav-ic" src="icons/nav-wiki.png?v=3" alt="">攻略</button>
         <button class="nav-item" data-tab="tab-community" data-title="喵喵社群交流"><img class="nav-ic" src="icons/nav-community.png?v=3" alt="">社群</button>
@@ -833,6 +904,48 @@
             }
             applyHash();
             window.addEventListener('hashchange', applyHash);
+        })();
+
+
+        /* 首頁：你家主子幾歲（記在手機裡）＋ 快捷切分頁 */
+        (function () {
+            var 內容 = {
+                kitten: [
+                    ['kitten-care.html', '🍼', '幼貓黃金成長期', '咬人・換牙・社會化 ~ 0-12 個月怎麼陪', 'kitten'],
+                    ['care-checklist.html', '✅', '照護頻率清單', '每天到每年要做什麼 ~ 可以直接打勾', 'kitten'],
+                    ['cat-teeth.html', '🦷', '換牙期與牙齒圖解', '3-7 個月換牙 ~ 刷牙從現在開始練', 'kitten']
+                ],
+                adult: [
+                    ['貓咪熱量計算機/age_care.html#adult', '🐱', '成貓照顧 1-7 歲', '體重・喝水・口腔・定期健檢', 'adult'],
+                    ['weight-log.html', '⚖️', '主子體重紀錄', '胖瘦看曲線 ~ 每週記一筆', 'adult'],
+                    ['picky-eater.html', '🍽️', '貓咪挑食怎麼辦', '五個徵兆 ~ 七天調整計畫', 'adult']
+                ],
+                senior: [
+                    ['貓咪熱量計算機/age_care.html#senior', '🌳', '熟齡照顧 7 歲以上', '健檢・關節・飲食調整・警訊', 'senior'],
+                    ['mushroom-daily.html', '🕰️', '香菇的一天', '八歲貓的真實作息 ~ 固定才安心', 'senior'],
+                    ['poop-check.html', '💩', '便便觀察表', '年紀大了更要看 ~ 七型對照', 'senior']
+                ]
+            };
+            var 名 = { kitten: '幼貓', adult: '成貓', senior: '熟齡' };
+            var list = document.getElementById('hx-agelist');
+            var btns = document.querySelectorAll('.hx-age button');
+            function 選(age, 存) {
+                if (!內容[age]) return;
+                btns.forEach(function (b) { b.classList.toggle('on', b.dataset.age === age); });
+                list.innerHTML = '<div class="hx-title" style="margin:2px 4px 8px"><small>給' + 名[age] + '家長的三篇 ~</small></div>' +
+                    內容[age].map(function (x) {
+                        return '<a class="row-card" href="' + x[0] + '"><span class="rico-emoji ' + x[4] + '">' + x[1] + '</span><span class="tx"><span class="t">' + x[2] + '</span><span class="d">' + x[3] + '</span></span><span class="arrow">›</span></a>';
+                    }).join('');
+                if (存) { try { localStorage.setItem('shroom-age', age); } catch (e) {} }
+            }
+            btns.forEach(function (b) { b.addEventListener('click', function () { 選(b.dataset.age, true); }); });
+            try { 選(localStorage.getItem('shroom-age'), false); } catch (e) {}
+            document.querySelectorAll('[data-goto]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    var nav = document.querySelector('.nav-item[data-tab="' + b.dataset.goto + '"]');
+                    if (nav) nav.click();
+                });
+            });
         })();
 
         /* 課程表折疊 */
