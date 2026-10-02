@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="選一隻貓來養！餵飯、喝水、逗貓棒、讀心術，玩著玩著就學會怎麼照顧貓咪">
+<meta property="og:title" content="養一隻香菇｜香菇爸的養貓小遊戲">
+<meta property="og:description" content="選一隻貓來養！餵飯、喝水、逗貓棒、讀心術，玩著玩著就學會怎麼照顧貓咪">
+<meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/media/og-cover.jpg">
+<meta name="theme-color" content="#E9DCC3">
+<style>html{color-scheme:light}body{margin:0}</style>
+</head>
+<body>
+<title>養一隻香菇</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  /* 一個固定的手繪房間：只做這一套配色，每個顏色都直接指定 */
+  :root {
+    --line: #45372C; --wall: #F3E7CF; --floor: #D9B98C; --plank: #C29C69; --sage: #A8B98A; --terra: #D98C6A;
+    --mustard: #E2B95B; --fur: #9AA2AC; --white: #FCFAF4; --navy: #22305A; --pink: #EFA3A6; --paper: #FFF9EE;
+    --ink: #3A2F27; --ink-soft: #7A6A5C;
+    --hand: "LXGW WenKai TC", "Kaiti TC", "STKaiti", serif;
+    --ui: "Noto Sans TC", -apple-system, "PingFang TC", sans-serif;
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background: #E9DCC3; color: var(--ink); font-family: var(--ui); -webkit-user-select: none; user-select: none; overflow: hidden; }
+  .game { position: relative; height: 100%; max-width: 480px; margin: 0 auto; background: linear-gradient(#F3E7CF 50%, #D9B98C 50%); overflow: hidden; }
+  #room { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; overflow: visible; }
+  .tap { cursor: pointer; }
+  .tap:hover > .hl, .tap:focus > .hl { opacity: 1; }
+  .hl { opacity: 0; transition: opacity .2s; }
+
+  /* 香菇的小動作 */
+  #shroom .bob { animation: breathe 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+  #shroom.walking .bob { animation: hop .32s ease-in-out infinite; }
+  #shroom .tail { transform-box: fill-box; transform-origin: 0% 100%; animation: tail 2.8s ease-in-out infinite; }
+  #shroom .lid { transform-box: fill-box; transform-origin: center top; transform: scaleY(0); }
+  #shroom.blink .lid { animation: blink .2s ease-in-out; }
+  #shroom .pose { display: none; } #shroom[data-pose="sit"] .p-sit, #shroom[data-pose="loaf"] .p-loaf, #shroom[data-pose="sleep"] .p-sleep, #shroom[data-pose="eat"] .p-eat, #shroom[data-pose="crouch"] .p-loaf { display: inline; }
+  #shroom[data-pose="crouch"] .bob { animation: wiggle .15s ease-in-out infinite; }
+  #shroom.happy .eyes-open { display: none; } #shroom .eyes-happy { display: none; } #shroom.happy .eyes-happy { display: inline; }
+  #shroom.annoyed .tail { animation: flick .28s ease-in-out 4; }
+  #shroom .zzz text { animation: zz 2.4s ease-in-out infinite; } #shroom .zzz text:nth-child(2) { animation-delay: .8s; } #shroom .zzz text:nth-child(3) { animation-delay: 1.6s; }
+  #shroom.eating .head-eat { animation: chew .35s ease-in-out infinite; transform-box: fill-box; transform-origin: center top; }
+  @keyframes breathe { 50% { transform: scale(1.02, 1.04); } }
+  @keyframes hop { 50% { transform: translateY(-5px); } }
+  @keyframes tail { 50% { transform: rotate(10deg); } }
+  @keyframes blink { 50% { transform: scaleY(1); } }
+  @keyframes wiggle { 50% { transform: translateX(2px); } }
+  @keyframes flick { 50% { transform: rotate(-26deg); } }
+  @keyframes zz { 0% { opacity: 0; transform: translate(0, 0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(10px, -16px); } }
+  @keyframes chew { 50% { transform: translateY(1.5px); } }
+  .heart { position: absolute; color: #E06B74; font-size: 20px; pointer-events: none; animation: floatup 1.2s ease-out forwards; z-index: 8; }
+  @keyframes floatup { to { transform: translate(var(--dx, 0), -80px) scale(1.3); opacity: 0; } }
+  .kib { animation: drop .5s cubic-bezier(.5,0,.8,.5) forwards; }
+  @keyframes drop { from { transform: translateY(-40px); opacity: 0; } 30% { opacity: 1; } }
+
+  /* ── 上方狀態（像貼在牆上的便條）── */
+  .hud { position: absolute; left: 12px; right: 12px; top: calc(10px + env(safe-area-inset-top, 0px)); z-index: 5; display: grid; gap: 7px; pointer-events: none; }
+  .note { pointer-events: auto; background: var(--paper); border: 2px solid var(--line); border-radius: 14px; padding: 7px 10px; box-shadow: 0 3px 0 rgba(69,55,44,.18); }
+  .note .row1 { display: flex; align-items: baseline; gap: 8px; }
+  .note .title { font-family: var(--hand); font-weight: 700; font-size: 20px; }
+  .note .day { font-family: var(--hand); font-size: 13px; color: var(--ink-soft); }
+  .note .day b { color: var(--navy); font-size: 15px; }
+  .sound { margin-left: auto; border: 2px solid var(--line); background: var(--wall); border-radius: 99px; width: 30px; height: 30px; font-size: 13px; cursor: pointer; }
+  .bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 5px; }
+  .bar .lb { display: flex; justify-content: space-between; font-family: var(--hand); font-size: 13px; }
+  .bar .lb b { font-variant-numeric: tabular-nums; }
+  .bar .track { height: 8px; border: 1.5px solid var(--line); border-radius: 99px; background: #F1E6D2; overflow: hidden; margin-top: 2px; }
+  .bar .fill { height: 100%; transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  #b-full .fill { background: var(--mustard); } #b-mood .fill { background: var(--pink); } #b-bond .fill { background: #6F86C2; }
+  .meals { display: flex; gap: 4px; align-items: center; overflow-x: auto; scrollbar-width: none; margin-top: 6px; font-size: 11.5px; }
+  .meals em { font-style: normal; font-family: var(--hand); color: var(--ink-soft); white-space: nowrap; margin-right: 2px; }
+  .meals span { padding: 1px 7px; border-radius: 99px; border: 1.5px solid #CDB89B; color: var(--ink-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .meals span.done { opacity: .45; text-decoration: line-through; }
+  .meals span.next { background: var(--mustard); border-color: var(--line); color: var(--ink); font-weight: 700; }
+
+  .bubble { position: absolute; z-index: 7; max-width: 74%; word-break: keep-all; transform: translate(-50%, -100%); background: var(--paper); border: 2px solid var(--line); border-radius: 16px; padding: 8px 12px; font-family: var(--hand); font-size: 16px; line-height: 1.45; text-align: center; text-wrap: balance; box-shadow: 0 3px 0 rgba(69,55,44,.18); transition: opacity .25s; pointer-events: none; }
+  .bubble::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 12px; height: 12px; background: var(--paper); border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); transform: translateX(-50%) rotate(45deg); }
+  .bubble small { display: block; font-family: var(--ui); font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+  .bubble.hide { opacity: 0; }
+
+  /* ── 下方動作 ── */
+  .dock { position: absolute; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 5; display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .act { border: 2px solid var(--line); background: var(--paper); border-radius: 14px; padding: 6px 2px 5px; display: grid; justify-items: center; gap: 1px; font-family: var(--hand); font-size: 14px; color: var(--ink); box-shadow: 0 3px 0 rgba(69,55,44,.22); cursor: pointer; }
+  .act:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(69,55,44,.22); }
+  .act svg { width: 30px; height: 30px; }
+  .act:focus-visible, .sound:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+  .act.on { background: var(--mustard); }
+  .play-hud { position: absolute; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 6; display: none; gap: 8px; font-family: var(--hand); }
+  .play-hud span { background: var(--navy); color: #fff; border: 2px solid var(--line); border-radius: 99px; padding: 3px 12px; font-size: 15px; }
+  .playing .play-hud { display: flex; }
+  .combo { position: absolute; z-index: 8; font-family: var(--hand); font-weight: 700; font-size: 24px; color: var(--navy); -webkit-text-stroke: .6px #fff; pointer-events: none; animation: pop .8s ease-out forwards; }
+  @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 20% { transform: scale(1.15); opacity: 1; } 100% { transform: translateY(-36px); opacity: 0; } }
+  .foot { position: absolute; left: 0; right: 0; bottom: calc(70px + env(safe-area-inset-bottom, 0px)); text-align: center; z-index: 4; font-size: 11px; color: var(--ink-soft); pointer-events: none; }
+  .foot a { pointer-events: auto; color: var(--navy); font-weight: 700; text-decoration: none; background: rgba(255,249,238,.85); padding: 2px 8px; border-radius: 99px; }
+  @media (prefers-reduced-motion: reduce) { #shroom .bob, #shroom .tail, #shroom .zzz text { animation: none; } }
+
+  /* ── v3：四條狀態、五顆按鈕、選貓與問答卡 ── */
+  .bars { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  #b-water .fill { background: #7FB3D5; }
+  .bar .lb { font-size: 12.5px; } .bar .lb b { font-size: 11.5px; }
+  .dock { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .act { font-size: 13px; } .act svg { width: 28px; height: 28px; }
+  .sound + .sound { margin-left: 6px; }
+  [hidden] { display: none !important; }
+  .sheet { position: absolute; inset: 0; z-index: 20; background: rgba(69,55,44,.38); display: flex; align-items: flex-end; justify-content: center; padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px)); }
+  .card { width: 100%; max-height: 92%; overflow: auto; background: var(--paper); border: 2px solid var(--line); border-radius: 20px; padding: 16px; box-shadow: 0 4px 0 rgba(69,55,44,.25); animation: up .3s cubic-bezier(.3,.8,.3,1); }
+  @keyframes up { from { transform: translateY(30px); opacity: 0; } }
+  .card h3 { margin: 0 0 4px; font-family: var(--hand); font-size: 22px; text-wrap: balance; }
+  .card .lead { margin: 0 0 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+  .card .lead b { color: var(--ink); }
+  .card h4 { margin: 14px 0 6px; font-family: var(--hand); font-size: 16px; }
+  .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .catopt { border: 2px solid #E2D3BC; background: #FBF3E4; border-radius: 14px; padding: 4px 2px 6px; font: inherit; cursor: pointer; display: grid; justify-items: center; color: var(--ink); }
+  .catopt svg { width: 70px; height: 76px; }
+  .catopt b { font-family: var(--hand); font-size: 16px; } .catopt small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+  .catopt.on { border-color: var(--line); background: #F6DFA6; }
+  .mini .eyes-happy, .mini .lid { display: none; }
+  .opts { display: grid; gap: 7px; }
+  .opt { text-align: left; border: 2px solid var(--line); background: #FBF3E4; border-radius: 13px; padding: 9px 12px; font: inherit; font-size: 14.5px; color: var(--ink); cursor: pointer; box-shadow: 0 2px 0 rgba(69,55,44,.18); }
+  .opt small { display: block; color: var(--ink-soft); font-size: 11.5px; margin-top: 1px; }
+  .opt.on { background: #F6DFA6; } .opt.right { background: #D8E8C4; } .opt.wrong { background: #F3D0CC; }
+  .opt:disabled { cursor: default; }
+  .row-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .row-opts .opt { text-align: center; padding: 8px 4px; }
+  .name { width: 100%; box-sizing: border-box; border: 2px solid var(--line); border-radius: 12px; padding: 9px 12px; font: inherit; font-size: 16px; background: #fff; color: var(--ink); }
+  .go { margin-top: 14px; width: 100%; border: 2px solid var(--line); background: var(--mustard); border-radius: 14px; padding: 11px; font-family: var(--hand); font-size: 18px; color: var(--ink); cursor: pointer; box-shadow: 0 3px 0 rgba(69,55,44,.25); }
+  .explain { margin-top: 12px; padding: 11px 13px; border-radius: 13px; background: #EEF3E6; border: 1.5px dashed #8EA273; font-size: 13.5px; line-height: 1.65; }
+  .explain b { font-family: var(--hand); font-size: 16px; display: block; margin-bottom: 2px; }
+  .opt:focus-visible, .catopt:focus-visible, .go:focus-visible, .name:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+  .row1 { flex-wrap: wrap; row-gap: 4px; }
+  .toast { position: absolute; left: 50%; top: calc(150px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); z-index: 15; background: var(--navy); color: #fff; border: 2px solid var(--line); border-radius: 99px; padding: 6px 14px; font-family: var(--hand); font-size: 15px; white-space: nowrap; box-shadow: 0 3px 0 rgba(69,55,44,.25); animation: toast 2.8s ease forwards; pointer-events: none; }
+  @keyframes toast { 0% { opacity: 0; transform: translate(-50%, -10px); } 12%, 82% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
+  .progress { height: 10px; border: 1.5px solid var(--line); border-radius: 99px; background: #F1E6D2; overflow: hidden; margin: 2px 0 12px; }
+  .progress i { display: block; height: 100%; background: var(--mustard); }
+  .kcards { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .kcard { border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; background: #FBF3E4; font-size: 12.5px; line-height: 1.55; }
+  .kcard b { display: block; font-family: var(--hand); font-size: 15px; margin-bottom: 2px; }
+  .kcard.locked { border-style: dashed; border-color: #CDB89B; background: transparent; color: var(--ink-soft); }
+  .kcard.locked b { color: #B3A38E; }
+  .reward { margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: #EEF3E6; border: 2px solid #8EA273; font-size: 13.5px; line-height: 1.6; }
+  .reward b { font-family: var(--hand); font-size: 17px; display: block; }
+  .line-btn { display: block; width: 100%; margin-top: 10px; border: 2px solid var(--line); background: #06C755; color: #fff; border-radius: 14px; padding: 10px; font-family: var(--hand); font-size: 17px; cursor: pointer; box-shadow: 0 3px 0 rgba(69,55,44,.25); }
+  .line-btn small { display: block; font-family: var(--ui); font-size: 11px; opacity: .9; }
+  .ghost-btn { display: block; width: 100%; margin-top: 8px; border: 2px solid var(--line); background: var(--paper); border-radius: 14px; padding: 9px; font-family: var(--hand); font-size: 16px; color: var(--ink); cursor: pointer; }
+  .codebox { width: 100%; box-sizing: border-box; min-height: 64px; border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; font: 13px/1.5 var(--ui); background: #fff; color: var(--ink); resize: vertical; }
+  .lock { position: absolute; top: 4px; right: 6px; font-size: 14px; }
+  .catopt { position: relative; } .catopt.locked svg { opacity: .35; filter: grayscale(1); }
+  .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
+  .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+</style>
+
+<div class="game" id="game">
+  <svg id="room" viewBox="0 0 400 640" preserveAspectRatio="xMidYMid meet" aria-label="香菇的房間">
+    <defs>
+      <!-- 讓線條有一點點手繪的抖動 -->
+      <filter id="hand" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+      <pattern id="rope" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(25)"><rect width="6" height="6" fill="#E7CF9E"/><path d="M0 3h6" stroke="#C9A86C" stroke-width="1.6"/></pattern>
+      <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1" fill="#6F86C2"/></pattern>
+    </defs>
+    <g filter="url(#hand)" stroke="#45372C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+      <!-- 牆 -->
+      <rect x="-200" y="-400" width="800" height="630" fill="#F3E7CF"/>
+      <path d="M-200 230 H600" stroke-width="3"/>
+      <rect x="-200" y="214" width="800" height="16" fill="#C9A67A"/>
+      <!-- 窗戶 -->
+      <rect x="226" y="80" width="138" height="100" rx="4" fill="#C6DDE0"/>
+      <path d="M295 80 V180 M226 130 H364" />
+      <path d="M232 168 Q260 150 290 166" fill="none" stroke="#9DBA8E" stroke-width="2"/>
+      <path d="M302 126 Q330 106 356 122" fill="none" stroke="#9DBA8E" stroke-width="2"/>
+      <rect x="218" y="176" width="154" height="10" rx="3" fill="#B98A5E"/>
+      <!-- 窗台上的小盆栽 -->
+      <path d="M332 176 L336 160 H356 L360 176 Z" fill="#D98C6A"/>
+      <path d="M346 160 C340 146 334 140 330 132 M346 160 C350 146 358 140 364 136 M346 160 V138" fill="none" stroke="#6E8F5A"/>
+      <!-- 牆上掛的香菇照片 -->
+      <rect x="150" y="96" width="50" height="58" rx="3" fill="#B98A5E"/>
+      <rect x="157" y="103" width="36" height="44" fill="#E8D9BE"/>
+      <g id="photo" stroke-width="1.6"><circle cx="175" cy="122" r="10" fill="#9AA2AC"/><path d="M168 114 l-2 -7 6 4 M182 114 l2 -7 -6 4" fill="#9AA2AC"/><path d="M175 117 c-3 4 -5 6 -7 8 c2 4 12 4 14 0 c-2 -2 -4 -4 -7 -8z" fill="#FCFAF4" stroke-width="1"/><path d="M167 134 q8 6 16 0 l-2 6 q-6 4 -12 0z" fill="#22305A" stroke-width="1"/></g>
+      <!-- 地板 -->
+      <rect x="-200" y="230" width="800" height="600" fill="#D9B98C"/>
+      <g stroke="#C29C69" stroke-width="2" fill="none"><path d="M-20 300 H420 M-20 380 H420 M-20 470 H420 M-20 560 H420"/><path d="M90 230 V300 M260 300 V380 M140 380 V470 M320 470 V560 M60 560 V640 M340 230 V300 M30 300 V380 M400 380 V470"/></g>
+
+      <!-- 貓跳台（點了香菇會爬上去睡）-->
+      <g class="tap" id="t-tree" tabindex="0" role="button" aria-label="貓跳台">
+        <ellipse class="hl" cx="78" cy="196" rx="54" ry="18" fill="#FFF1C9" stroke="none"/>
+        <rect x="64" y="200" width="22" height="210" fill="url(#rope)"/>
+        <rect x="24" y="392" width="112" height="22" rx="6" fill="#9C6B43"/>
+        <rect x="30" y="292" width="96" height="18" rx="6" fill="#B98A5E"/>
+        <rect x="20" y="182" width="116" height="20" rx="7" fill="#B98A5E"/>
+        <rect x="88" y="236" width="56" height="50" rx="8" fill="#9C6B43"/><ellipse cx="116" cy="262" rx="14" ry="13" fill="#5E4230"/>
+        <rect x="102" y="306" width="18" height="90" fill="url(#rope)"/>
+      </g>
+      <!-- 圓形地毯 -->
+      <ellipse cx="206" cy="458" rx="122" ry="54" fill="#A8B98A"/>
+      <ellipse cx="206" cy="458" rx="104" ry="42" fill="none" stroke="#8EA273" stroke-width="2"/>
+      <!-- 窩（點了香菇會去睡）-->
+      <g class="tap" id="t-bed" tabindex="0" role="button" aria-label="香菇的窩">
+        <ellipse class="hl" cx="328" cy="330" rx="60" ry="30" fill="#FFF1C9" stroke="none"/>
+        <ellipse cx="328" cy="336" rx="56" ry="28" fill="#D98C6A"/>
+        <ellipse cx="328" cy="330" rx="40" ry="17" fill="#F2C9A8"/>
+      </g>
+      <!-- 碗（點了餵飯）-->
+      <g class="tap" id="t-bowl" tabindex="0" role="button" aria-label="飯碗">
+        <ellipse class="hl" cx="300" cy="558" rx="34" ry="18" fill="#FFF1C9" stroke="none"/>
+        <path d="M282 552 Q300 584 318 552 Z" fill="#F4C6C2"/><ellipse cx="300" cy="552" rx="18" ry="6" fill="#FBE3DF"/>
+        <ellipse id="food" cx="300" cy="551" rx="13" ry="3.5" fill="#B9762D" stroke-width="1.2" opacity="0"/>
+        <g id="kibbles"></g>
+      </g>
+      <!-- 水碗（和飯碗分開放）-->
+      <g class="tap" id="t-water" tabindex="0" role="button" aria-label="水碗">
+        <ellipse class="hl" cx="214" cy="344" rx="34" ry="18" fill="#FFF1C9" stroke="none"/>
+        <path d="M196 340 Q214 372 232 340 Z" fill="#BCD3E3"/><ellipse cx="214" cy="340" rx="18" ry="6" fill="#DDEBF4"/>
+        <ellipse id="waterSurf" cx="214" cy="340" rx="13" ry="3.5" fill="#8FC1E0" stroke="none"/>
+      </g>
+      <!-- 玩具：羽毛逗貓棒（點了開始玩）-->
+      <g class="tap" id="t-toy" tabindex="0" role="button" aria-label="逗貓棒">
+        <ellipse class="hl" cx="106" cy="546" rx="44" ry="18" fill="#FFF1C9" stroke="none"/>
+        <path d="M70 560 L128 528" stroke="#9C6B43" stroke-width="3"/>
+        <path d="M128 528 C138 518 150 520 152 530 C144 536 136 536 128 528 Z" fill="#E06B74"/>
+        <path d="M128 528 C134 538 132 548 122 548 C120 540 122 534 128 528 Z" fill="#6F86C2"/>
+        <!-- 小老鼠 -->
+        <ellipse cx="66" cy="510" rx="13" ry="8" fill="#C9C1B5"/><circle cx="56" cy="504" r="4" fill="#C9C1B5"/><path d="M79 512 q10 2 12 -6" fill="none"/>
+      </g>
+      <!-- 盆栽 -->
+      <path d="M362 250 L368 286 H396 L402 250 Z" fill="#E2B95B"/>
+      <path d="M382 250 C372 230 360 222 352 208 M382 250 C388 228 398 220 410 214 M382 250 C380 228 384 214 382 200" fill="none" stroke="#6E8F5A" stroke-width="3"/>
+    </g>
+
+    <!-- ── 香菇（小小一隻、有輪廓線）── -->
+    <g id="shroom" data-pose="sit" transform="translate(206 470) scale(1.25)" class="tap" tabindex="0" role="button" aria-label="香菇">
+      <ellipse cx="0" cy="1" rx="24" ry="5" fill="rgba(69,55,44,.18)"/>
+      <g class="bob" filter="url(#hand)" stroke="#45372C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <!-- 坐 -->
+        <g class="pose p-sit">
+          <path class="tail" d="M14 -8 C32 -6 38 -24 28 -32 C24 -35 20 -32 23 -28 C29 -20 24 -14 12 -14" fill="#9AA2AC"/>
+          <ellipse cx="0" cy="-17" rx="21" ry="17" fill="#9AA2AC"/>
+          <ellipse cx="0" cy="-15" rx="11" ry="12" fill="#FCFAF4" stroke-width="1.4"/>
+          <path d="M-11 -4 v-6 h7 v6 a3.5 3.5 0 0 1 -7 0z M4 -4 v-6 h7 v6 a3.5 3.5 0 0 1 -7 0z" fill="#FCFAF4" stroke-width="1.6"/>
+          <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="#22305A"/>
+          <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="url(#dots)" stroke="none" opacity=".7"/>
+          <circle cx="0" cy="-23" r="1.8" fill="#E8C98E" stroke-width="1"/>
+          <g class="headg">
+            <path d="M-21 -52 L-18 -70 L-6 -60 Z M21 -52 L18 -70 L6 -60 Z" fill="#9AA2AC"/>
+            <path d="M-17 -56 L-16 -65 L-10 -59 Z M17 -56 L16 -65 L10 -59 Z" fill="#F0B9B9" stroke="none"/>
+            <path d="M-26 -42 C-27 -56 -14 -63 0 -63 C14 -63 27 -56 26 -42 C29 -36 26 -28 16 -27 C8 -26 -8 -26 -16 -27 C-26 -28 -29 -36 -26 -42 Z" fill="#9AA2AC"/>
+            <path d="M0 -53 C-3 -47 -7 -43 -12 -39 C-13 -33 -6 -29 0 -29 C6 -29 13 -33 12 -39 C7 -43 3 -47 0 -53 Z" fill="#FCFAF4" stroke-width="1.2"/>
+            <g class="eyes-open" stroke="none">
+              <ellipse cx="-9" cy="-44" rx="4.4" ry="4.8" fill="#B5B248" stroke="#45372C" stroke-width="1.2"/><ellipse cx="9" cy="-44" rx="4.4" ry="4.8" fill="#B5B248" stroke="#45372C" stroke-width="1.2"/>
+              <ellipse class="pup" cx="-9" cy="-43.5" rx="1.6" ry="3.4" fill="#2A2420"/><ellipse class="pup" cx="9" cy="-43.5" rx="1.6" ry="3.4" fill="#2A2420"/>
+              <circle cx="-10.5" cy="-46" r="1.2" fill="#fff"/><circle cx="7.5" cy="-46" r="1.2" fill="#fff"/>
+              <path d="M-14 -46 Q-9 -50 -4 -46 L-4 -50 L-14 -50 Z M4 -46 Q9 -50 14 -46 L14 -50 L4 -50 Z" fill="#9AA2AC"/>
+              <rect class="lid" x="-14" y="-49.5" width="10" height="10" fill="#9AA2AC"/><rect class="lid" x="4" y="-49.5" width="10" height="10" fill="#9AA2AC"/>
+            </g>
+            <g class="eyes-happy" fill="none" stroke-width="1.8"><path d="M-13 -43 Q-9 -48 -5 -43"/><path d="M5 -43 Q9 -48 13 -43"/></g>
+            <path d="M-2 -38 Q0 -39 2 -38 Q1.5 -36 0 -35.6 Q-1.5 -36 -2 -38 Z" fill="#EFA3A6" stroke-width="1"/>
+            <path d="M0 -35.5 q0 2.4 -2.6 2.6 M0 -35.5 q0 2.4 2.6 2.6" fill="none" stroke-width="1.2"/>
+            <ellipse cx="-16" cy="-36" rx="3.5" ry="2" fill="#EFA3A6" stroke="none" opacity=".55"/><ellipse cx="16" cy="-36" rx="3.5" ry="2" fill="#EFA3A6" stroke="none" opacity=".55"/>
+          </g>
+        </g>
+        <!-- 趴（香菇最常的吐司姿勢）-->
+        <g class="pose p-loaf">
+          <path class="tail" d="M20 -6 C30 -4 30 4 18 4 L-10 4" fill="none" stroke-width="5"/>
+          <path d="M20 -6 C30 -4 30 4 18 4 L-10 4" fill="none" stroke="#9AA2AC" stroke-width="2.6"/>
+          <ellipse cx="0" cy="-12" rx="27" ry="13" fill="#9AA2AC"/>
+          <path d="M-12 -2 h9 M3 -2 h9" stroke="#FCFAF4" stroke-width="5"/>
+          <path d="M-15 -22 Q0 -14 15 -22 L9 -14 Q0 -8 -9 -14 Z" fill="#22305A"/>
+          <g transform="translate(0 12)">
+            <path d="M-21 -52 L-18 -70 L-6 -60 Z M21 -52 L18 -70 L6 -60 Z" fill="#9AA2AC"/>
+            <path d="M-26 -42 C-27 -56 -14 -63 0 -63 C14 -63 27 -56 26 -42 C29 -36 26 -28 16 -27 C8 -26 -8 -26 -16 -27 C-26 -28 -29 -36 -26 -42 Z" fill="#9AA2AC"/>
+            <path d="M0 -53 C-3 -47 -7 -43 -12 -39 C-13 -33 -6 -29 0 -29 C6 -29 13 -33 12 -39 C7 -43 3 -47 0 -53 Z" fill="#FCFAF4" stroke-width="1.2"/>
+            <ellipse cx="-9" cy="-44" rx="4.4" ry="4.2" fill="#B5B248" stroke-width="1.2"/><ellipse cx="9" cy="-44" rx="4.4" ry="4.2" fill="#B5B248" stroke-width="1.2"/>
+            <ellipse class="pup big" cx="-9" cy="-43.5" rx="2.6" ry="3.4" fill="#2A2420" stroke="none"/><ellipse class="pup big" cx="9" cy="-43.5" rx="2.6" ry="3.4" fill="#2A2420" stroke="none"/>
+            <path d="M-2 -38 Q0 -39 2 -38 Q1.5 -36 0 -35.6 Q-1.5 -36 -2 -38 Z" fill="#EFA3A6" stroke-width="1"/>
+          </g>
+        </g>
+        <!-- 睡（捲成一團）-->
+        <g class="pose p-sleep">
+          <ellipse cx="0" cy="-11" rx="29" ry="15" fill="#9AA2AC"/>
+          <ellipse cx="6" cy="-8" rx="13" ry="8" fill="#FCFAF4" stroke-width="1.4"/>
+          <path d="M26 -6 C30 4 6 8 -14 2" fill="none" stroke-width="6"/><path d="M26 -6 C30 4 6 8 -14 2" fill="none" stroke="#9AA2AC" stroke-width="3"/>
+          <circle cx="-15" cy="-14" r="13" fill="#9AA2AC"/>
+          <path d="M-24 -22 L-25 -32 L-17 -26 Z" fill="#9AA2AC"/>
+          <path d="M-15 -20 c-2 4 -5 6 -8 8 c2 5 12 5 14 1 c-2 -3 -4 -5 -6 -9z" fill="#FCFAF4" stroke-width="1"/>
+          <path d="M-21 -15 q3 2 6 0 M-11 -16 q3 2 6 0" fill="none" stroke-width="1.4"/>
+          <g class="zzz" stroke="none" fill="#45372C" font-family="LXGW WenKai TC, serif" font-size="9"><text x="-6" y="-32">z</text><text x="0" y="-40">z</text><text x="6" y="-48">Z</text></g>
+        </g>
+        <!-- 吃飯（低頭）-->
+        <g class="pose p-eat">
+          <path class="tail" d="M14 -8 C32 -6 38 -24 28 -32 C24 -35 20 -32 23 -28 C29 -20 24 -14 12 -14" fill="#9AA2AC"/>
+          <ellipse cx="0" cy="-17" rx="21" ry="17" fill="#9AA2AC"/>
+          <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="#22305A"/>
+          <g class="head-eat" transform="translate(-6 18) rotate(-8)">
+            <path d="M-21 -52 L-18 -70 L-6 -60 Z M21 -52 L18 -70 L6 -60 Z" fill="#9AA2AC"/>
+            <path d="M-26 -42 C-27 -56 -14 -63 0 -63 C14 -63 27 -56 26 -42 C29 -36 26 -28 16 -27 C8 -26 -8 -26 -16 -27 C-26 -28 -29 -36 -26 -42 Z" fill="#9AA2AC"/>
+            <path d="M0 -53 C-3 -47 -7 -43 -12 -39 C-13 -33 -6 -29 0 -29 C6 -29 13 -33 12 -39 C7 -43 3 -47 0 -53 Z" fill="#FCFAF4" stroke-width="1.2"/>
+            <path d="M-13 -44 q4 2 8 0 M5 -44 q4 2 8 0" fill="none" stroke-width="1.6"/>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- 逗貓棒（遊戲中跟著手指）-->
+    <g id="wand" style="display:none" stroke="#45372C" stroke-width="2" stroke-linecap="round">
+      <line id="wandLine" x1="420" y1="-10" x2="0" y2="0" stroke="#9C6B43" stroke-width="3"/>
+      <g id="feather"><path d="M0 0 C -9 -6 -12 -20 -4 -30 C 3 -20 6 -10 0 0 Z" fill="#E06B74"/><path d="M0 0 C 7 -4 15 -15 11 -26 C 4 -19 0 -10 0 0 Z" fill="#6F86C2"/></g>
+    </g>
+  </svg>
+
+  <div class="hud">
+    <div class="note">
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day">陪伴第 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="bars">
+        <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
+        <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
+        <div class="bar" id="b-mood"><div class="lb"><span>心情</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
+        <div class="bar" id="b-bond"><div class="lb"><span>親密</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
+      </div>
+      <div class="meals" id="meals"></div>
+    </div>
+  </div>
+
+  <div class="bubble hide" id="bubble"></div>
+  <div class="play-hud"><span id="timeLeft">30</span><span>撲中 <b id="caught">0</b></span></div>
+  <p class="foot">想知道真正的照顧方法？ <a href="./">香菇爸護貓網站 ›</a></p>
+
+  <div class="dock">
+    <button class="act" id="feed"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="2" stroke-linejoin="round"><ellipse cx="16" cy="15" rx="12" ry="4" fill="#B9762D"/><path d="M4 15 Q16 32 28 15 Z" fill="#F4C6C2"/></svg>餵飯</button>
+    <button class="act" id="drink"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="2" stroke-linejoin="round"><ellipse cx="16" cy="15" rx="12" ry="4" fill="#8FC1E0"/><path d="M4 15 Q16 32 28 15 Z" fill="#BCD3E3"/><path d="M16 2 C12 7 12 10 16 10 C20 10 20 7 16 2 Z" fill="#8FC1E0" stroke-width="1.5"/></svg>喝水</button>
+    <button class="act" id="play"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="1.8" stroke-linecap="round"><path d="M4 4 L18 18" stroke="#9C6B43" stroke-width="2.6"/><path d="M18 18 C12 20 10 28 16 30 C22 28 22 22 18 18 Z" fill="#E06B74"/><path d="M18 18 C24 16 30 20 28 26 C24 26 20 22 18 18 Z" fill="#6F86C2"/></svg>逗貓棒</button>
+    <button class="act" id="pet"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="1.8"><path d="M16 27 C6 20 3 14 6 9 C9 5 14 6 16 10 C18 6 23 5 26 9 C29 14 26 20 16 27 Z" fill="#E06B74"/></svg>摸摸</button>
+    <button class="act" id="mind"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="1.8"><path d="M8 20 C3 20 3 13 8 13 C8 7 15 6 17 10 C20 6 28 8 26 14 C30 16 28 22 23 21 C21 24 11 24 8 20 Z" fill="#FFF9EE"/><circle cx="7" cy="26" r="2" fill="#FFF9EE"/><circle cx="4" cy="30" r="1.2" fill="#FFF9EE"/><text x="12.5" y="19.5" font-size="9" fill="#45372C" stroke="none" font-family="serif" font-weight="700">?</text></svg>讀心術</button>
+  </div>
+
+  <div class="sheet" id="sheet" hidden><div class="card" id="card" role="dialog" aria-modal="true"></div></div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const 鍵 = 'shroom-pet-v1';
+  // 可以選的貓（香菇是香菇爸家的本尊，作息照真的來）
+  const 貓們 = {
+    香菇: { 毛: '#9AA2AC', 白: true, 巾: '#22305A', 眼: '#B5B248', 自稱: '本宮', 介紹: '香菇爸家的公主' },
+    橘子: { 毛: '#E39A4E', 白: true, 巾: '#5E8C61', 眼: '#9CC07A', 自稱: '本喵', 介紹: '貪吃的橘白' },
+    煤球: { 毛: '#46424A', 白: false, 巾: '#C0504D', 眼: '#E8C14E', 自稱: '我', 介紹: '害羞的小黑' },
+    雪球: { 毛: '#F4F0E8', 白: true, 巾: '#E58FA0', 眼: '#8EC3E6', 自稱: '人家', 介紹: '愛撒嬌的白貓' },
+    奶茶: { 毛: '#D8B48A', 白: true, 巾: '#6F86C2', 眼: '#C9A23E', 自稱: '本喵', 介紹: '溫柔的奶茶色' },
+    小虎: { 毛: '#A98F6E', 白: true, 巾: '#E2B95B', 眼: '#9CC07A', 自稱: '本大爺', 介紹: '好動的虎斑' },
+  };
+  const 階段們 = {
+    幼貓: { 字: '幼貓', 說明: '2～12 個月', 公斤: 2, 餐: [7, 12, 17, 22], 餐提示: '幼貓長得快、胃又小，一天大約 4 餐，少量多餐' },
+    成貓: { 字: '成貓', 說明: '1～7 歲', 公斤: 4, 餐: [8, 13, 19], 餐提示: '成貓一天 2～3 餐，固定時間吃最有安全感' },
+    熟齡: { 字: '熟齡貓', 說明: '7 歲以上', 公斤: 4.5, 餐: [7, 11, 15, 19, 22], 餐提示: '熟齡貓建議少量多餐，食量有變化要多留意' },
+  };
+  const 香菇作息 = { 字: '熟齡貓', 說明: '8 歲', 公斤: 4.6, 餐: [7, 9, 12, 17, 19, 22], 餐提示: '香菇家是少量多餐，一天 6 餐，每餐都固定時間' };
+  // ── 香菇爸 LINE（AO 的關鍵字自動回覆會接住這些訊息）──
+  const LINE_ID = '@mushroom131';
+  const 暗號 = { 小抄: '我要領養貓遊戲小抄', 解鎖: '我要解鎖隱藏貓咪', 存貓: '我要存貓' };
+  const 解鎖碼 = 'MUSH131';
+  const 隱藏貓 = ['奶茶', '小虎'];
+  function 開LINE(文) { window.open('https://line.me/R/oaMessage/' + LINE_ID + '/?' + encodeURIComponent(文), '_blank', 'noopener'); }
+  // 玩的過程中解鎖的知識卡（照顧小知識，集滿就能去 LINE 領完整版）
+  const 知識卡 = [
+    { id: '準時', 標: '固定時間開飯', 文: '每天固定時間吃飯，貓咪最有安全感，也比較不會一直討食', 提示: '在開飯時間餵飯' },
+    { id: '餐-幼貓', 標: '幼貓一天 4 餐', 文: '幼貓長得快、胃又小，一天大約 4 餐，少量多餐', 提示: '養一隻幼貓並餵飯' },
+    { id: '餐-成貓', 標: '成貓一天 2～3 餐', 文: '1～7 歲的成貓一天 2～3 餐就夠，重點是固定時間', 提示: '養一隻成貓並餵飯' },
+    { id: '餐-熟齡', 標: '熟齡貓少量多餐', 文: '7 歲以上的熟齡貓適合少量多餐，食量有變化要多留意', 提示: '養一隻熟齡貓並餵飯' },
+    { id: '主食罐', 標: '主食罐也是水', 文: '主食罐大約 7～8 成是水分，吃飯也能順便補水', 提示: '餵一次主食罐' },
+    { id: '吃太飽', 標: '吃飽就停', 文: '貓咪吃太多容易變胖，飽了就不要一直加飯', 提示: '在牠吃飽時還想餵' },
+    { id: '水碗', 標: '水碗分開放', 文: '水碗和飯碗分開放，貓咪比較願意喝；家裡可以多放幾個', 提示: '帶貓咪喝一次水' },
+    { id: '喝水量', 標: '一天要喝多少水', 文: '一般建議每公斤體重每天約 40～60ml，食物裡的水分也算', 提示: '讓貓咪今天喝夠水' },
+    { id: '狩獵', 標: '每天狩獵遊戲', 文: '室內貓每天 2～3 次狩獵遊戲，才有足夠的運動和刺激', 提示: '玩一次逗貓棒' },
+    { id: '瞇眼', 標: '瞇眼＝很放鬆', 文: '摸的時候眼睛瞇起來、發出呼嚕聲，代表牠很放鬆', 提示: '好好摸摸貓咪' },
+    { id: '摸夠了', 標: '摸夠了的訊號', 文: '尾巴開始甩、耳朵往後，就是「摸夠了」，先停手讓牠休息', 提示: '摸到牠不耐煩' },
+    { id: '睡覺', 標: '一天睡 12～16 小時', 文: '貓咪很會睡！有自己的窩或高處，牠才睡得安穩', 提示: '讓貓咪去睡午覺' },
+    ...['慢慢眨眼', '用力甩尾巴', '吐司姿勢', '坐在碗旁邊叫', '扭屁股', '對窗外喀喀叫', '捲成一團睡', '叫名字只轉耳朵', '撥水碗的水'].map((標, i) => ({ id: '心' + i, 標, 文: '', 提示: '讀心術答一題' })),
+  ];
+  const 小抄門檻 = 6;
+  function 有卡(id) { return (狀態.卡 || []).includes(id); }
+  function 吐司(文) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = 文; 遊戲.append(t); setTimeout(() => t.remove(), 2900); }
+  function 解鎖(id) {
+    狀態.卡 = 狀態.卡 || [];
+    if (狀態.卡.includes(id)) return;
+    狀態.卡.push(id); 存();
+    const c = 知識卡.find(k => k.id === id);
+    吐司(狀態.卡.length === 小抄門檻 ? `🎁 集滿 ${小抄門檻} 張！點 📖 領小抄` : `📖 新知識卡：${c.標}（${狀態.卡.length}/${知識卡.length}）`);
+  }
+  const 地點 = { rug: [206, 470], tree: [78, 186], bed: [328, 334], bowl: [266, 560], window: [300, 250], water: [178, 352] };
+  const svg = $('room'), 香菇 = $('shroom'), 遊戲 = $('game');
+  let 狀態, 位置 = [...地點.rug], 忙 = false, 遊戲中 = false;
+
+  const 貓 = () => 貓們[狀態.貓.種] || 貓們.香菇;
+  const 名 = () => 狀態.貓.名;
+  const 我 = () => 貓().自稱;
+  const 作息 = () => 狀態.貓.種 === '香菇' ? 香菇作息 : 階段們[狀態.貓.段] || 階段們.成貓;
+  const 喝水目標 = () => Math.round(作息().公斤 * 50);
+  const 開飯時間 = () => 作息().餐;
+  const 時 = t => String(t).padStart(2, '0') + ':00';
+
+  // ── 存讀檔（只存在這支手機）──
+  function 讀() {
+    let s = null;
+    try { s = JSON.parse(localStorage.getItem(鍵)); } catch (e) {}
+    const 今天 = new Date().toDateString();
+    if (!s) s = { 飽足: 55, 心情: 60, 親密: 10, 上次: Date.now(), 開始: Date.now(), 簽到日: '', 連續: 0, 已餵: {} };
+    const 分 = (Date.now() - s.上次) / 60000;
+    s.飽足 = Math.max(5, s.飽足 - 分 / 6); s.心情 = Math.max(10, s.心情 - 分 / 9); s.上次 = Date.now();
+    if (s.簽到日 !== 今天) {
+      const 昨天 = new Date(Date.now() - 864e5).toDateString();
+      s.連續 = s.簽到日 === 昨天 ? s.連續 + 1 : 1; s.簽到日 = 今天; s.已餵 = {}; s.水 = 0; s.首次 = true;
+    }
+    s.水 = s.水 || 0;
+    return s;
+  }
+  function 存() { 狀態.上次 = Date.now(); try { localStorage.setItem(鍵, JSON.stringify(狀態)); } catch (e) {} }
+  function 畫() {
+    const 夾 = v => Math.round(Math.max(0, Math.min(100, v)));
+    for (const [id, k] of [['b-full', '飽足'], ['b-mood', '心情'], ['b-bond', '親密']]) { $(id).querySelector('b').textContent = 夾(狀態[k]); $(id).querySelector('.fill').style.width = 夾(狀態[k]) + '%'; }
+    $('b-water').querySelector('b').textContent = `${狀態.水}/${喝水目標()}`;
+    $('b-water').querySelector('.fill').style.width = 夾(狀態.水 / 喝水目標() * 100) + '%';
+    $('days').textContent = Math.floor((Date.now() - 狀態.開始) / 864e5) + 1; $('streak').textContent = 狀態.連續;
+    $('title').textContent = '養一隻' + 名();
+    const h = new Date().getHours() + new Date().getMinutes() / 60;
+    const 下一餐 = 開飯時間().find(t => t >= h - 0.75 && !狀態.已餵[t]);
+    $('meals').innerHTML = `<em>${名()}一天 ${開飯時間().length} 餐</em>` + 開飯時間().map(t => `<span class="${狀態.已餵[t] ? 'done' : t === 下一餐 ? 'next' : ''}">${時(t)}</span>`).join('');
+    $('waterSurf').setAttribute('rx', 狀態.水 >= 喝水目標() ? 8 : 13);
+  }
+
+  // ── 換毛色：把畫好的貓依照選的貓上色 ──
+  const 部位色 = { '#9AA2AC': '毛', '#FCFAF4': '白', '#22305A': '巾', '#B5B248': '眼' };
+  for (const el of document.querySelectorAll('#shroom *, #photo *')) for (const a of ['fill', 'stroke']) { const v = (el.getAttribute(a) || '').toUpperCase(); if (部位色[v]) el.dataset['p' + a] = 部位色[v]; }
+  function 上色(root, c) {
+    const 色 = { 毛: c.毛, 白: c.白 ? '#FCFAF4' : c.毛, 巾: c.巾, 眼: c.眼 };
+    for (const a of ['fill', 'stroke']) root.querySelectorAll(`[data-p${a}]`).forEach(el => el.setAttribute(a, 色[el.dataset['p' + a]]));
+  }
+  function 套貓() { 上色(香菇, 貓()); 上色($('photo'), 貓()); 香菇.setAttribute('aria-label', 名()); 畫(); }
+
+  // ── 座標換算 ──
+  function 到螢幕(x, y) { const p = svg.createSVGPoint(); p.x = x; p.y = y; const q = p.matrixTransform(svg.getScreenCTM()); const g = 遊戲.getBoundingClientRect(); return { x: q.x - g.left, y: q.y - g.top }; }
+  function 到房間(cx, cy) { const p = svg.createSVGPoint(); p.x = cx; p.y = cy; return p.matrixTransform(svg.getScreenCTM().inverse()); }
+  const 比例 = y => (0.85 + (y - 180) / 400 * 0.55) * 1.3;
+  function 放(x, y) { 位置 = [x, y]; 香菇.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${比例(y).toFixed(3)})`); 對話位置(); }
+
+  // ── 說話 ──
+  let 說話計時;
+  function 對話位置() { const p = 到螢幕(位置[0], 位置[1] - 78 * 比例(位置[1])); const b = $('bubble'); b.style.left = Math.max(110, Math.min(遊戲.clientWidth - 110, p.x)) + 'px'; b.style.top = Math.max(170, p.y) + 'px'; }
+  function 說(文, 小 = '', 秒 = 3.8) { const b = $('bubble'); b.innerHTML = 文 + (小 ? `<small>${小}</small>` : ''); 對話位置(); b.classList.remove('hide'); clearTimeout(說話計時); 說話計時 = setTimeout(() => b.classList.add('hide'), 秒 * 1000); }
+  function 愛心(n = 3) { const p = 到螢幕(位置[0], 位置[1] - 50 * 比例(位置[1])); for (let i = 0; i < n; i++) { const h = document.createElement('span'); h.className = 'heart'; h.textContent = '♥'; h.style.left = (p.x - 8 + Math.random() * 30 - 15) + 'px'; h.style.top = p.y + 'px'; h.style.setProperty('--dx', (Math.random() * 50 - 25) + 'px'); h.style.animationDelay = i * .12 + 's'; 遊戲.append(h); setTimeout(() => h.remove(), 1600); } }
+  const 姿勢 = p => 香菇.dataset.pose = p;
+
+  // ── 卡片（選貓、選飯、問答都用這張）──
+  function 開卡(html) { $('bubble').classList.add('hide'); $('card').innerHTML = html; $('sheet').hidden = false; }
+  function 關卡() { $('sheet').hidden = true; }
+
+  // ── 走路 ──
+  function 走到(目標, 完成, 秒 = null) {
+    const [x0, y0] = 位置, [x1, y1] = 目標, 距 = Math.hypot(x1 - x0, y1 - y0), 長 = (秒 || Math.max(.5, 距 / 160)) * 1000;
+    if (距 < 2) { 完成 && 完成(); return; }
+    姿勢('sit'); 香菇.classList.add('walking'); const t0 = performance.now();
+    (function 步(t) { const k = Math.min(1, (t - t0) / 長), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; 放(x0 + (x1 - x0) * e, y0 + (y1 - y0) * e); if (k < 1) requestAnimationFrame(步); else { 香菇.classList.remove('walking'); 完成 && 完成(); } })(t0);
+  }
+
+  // 自然的小動作
+  setInterval(() => { if (!香菇.classList.contains('happy')) { 香菇.classList.add('blink'); setTimeout(() => 香菇.classList.remove('blink'), 220); } }, 3600);
+  setInterval(() => {
+    if (忙 || 遊戲中 || !$('sheet').hidden) return;
+    const 選 = [['rug', 'loaf'], ['window', 'sit'], ['rug', 'sit'], ['tree', 'loaf'], ['bed', 'sleep'], ['water', 'sit']][Math.floor(Math.random() * 6)];
+    走到(地點[選[0]], () => {
+      姿勢(選[1]);
+      if (狀態.飽足 < 35) 說('💭 肚子好餓…', `${名()}在提醒你該開飯了`, 3);
+      else if (狀態.水 < 喝水目標() * 0.3 && 選[0] === 'water') 說('💭 水…', '帶牠喝點水吧', 3);
+    });
+  }, 16000);
+
+  // ── 呼嚕聲 ──
+  let 有聲 = false, 音 = null;
+  $('sound').onclick = () => { 有聲 = !有聲; $('sound').textContent = 有聲 ? '🔊' : '🔈'; };
+  function 呼嚕(秒 = 1.6) {
+    if (!有聲) return;
+    try {
+      音 = 音 || new (window.AudioContext || window.webkitAudioContext)();
+      const 長 = 音.sampleRate * 秒, buf = 音.createBuffer(1, 長, 音.sampleRate), d = buf.getChannelData(0); let last = 0;
+      for (let i = 0; i < 長; i++) { last = (last + .02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 9 * (.5 + .5 * Math.sin(2 * Math.PI * 24 * i / 音.sampleRate)) * (.55 + .45 * Math.sin(Math.PI * i / 長)); }
+      const s = 音.createBufferSource(), f = 音.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 380; s.buffer = buf; s.connect(f).connect(音.destination); s.start();
+    } catch (e) {}
+  }
+
+  // ── 選貓 ──
+  function 選貓畫面(第一次) {
+    let 選 = 狀態.貓?.種 || '香菇', 段 = 狀態.貓?.段 || '幼貓';
+    const 鎖 = k => 隱藏貓.includes(k) && !狀態.解鎖貓;
+    const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${鎖(k) ? '傳暗號解鎖' : c.介紹}</small></button>`).join('');
+    開卡(`<h3>${第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
+      <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
+      <div class="cats">${卡們}</div>
+      <div id="ageBox"><h4>牠幾歲？</h4><div class="row-opts">${Object.entries(階段們).map(([k, a]) => `<button class="opt" data-a="${k}">${a.字}<small>${a.說明}</small></button>`).join('')}</div></div>
+      <p class="lead" id="shroomNote" style="margin-top:12px">香菇是 <b>8 歲的熟齡貓</b>，作息照真的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
+      <h4>幫牠取名字</h4><input class="name" id="nameIn" maxlength="8" aria-label="貓咪的名字">
+      <button class="go" id="goBtn">${第一次 ? '開始養 🐾' : '就是牠了'}</button>
+      ${第一次 ? '<button class="ghost-btn" id="showLoad2">我在別支手機養過，要找回我的貓</button><div id="loadBox2" hidden><textarea class="codebox" id="codeIn2" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn2">找回我的貓</button><p class="msg" id="loadMsg2"></p></div>' : 存檔區()}`);
+    if (第一次) {
+      $('showLoad2').onclick = () => { $('loadBox2').hidden = false; $('codeIn2').focus(); };
+      $('loadBtn2').onclick = () => { if (解包($('codeIn2').value)) { 關卡(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, '', 3); }); } else { $('loadMsg2').className = 'msg bad'; $('loadMsg2').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; } };
+    } else 綁存檔();
+    const 原型 = 香菇.querySelector('.p-sit');
+    document.querySelectorAll('.catopt svg').forEach(s => { const g = 原型.cloneNode(true); g.setAttribute('filter', 'url(#hand)'); g.setAttribute('stroke', '#45372C'); g.setAttribute('stroke-width', '2'); g.setAttribute('stroke-linejoin', 'round'); s.append(g); 上色(s, 貓們[s.dataset.k]); });
+    const 刷新 = (換名) => {
+      document.querySelectorAll('.catopt').forEach(b => b.classList.toggle('on', b.dataset.k === 選));
+      document.querySelectorAll('[data-a]').forEach(b => b.classList.toggle('on', b.dataset.a === 段));
+      $('ageBox').hidden = 選 === '香菇'; $('shroomNote').hidden = 選 !== '香菇';
+      if (換名) $('nameIn').value = 選;
+    };
+    $('nameIn').value = 狀態.貓?.名 || 選;
+    document.querySelectorAll('.catopt').forEach(b => b.onclick = () => { if (鎖(b.dataset.k)) return 解鎖貓畫面(() => 選貓畫面(第一次)); 選 = b.dataset.k; 刷新(true); });
+    document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { 段 = b.dataset.a; 刷新(false); });
+    刷新(false);
+    $('goBtn').onclick = () => {
+      const 換了 = 狀態.貓?.種 !== 選 || 狀態.貓?.段 !== 段;
+      狀態.貓 = { 種: 選, 段: 選 === '香菇' ? '熟齡' : 段, 名: ($('nameIn').value.trim() || 選).slice(0, 8) };
+      if (換了) 狀態.已餵 = {};
+      存(); 套貓(); 關卡();
+      走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
+    };
+  }
+  $('swap').onclick = () => { if (!忙 && !遊戲中) 選貓畫面(false); };
+
+  function 圖鑑() {
+    const n = (狀態.卡 || []).length, 總 = 知識卡.length;
+    const 獎 = n >= 小抄門檻
+      ? `<div class="reward"><b>🎁 你已經集到 ${n} 張了！</b>加香菇爸的 LINE，領《貓咪行為情緒小抄》完整版，把這些知識存在手機裡<button class="line-btn" id="getNote">到 LINE 領小抄<small>會打開香菇爸 LINE，按送出就好</small></button></div>`
+      : `<div class="reward"><b>再集 ${小抄門檻 - n} 張就有禮物</b>集滿 ${小抄門檻} 張，可以到香菇爸 LINE 領《貓咪行為情緒小抄》完整版</div>`;
+    開卡(`<h3>📖 ${名()}教我的事</h3><p class="lead">已收集 <b>${n} / ${總}</b> 張知識卡。照顧牠、玩讀心術，就會解鎖新的卡</p>
+      <div class="progress"><i style="width:${n / 總 * 100}%"></i></div>${獎}
+      <h4>知識卡</h4><div class="kcards">${知識卡.map(k => 有卡(k.id) ? `<div class="kcard"><b>${k.標}</b>${k.文}</div>` : `<div class="kcard locked"><b>？？？</b>怎麼解鎖：${k.提示}</div>`).join('')}</div>
+      <button class="go" id="closeBook">繼續照顧${名()}</button>`);
+    $('closeBook').onclick = 關卡;
+    if ($('getNote')) $('getNote').onclick = () => 開LINE(暗號.小抄);
+  }
+  $('book').onclick = () => { if (!忙 && !遊戲中) 圖鑑(); };
+
+  // ── 存檔碼：把貓打包成一串字，傳到 LINE 存著，換手機貼回來就好 ──
+  function 打包() {
+    const o = [狀態.貓.種, 狀態.貓.段, 狀態.貓.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.解鎖貓 ? 1 : 0];
+    return 'MC' + btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/, '');
+  }
+  function 解包(文) {
+    const m = /MC([A-Za-z0-9+/]{8,})/.exec(文 || ''); if (!m) return false;
+    try {
+      const [種, 段, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      if (!貓們[種]) return false;
+      Object.assign(狀態, { 貓: { 種, 段, 名: String(名字).slice(0, 8) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 解鎖貓: !!解鎖貓, 已餵: {}, 簽到日: new Date().toDateString() });
+      存(); 套貓(); return true;
+    } catch (e) { return false; }
+  }
+  function 存檔區() {
+    return `<h4>💾 換手機也找得回來</h4><p class="lead" style="margin-bottom:0">把${名()}存到香菇爸 LINE 的對話裡。換手機時，把那則訊息整段複製，貼到下面就能找回來</p>
+      <button class="line-btn" id="saveLine">存到 LINE<small>會打開香菇爸 LINE，按送出就存好了</small></button>
+      <button class="ghost-btn" id="showLoad">我有存檔，要找回我的貓</button>
+      <div id="loadBox" hidden><textarea class="codebox" id="codeIn" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn">找回我的貓</button><p class="msg" id="loadMsg"></p></div>`;
+  }
+  function 綁存檔(關閉後) {
+    $('saveLine').onclick = () => 開LINE(`${暗號.存貓} ${打包()}`);
+    $('showLoad').onclick = () => { $('loadBox').hidden = false; $('codeIn').focus(); };
+    $('loadBtn').onclick = () => {
+      if (解包($('codeIn').value)) { 關卡(); 關閉後 && 關閉後(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, `已經找回 ${(狀態.卡 || []).length} 張知識卡`, 4); }); }
+      else { $('loadMsg').className = 'msg bad'; $('loadMsg').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; }
+    };
+  }
+  function 解鎖貓畫面(回去) {
+    開卡(`<h3>🔒 解鎖隱藏貓咪</h3><p class="lead">奶茶和小虎是隱藏貓咪。傳暗號給香菇爸，就會收到解鎖碼</p>
+      <button class="line-btn" id="askCode">傳暗號給香菇爸<small>會打開香菇爸 LINE，按送出就好</small></button>
+      <h4>輸入解鎖碼</h4><input class="name" id="codeOne" maxlength="12" autocapitalize="characters" aria-label="解鎖碼">
+      <p class="msg" id="unlockMsg"></p>
+      <button class="go" id="unlockBtn">解鎖</button><button class="ghost-btn" id="backBtn">先不用</button>`);
+    $('askCode').onclick = () => 開LINE(暗號.解鎖);
+    $('backBtn').onclick = 回去;
+    $('unlockBtn').onclick = () => {
+      if ($('codeOne').value.trim().toUpperCase() === 解鎖碼) { 狀態.解鎖貓 = true; 存(); 吐司('🎉 解鎖奶茶和小虎！'); 回去(); }
+      else { $('unlockMsg').className = 'msg bad'; $('unlockMsg').textContent = '解鎖碼不對，再看一下香菇爸 LINE 的回覆'; }
+    };
+  }
+
+  // ── 餵飯：選乾飼料或主食罐 ──
+  function 餵飯() {
+    if (忙 || 遊戲中) return;
+    if (狀態.飽足 >= 90) { 走到(地點.rug, () => { 姿勢('sit'); 說(`${我()}吃飽了，晚點再說`, '飽足快滿了 ~ 吃太多會胖喔'); 解鎖('吃太飽'); }); return; }
+    開卡(`<h3>要餵${名()}吃什麼？</h3><p class="lead">${作息().餐提示}</p>
+      <div class="opts"><button class="opt" data-f="dry">乾飼料<small>方便保存，記得另外補充水分</small></button><button class="opt" data-f="wet">主食罐<small>大約 7～8 成是水分，吃飯也能順便補水</small></button></div>`);
+    document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { 關卡(); 開飯(b.dataset.f === 'wet'); });
+  }
+  function 開飯(濕) {
+    忙 = true;
+    const h = new Date().getHours() + new Date().getMinutes() / 60, 這餐 = 開飯時間().find(t => Math.abs(h - t) <= .75 && !狀態.已餵[t]);
+    const k = $('kibbles'); k.innerHTML = '';
+    for (let i = 0; i < (濕 ? 4 : 9); i++) { const c = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse'); c.setAttribute('cx', 290 + Math.random() * 20); c.setAttribute('cy', 549 + Math.random() * 4); c.setAttribute('rx', 濕 ? 4 : 2.4); c.setAttribute('ry', 濕 ? 2.6 : 1.8); c.setAttribute('fill', 濕 ? '#C98A6B' : '#B9762D'); c.setAttribute('stroke-width', '.8'); c.classList.add('kib'); c.style.animationDelay = i * 50 + 'ms'; k.append(c); }
+    $('food').setAttribute('fill', 濕 ? '#C98A6B' : '#B9762D');
+    setTimeout(() => $('food').setAttribute('opacity', 1), 500);
+    說('喵！開飯了？', '', 1.6);
+    走到(地點.bowl, () => {
+      姿勢('eat'); 香菇.classList.add('eating');
+      setTimeout(() => {
+        香菇.classList.remove('eating'); 姿勢('sit'); k.innerHTML = ''; $('food').setAttribute('opacity', 0);
+        狀態.飽足 = Math.min(100, 狀態.飽足 + (濕 ? 22 : 26));
+        if (濕) 狀態.水 += 60;
+        const 水話 = 濕 ? `・順便補了 60ml 水` : '';
+        if (這餐) { 狀態.已餵[這餐] = true; 狀態.心情 = Math.min(100, 狀態.心情 + 10); 狀態.親密 += 3; 說(`${時(這餐)} 準時開飯！`, `固定時間吃飯，貓咪最有安全感 ~ 心情 +10${水話}`, 4.4); }
+        else 說(`嗯…${我()}勉強吃了`, `${名()}一天 ${開飯時間().length} 餐 ~ 看上面的開飯時間${水話}`, 4.4);
+        愛心(2); 存(); 畫(); 忙 = false;
+        if (這餐) 解鎖('準時');
+        解鎖('餐-' + (狀態.貓.種 === '香菇' ? '熟齡' : 狀態.貓.段));
+        if (濕) 解鎖('主食罐');
+      }, 2800);
+    });
+  }
+
+  // ── 喝水 ──
+  const 喝水小知識 = ['貓咪本來就不太愛喝水，要想辦法讓牠多喝', '水碗和飯碗分開放，貓咪比較願意喝', '家裡多放幾個水碗，走到哪都喝得到', '每天換新鮮的水，貓咪很挑', '有些貓咪喜歡會流動的水', '吃主食罐也能補充水分'];
+  let 喝次 = 0;
+  function 喝水() {
+    if (忙 || 遊戲中) return;
+    忙 = true;
+    走到(地點.water, () => {
+      姿勢('eat'); 香菇.classList.add('eating');
+      setTimeout(() => {
+        香菇.classList.remove('eating'); 姿勢('sit');
+        狀態.水 += 30; 狀態.心情 = Math.min(100, 狀態.心情 + 2); 存(); 畫(); 忙 = false;
+        const 目標 = 喝水目標();
+        if (狀態.水 >= 目標 && 狀態.水 - 30 < 目標) { 愛心(3); 說('今天的水喝夠了！', `${名()}大約 ${作息().公斤} 公斤，一天約 ${目標}ml ~ 每公斤體重約 40～60ml（食物裡的水也算）`, 6); }
+        else 說(`咕嚕咕嚕… +30ml`, `今天 ${狀態.水}/${目標}ml ・ ${喝水小知識[喝次++ % 喝水小知識.length]}`, 4.6);
+        解鎖('水碗'); if (狀態.水 >= 目標) 解鎖('喝水量');
+      }, 2000);
+    });
+  }
+
+  // ── 摸摸 ──
+  let 摸數 = 0, 上次摸 = 0, 摸計時;
+  function 摸() {
+    if (遊戲中 || 忙) return;
+    const now = Date.now(); if (now - 上次摸 < 240) return; 上次摸 = now; 摸數++;
+    clearTimeout(摸計時); 摸計時 = setTimeout(() => { 摸數 = 0; 香菇.classList.remove('happy'); }, 2200);
+    if (香菇.dataset.pose === 'sleep') { 姿勢('loaf'); 說(`嗯…？${我()}在睡覺…`, '', 2); return; }
+    if (摸數 > 12) { 香菇.classList.remove('happy'); 香菇.classList.add('annoyed'); setTimeout(() => 香菇.classList.remove('annoyed'), 1200); 說(`好了好了，${我()}知道你愛我`, '尾巴開始甩就是「摸夠了」~ 讓牠休息一下'); 摸數 = 0; 解鎖('摸夠了'); return; }
+    香菇.classList.add('happy'); if (摸數 % 3 === 1) { 愛心(1); 呼嚕(); }
+    if (摸數 === 5) { 說('呼嚕呼嚕…', '眼睛瞇起來，代表牠很放鬆', 2.4); 解鎖('瞇眼'); }
+    狀態.心情 = Math.min(100, 狀態.心情 + 1.3); 狀態.親密 = Math.min(100, 狀態.親密 + .7); 存(); 畫();
+  }
+  let 按著 = false;
+  香菇.addEventListener('pointerdown', e => { 按著 = true; 摸(); e.stopPropagation(); });
+  svg.addEventListener('pointermove', e => { if (按著 && !遊戲中) { const p = 到房間(e.clientX, e.clientY); if (Math.hypot(p.x - 位置[0], p.y - 位置[1] + 25) < 40) 摸(); } });
+  addEventListener('pointerup', () => 按著 = false);
+  $('pet').onclick = () => { if (忙 || 遊戲中) return; 走到(地點.rug, () => { 姿勢('sit'); 說(`在${名()}身上慢慢摸`, '手指按著貓咪來回滑 ~ 從頭頂往背後順著摸', 3); }); };
+
+  // ── 睡午覺（點窩或貓跳台）──
+  function 睡午覺(去樹上) {
+    if (忙 || 遊戲中) return;
+    走到(去樹上 ? 地點.tree : 地點.bed, () => { 姿勢('sleep'); 狀態.心情 = Math.min(100, 狀態.心情 + 5); 存(); 畫(); 說('zzz…', `貓咪一天要睡 12～16 小時 ~ ${去樹上 ? '高處讓牠覺得安全' : '有自己的窩牠才睡得安穩'}`, 3.6); 解鎖('睡覺'); });
+  }
+
+  // ── 讀心術：看貓咪的動作，猜牠在想什麼 ──
+  const 情境們 = [
+    { 地: 'rug', 姿: 'sit', 效果: 'blink', 景: '慢慢地對你眨眼睛', 對: '我好喜歡你、很信任你', 錯: ['我想睡覺了', '我在生你的氣'], 解: '慢慢眨眼是貓咪的「親親」，代表牠很放鬆、很信任你。你也可以對牠慢慢眨回去' },
+    { 地: 'rug', 姿: 'sit', 效果: 'annoyed', 景: '被摸的時候，尾巴開始用力甩', 對: '有點煩了，先別摸', 錯: ['好開心，再多摸一點', '想跟你玩'], 解: '貓咪甩尾巴跟狗狗搖尾巴意思不一樣！用力甩通常是不耐煩，先停手讓牠休息' },
+    { 地: 'rug', 姿: 'loaf', 景: '把腳腳全部收起來，趴成一條吐司', 對: '很放鬆，在這裡休息一下', 錯: ['想出門玩', '很害怕'], 解: '吐司姿勢代表牠覺得這裡很安全，但又可以隨時起身' },
+    { 地: 'bowl', 姿: 'sit', 景: '一直坐在飯碗旁邊，對著你喵喵叫', 對: '該開飯了吧', 錯: ['碗太醜了', '想睡覺'], 解: '貓咪很會記時間！固定時間開飯，牠就不會一直討食' },
+    { 地: 'rug', 姿: 'crouch', 景: '身體壓低、屁股左右扭來扭去', 對: '準備撲過去抓獵物', 錯: ['屁股癢', '想上廁所'], 解: '扭屁股是在調整後腳、準備起跳。這時候拿逗貓棒陪牠玩剛剛好' },
+    { 地: 'window', 姿: 'sit', 景: '盯著窗外的小鳥，嘴巴發出「喀喀喀」的聲音', 對: '好想抓那隻鳥', 錯: ['在跟你聊天', '在唱歌'], 解: '這叫「喀喀叫」，是看到獵物卻抓不到時的興奮反應，很常見' },
+    { 地: 'bed', 姿: 'sleep', 景: '捲成一團、尾巴蓋住鼻子睡覺', 對: '想保暖，窩得很有安全感', 錯: ['在生你的氣', '肚子餓了'], 解: '捲成一團可以保留體溫。給牠一個柔軟、有包覆感的窩，牠會睡得很安穩' },
+    { 地: 'rug', 姿: 'sit', 景: '你叫牠的名字，牠沒回頭，只有耳朵轉過來', 對: '有聽到啦，只是懶得動', 錯: ['聽不懂自己的名字', '耳朵在癢'], 解: '貓咪其實認得自己的名字！耳朵轉過來就是有在聽，只是個性比較酷' },
+    { 地: 'water', 姿: 'sit', 景: '用前腳撥水碗裡的水，再舔腳上的水', 對: '在研究這碗水，好玩又好奇', 錯: ['水太多了要倒掉', '在洗手'], 解: '有些貓咪喜歡會動的水，撥水是好奇也是在確認水面。可以試試多放一個水碗或流動的水' },
+  ];
+  情境們.forEach((q, i) => { 知識卡.find(k => k.id === '心' + i).文 = q.解; });
+  let 出題序 = [], 效果計時;
+  function 讀心術() {
+    if (忙 || 遊戲中) return;
+    if (!出題序.length) 出題序 = 情境們.map((_, i) => i).sort(() => Math.random() - .5);
+    const 題號 = 出題序.pop(), q = 情境們[題號];
+    忙 = true;
+    走到(地點[q.地], () => {
+      姿勢(q.姿); clearInterval(效果計時);
+      if (q.效果 === 'blink') 效果計時 = setInterval(() => { 香菇.classList.add('happy'); setTimeout(() => 香菇.classList.remove('happy'), 900); }, 1800);
+      if (q.效果 === 'annoyed') 效果計時 = setInterval(() => { 香菇.classList.remove('annoyed'); void 香菇.getBBox(); 香菇.classList.add('annoyed'); }, 1400);
+      const 選項 = [q.對, ...q.錯].sort(() => Math.random() - .5);
+      開卡(`<h3>💭 ${名()}在想什麼？</h3><p class="lead">${名()}<b>${q.景}</b></p>
+        <div class="opts">${選項.map(o => `<button class="opt" data-o="${o}">${o}</button>`).join('')}</div><div id="ans"></div>`);
+      document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
+        const 中 = b.dataset.o === q.對;
+        document.querySelectorAll('[data-o]').forEach(x => { x.disabled = true; if (x.dataset.o === q.對) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
+        if (中) { 狀態.親密 = Math.min(100, 狀態.親密 + 2); 狀態.心情 = Math.min(100, 狀態.心情 + 3); 狀態.答對 = (狀態.答對 || 0) + 1; 存(); 畫(); }
+        $('ans').innerHTML = `<div class="explain"><b>${中 ? '答對了！親密 +2' : '其實牠在想：' + q.對}</b>${q.解}</div><button class="go" id="okBtn">${中 ? '我懂牠了' : '原來如此'}</button>`;
+        $('okBtn').onclick = () => { 關卡(); clearInterval(效果計時); 香菇.classList.remove('happy', 'annoyed'); 忙 = false; 說(`💭 ${q.對}`, `你已經讀懂${名()} ${狀態.答對 || 0} 次`, 3.2); 解鎖('心' + 題號); };
+      });
+    });
+  }
+
+  // ── 逗貓棒：在牠面前慢慢晃，蹲低後撲 ──
+  let 撲中 = 0, 剩 = 30, 手 = { x: 300, y: 400 }, 上一手 = { ...手 }, 停留 = 0, 冷卻 = 0, 計時器, 迴圈;
+  function 開始玩() {
+    if (遊戲中 || 忙) return;
+    走到(地點.rug, () => {
+      遊戲中 = true; 撲中 = 0; 剩 = 30; 遊戲.classList.add('playing'); $('play').classList.add('on'); 姿勢('sit');
+      $('wand').style.display = ''; $('caught').textContent = 0; $('timeLeft').textContent = 剩; 手 = { x: 300, y: 380 }; 上一手 = { ...手 }; 畫棒();
+      說('用手指拖著羽毛', `在${名()}面前慢慢晃，牠會蹲低準備撲`, 3.2);
+      計時器 = setInterval(() => { 剩--; $('timeLeft').textContent = 剩; if (剩 <= 0) 結束玩(); }, 1000);
+      迴圈 = requestAnimationFrame(遊戲迴圈);
+    });
+  }
+  svg.addEventListener('pointermove', e => { if (!遊戲中) return; const p = 到房間(e.clientX, e.clientY); 手 = { x: p.x, y: Math.max(240, p.y) }; });
+  svg.addEventListener('pointerdown', e => { if (!遊戲中) return; const p = 到房間(e.clientX, e.clientY); 手 = { x: p.x, y: Math.max(240, p.y) }; });
+  function 畫棒() { $('wandLine').setAttribute('x2', 手.x); $('wandLine').setAttribute('y2', 手.y - 26); $('feather').setAttribute('transform', `translate(${手.x} ${手.y}) rotate(${Math.sin(Date.now() / 110) * 12})`); }
+  function 遊戲迴圈() {
+    if (!遊戲中) return;
+    const 頭 = { x: 位置[0], y: 位置[1] - 40 * 比例(位置[1]) };
+    const 距 = Math.hypot(手.x - 頭.x, 手.y - 頭.y), 速 = Math.hypot(手.x - 上一手.x, 手.y - 上一手.y); 上一手 = { ...手 };
+    const 看 = Math.max(-1, Math.min(1, (手.x - 頭.x) / 80));
+    香菇.querySelectorAll('.pup').forEach((p, i) => p.setAttribute('cx', (i % 2 ? 9 : -9) + 看 * 1.8));
+    if (performance.now() > 冷卻) {
+      if (距 < 110 && 速 < 6) { 停留++; if (停留 > 14) 姿勢('crouch'); } else { 停留 = Math.max(0, 停留 - 2); if (停留 < 6 && 香菇.dataset.pose === 'crouch') 姿勢('sit'); }
+      if (停留 > 44) 撲(距 < 95);
+    }
+    畫棒(); 迴圈 = requestAnimationFrame(遊戲迴圈);
+  }
+  function 撲(瞄準) {
+    停留 = 0; 冷卻 = performance.now() + 1200; 姿勢('sit');
+    const 起 = [...位置], 目 = [Math.max(40, Math.min(360, 手.x)), Math.max(300, Math.min(600, 手.y + 30))], t0 = performance.now();
+    (function 跳(t) {
+      const k = Math.min(1, (t - t0) / 420), 高 = Math.sin(Math.PI * k) * 46;
+      放(起[0] + (目[0] - 起[0]) * k, 起[1] + (目[1] - 起[1]) * k - 高);
+      if (k < 1) return requestAnimationFrame(跳);
+      const 中 = 瞄準 && Math.hypot(手.x - 目[0], 手.y + 30 - 目[1]) < 60;
+      const p = 到螢幕(手.x, 手.y - 30), c = document.createElement('div'); c.className = 'combo'; c.style.left = (p.x - 34) + 'px'; c.style.top = p.y + 'px';
+      if (中) { 撲中++; $('caught').textContent = 撲中; c.textContent = 撲中 > 1 ? `抓到 ×${撲中}` : '抓到！'; 狀態.心情 = Math.min(100, 狀態.心情 + 4); 狀態.親密 += .8; 愛心(2); }
+      else { c.textContent = '差一點！'; c.style.color = '#7A6A5C'; }
+      遊戲.append(c); setTimeout(() => c.remove(), 900); 畫(); 存();
+    })(t0);
+  }
+  function 結束玩() {
+    遊戲中 = false; clearInterval(計時器); cancelAnimationFrame(迴圈);
+    遊戲.classList.remove('playing'); $('play').classList.remove('on'); $('wand').style.display = 'none'; 姿勢('loaf');
+    狀態.飽足 = Math.max(0, 狀態.飽足 - 6); 存(); 畫();
+    if (撲中 > 0) setTimeout(() => 解鎖('狩獵'), 600);
+    說(撲中 >= 6 ? `${我()}今天狀態超好！` : 撲中 >= 3 ? `還算盡興，明天再陪${我()}玩` : `${我()}今天沒什麼興致…`, `撲中 ${撲中} 次 ~ 每天 2～3 次狩獵遊戲，室內貓才有運動`, 5.5);
+  }
+
+  // 房間裡的東西都可以點
+  $('t-bowl').onclick = 餵飯; $('feed').onclick = 餵飯;
+  $('t-water').onclick = 喝水; $('drink').onclick = 喝水;
+  $('t-toy').onclick = 開始玩; $('play').onclick = () => 遊戲中 ? 結束玩() : 開始玩();
+  $('t-bed').onclick = () => 睡午覺(false); $('t-tree').onclick = () => 睡午覺(true);
+  $('mind').onclick = 讀心術;
+  for (const id of ['t-bowl', 't-water', 't-toy', 't-bed', 't-tree']) $(id).addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $(id).onclick(); } });
+
+  // ── 開始 ──
+  狀態 = 讀(); 放(...地點.rug); 姿勢('loaf');
+  addEventListener('resize', 對話位置);
+  if (!狀態.貓) { 狀態.貓 = { 種: '香菇', 段: '熟齡', 名: '香菇' }; 套貓(); 選貓畫面(true); }
+  else {
+    套貓();
+    setTimeout(() => {
+      if (狀態.首次) { 狀態.首次 = false; 存(); 說(狀態.連續 > 1 ? `你回來啦～連續第 ${狀態.連續} 天了` : `你回來啦～${我()}等你好久了`, 狀態.飽足 < 40 ? `${名()}有點餓了 ~ 點飯碗餵牠` : '點房間裡的東西，照顧牠吧', 6.5); }
+      else 說(狀態.飽足 < 40 ? `${我()}有點餓…` : '喵～', 狀態.飽足 < 40 ? '點飯碗餵飯' : '', 3);
+    }, 400);
+  }
+  setInterval(() => { 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
+})();
+</script>
+
+</body>
+</html>
