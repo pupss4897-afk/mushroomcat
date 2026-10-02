@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸飯錢試算：輸入主子體重和飼料價格，算出一天、一個月要花多少，兩款飼料一起比較">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="一天的飯錢試算｜香菇爸 App">
+  <meta property="og:description" content="香菇爸飯錢試算：輸入主子體重和飼料價格，算出一天、一個月要花多少，兩款飼料一起比較">
+  <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/media/og-cover.jpg">
+  <title>一天的飯錢試算｜香菇爸 App</title>
+<style>
+:root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;
+ --pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--brown:#a9835c;--brown2:#f0e5d8;
+ --danger:#d97a6c;--amber:#d9a441;--shadow:0 8px 22px rgba(150,130,100,.1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;
+ color:var(--ink);background:#e9e0d2;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.app{width:100%;max-width:440px;min-height:100vh;margin:auto;padding-bottom:78px;
+ background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 40px rgba(0,0,0,.06)}
+.head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;
+ gap:10px;padding:12px 16px;background:rgba(251,245,233,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;box-shadow:var(--shadow);font-size:19px}
+.head-title{text-align:center}
+.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}
+.head-title small{display:block;color:var(--soft);font-size:10px}
+
+.hero{padding:22px 18px 16px}
+.hero-card{position:relative;padding:23px 20px 20px;border-radius:26px;overflow:hidden;color:#fff;
+ background:linear-gradient(152deg,#8a6a49 0%,#a9835c 52%,#c9a880 100%)}
+.hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22)}
+.kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:900;letter-spacing:1.2px}
+.hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:27px;line-height:1.35}
+.hero p{position:relative;z-index:1;margin-top:8px;color:rgba(255,255,255,.92);font-size:12.5px}
+.hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.19);font-size:10.5px;font-weight:700}
+
+.section{padding:18px}
+.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+.title-row{margin-bottom:13px}
+.num{display:block;color:var(--brown);font-size:10px;font-weight:900;letter-spacing:1.4px}
+.title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;margin-top:2px}
+.title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+
+.photo{display:grid;grid-template-columns:96px 1fr;gap:13px;align-items:center;padding:14px;
+ margin-bottom:10px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow)}
+.photo img{width:96px;height:66px;object-fit:contain}
+.photo b{display:block;font-size:15px}
+.photo small{display:block;color:var(--soft);font-size:11.5px;line-height:1.7;margin-top:3px}
+.photo.best{border-color:#a8cbb2;background:linear-gradient(160deg,#f2f9f4,#fff)}
+.pts{margin-top:6px}
+.illus{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:999px;
+ background:var(--cream2);color:var(--soft);font-size:10px;font-weight:700}
+.pts span{display:inline-block;margin:2px 5px 0 0;padding:2px 9px;border-radius:999px;
+ background:var(--cream2);font-size:10.5px}
+.colors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.col{padding:12px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:center}
+.col img{width:100%;max-width:112px;height:56px;object-fit:contain}
+.col b{display:block;margin-top:6px;font-size:12.5px}
+.col small{display:block;color:var(--soft);font-size:10.5px;margin-top:2px;line-height:1.6}
+.col .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:1px}
+/* 七型 */
+.type{display:grid;grid-template-columns:34px 62px 1fr;gap:11px;align-items:center;padding:12px;
+ margin-bottom:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.type .no{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;
+ background:var(--brown2);color:#8a6a49;font-weight:900;font-size:13px}
+.shape{height:34px;display:flex;align-items:center;justify-content:center;gap:3px}
+.shape i{display:block;background:#a9835c;border-radius:50%}
+.type b{display:block;font-size:13.5px}
+.type small{display:block;color:var(--soft);font-size:10.8px;line-height:1.6;margin-top:2px}
+.flag{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;font-size:9.5px;font-weight:900}
+.f-hard{background:#f5e2dc;color:#b56552}
+.f-ok{background:var(--green2);color:#4a7d5c}
+.f-best{background:#8fb89a;color:#fff}
+.f-soft{background:#faeed6;color:#a8802c}
+.f-bad{background:#f7dcd7;color:#c25a48}
+
+/* 觀察四件事 */
+.chk{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;padding:12px;margin-bottom:9px;
+ border:1px solid var(--line);border-radius:15px;background:#fff}
+.chk i{width:26px;height:26px;display:grid;place-items:center;border-radius:9px;background:var(--green);
+ color:#fff;font-style:normal;font-size:13px;font-weight:900}
+.chk b{font-size:13px}
+.chk small{display:block;color:var(--soft);font-size:11px;margin-top:2px;line-height:1.7}
+
+/* 紅燈 */
+.urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start;padding:13px;margin-bottom:9px;
+ border:1px solid #f0d4ce;border-radius:16px;background:#fdf4f2}
+.urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+.urgent b{color:var(--danger);font-size:12.5px}
+.urgent p{font-size:11px;color:#806962;margin-top:2px;line-height:1.7}
+
+.link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;
+ margin-top:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+.link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+.link-card b{font-size:13px}
+.link-card small{display:block;color:var(--soft);font-size:10.5px}
+.link-card i{font-style:normal;color:var(--soft)}
+.line-btn{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:14px;margin-top:9px;
+ border-radius:16px;background:#06C755;color:#fff;box-shadow:0 8px 20px rgba(6,199,85,.22)}
+.line-btn span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.2);font-size:19px}
+.line-btn b{font-size:13.5px}
+.line-btn small{display:block;font-size:10.5px;opacity:.9}
+.sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+.sources strong{display:block;color:var(--ink);margin-bottom:3px}
+@media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+
+/* 表單與計算 */
+.field{display:block;margin-bottom:12px}
+.field>span{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px}
+.field small{display:block;color:var(--soft);font-size:10.5px;margin-top:3px}
+.field input,.field select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fff;font:inherit;font-size:15px;color:var(--ink)}
+.field input:focus,.field select:focus{outline:2px solid var(--amber);outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--brown);border-color:var(--brown);color:#fff;font-weight:700}
+.chip:focus-visible,.go:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.go{display:block;width:100%;margin-top:4px;padding:13px;border:0;border-radius:15px;background:var(--brown);color:#fff;font:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
+.card{padding:15px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow);margin-bottom:10px}
+.answer{padding:17px;border-radius:20px;background:linear-gradient(160deg,#f2f9f4,#fff);border:1px solid #a8cbb2;margin-bottom:10px}
+.answer b.big{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:22px;line-height:1.4;color:#3f6e50}
+.answer p{font-size:12.5px;margin-top:6px;line-height:1.75}
+.plan{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.plan th,.plan td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left}
+.plan th{color:var(--soft);font-size:10.5px;font-weight:700}
+.bar{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--cream2);min-width:90px}
+.bar i{display:block;background:var(--green)} .bar u{display:block;background:#d8c3a5;text-decoration:none}
+.legend{display:flex;gap:12px;font-size:10.5px;color:var(--soft);margin-top:8px}
+.legend span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px;background:var(--green)}
+.legend span.old:before{background:#d8c3a5}
+.shroom{padding:16px;border-radius:20px;background:linear-gradient(160deg,#f6f0fb,#fff);border:1px solid #dccbeb}
+.shroom .tag{display:inline-block;padding:3px 9px;border-radius:999px;background:#6f4f9e;color:#fff;font-size:10px;font-weight:800}
+.shroom h3{font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;margin-top:8px}
+.shroom ul{margin:8px 0 0;padding-left:1.1em;font-size:12px;line-height:1.85}
+.shroom .buy{display:block;margin-top:12px;padding:12px;border-radius:14px;background:#6f4f9e;color:#fff;text-align:center;font-weight:800;font-size:14px}
+.shroom .note{display:block;margin-top:7px;color:var(--soft);font-size:10px;line-height:1.6}
+.tips li{margin:0 0 8px 1.1em;font-size:12.5px;line-height:1.75}
+.cost{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cost .card h3{font-size:14px;margin-bottom:8px}
+.cost .card.b{border-color:#dccbeb;background:linear-gradient(160deg,#faf6fd,#fff)}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.res div{padding:11px 6px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}
+.res b{display:block;font-size:19px;font-variant-numeric:tabular-nums}
+.res small{color:var(--soft);font-size:10px}
+.mini-btn{margin-top:4px;padding:7px 10px;border:1px dashed var(--brown);border-radius:11px;background:transparent;color:var(--brown);font:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+@media(max-width:380px){.cost{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>一天的飯錢試算</strong><small>兩款飼料比一比 × 一天幾元</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="kicker">FOOD BUDGET</span>
+      <h1>主子一天<br>吃掉多少錢</h1>
+      <p>一大包看起來很貴，換算成一天其實差不多 ~ 兩款飼料放在一起比比看</p>
+      <div class="hero-mini"><span>一天幾元</span><span>一個月幾元</span><span>一包吃幾天</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">STEP 1</span><h2>主子的體重</h2></div>
+    <label class="field"><span>體重（公斤）</span><input type="number" id="kg" min="0.5" max="15" step="0.1" value="4"><small>每天要吃幾克，會照體重和熱量幫你估</small></label>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">STEP 2</span><h2>兩款飼料比一比</h2><p>B 先幫你帶入香菇吃的高端餐，也可以改成別款</p></div>
+    <div class="cost">
+      <div class="card">
+        <h3>A・現在吃的</h3>
+        <label class="field"><span>一包價格（元）</span><input type="number" id="pA" min="0" placeholder="例：899"></label>
+        <label class="field"><span>一包幾公斤</span><input type="number" id="wA" min="0" step="0.1" placeholder="例：2"></label>
+        <label class="field"><span>每 100 克幾大卡</span><input type="number" id="cA" min="200" max="600" value="380"><small>包裝背面「代謝能」那欄 ~ 找不到就用 380</small></label>
+        <label class="field"><span>每天餵幾克</span><input type="number" id="gA" min="0" placeholder="自動估"><small>空白就自動估</small></label>
+      </div>
+      <div class="card b">
+        <h3>B・香菇吃的高端餐</h3>
+        <label class="field"><span>一包價格（元）</span><input type="number" id="pB" min="0" value="1680"></label>
+        <label class="field"><span>一包幾公斤</span><input type="number" id="wB" min="0" step="0.1" value="1.1"></label>
+        <label class="field"><span>每 100 克幾大卡</span><input type="number" id="cB" min="200" max="600" value="394"></label>
+        <label class="field"><span>每天餵幾克</span><input type="number" id="gB" min="0" placeholder="自動估"><small>包裝建議：4～5 公斤每天 50～65 克</small></label>
+      </div>
+    </div>
+    <button class="go" id="calc" type="button">算算看</button>
+  </section>
+
+  <section class="section" id="out" hidden>
+    <div class="title-row"><span class="num">RESULT</span><h2>算出來了</h2></div>
+    <div class="card"><b>A・現在吃的</b><div class="res" id="rA"></div></div>
+    <div class="card" style="border-color:#dccbeb"><b>B・香菇吃的高端餐</b><div class="res" id="rB"></div></div>
+    <div class="answer" id="diff"></div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">MORE</span><h2>價格之外，也看看這些</h2></div>
+    <div class="shroom">
+      <span class="tag">香菇現在吃的主食</span>
+      <h3>高端餐・貓寶營養餐</h3>
+      <ul>
+        <li><b>全齡貓配方</b> ~ 從小吃到老，不用因為長大再換一次</li>
+        <li>無穀 ~ 主要原料是鴨肉、雞肉、鮪魚、鰹魚、牛肉</li>
+        <li>粗蛋白 ≥ 34%・粗脂肪 ≥ 11%・每 100 克 394 大卡</li>
+        <li>香菇一天六餐，固定時間吃</li>
+      </ul>
+      <a class="buy" href="https://mushroomlove.zeabur.app/food.html" target="_blank" rel="noopener">看香菇同款高端餐 ›</a>
+      <span class="note">每隻貓狀況不同，換食前可以先問你的獸醫 ~ 這裡分享的是香菇家的選擇，不是醫療建議</span>
+    </div>
+    <a class="link-card" href="貓咪熱量計算機/food_analyzer.html"><span>🔍</span><span><b>看懂飼料成分</b><small>便宜不便宜之外 ~ 看看裡面裝了什麼</small></span><i>›</i></a>
+    <a class="link-card" href="switch-food.html"><span>🔄</span><span><b>換糧小幫手</b><small>決定要換 ~ 幫你排好 7～10 天日曆</small></span><i>›</i></a>
+    <a class="line-btn" href="https://agentone.metaepoch.life/link/channels/ifVUGO3ckT" target="_blank" rel="noopener"><span>💬</span><span><b>想知道開團價，問香菇爸</b><small>菇粉不定期有團購優惠 ~ 傳 LINE 給我</small></span><i>↗</i></a>
+  </section>
+
+  <p class="sources"><strong>怎麼算的</strong>自動估算：先用體重算每天需要的熱量（以結紮室內成貓抓 70 × 體重<sup>0.75</sup> × 1.2 大卡），再除以飼料每 100 克的熱量 ~ 實際份量請照主子體態調整<br>兩款都用同一個方法估算，比較公平 ~ 高端餐包裝建議量：3 公斤以下 35～40 克、3～4 公斤 40～50 克、4～5 公斤 50～65 克、5～6 公斤 65～75 克<br>價格以市售價計算，團購優惠另計<br>© 2026 香菇爸・原創內容</p>
+
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const 估克數 = (kg, kcal) => Math.round(70 * Math.pow(kg, .75) * 1.2 / kcal * 100);
+  const 元 = n => Math.round(n).toLocaleString('zh-TW');
+  try { const s = JSON.parse(localStorage.getItem('shroom-cost') || 'null'); if (s) for (const k in s) if ($(k) && s[k] !== '') $(k).value = s[k]; } catch (e) {}
+  function 算(邊, kg) {
+    const p = +$('p' + 邊).value, w = +$('w' + 邊).value, c = +$('c' + 邊).value || 380;
+    if (!p || !w) return null;
+    let g = +$('g' + 邊).value, 來源 = '你填的';
+    if (!g) { g = 估克數(kg, c); 來源 = '依熱量自動估算'; }
+    const 每克 = p / (w * 1000);
+    return { g, 來源, 天: g * 每克, 月: g * 每克 * 30, 吃幾天: Math.floor(w * 1000 / g) };
+  }
+  $('calc').onclick = () => {
+    const kg = Math.max(.5, +$('kg').value || 4);
+    try { localStorage.setItem('shroom-cost', JSON.stringify(Object.fromEntries(['kg', 'pA', 'wA', 'cA', 'gA'].map(k => [k, $(k).value])))); } catch (e) {}
+    const A = 算('A', kg), B = 算('B', kg);
+    const 畫 = (r, el) => { $(el).innerHTML = r ? `<div><b>${元(r.天)}</b><small>元／天</small></div><div><b>${元(r.月)}</b><small>元／月</small></div><div><b>${r.吃幾天}</b><small>天吃完一包</small></div><p style="grid-column:1/-1;font-size:10.5px;color:var(--soft)">每天 ${r.g} 克（${r.來源}）</p>` : '<p style="grid-column:1/-1;font-size:12px;color:var(--soft)">填好價格和重量就會算出來</p>'; };
+    畫(A, 'rA'); 畫(B, 'rB');
+    let 話 = '';
+    if (A && B) {
+      const 差 = B.天 - A.天;
+      話 = Math.abs(差) < 1 ? '<b class="big">一天差不到 1 元</b><p>價格差不多，就可以多看看成分和主子愛不愛吃</p>'
+        : `<b class="big">一天${差 > 0 ? '多' : '少'} ${元(Math.abs(差))} 元</b><p>${差 > 0 && 差 <= 70 ? '差不多是一杯手搖飲的錢 ~ ' : ''}一個月${差 > 0 ? '多' : '少'}大約 ${元(Math.abs(差) * 30)} 元${差 > 0 ? ' ~ 可以再對照成分，看值不值得' : ''}</p>`;
+    } else 話 = '<b class="big">再填一下 A 的價格和重量</b><p>就能看出兩款一天差多少</p>';
+    $('diff').innerHTML = 話;
+    $('out').hidden = false; $('out').scrollIntoView({ behavior: 'smooth' });
+  };
+})();
+</script>
+<script src="search-index.js"></script>
+<script src="search.js"></script>
+</body>
+</html>

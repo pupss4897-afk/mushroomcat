@@ -242,6 +242,23 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
     // ============== 分析（改由後端 Worker 運算，資料庫已隱藏） ==============
     const ANALYZER_API = 'https://mushroom-food-analyzer.pupss4897.workers.dev/';
 
+
+    // 分析完附上「香菇吃的高端餐」成分，讓毛家長自己對照（只放包裝上的事實，不寫功效）
+    function 附上香菇對照() {
+        if (!els.results || document.getElementById('shroom-compare')) return;
+        const d = document.createElement('div');
+        d.id = 'shroom-compare';
+        d.style.cssText = 'margin-top:18px;padding:16px;border-radius:18px;border:1px solid #dccbeb;background:linear-gradient(160deg,#f6f0fb,#fff);line-height:1.75;font-size:13px';
+        d.innerHTML = '<span style="display:inline-block;padding:3px 9px;border-radius:999px;background:#6f4f9e;color:#fff;font-size:11px;font-weight:800">對照看看 ~ 香菇現在吃的</span>'
+            + '<h4 style="margin:8px 0 4px;font-size:16px">高端餐・貓寶營養餐（全齡貓）</h4>'
+            + '<p style="margin:0"><b>主要原料：</b>台灣鴨肉、澳洲雞肉、鮪魚、鰹魚、澳洲牛肉 ~ 無穀</p>'
+            + '<p style="margin:4px 0 0"><b>保證值：</b>粗蛋白 ≥ 34%・粗脂肪 ≥ 11%・粗纖維 ≤ 4%・水分 ≤ 10%・每 100 克 394 大卡</p>'
+            + '<a href="https://mushroomlove.zeabur.app/food.html" target="_blank" rel="noopener" style="display:block;margin-top:12px;padding:11px;border-radius:13px;background:#6f4f9e;color:#fff;text-align:center;font-weight:800;text-decoration:none">看香菇同款高端餐的完整成分 ›</a>'
+            + '<a href="../food-cost.html" style="display:block;margin-top:8px;padding:10px;border-radius:13px;border:1px solid #dccbeb;color:#6f4f9e;text-align:center;font-weight:700;text-decoration:none">兩款飼料一天差多少錢？算算看 ›</a>'
+            + '<small style="display:block;margin-top:8px;color:#958a79;font-size:10.5px">這裡分享的是香菇家的選擇，每隻貓狀況不同，換食前可以先問你的獸醫</small>';
+        els.results.appendChild(d);
+    }
+
     async function analyzeRemote(rawText){
         const text = (rawText || '').trim();
         els.results.classList.remove('hidden');
@@ -263,6 +280,7 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
                 return;
             }
             els.results.innerHTML = data.html || '<div class="empty-result">分析暫時無法使用，請稍後再試。</div>';
+            if (data.html) 附上香菇對照();
             els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } catch (e){
             els.results.innerHTML = '<div class="empty-result">😿 連線失敗，請檢查網路後再試一次。</div>';

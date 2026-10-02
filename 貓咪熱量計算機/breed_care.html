@@ -141,6 +141,43 @@
     // ====== 品種照顧資料（要新增品種，就照這個格式加一筆）======
     const LINE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ckT';
     const breedCare = {
+        british_longhair: {
+            name: '長毛英短', en: 'BRITISH LONGHAIR CARE GUIDE', flag: '☁️',
+            cat: 'british_longhair',
+            tagline: '英短的包子臉＋蓬蓬長毛 ~ 梳毛和體重是兩大功課',
+            traits: ['圓臉包子臉', '半長毛蓬鬆', '安靜穩定', '不太愛動', '容易發胖'],
+            lifespan: '12–17 歲',
+            extra: [
+                { icon: '🪮', title: '梳毛（跟英短最大的不同）', note: '長毛加上濃密的底毛，不梳很容易打結', tips: ['每天或隔天梳 5-10 分鐘', '先用排梳梳開，再用針梳順毛', '腋下、肚子、屁股後面最容易打結', '換毛季（春天、秋天）增加梳毛次數'] },
+                { icon: '🧶', title: '毛球', note: '舔毛時會吞下比較多毛', tips: ['先把廢毛梳掉，吞下去的就少', '可以準備貓咪專用的貓草', '常吐毛球、或吐完不吃不喝，要就醫'] }
+            ],
+            diet: { note: '跟英短一樣容易胖，份量要抓好', tips: ['定時定量，不要放著吃到飽', '選高蛋白、低碳水的主食', '零食控制在一天熱量的 10% 以內', '每週量一次體重'] },
+            water: { note: '長毛喝水容易弄濕胸前，有些貓會因此不愛喝', tips: ['用寬口淺碗或飲水機', '家裡多放幾個水碗', '搭配濕食增加水分'] },
+            exercise: { note: '很懶得動，要靠你帶動', tips: ['每天互動遊戲 2 次、每次 10-15 分鐘', '用逗貓棒讓牠追、讓牠跳', '貓跳台增加上下活動'] },
+            mistakes: ['以為跟英短一樣，就沒在梳毛', '放著吃到飽、零食給太多', '都不陪玩', '毛結太大才用剪刀剪（很容易剪到皮）', '沒做年度健檢'],
+            observe: ['毛有沒有打結、皮膚有沒有發紅', '吐毛球的次數', '體重是不是一直上升', '食慾、精神、排便', '呼吸有沒有變喘'],
+            tip: '長毛英短個性跟英短一樣穩重好相處，最大的差別就是那身蓬蓬長毛 ~ 每天花幾分鐘梳毛，順便摸摸身體、看看皮膚，也是你們的親密時間',
+            takeaway: '每天梳毛、控制體重、帶動運動、多喝水、每年健檢'
+        },
+        himalayan: {
+            name: '喜馬拉雅貓', en: 'HIMALAYAN CARE GUIDE', flag: '🏔️',
+            cat: 'himalayan',
+            tagline: '像波斯貓的扁臉，配上暹羅貓的重點色',
+            traits: ['扁臉短鼻', '蓬鬆長毛', '重點色藍眼', '溫柔黏人', '喜歡安靜'],
+            lifespan: '12–15 歲',
+            extra: [
+                { icon: '👁️', title: '眼周清潔（扁臉貓重點）', note: '扁臉構造讓眼淚不容易往下排，眼周容易濕濕髒髒的', tips: ['每天用濕棉片或生理食鹽水輕擦眼周', '擦完再用乾棉片吸乾，保持乾爽', '分泌物變多、變黃綠色或眼睛紅腫，要就醫', '定期回診檢查眼睛和鼻淚管'] },
+                { icon: '🫁', title: '呼吸照護', note: '鼻子短，比較怕熱、也容易喘', tips: ['室溫保持在 20-26 度', '避免劇烈運動和悶熱環境', '避免菸味、香氛、灰塵', '打呼很大聲或張嘴呼吸，要就醫'] },
+                { icon: '🪮', title: '長毛梳理', note: '毛量多、底毛厚，是最需要梳毛的品種之一', tips: ['每天梳毛，至少隔天一次', '先用排梳，再用針梳', '屁股周圍的毛可以請美容師修短，比較衛生', '換毛季增加梳毛次數'] }
+            ],
+            diet: { note: '扁臉吃飯比較費力，碗和份量都要注意', tips: ['用淺、寬口的碗，比較好咬', '定時定量、少量多餐', '選高蛋白、低碳水的主食', '換食用 7-10 天慢慢混著換'] },
+            water: { note: '跟波斯貓一樣要留意多囊腎 (PKD)，從小養成多喝水的習慣', tips: ['淺碗或飲水機', '家裡多放幾個水碗', '搭配濕食增加水分', '每年健檢記得包含腎臟指數'] },
+            exercise: { note: '個性安靜，但每天還是要動一動', tips: ['每天互動 10-15 分鐘', '不要玩到喘', '準備好爬的低矮跳台'] },
+            mistakes: ['長毛沒天天梳，打結成一大片', '眼周一直濕濕的沒處理', '夏天沒開冷氣、環境悶熱', '碗太深，吃得很辛苦', '沒做年度健檢'],
+            observe: ['眼睛分泌物的量和顏色', '呼吸聲、有沒有張嘴喘', '毛有沒有打結、皮膚狀況', '喝水量和尿量', '食慾、精神、體重'],
+            tip: '喜馬拉雅貓溫柔又黏人，因為扁臉和長毛，每天的眼周清潔和梳毛是必修 ~ 這些小事做久了，也會變成你們專屬的相處時間',
+            takeaway: '每天擦眼周、每天梳毛、注意呼吸和溫度、多喝水、每年健檢'
+        },
         american_shorthair: {
             name: '美國短毛貓', en: 'AMERICAN SHORTHAIR CARE GUIDE', flag: '🇺🇸',
             cat: 'american_shorthair',
@@ -358,7 +395,7 @@
             '<div class="trait-row">' + d.traits.map(function (t) { return '<span class="trait-chip">' + t + '</span>'; }).join('') + '</div>' +
             '<div class="lifespan">🐾 平均壽命：<strong>' + d.lifespan + '</strong></div>' +
             '</div>' +
-            '<img class="hcat" src="../icons/cats/cat-' + d.cat + '-1.png?v=2" alt="' + d.name + '">' +
+            '<img class="hcat" src="../icons/cats/cat-' + d.cat + '-1.png?v=2" alt="' + d.name + '" onerror="this.style.display=\'none\'">' +
             '</div>';
 
         if (Array.isArray(d.extra)) d.extra.forEach(function (s) { html += section(s.icon, s.title, s.note, s.tips); });
