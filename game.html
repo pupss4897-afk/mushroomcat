@@ -131,8 +131,10 @@
   .explain { margin-top: 12px; padding: 11px 13px; border-radius: 13px; background: #EEF3E6; border: 1.5px dashed #8EA273; font-size: 13.5px; line-height: 1.65; }
   .explain b { font-family: var(--hand); font-size: 16px; display: block; margin-bottom: 2px; }
   .opt:focus-visible, .catopt:focus-visible, .go:focus-visible, .name:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
-  .row1 { flex-wrap: wrap; row-gap: 4px; }
-  .toast { position: absolute; left: 50%; top: calc(150px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); z-index: 15; background: var(--navy); color: #fff; border: 2px solid var(--line); border-radius: 99px; padding: 6px 14px; font-family: var(--hand); font-size: 15px; white-space: nowrap; box-shadow: 0 3px 0 rgba(69,55,44,.25); animation: toast 2.8s ease forwards; pointer-events: none; }
+  .row1 { flex-wrap: wrap; row-gap: 2px; }
+  .row1 .day { order: 3; flex-basis: 100%; font-size: 12.5px; }
+  .row1 .sound { width: 28px; height: 28px; font-size: 12px; } .row1 .sound + .sound { margin-left: 5px; }
+  .toast { position: absolute; left: 50%; top: calc(196px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); z-index: 15; background: var(--navy); color: #fff; border: 2px solid var(--line); border-radius: 99px; padding: 6px 14px; font-family: var(--hand); font-size: 15px; white-space: nowrap; box-shadow: 0 3px 0 rgba(69,55,44,.25); animation: toast 2.8s ease forwards; pointer-events: none; }
   @keyframes toast { 0% { opacity: 0; transform: translate(-50%, -10px); } 12%, 82% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
   .progress { height: 10px; border: 1.5px solid var(--line); border-radius: 99px; background: #F1E6D2; overflow: hidden; margin: 2px 0 12px; }
   .progress i { display: block; height: 100%; background: var(--mustard); }
@@ -151,6 +153,23 @@
   .catopt { position: relative; } .catopt.locked svg { opacity: .35; filter: grayscale(1); }
   .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
   .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+  #room { transition: opacity .25s; }
+  #shroom .cone { display: none; } #shroom.cone .cone { display: inline; }
+  #shroom.kitten .headg { transform: scale(1.14); transform-box: fill-box; transform-origin: 50% 100%; }
+  #shroom.roll .bob { animation: roll .55s ease-in-out infinite; }
+  #shroom.scratching .bob { animation: wiggle .12s ease-in-out infinite; }
+  @keyframes roll { 25% { transform: rotate(-16deg); } 75% { transform: rotate(16deg); } }
+  #birdy { animation: birdy 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+  @keyframes birdy { 50% { transform: translateY(-3px) rotate(-4deg); } }
+  .rooms { display: flex; gap: 5px; margin-top: 6px; }
+  .rooms button { flex: 1; border: 1.5px solid #CDB89B; background: transparent; border-radius: 99px; padding: 2px 4px; font-family: var(--hand); font-size: 13.5px; color: var(--ink-soft); cursor: pointer; }
+  .rooms button.on { background: var(--mustard); border-color: var(--line); color: var(--ink); }
+  .rooms button:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
+  .ages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .ages .opt, .sexes .opt { text-align: center; padding: 8px 4px; }
+  .sexes { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .event-list { margin: 8px 0 0; padding-left: 1.2em; font-size: 13.5px; line-height: 1.7; }
+  @media (prefers-reduced-motion: reduce) { #birdy, #shroom.roll .bob { animation: none; } }
 </style>
 
 <div class="game" id="game">
@@ -159,9 +178,11 @@
       <!-- 讓線條有一點點手繪的抖動 -->
       <filter id="hand" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
       <pattern id="rope" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(25)"><rect width="6" height="6" fill="#E7CF9E"/><path d="M0 3h6" stroke="#C9A86C" stroke-width="1.6"/></pattern>
+      <pattern id="net" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 0 L14 14 M14 0 L0 14" stroke="#FFFFFF" stroke-width="1.2" opacity=".85"/></pattern>
       <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1" fill="#6F86C2"/></pattern>
     </defs>
     <g filter="url(#hand)" stroke="#45372C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+     <g id="scene-living">
       <!-- 牆 -->
       <rect x="-200" y="-400" width="800" height="630" fill="#F3E7CF"/>
       <path d="M-200 230 H600" stroke-width="3"/>
@@ -227,6 +248,114 @@
       <!-- 盆栽 -->
       <path d="M362 250 L368 286 H396 L402 250 Z" fill="#E2B95B"/>
       <path d="M382 250 C372 230 360 222 352 208 M382 250 C388 228 398 220 410 214 M382 250 C380 228 384 214 382 200" fill="none" stroke="#6E8F5A" stroke-width="3"/>
+      <!-- 公貓發情時噴的尿 -->
+      <ellipse id="puddle" cx="250" cy="250" rx="22" ry="6" fill="#E9D66B" stroke="none" opacity=".75" style="display:none"/>
+     </g>
+
+     <!-- ═══ 臥室 ═══ -->
+     <g id="scene-bedroom" style="display:none">
+      <rect x="-200" y="-400" width="800" height="630" fill="#ECE0E4"/>
+      <g stroke="none" fill="#E0CDD4"><circle cx="40" cy="60" r="3"/><circle cx="120" cy="30" r="3"/><circle cx="300" cy="50" r="3"/><circle cx="360" cy="190" r="3"/><circle cx="20" cy="180" r="3"/><circle cx="380" cy="80" r="3"/></g>
+      <path d="M-200 230 H600" stroke-width="3"/>
+      <rect x="-200" y="214" width="800" height="16" fill="#C9A67A"/>
+      <rect x="-200" y="230" width="800" height="600" fill="#C9A47A"/>
+      <g stroke="#B08A5F" stroke-width="2" fill="none"><path d="M-20 310 H420 M-20 400 H420 M-20 500 H420 M-20 600 H420"/><path d="M120 230 V310 M280 310 V400 M60 400 V500 M240 500 V600 M360 230 V310"/></g>
+      <!-- 窗簾窗戶 -->
+      <rect x="150" y="70" width="110" height="96" rx="4" fill="#C6DDE0"/>
+      <path d="M205 70 V166 M150 118 H260"/>
+      <path d="M142 62 Q160 120 150 176 L136 176 Q140 120 130 62 Z" fill="#E2B95B"/><path d="M268 62 Q250 120 260 176 L274 176 Q270 120 280 62 Z" fill="#E2B95B"/>
+      <path d="M126 62 H284" stroke-width="4"/>
+      <!-- 衣櫃（點了會跳上去）-->
+      <g class="tap" id="t-wardrobe" tabindex="0" role="button" aria-label="衣櫃">
+        <ellipse class="hl" cx="70" cy="112" rx="56" ry="16" fill="#FFF1C9" stroke="none"/>
+        <rect x="18" y="110" width="104" height="250" rx="4" fill="#B98A5E"/>
+        <path d="M70 116 V354"/><circle cx="62" cy="236" r="3" fill="#45372C"/><circle cx="78" cy="236" r="3" fill="#45372C"/>
+        <rect x="14" y="352" width="112" height="12" rx="3" fill="#9C6B43"/>
+      </g>
+      <!-- 床頭櫃和檯燈 -->
+      <rect x="168" y="300" width="50" height="62" rx="4" fill="#B98A5E"/><path d="M168 330 H218"/>
+      <path d="M180 300 L186 270 H200 L206 300 Z" fill="#FFF1C9"/><path d="M193 270 V256" /><path d="M176 256 H210 L202 240 H184 Z" fill="#E2B95B"/>
+      <!-- 人的床（點了會跳上去睡）-->
+      <g class="tap" id="t-humanbed" tabindex="0" role="button" aria-label="床">
+        <ellipse class="hl" cx="312" cy="356" rx="80" ry="26" fill="#FFF1C9" stroke="none"/>
+        <rect x="232" y="240" width="160" height="82" rx="8" fill="#9C6B43"/>
+        <rect x="226" y="300" width="172" height="120" rx="10" fill="#FFF9EE"/>
+        <ellipse cx="280" cy="312" rx="34" ry="12" fill="#FFFFFF"/>
+        <rect x="226" y="344" width="172" height="78" rx="8" fill="#A8B98A"/>
+        <path d="M240 360 H384 M240 380 H384 M240 400 H384" stroke="#8EA273" stroke-width="2"/>
+      </g>
+      <!-- 地毯 -->
+      <ellipse cx="170" cy="490" rx="110" ry="44" fill="#D98C6A"/><ellipse cx="170" cy="490" rx="92" ry="34" fill="none" stroke="#C47757" stroke-width="2"/>
+      <!-- 貓抓板（點了會去磨爪）-->
+      <g class="tap" id="t-scratch" tabindex="0" role="button" aria-label="貓抓板">
+        <ellipse class="hl" cx="290" cy="560" rx="64" ry="20" fill="#FFF1C9" stroke="none"/>
+        <path d="M236 570 L248 540 H336 L348 570 Z" fill="#E7CF9E"/>
+        <path d="M256 544 L250 566 M272 544 L268 566 M288 544 L286 566 M304 544 L304 566 M320 544 L322 566" stroke="#C9A86C" stroke-width="2"/>
+      </g>
+     </g>
+
+     <!-- ═══ 陽台 ═══ -->
+     <g id="scene-balcony" style="display:none">
+      <rect x="-200" y="-400" width="800" height="760" fill="#CFE6EE"/>
+      <g stroke="none" fill="#FFFFFF"><ellipse cx="80" cy="70" rx="40" ry="14"/><ellipse cx="110" cy="62" rx="26" ry="14"/><ellipse cx="300" cy="40" rx="36" ry="12"/></g>
+      <g fill="#B9CCD6" stroke="none"><rect x="-20" y="150" width="70" height="140"/><rect x="60" y="180" width="50" height="110"/><rect x="300" y="160" width="60" height="130"/><rect x="360" y="120" width="60" height="170"/></g>
+      <!-- 欄杆＋防墜網（點了會告訴你為什麼要裝）-->
+      <g class="tap" id="t-net" tabindex="0" role="button" aria-label="防墜網">
+        <rect x="-200" y="140" width="800" height="160" fill="url(#net)" stroke="none"/>
+        <path d="M-200 140 H600" stroke-width="3"/>
+        <path d="M-200 300 H600" stroke-width="5"/>
+        <path d="M-200 220 H600" stroke-width="3"/>
+        <path d="M40 220 V300 M120 220 V300 M200 220 V300 M280 220 V300 M360 220 V300" stroke-width="3"/>
+      </g>
+      <!-- 欄杆上的小鳥 -->
+      <g class="tap" id="t-bird" tabindex="0" role="button" aria-label="小鳥">
+        <g id="birdy"><ellipse cx="300" cy="208" rx="12" ry="9" fill="#C98A6B"/><circle cx="310" cy="200" r="7" fill="#C98A6B"/><path d="M316 200 l6 2 -6 2" fill="#E2B95B" stroke-width="1.4"/><circle cx="311" cy="198" r="1.2" fill="#45372C" stroke="none"/><path d="M292 206 l-10 -4" /></g>
+      </g>
+      <rect x="-200" y="300" width="800" height="530" fill="#D8D2C8"/>
+      <g stroke="#C5BDB0" stroke-width="2" fill="none"><path d="M-20 380 H420 M-20 470 H420 M-20 560 H420"/><path d="M70 300 V640 M160 300 V640 M250 300 V640 M340 300 V640"/></g>
+      <!-- 陽光（點了會去曬太陽）-->
+      <g class="tap" id="t-sun" tabindex="0" role="button" aria-label="曬太陽的地方">
+        <path d="M40 380 L210 380 L180 490 L20 490 Z" fill="#FFF1A8" stroke="none" opacity=".75"/>
+      </g>
+      <!-- 盆栽 -->
+      <path d="M20 560 L28 610 H82 L90 560 Z" fill="#D98C6A"/>
+      <path d="M55 560 C40 530 30 520 20 500 M55 560 C62 530 76 518 88 510 M55 560 V505" fill="none" stroke="#6E8F5A" stroke-width="3"/>
+      <!-- 貓草（點了會去啃）-->
+      <g class="tap" id="t-grass" tabindex="0" role="button" aria-label="貓草">
+        <ellipse class="hl" cx="330" cy="560" rx="50" ry="18" fill="#FFF1C9" stroke="none"/>
+        <path d="M296 540 L302 580 H358 L364 540 Z" fill="#E2B95B"/>
+        <path d="M304 540 l-4 -26 M312 540 l0 -32 M320 540 l3 -28 M328 540 l-2 -34 M336 540 l4 -30 M344 540 l-1 -26 M352 540 l5 -24" stroke="#7FA65A" stroke-width="3"/>
+      </g>
+     </g>
+
+     <!-- ═══ 動物醫院 ═══ -->
+     <g id="scene-clinic" style="display:none">
+      <rect x="-200" y="-400" width="800" height="630" fill="#E4F0EC"/>
+      <path d="M-200 230 H600" stroke-width="3"/>
+      <rect x="-200" y="230" width="800" height="600" fill="#DCE3E0"/>
+      <g stroke="#C9D3CF" stroke-width="2" fill="none"><path d="M-20 320 H420 M-20 420 H420 M-20 520 H420"/><path d="M80 230 V640 M200 230 V640 M320 230 V640"/></g>
+      <!-- 海報 -->
+      <rect x="160" y="80" width="90" height="110" rx="4" fill="#FFF9EE"/>
+      <path d="M205 96 v14 M198 103 h14" stroke="#E06B74" stroke-width="4"/>
+      <path d="M174 128 H236 M174 144 H230 M174 160 H236 M174 176 H220" stroke="#B8C4CC" stroke-width="3"/>
+      <!-- 櫃子 -->
+      <rect x="10" y="120" width="110" height="200" rx="4" fill="#FFFFFF"/><path d="M10 190 H120 M10 260 H120"/>
+      <g stroke-width="1.6"><rect x="24" y="150" width="14" height="36" rx="3" fill="#BCD3E3"/><rect x="46" y="160" width="14" height="26" rx="3" fill="#F4C6C2"/><rect x="70" y="146" width="16" height="40" rx="3" fill="#D8E8C4"/><rect x="30" y="222" width="18" height="34" rx="3" fill="#F6DFA6"/><rect x="60" y="230" width="22" height="26" rx="3" fill="#BCD3E3"/></g>
+      <!-- 獸醫 -->
+      <g id="vet">
+        <path d="M300 420 C300 330 320 300 345 300 C370 300 392 330 392 420 Z" fill="#FFFFFF"/>
+        <path d="M345 300 V420" stroke-width="2"/>
+        <circle cx="345" cy="270" r="30" fill="#F2D2B6"/>
+        <path d="M315 262 C318 236 372 236 375 262 C368 248 322 248 315 262 Z" fill="#5E4230"/>
+        <rect x="327" y="272" width="36" height="20" rx="6" fill="#BCD3E3" stroke-width="1.6"/>
+        <circle cx="335" cy="264" r="2.4" fill="#45372C" stroke="none"/><circle cx="355" cy="264" r="2.4" fill="#45372C" stroke="none"/>
+        <path d="M322 340 C330 360 336 372 345 380" fill="none" stroke="#6F86C2" stroke-width="3"/><circle cx="345" cy="384" r="6" fill="#6F86C2"/>
+      </g>
+      <!-- 診療台 -->
+      <rect x="96" y="380" width="200" height="18" rx="4" fill="#B8C4CC"/>
+      <path d="M126 398 V500 M266 398 V500" stroke-width="6"/>
+      <rect x="110" y="496" width="172" height="10" rx="3" fill="#9AA6AE"/>
+     </g>
     </g>
 
     <!-- ── 香菇（小小一隻、有輪廓線）── -->
@@ -243,6 +372,7 @@
           <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="url(#dots)" stroke="none" opacity=".7"/>
           <circle cx="0" cy="-23" r="1.8" fill="#E8C98E" stroke-width="1"/>
           <g class="headg">
+            <ellipse class="cone" cx="0" cy="-42" rx="40" ry="34" fill="rgba(255,255,255,.55)" stroke-width="2"/>
             <path d="M-21 -52 L-18 -70 L-6 -60 Z M21 -52 L18 -70 L6 -60 Z" fill="#9AA2AC"/>
             <path d="M-17 -56 L-16 -65 L-10 -59 Z M17 -56 L16 -65 L10 -59 Z" fill="#F0B9B9" stroke="none"/>
             <path d="M-26 -42 C-27 -56 -14 -63 0 -63 C14 -63 27 -56 26 -42 C29 -36 26 -28 16 -27 C8 -26 -8 -26 -16 -27 C-26 -28 -29 -36 -26 -42 Z" fill="#9AA2AC"/>
@@ -311,7 +441,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day">陪伴第 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -319,6 +449,7 @@
         <div class="bar" id="b-bond"><div class="lb"><span>親密</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
       </div>
       <div class="meals" id="meals"></div>
+      <div class="rooms" id="rooms"><button data-s="living">🛋️ 客廳</button><button data-s="bedroom">🛏️ 臥室</button><button data-s="balcony">🌿 陽台</button></div>
     </div>
   </div>
 
@@ -376,6 +507,18 @@
     { id: '瞇眼', 標: '瞇眼＝很放鬆', 文: '摸的時候眼睛瞇起來、發出呼嚕聲，代表牠很放鬆', 提示: '好好摸摸貓咪' },
     { id: '摸夠了', 標: '摸夠了的訊號', 文: '尾巴開始甩、耳朵往後，就是「摸夠了」，先停手讓牠休息', 提示: '摸到牠不耐煩' },
     { id: '睡覺', 標: '一天睡 12～16 小時', 文: '貓咪很會睡！有自己的窩或高處，牠才睡得安穩', 提示: '讓貓咪去睡午覺' },
+    { id: '藍眼睛', 標: '小奶貓都是藍眼睛', 文: '小奶貓的眼睛一開始都是藍藍的，大約 3 個月後才慢慢變成長大後的顏色', 提示: '養一隻 8 週的小奶貓' },
+    { id: '疫苗', 標: '幼貓疫苗時間', 文: '幼貓大約 8 週打第一劑，之後每 3～4 週一劑，通常打到 16 週左右。打完前先別出門、別接觸外面的貓', 提示: '帶幼貓去打疫苗' },
+    { id: '結紮', 標: '4～6 個月可以結紮', 文: '一般建議 4～6 個月大結紮，可以避免發情時的困擾，也減少走失。細節跟獸醫討論', 提示: '帶貓咪去結紮' },
+    { id: '術後', 標: '結紮後的照顧', 文: '術後 7～10 天戴頭套或穿術後衣，別讓牠舔傷口；當天沒精神、吃比較少是常見的', 提示: '結紮完帶牠回家' },
+    { id: '發情', 標: '發情的樣子', 文: '母貓會大聲叫春、在地上打滾；公貓會到處噴尿做記號、一直想往外衝。牠自己也很不舒服', 提示: '沒結紮的貓長到 6 個月' },
+    { id: '半歲', 標: '6 個月改 3 餐', 文: '6 個月以上的幼貓，可以慢慢從一天 4 餐改成 3 餐', 提示: '養到 6 個月大' },
+    { id: '換糧', 標: '1 歲換成貓飼料', 文: '大約 1 歲可以從幼貓飼料換成成貓飼料，用 7～10 天新舊慢慢混著換，比較不會腸胃不適應', 提示: '養到 1 歲' },
+    { id: '高處', 標: '貓咪愛高處', 文: '待在高處可以觀察四周、覺得安全。家裡可以準備貓跳台或層架', 提示: '在臥室點衣櫃' },
+    { id: '磨爪', 標: '磨爪是天性', 文: '磨爪是在整理指甲、留下自己的氣味。給牠貓抓板，就比較不會去抓沙發', 提示: '在臥室點貓抓板' },
+    { id: '防墜網', 標: '陽台要裝防墜網', 文: '貓咪可能為了追鳥或蟲跳出去，陽台和窗戶一定要裝防墜網', 提示: '在陽台點欄杆' },
+    { id: '貓草', 標: '貓草選專用的', 文: '很多貓咪喜歡啃貓草，要選貓咪專用的，家裡別放對貓有毒的植物', 提示: '在陽台點貓草' },
+    { id: '曬太陽', 標: '曬太陽要有遮蔭', 文: '貓咪喜歡曬太陽取暖，夏天別曬太久，旁邊要有水和陰涼處', 提示: '在陽台點陽光' },
     ...['慢慢眨眼', '用力甩尾巴', '吐司姿勢', '坐在碗旁邊叫', '扭屁股', '對窗外喀喀叫', '捲成一團睡', '叫名字只轉耳朵', '撥水碗的水'].map((標, i) => ({ id: '心' + i, 標, 文: '', 提示: '讀心術答一題' })),
   ];
   const 小抄門檻 = 6;
@@ -388,14 +531,33 @@
     const c = 知識卡.find(k => k.id === id);
     吐司(狀態.卡.length === 小抄門檻 ? `🎁 集滿 ${小抄門檻} 張！點 📖 領小抄` : `📖 新知識卡：${c.標}（${狀態.卡.length}/${知識卡.length}）`);
   }
-  const 地點 = { rug: [206, 470], tree: [78, 186], bed: [328, 334], bowl: [266, 560], window: [300, 250], water: [178, 352] };
+  const 場景們 = {
+    living: { 名: '客廳', 點: { rug: [206, 470], tree: [78, 186], bed: [328, 334], bowl: [266, 560], window: [300, 250], water: [178, 352] }, 閒逛: [['rug', 'loaf'], ['window', 'sit'], ['rug', 'sit'], ['tree', 'loaf'], ['bed', 'sleep'], ['water', 'sit']] },
+    bedroom: { 名: '臥室', 點: { rug: [170, 490], bed: [300, 352], top: [70, 112], scratch: [292, 548], window: [205, 300] }, 閒逛: [['rug', 'loaf'], ['bed', 'sleep'], ['top', 'loaf'], ['rug', 'sit']] },
+    balcony: { 名: '陽台', 點: { rug: [206, 470], rail: [200, 330], grass: [282, 556], sun: [120, 444] }, 閒逛: [['rug', 'loaf'], ['sun', 'sleep'], ['rail', 'sit'], ['grass', 'sit']] },
+    clinic: { 名: '動物醫院', 點: { rug: [196, 380] }, 閒逛: [] },
+  };
+  let 場景 = 'living', 地點 = 場景們.living.點;
+  // 年齡：現實 1 天＝貓咪 1 週
+  const 開始年齡們 = [{ 週: 8, 字: '8 週', 說明: '小奶貓' }, { 週: 17, 字: '4 個月', 說明: '可以結紮了' }, { 週: 52, 字: '1 歲', 說明: '剛長大' }, { 週: 156, 字: '3 歲', 說明: '成貓' }, { 週: 416, 字: '8 歲', 說明: '熟齡貓' }];
+  function 週() { const c = 狀態.貓; if (c.種 === '香菇') return 416; return (c.起始週 || 52) + Math.floor((Date.now() - (c.領養 || 狀態.開始)) / 864e5); }
+  function 段() { const w = 週(); return w < 52 ? '幼貓' : w < 364 ? '成貓' : '熟齡'; }
+  function 年齡文字() { const w = 週(); return w < 16 ? `${w} 週大` : w < 52 ? `${Math.round(w / 4.345)} 個月大` : `${Math.floor(w / 52)} 歲`; }
+  function 體重() { if (狀態.貓.種 === '香菇') return 4.6; const 大 = 狀態.貓.性別 === '公' ? 4.5 : 3.8, w = 週(); return Math.round((w < 52 ? Math.max(.8, Math.min(大, .15 + w * .1)) : 大) * 10) / 10; }
+  function 成長比例() { const w = 週(); return w >= 52 ? 1 : Math.max(.58, Math.min(1, .58 + .42 * (w - 8) / 44)); }
   const svg = $('room'), 香菇 = $('shroom'), 遊戲 = $('game');
   let 狀態, 位置 = [...地點.rug], 忙 = false, 遊戲中 = false;
 
   const 貓 = () => 貓們[狀態.貓.種] || 貓們.香菇;
   const 名 = () => 狀態.貓.名;
   const 我 = () => 貓().自稱;
-  const 作息 = () => 狀態.貓.種 === '香菇' ? 香菇作息 : 階段們[狀態.貓.段] || 階段們.成貓;
+  function 作息() {
+    if (狀態.貓.種 === '香菇') return 香菇作息;
+    const w = 週(), kg = 體重();
+    if (w < 26) return { ...階段們.幼貓, 公斤: kg };
+    if (w < 52) return { ...階段們.幼貓, 公斤: kg, 餐: [8, 13, 19], 餐提示: '6 個月以上的幼貓，可以慢慢從 4 餐改成一天 3 餐' };
+    return { ...階段們[段()], 公斤: kg };
+  }
   const 喝水目標 = () => Math.round(作息().公斤 * 50);
   const 開飯時間 = () => 作息().餐;
   const 時 = t => String(t).padStart(2, '0') + ':00';
@@ -413,6 +575,10 @@
       s.連續 = s.簽到日 === 昨天 ? s.連續 + 1 : 1; s.簽到日 = 今天; s.已餵 = {}; s.水 = 0; s.首次 = true;
     }
     s.水 = s.水 || 0;
+    if (s.貓 && s.貓.起始週 == null) Object.assign(s.貓, { 起始週: { 幼貓: 12, 成貓: 104, 熟齡: 416 }[s.貓.段] || 52, 領養: s.開始, 性別: s.貓.種 === '香菇' ? '母' : '母', 疫苗: [8, 12, 16], 結紮: s.貓.段 === '幼貓' ? undefined : 'done' });
+    // 測試用：網址加 ?快轉=8 會讓貓咪長大 8 週
+    const 快 = parseInt(new URLSearchParams(location.search).get('快轉'));
+    if (s.貓 && 快 > 0) { s.貓.領養 -= 快 * 864e5; history.replaceState(null, '', location.pathname); }
     return s;
   }
   function 存() { 狀態.上次 = Date.now(); try { localStorage.setItem(鍵, JSON.stringify(狀態)); } catch (e) {} }
@@ -423,6 +589,8 @@
     $('b-water').querySelector('.fill').style.width = 夾(狀態.水 / 喝水目標() * 100) + '%';
     $('days').textContent = Math.floor((Date.now() - 狀態.開始) / 864e5) + 1; $('streak').textContent = 狀態.連續;
     $('title').textContent = '養一隻' + 名();
+    $('ageTxt').textContent = `${狀態.貓.性別 === '公' ? '♂' : '♀'} ${年齡文字()}・${體重()} kg`;
+    document.querySelectorAll('#rooms button').forEach(b => b.classList.toggle('on', b.dataset.s === 場景));
     const h = new Date().getHours() + new Date().getMinutes() / 60;
     const 下一餐 = 開飯時間().find(t => t >= h - 0.75 && !狀態.已餵[t]);
     $('meals').innerHTML = `<em>${名()}一天 ${開飯時間().length} 餐</em>` + 開飯時間().map(t => `<span class="${狀態.已餵[t] ? 'done' : t === 下一餐 ? 'next' : ''}">${時(t)}</span>`).join('');
@@ -436,17 +604,24 @@
     const 色 = { 毛: c.毛, 白: c.白 ? '#FCFAF4' : c.毛, 巾: c.巾, 眼: c.眼 };
     for (const a of ['fill', 'stroke']) root.querySelectorAll(`[data-p${a}]`).forEach(el => el.setAttribute(a, 色[el.dataset['p' + a]]));
   }
-  function 套貓() { 上色(香菇, 貓()); 上色($('photo'), 貓()); 香菇.setAttribute('aria-label', 名()); 畫(); }
+  function 套貓() {
+    const 小 = 週() < 12 && 狀態.貓.種 !== '香菇';
+    上色(香菇, 小 ? { ...貓(), 眼: '#8FB8D8' } : 貓()); 上色($('photo'), 貓());
+    香菇.classList.toggle('kitten', 週() < 26);
+    香菇.classList.toggle('cone', 狀態.貓.結紮 === 'done' && Date.now() - (狀態.貓.結紮日 || 0) < 864e5);
+    $('puddle').style.display = 狀態.貓.結紮 === 'later' && 狀態.貓.性別 === '公' && 狀態.貓.上次發情 ? '' : 'none';
+    香菇.setAttribute('aria-label', 名()); 放(...位置); 畫();
+  }
 
   // ── 座標換算 ──
   function 到螢幕(x, y) { const p = svg.createSVGPoint(); p.x = x; p.y = y; const q = p.matrixTransform(svg.getScreenCTM()); const g = 遊戲.getBoundingClientRect(); return { x: q.x - g.left, y: q.y - g.top }; }
   function 到房間(cx, cy) { const p = svg.createSVGPoint(); p.x = cx; p.y = cy; return p.matrixTransform(svg.getScreenCTM().inverse()); }
   const 比例 = y => (0.85 + (y - 180) / 400 * 0.55) * 1.3;
-  function 放(x, y) { 位置 = [x, y]; 香菇.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${比例(y).toFixed(3)})`); 對話位置(); }
+  function 放(x, y) { 位置 = [x, y]; 香菇.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${(比例(y) * (狀態 && 狀態.貓 ? 成長比例() : 1)).toFixed(3)})`); 對話位置(); }
 
   // ── 說話 ──
   let 說話計時;
-  function 對話位置() { const p = 到螢幕(位置[0], 位置[1] - 78 * 比例(位置[1])); const b = $('bubble'); b.style.left = Math.max(110, Math.min(遊戲.clientWidth - 110, p.x)) + 'px'; b.style.top = Math.max(170, p.y) + 'px'; }
+  function 對話位置() { const p = 到螢幕(位置[0], 位置[1] - 78 * 比例(位置[1])); const b = $('bubble'); b.style.left = Math.max(110, Math.min(遊戲.clientWidth - 110, p.x)) + 'px'; b.style.top = Math.max(200, p.y) + 'px'; }
   function 說(文, 小 = '', 秒 = 3.8) { const b = $('bubble'); b.innerHTML = 文 + (小 ? `<small>${小}</small>` : ''); 對話位置(); b.classList.remove('hide'); clearTimeout(說話計時); 說話計時 = setTimeout(() => b.classList.add('hide'), 秒 * 1000); }
   function 愛心(n = 3) { const p = 到螢幕(位置[0], 位置[1] - 50 * 比例(位置[1])); for (let i = 0; i < n; i++) { const h = document.createElement('span'); h.className = 'heart'; h.textContent = '♥'; h.style.left = (p.x - 8 + Math.random() * 30 - 15) + 'px'; h.style.top = p.y + 'px'; h.style.setProperty('--dx', (Math.random() * 50 - 25) + 'px'); h.style.animationDelay = i * .12 + 's'; 遊戲.append(h); setTimeout(() => h.remove(), 1600); } }
   const 姿勢 = p => 香菇.dataset.pose = p;
@@ -467,7 +642,8 @@
   setInterval(() => { if (!香菇.classList.contains('happy')) { 香菇.classList.add('blink'); setTimeout(() => 香菇.classList.remove('blink'), 220); } }, 3600);
   setInterval(() => {
     if (忙 || 遊戲中 || !$('sheet').hidden) return;
-    const 選 = [['rug', 'loaf'], ['window', 'sit'], ['rug', 'sit'], ['tree', 'loaf'], ['bed', 'sleep'], ['water', 'sit']][Math.floor(Math.random() * 6)];
+    const 清單 = 場景們[場景].閒逛; if (!清單.length) return;
+    const 選 = 清單[Math.floor(Math.random() * 清單.length)];
     走到(地點[選[0]], () => {
       姿勢(選[1]);
       if (狀態.飽足 < 35) 說('💭 肚子好餓…', `${名()}在提醒你該開飯了`, 3);
@@ -490,13 +666,15 @@
 
   // ── 選貓 ──
   function 選貓畫面(第一次) {
-    let 選 = 狀態.貓?.種 || '香菇', 段 = 狀態.貓?.段 || '幼貓';
+    let 選 = 狀態.貓?.種 || '香菇', 起 = 8, 性 = 狀態.貓?.性別 || '母';
     const 鎖 = k => 隱藏貓.includes(k) && !狀態.解鎖貓;
     const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${鎖(k) ? '傳暗號解鎖' : c.介紹}</small></button>`).join('');
     開卡(`<h3>${第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
       <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
       <div class="cats">${卡們}</div>
-      <div id="ageBox"><h4>牠幾歲？</h4><div class="row-opts">${Object.entries(階段們).map(([k, a]) => `<button class="opt" data-a="${k}">${a.字}<small>${a.說明}</small></button>`).join('')}</div></div>
+      <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
+      <h4>從幾歲開始養？</h4><div class="ages">${開始年齡們.map(a => `<button class="opt" data-a="${a.週}">${a.字}<small>${a.說明}</small></button>`).join('')}</div>
+      <p class="lead" style="margin:8px 0 0">現實 1 天，貓咪長大 1 週。從小奶貓開始，就能陪牠打疫苗、結紮、慢慢長大</p></div>
       <p class="lead" id="shroomNote" style="margin-top:12px">香菇是 <b>8 歲的熟齡貓</b>，作息照真的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
       <h4>幫牠取名字</h4><input class="name" id="nameIn" maxlength="8" aria-label="貓咪的名字">
       <button class="go" id="goBtn">${第一次 ? '開始養 🐾' : '就是牠了'}</button>
@@ -509,19 +687,23 @@
     document.querySelectorAll('.catopt svg').forEach(s => { const g = 原型.cloneNode(true); g.setAttribute('filter', 'url(#hand)'); g.setAttribute('stroke', '#45372C'); g.setAttribute('stroke-width', '2'); g.setAttribute('stroke-linejoin', 'round'); s.append(g); 上色(s, 貓們[s.dataset.k]); });
     const 刷新 = (換名) => {
       document.querySelectorAll('.catopt').forEach(b => b.classList.toggle('on', b.dataset.k === 選));
-      document.querySelectorAll('[data-a]').forEach(b => b.classList.toggle('on', b.dataset.a === 段));
+      document.querySelectorAll('[data-a]').forEach(b => b.classList.toggle('on', +b.dataset.a === 起));
+      document.querySelectorAll('[data-x]').forEach(b => b.classList.toggle('on', b.dataset.x === 性));
       $('ageBox').hidden = 選 === '香菇'; $('shroomNote').hidden = 選 !== '香菇';
       if (換名) $('nameIn').value = 選;
     };
     $('nameIn').value = 狀態.貓?.名 || 選;
     document.querySelectorAll('.catopt').forEach(b => b.onclick = () => { if (鎖(b.dataset.k)) return 解鎖貓畫面(() => 選貓畫面(第一次)); 選 = b.dataset.k; 刷新(true); });
-    document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { 段 = b.dataset.a; 刷新(false); });
+    document.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { 起 = +b.dataset.a; 刷新(false); });
+    document.querySelectorAll('[data-x]').forEach(b => b.onclick = () => { 性 = b.dataset.x; 刷新(false); });
     刷新(false);
     $('goBtn').onclick = () => {
-      const 換了 = 狀態.貓?.種 !== 選 || 狀態.貓?.段 !== 段;
-      狀態.貓 = { 種: 選, 段: 選 === '香菇' ? '熟齡' : 段, 名: ($('nameIn').value.trim() || 選).slice(0, 8) };
-      if (換了) 狀態.已餵 = {};
-      存(); 套貓(); 關卡();
+      const 香 = 選 === '香菇', 起週 = 香 ? 416 : 起;
+      狀態.貓 = { 種: 選, 名: ($('nameIn').value.trim() || 選).slice(0, 8), 性別: 香 ? '母' : 性, 起始週: 起週, 領養: Date.now(), 上次週: 起週,
+        疫苗: [8, 12, 16].filter(d => d < 起週), 結紮: 香 || 起週 >= 52 ? 'done' : undefined };
+      狀態.已餵 = {};
+      存(); 關卡(); 去場景('living', null, true); 套貓();
+      if (週() < 12) setTimeout(() => 解鎖('藍眼睛'), 6000);
       走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
     };
   }
@@ -543,15 +725,16 @@
 
   // ── 存檔碼：把貓打包成一串字，傳到 LINE 存著，換手機貼回來就好 ──
   function 打包() {
-    const o = [狀態.貓.種, 狀態.貓.段, 狀態.貓.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.解鎖貓 ? 1 : 0];
+    const c = 狀態.貓, o = [c.種, 週(), c.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.解鎖貓 ? 1 : 0, c.性別, c.結紮 || '', c.疫苗 || []];
     return 'MC' + btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/, '');
   }
   function 解包(文) {
     const m = /MC([A-Za-z0-9+/]{8,})/.exec(文 || ''); if (!m) return false;
     try {
-      const [種, 段, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      const [種, 齡, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓, 性別, 結紮, 疫苗] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      const w = typeof 齡 === 'number' ? 齡 : ({ 幼貓: 12, 成貓: 104, 熟齡: 416 }[齡] || 52);
       if (!貓們[種]) return false;
-      Object.assign(狀態, { 貓: { 種, 段, 名: String(名字).slice(0, 8) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 解鎖貓: !!解鎖貓, 已餵: {}, 簽到日: new Date().toDateString() });
+      Object.assign(狀態, { 貓: { 種, 名: String(名字).slice(0, 8), 性別: 性別 || '母', 起始週: w, 領養: Date.now(), 上次週: w, 結紮: 結紮 || (w >= 52 ? 'done' : undefined), 疫苗: 疫苗 || [8, 12, 16].filter(d => d < w) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 解鎖貓: !!解鎖貓, 已餵: {}, 簽到日: new Date().toDateString() });
       存(); 套貓(); return true;
     } catch (e) { return false; }
   }
@@ -586,6 +769,7 @@
   // ── 餵飯：選乾飼料或主食罐 ──
   function 餵飯() {
     if (忙 || 遊戲中) return;
+    if (場景 !== 'living') return 去場景('living', 餵飯);
     if (狀態.飽足 >= 90) { 走到(地點.rug, () => { 姿勢('sit'); 說(`${我()}吃飽了，晚點再說`, '飽足快滿了 ~ 吃太多會胖喔'); 解鎖('吃太飽'); }); return; }
     開卡(`<h3>要餵${名()}吃什麼？</h3><p class="lead">${作息().餐提示}</p>
       <div class="opts"><button class="opt" data-f="dry">乾飼料<small>方便保存，記得另外補充水分</small></button><button class="opt" data-f="wet">主食罐<small>大約 7～8 成是水分，吃飯也能順便補水</small></button></div>`);
@@ -610,7 +794,7 @@
         else 說(`嗯…${我()}勉強吃了`, `${名()}一天 ${開飯時間().length} 餐 ~ 看上面的開飯時間${水話}`, 4.4);
         愛心(2); 存(); 畫(); 忙 = false;
         if (這餐) 解鎖('準時');
-        解鎖('餐-' + (狀態.貓.種 === '香菇' ? '熟齡' : 狀態.貓.段));
+        解鎖('餐-' + (狀態.貓.種 === '香菇' ? '熟齡' : 段()));
         if (濕) 解鎖('主食罐');
       }, 2800);
     });
@@ -621,6 +805,7 @@
   let 喝次 = 0;
   function 喝水() {
     if (忙 || 遊戲中) return;
+    if (場景 !== 'living') return 去場景('living', 喝水);
     忙 = true;
     走到(地點.water, () => {
       姿勢('eat'); 香菇.classList.add('eating');
@@ -656,6 +841,7 @@
   // ── 睡午覺（點窩或貓跳台）──
   function 睡午覺(去樹上) {
     if (忙 || 遊戲中) return;
+    if (場景 !== 'living') return 去場景('living', () => 睡午覺(去樹上));
     走到(去樹上 ? 地點.tree : 地點.bed, () => { 姿勢('sleep'); 狀態.心情 = Math.min(100, 狀態.心情 + 5); 存(); 畫(); 說('zzz…', `貓咪一天要睡 12～16 小時 ~ ${去樹上 ? '高處讓牠覺得安全' : '有自己的窩牠才睡得安穩'}`, 3.6); 解鎖('睡覺'); });
   }
 
@@ -675,6 +861,7 @@
   let 出題序 = [], 效果計時;
   function 讀心術() {
     if (忙 || 遊戲中) return;
+    if (場景 !== 'living') return 去場景('living', 讀心術);
     if (!出題序.length) 出題序 = 情境們.map((_, i) => i).sort(() => Math.random() - .5);
     const 題號 = 出題序.pop(), q = 情境們[題號];
     忙 = true;
@@ -744,6 +931,120 @@
     說(撲中 >= 6 ? `${我()}今天狀態超好！` : 撲中 >= 3 ? `還算盡興，明天再陪${我()}玩` : `${我()}今天沒什麼興致…`, `撲中 ${撲中} 次 ~ 每天 2～3 次狩獵遊戲，室內貓才有運動`, 5.5);
   }
 
+  // ── 換房間 ──
+  function 去場景(id, 然後, 立刻) {
+    if (場景 === id && !立刻) { 然後 && 然後(); return; }
+    const 換 = () => {
+      for (const k in 場景們) $('scene-' + k).style.display = k === id ? '' : 'none';
+      場景 = id; 地點 = 場景們[id].點;
+      if (id !== 'clinic' && 狀態) { 狀態.場景 = id; 存(); }
+      放(...地點.rug); 姿勢('sit'); if (狀態 && 狀態.貓) 畫(); svg.style.opacity = 1;
+      然後 && 然後();
+    };
+    if (立刻) return 換();
+    svg.style.opacity = 0; setTimeout(換, 260);
+  }
+  document.querySelectorAll('#rooms button').forEach(b => b.onclick = () => { if (!忙 && !遊戲中) 去場景(b.dataset.s, () => 說(場景們[b.dataset.s].名, '', 1.4)); });
+  function 互動(點, 姿, 文, 小, 卡, 特效) {
+    if (忙 || 遊戲中) return;
+    忙 = true;
+    走到(地點[點], () => {
+      姿勢(姿); if (特效) 香菇.classList.add(特效);
+      說(文, 小, 4);
+      setTimeout(() => { if (特效) 香菇.classList.remove(特效); 忙 = false; 解鎖(卡); 狀態.心情 = Math.min(100, 狀態.心情 + 3); 存(); 畫(); }, 2200);
+    }, 點 === 'top' ? .6 : null);
+  }
+  $('t-wardrobe').onclick = () => 互動('top', 'loaf', `${我()}最喜歡高的地方`, '待在高處可以觀察四周、覺得安全', '高處');
+  $('t-humanbed').onclick = () => 互動('bed', 'sleep', 'zzz… 人類的床最好睡', '很多貓咪喜歡跟你一起睡，床單要常常換洗', '睡覺');
+  $('t-scratch').onclick = () => 互動('scratch', 'crouch', '唰唰唰～', '磨爪是在整理指甲、留下自己的氣味', '磨爪', 'scratching');
+  $('t-net').onclick = () => 互動('rail', 'sit', '外面好多東西喔…', '貓咪可能為了追鳥跳出去，陽台一定要裝防墜網', '防墜網');
+  $('t-bird').onclick = () => 互動('rail', 'sit', '喀喀喀喀…', '看到鳥抓不到，興奮得一直「喀喀叫」', '心5');
+  $('t-grass').onclick = () => 互動('grass', 'eat', '嚼嚼嚼…', '要選貓咪專用的貓草，家裡別放對貓有毒的植物', '貓草', 'eating');
+  $('t-sun').onclick = () => 互動('sun', 'sleep', '好暖和～', '曬太陽要有遮蔭和水，夏天別曬太久', '曬太陽');
+
+  // ── 長大：每過一天＝長大一週 ──
+  function 檢查長大() {
+    const c = 狀態.貓; if (!c || c.種 === '香菇') return;
+    const w = 週(), 前 = c.上次週 || w;
+    if (w <= 前) return;
+    c.上次週 = w; 存(); 套貓();
+    吐司(`🎂 ${名()}長大了！現在 ${年齡文字()}`);
+    if (前 < 26 && w >= 26) setTimeout(() => 解鎖('半歲'), 3000);
+    if (前 < 52 && w >= 52) setTimeout(() => 解鎖('換糧'), 3000);
+  }
+  function 回家() { 關卡(); 去場景(狀態.場景 && 狀態.場景 !== 'clinic' ? 狀態.場景 : 'living', () => { 忙 = false; }); }
+  // ── 動物醫院的事件：疫苗、結紮、發情 ──
+  function 檢查事件() {
+    const c = 狀態.貓;
+    if (!c || c.種 === '香菇' || 忙 || 遊戲中 || !$('sheet').hidden) return;
+    const w = 週(), 今天 = new Date().toDateString();
+    c.疫苗 = c.疫苗 || [];
+    const 劑 = [8, 12, 16].find(d => w >= d && !c.疫苗.includes(d));
+    if (劑 && Date.now() > (c.疫苗延後 || 0)) return 疫苗事件(劑);
+    if (w >= 16 && !c.結紮) return 結紮提示();
+    if (c.結紮 === 'later' && w < 26 && c.提醒日 !== 今天) return 結紮提示();
+    if (c.結紮 === 'later' && w >= 26 && Date.now() - (c.上次發情 || 0) > 3 * 60e3) return 發情事件();
+  }
+  function 疫苗事件(劑) {
+    const 第 = [8, 12, 16].indexOf(劑) + 1;
+    開卡(`<h3>💉 該打第 ${第} 劑疫苗了</h3><p class="lead">${名()}現在 ${年齡文字()}。幼貓大約 8 週打第一劑，之後每 3～4 週一劑，通常打到 16 週左右</p>
+      <button class="go" id="evGo">帶${名()}去打疫苗</button><button class="ghost-btn" id="evLater">晚點再去</button>
+      <button class="line-btn" id="evLine">到 LINE 領疫苗懶人包<small>會打開香菇爸 LINE，按送出就好</small></button>`);
+    $('evLine').onclick = () => 開LINE('我要領貓咪疫苗懶人包');
+    $('evLater').onclick = () => { 狀態.貓.疫苗延後 = Date.now() + 10 * 60e3; 存(); 關卡(); };
+    $('evGo').onclick = () => {
+      關卡(); 忙 = true;
+      去場景('clinic', () => {
+        姿勢('sit'); 說('咻～一下就好！', `獸醫正在幫${名()}打第 ${第} 劑疫苗`, 3);
+        setTimeout(() => {
+          狀態.貓.疫苗.push(劑); 狀態.親密 = Math.min(100, 狀態.親密 + 2); 存(); 愛心(2); 解鎖('疫苗');
+          開卡(`<h3>打好了！</h3><div class="explain"><b>打完疫苗後</b>當天讓牠好好休息，留意有沒有沒精神、吃不下或打針的地方腫起來，有狀況就回診。${第 < 3 ? '疫苗還沒打完前，先不要出門或接觸外面的貓' : '幼貓疫苗打完了，之後照獸醫建議每年補強'}</div><button class="go" id="evHome">帶${名()}回家</button>`);
+          $('evHome').onclick = 回家;
+        }, 3200);
+      });
+    };
+  }
+  function 結紮提示() {
+    const c = 狀態.貓, 晚 = 週() >= 26;
+    開卡(`<h3>🏥 ${名()}可以結紮了</h3><p class="lead">${名()}現在 ${年齡文字()}。一般建議 <b>4～6 個月大</b>結紮${晚 ? '，現在已經可能開始發情了' : ''}</p>
+      <ul class="event-list"><li>避免發情時一直叫、到處噴尿、想往外衝</li><li>減少走失和打架受傷</li><li>也能減少一些生殖系統疾病的風險，細節可以問獸醫</li></ul>
+      <button class="go" id="evGo">帶${名()}去結紮</button><button class="ghost-btn" id="evLater">先不要</button>
+      <button class="line-btn" id="evLine">到 LINE 領結紮懶人包（含補助）<small>很多縣市有結紮補助，按送出就好</small></button>`);
+    $('evLine').onclick = () => 開LINE('我要領結紮懶人包');
+    $('evLater').onclick = () => { c.結紮 = 'later'; c.提醒日 = new Date().toDateString(); 存(); 關卡(); 說('好吧…', `6 個月大之後，${名()}就可能開始發情喔`, 4); };
+    $('evGo').onclick = 結紮手術;
+  }
+  function 結紮手術() {
+    關卡(); 忙 = true;
+    去場景('clinic', () => {
+      姿勢('sleep'); 說('麻醉中，睡一下就好…', `獸醫正在幫${名()}結紮`, 3.4);
+      setTimeout(() => {
+        Object.assign(狀態.貓, { 結紮: 'done', 結紮日: Date.now() });
+        狀態.心情 = Math.max(10, 狀態.心情 - 10); 存(); 套貓(); 姿勢('sit');
+        解鎖('結紮'); setTimeout(() => 解鎖('術後'), 3000);
+        開卡(`<h3>結紮完成！</h3><div class="explain"><b>回家後這樣照顧</b>術後 7～10 天要戴頭套或穿術後衣，不要讓牠舔傷口。當天可能比較沒精神、吃得比較少，放在安靜的地方休息就好。傷口紅腫或一直沒精神，要回診</div><button class="go" id="evHome">帶${名()}回家</button>`);
+        $('evHome').onclick = 回家;
+      }, 3600);
+    });
+  }
+  function 發情事件() {
+    const c = 狀態.貓, 母 = c.性別 !== '公';
+    c.上次發情 = Date.now(); 狀態.心情 = Math.max(10, 狀態.心情 - 8); 存(); 忙 = true;
+    const 演 = () => {
+      if (母) { 姿勢('loaf'); 香菇.classList.add('roll'); 說('喵嗚～～嗚嗚～～～', `${名()}在大聲叫春，還在地上打滾`, 4); }
+      else { 走到(地點.window || 地點.rug, () => { 姿勢('sit'); $('puddle').style.display = ''; 說('（到處噴尿做記號…）', `${名()}一直想往外衝`, 4); }); }
+      setTimeout(() => {
+        香菇.classList.remove('roll'); 忙 = false; 解鎖('發情');
+        開卡(`<h3>🔥 ${名()}發情了</h3><p class="lead">${母 ? '母貓發情會大聲叫春、在地上打滾、翹屁股' : '公貓發情會到處噴尿做記號、一直想往外衝'}。發情可能每 2～3 週就來一次，牠自己也很不舒服、睡不好</p>
+          <button class="go" id="evGo">帶${名()}去結紮</button><button class="ghost-btn" id="evLater">再等等</button>`);
+        $('evGo').onclick = () => { $('puddle').style.display = 'none'; 結紮手術(); };
+        $('evLater').onclick = 關卡;
+      }, 4500);
+    };
+    場景 === 'living' ? 演() : 去場景('living', 演);
+  }
+  setInterval(() => { if (狀態 && 狀態.貓) { 檢查長大(); 檢查事件(); } }, 30000);
+
   // 房間裡的東西都可以點
   $('t-bowl').onclick = 餵飯; $('feed').onclick = 餵飯;
   $('t-water').onclick = 喝水; $('drink').onclick = 喝水;
@@ -753,11 +1054,11 @@
   for (const id of ['t-bowl', 't-water', 't-toy', 't-bed', 't-tree']) $(id).addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $(id).onclick(); } });
 
   // ── 開始 ──
-  狀態 = 讀(); 放(...地點.rug); 姿勢('loaf');
+  狀態 = 讀(); 去場景(狀態.場景 && 狀態.場景 !== 'clinic' ? 狀態.場景 : 'living', null, true); 姿勢('loaf');
   addEventListener('resize', 對話位置);
-  if (!狀態.貓) { 狀態.貓 = { 種: '香菇', 段: '熟齡', 名: '香菇' }; 套貓(); 選貓畫面(true); }
+  if (!狀態.貓) { 狀態.貓 = { 種: '香菇', 名: '香菇', 性別: '母', 起始週: 416, 領養: Date.now(), 結紮: 'done', 疫苗: [8, 12, 16] }; 套貓(); 選貓畫面(true); }
   else {
-    套貓();
+    套貓(); setTimeout(() => { 檢查長大(); 檢查事件(); }, 7500);
     setTimeout(() => {
       if (狀態.首次) { 狀態.首次 = false; 存(); 說(狀態.連續 > 1 ? `你回來啦～連續第 ${狀態.連續} 天了` : `你回來啦～${我()}等你好久了`, 狀態.飽足 < 40 ? `${名()}有點餓了 ~ 點飯碗餵牠` : '點房間裡的東西，照顧牠吧', 6.5); }
       else 說(狀態.飽足 < 40 ? `${我()}有點餓…` : '喵～', 狀態.飽足 < 40 ? '點飯碗餵飯' : '', 3);
