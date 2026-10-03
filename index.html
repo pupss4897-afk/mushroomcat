@@ -468,7 +468,23 @@
             #tab-home .feature-card:nth-child(2) .fico { animation-delay: -.9s; } #tab-home .feature-card:nth-child(3) .fico { animation-delay: -1.8s; } #tab-home .feature-card:nth-child(4) .fico { animation-delay: -2.7s; }
             @keyframes hxFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         }
-    </style>
+    
+    /* 菇粉分頁整理（2026-10） */
+    #tab-fan .fan-compact .lead{margin-bottom:12px}
+    #tab-fan .tier-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-bottom:12px}
+    #tab-fan .tier-row div{padding:10px 8px;border-radius:14px;background:#fff;border:1px solid #eadfcd;text-align:center}
+    #tab-fan .tier-row div.on{border-color:#e8a39b;background:#fff7f5}
+    #tab-fan .tier-row span{display:block;font-size:20px}
+    #tab-fan .tier-row b{display:block;font-size:13.5px}
+    #tab-fan .tier-row small{display:block;font-size:10.5px;color:#958a79}
+    #tab-fan .tier-row i{font-style:normal;color:#958a79}
+    #tab-fan .fan-compact .fan-perks{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+    #tab-fan .fan-compact .fan-perks li{margin:0;padding:8px 9px}
+    #tab-fan .fan-compact .fan-perks .pt{font-size:12.5px}
+    #tab-fan .fan-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+    #tab-fan .fan-links a{color:#5a5246;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:14px;background:#fff;border:1px solid #eadfcd;font-weight:700;font-size:13px}
+    #tab-fan .fan-links img{width:24px;height:24px;object-fit:contain}
+</style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -787,39 +803,8 @@
 
         <!-- ===== 菇粉專區 ===== -->
         <section class="tab-panel" id="tab-fan">
-            <div class="section-title">👑 菇粉福利</div>
-            <div class="fan-hero">
-                <div class="fan-top"><img class="cat" src="icons/fan-cat.png?v=3" alt=""><h3>菇粉專區</h3></div>
-                <p class="lead">香菇爸陪你一起把毛孩顧好。跟團香菇同款好物，累積滿 $2,000 即成為菇粉 👑</p>
-                <div class="divider">—— 成為菇粉，你能享有 ——</div>
-                <ul class="fan-perks">
-                    <li><img class="pi" src="icons/course.png?v=3" alt=""><span class="pt">專業 Zoom 系列課程</span></li>
-                    <li><img class="pi" src="icons/livetalk.png?v=3" alt=""><span class="pt">每週 Livetalk 直播</span></li>
-                    <li><img class="pi" src="icons/fan-chat.png?v=3" alt=""><span class="pt">專屬社群 ＋ 香菇爸諮詢</span></li>
-                    <li><img class="pi" src="icons/catmeet.png?v=3" alt=""><span class="pt">菇粉專屬貓聚</span></li>
-                    <li><img class="pi" src="icons/newdeal.png?v=3" alt=""><span class="pt">新品開團・優惠優先</span></li>
-                    <li><img class="pi" src="icons/reward.png?v=3" alt=""><span class="pt">年度累積福利禮</span></li>
-                </ul>
-                <a class="cta-line" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉專區-加入LINE">
-                    <span class="ico">🍄</span>
-                    <span class="tx"><span class="t">加入 LINE ，成為菇粉</span><span class="d">課程・直播・社群・貓聚都在這</span></span>
-                    <span class="arrow">›</span>
-                </a>
-            </div>
-
-            <div class="section-title">🏅 菇粉會員等級</div>
-            <div class="tier-card tier-0">
-                <span class="tier-ic">🌱</span>
-                <div class="tx2"><span class="tn">新朋友・體驗生<b class="lvl-in">LV.0</b></span><span class="tc">還沒跟過團</span><span class="tu">🎟️ 看得到全部課程・專屬直播享 1 次免費體驗</span></div>
-            </div>
-            <div class="tier-conn"><span>↑ 跟團累積滿 $2,000 升級</span></div>
-            <div class="tier-card tier-1">
-                <span class="tier-ic">🍄</span>
-                <div class="tx2"><span class="tn">菇粉・正式生<b class="lvl-in">LV.1</b></span><span class="tc">正式入園</span><span class="tu">🔓 全部直播 · 特別進修 · 專屬社群 · 貓聚 · 開團優先</span></div>
-            </div>
-            <p class="member-note">💡 想知道你目前的等級？加入香菇爸 <b>LINE</b> 查詢；累積滿 <b>$2,000</b> 自動升級 🍄</p>
-
-            <div class="section-title">🎓 8 月課程・直播表</div>
+            <!-- ① 這個月的課程：最常被找的放最上面 -->
+            <div class="section-title">🎓 10 月課程・直播表</div>
             <div class="course-group open">
                 <div class="course-head">
                     <span class="ch-ic">📖</span>
@@ -827,14 +812,12 @@
                     <span class="chev">▾</span>
                 </div>
                 <div class="course-block">
-                    <div class="course-item"><span class="cdate">8/3</span><span class="cx"><span class="ct">幼貓最容易養錯的 3 件事</span><span class="cd">新手毛家長最常踩的雷</span></span></div>
-                    <div class="course-item"><span class="cdate">8/10</span><span class="cx"><span class="ct">什麼原因導致軟便臭便、毛沒光澤</span><span class="cd">從飲食與日常找原因</span></span></div>
-                    <div class="course-item"><span class="cdate">8/17</span><span class="cx"><span class="ct">為什麼突然開始挑食？</span><span class="cd">挑食背後的原因與應對</span></span></div>
-                    <div class="course-item"><span class="cdate">8/24</span><span class="cx"><span class="ct">你以為是在愛牠，其實可能害了牠？</span><span class="cd">好意卻做錯的日常照護</span></span></div>
-                    <div class="course-item"><span class="cdate">8/31</span><span class="cx"><span class="ct">毛爸媽最容易相信的 5 個都市傳說</span><span class="cd">一次破解常見迷思</span></span></div>
+                    <div class="course-item"><span class="cdate">10/5</span><span class="cx"><span class="ct">看懂貓咪的身體語言</span><span class="cd">尾巴、耳朵、嘴型，牠都在跟你說話</span></span></div>
+                    <div class="course-item"><span class="cdate">10/12</span><span class="cx"><span class="ct">寵物展回顧・毛家長最常問的 5 件事</span><span class="cd">現場問題一次整理回答</span></span></div>
+                    <div class="course-item"><span class="cdate">10/19</span><span class="cx"><span class="ct">幼貓換糧全攻略</span><span class="cd">什麼時候換、怎麼換才不拉肚子</span></span></div>
+                    <div class="course-item"><span class="cdate">10/26</span><span class="cx"><span class="ct">看懂飼料包裝背面</span><span class="cd">蛋白質、原料、穀物怎麼看</span></span></div>
                 </div>
             </div>
-
             <div class="course-group">
                 <div class="course-head">
                     <span class="ch-ic">📚</span>
@@ -842,13 +825,9 @@
                     <span class="chev">▾</span>
                 </div>
                 <div class="course-block">
-                    <div class="course-item"><span class="cdate">8/1</span><span class="cx"><span class="ct">犬貓腸胃照護實戰</span><span class="cd">週六 14:00・腸胃日常照護一次學會</span></span><span class="lock">🔒</span></div>
-                    <div class="course-item"><span class="cdate">8/15</span><span class="cx"><span class="ct">養出不挑食貓貓</span><span class="cd">週六 14:00・從小建立好食慾</span></span><span class="lock">🔒</span></div>
-                    <div class="course-item"><span class="cdate">8/18</span><span class="cx"><span class="ct">貓狗關節保養</span><span class="cd">週二 21:00・日常活動與生活環境調整</span></span><span class="lock">🔒</span></div>
-                    <div class="course-item"><span class="cdate">8/29</span><span class="cx"><span class="ct">腎臟保養</span><span class="cd">週六 14:00・平日該注意的小細節</span></span><span class="lock">🔒</span></div>
+                    <div class="course-item"><span class="cdate">10 月</span><span class="cx"><span class="ct">場次陸續公布</span><span class="cd">加入 LINE，第一時間收到主題和時間</span></span><span class="lock">🔒</span></div>
                 </div>
             </div>
-
             <div class="course-group">
                 <div class="course-head">
                     <span class="ch-ic">🗓️</span>
@@ -862,13 +841,31 @@
                 </div>
             </div>
 
-            <p class="member-note">🔒 <b>特別邀請・進修系列 &amp; 專屬直播</b>為菇粉專屬。沒跟過團的新朋友，可享 <b>1 次免費體驗</b>！加入 LINE 領取上課通知與連結 👇</p>
-            <a class="cta-line" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉課程-加入LINE" style="margin-bottom:14px;">
-                <span class="ico">🎓</span>
-                <span class="tx"><span class="t">加入 LINE ，解鎖菇粉課程</span><span class="d">上課通知・專屬直播連結都在這</span></span>
-                <span class="arrow">›</span>
-            </a>
+            <!-- ② 成為菇粉：福利＋等級合成一張 -->
+            <div class="section-title">👑 成為菇粉</div>
+            <div class="fan-hero fan-compact">
+                <p class="lead">跟團香菇同款好物，累積滿 <b>$2,000</b> 就是菇粉 ~ 還沒跟過團的新朋友，專屬直播可以<b>免費體驗 1 次</b></p>
+                <div class="tier-row">
+                    <div><span>🌱</span><b>新朋友</b><small>LV.0・體驗 1 次</small></div>
+                    <i>→</i>
+                    <div class="on"><span>🍄</span><b>菇粉</b><small>LV.1・全部解鎖</small></div>
+                </div>
+                <ul class="fan-perks">
+                    <li><img class="pi" src="icons/course.png?v=3" alt=""><span class="pt">Zoom 系列課程</span></li>
+                    <li><img class="pi" src="icons/livetalk.png?v=3" alt=""><span class="pt">每週直播</span></li>
+                    <li><img class="pi" src="icons/fan-chat.png?v=3" alt=""><span class="pt">專屬社群＋諮詢</span></li>
+                    <li><img class="pi" src="icons/catmeet.png?v=3" alt=""><span class="pt">菇粉貓聚</span></li>
+                    <li><img class="pi" src="icons/newdeal.png?v=3" alt=""><span class="pt">開團優先</span></li>
+                    <li><img class="pi" src="icons/reward.png?v=3" alt=""><span class="pt">年度福利禮</span></li>
+                </ul>
+                <a class="cta-line" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉專區-加入LINE">
+                    <span class="ico">🍄</span>
+                    <span class="tx"><span class="t">加入 LINE，收上課通知</span><span class="d">直播連結・等級查詢・開團都在這</span></span>
+                    <span class="arrow">›</span>
+                </a>
+            </div>
 
+            <!-- ③ 菇粉活動 -->
             <div class="section-title">🎉 菇粉活動</div>
             <div class="sched-card">
                 <span class="badge">📸</span>
@@ -885,29 +882,11 @@
                 <span class="sx"><span class="st">新品開團・優惠優先</span><span class="sd">菇粉搶先跟團、享專屬優惠</span></span>
                 <span class="tag">不定期</span>
             </div>
-            <p class="sched-note">📌 最新場次與報名，皆以香菇爸 LINE 公告為準。</p>
-
-            <div class="section-title">🔗 菇粉專屬入口</div>
-            <a class="row-card" href="https://agentone.metaepoch.life/link/channels/ifVUGO3ckT" target="_blank" rel="noopener">
-                <img class="rico" src="icons/live.png?v=3" alt="">
-                <span class="tx"><span class="t">報名護貓直播</span><span class="d">加入香菇爸 LINE，領直播通知</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card" href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener">
-                <img class="rico" src="icons/group.png?v=3" alt="">
-                <span class="tx"><span class="t">菇粉專屬社群</span><span class="d">和毛家長一起聊主子、玩活動</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener">
-                <img class="rico" src="icons/newdeal.png?v=3" alt="">
-                <span class="tx"><span class="t">跟團香菇同款好物</span><span class="d">累積入園、成為菇粉</span></span>
-                <span class="arrow">›</span>
-            </a>
-            <a class="row-card" href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener">
-                <img class="rico" src="icons/ig.png?v=3" alt="">
-                <span class="tx"><span class="t">追蹤香菇爸 IG</span><span class="d">每天看香菇公主日常</span></span>
-                <span class="arrow">›</span>
-            </a>
+            <div class="fan-links">
+                <a href="https://line.me/ti/g2/Ksbfz2crxegGR39iI5KDOy6zwSigHDFYTnvjYg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener"><img src="icons/group.png?v=3" alt="">菇粉社群</a>
+                <a href="https://www.instagram.com/love_mushroom55?igsh=NTl4bmg2djJyejFn&utm_source=qr" target="_blank" rel="noopener"><img src="icons/ig.png?v=3" alt="">香菇爸 IG</a>
+            </div>
+            <p class="sched-note">📌 最新場次與報名，以香菇爸 LINE 公告為準</p>
         </section>
 
         <p class="hint">🍄 香菇爸 · 陪你守護每一位主子</p>
