@@ -6,12 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#fbf5e9">
-  <meta name="description" content="香菇爸飯錢試算：輸入主子體重和飼料價格，算出一天、一個月要花多少，兩款飼料一起比較">
+  <meta name="description" content="香菇爸飼料營養比一比：照著包裝背面填，跟香菇吃的高端餐並排比較蛋白質、脂肪、原料和穀物">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="一天的飯錢試算｜香菇爸 App">
-  <meta property="og:description" content="香菇爸飯錢試算：輸入主子體重和飼料價格，算出一天、一個月要花多少，兩款飼料一起比較">
+  <meta property="og:title" content="飼料營養比一比｜香菇爸 App">
+  <meta property="og:description" content="香菇爸飼料營養比一比：照著包裝背面填，跟香菇吃的高端餐並排比較蛋白質、脂肪、原料和穀物">
   <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/media/og-cover.jpg">
-  <title>一天的飯錢試算｜香菇爸 App</title>
+  <title>飼料營養比一比｜香菇爸 App</title>
 <style>
 :root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;
  --pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--brown:#a9835c;--brown2:#f0e5d8;
@@ -155,101 +155,91 @@ a{text-decoration:none;color:inherit}
 <main class="app">
   <header class="head">
     <a class="back" href="index.html" aria-label="回上一頁">‹</a>
-    <div class="head-title"><strong>一天的飯錢試算</strong><small>兩款飼料比一比 × 一天幾元</small></div>
+    <div class="head-title"><strong>飼料營養比一比</strong><small>翻到包裝背面 × 一項一項對照</small></div>
     <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
   </header>
 
   <section class="hero">
     <div class="hero-card">
-      <span class="kicker">FOOD BUDGET</span>
-      <h1>主子一天<br>吃掉多少錢</h1>
-      <p>一大包看起來很貴，換算成一天其實差不多 ~ 兩款飼料放在一起比比看</p>
-      <div class="hero-mini"><span>一天幾元</span><span>一個月幾元</span><span>一包吃幾天</span></div>
+      <span class="kicker">NUTRITION CHECK</span>
+      <h1>你家的飼料<br>裝了什麼</h1>
+      <p>挑飼料不能只看價格和包裝正面 ~ 翻到背面，看看蛋白質、原料和穀物</p>
+      <div class="hero-mini"><span>蛋白質</span><span>脂肪</span><span>第一個原料</span><span>有沒有穀物</span></div>
     </div>
   </section>
 
   <section class="section">
-    <div class="title-row"><span class="num">STEP 1</span><h2>主子的體重</h2></div>
-    <label class="field"><span>體重（公斤）</span><input type="number" id="kg" min="0.5" max="15" step="0.1" value="4"><small>每天要吃幾克，會照體重和熱量幫你估</small></label>
-  </section>
-
-  <section class="section alt">
-    <div class="title-row"><span class="num">STEP 2</span><h2>兩款飼料比一比</h2><p>B 先幫你帶入香菇吃的高端餐，也可以改成別款</p></div>
-    <div class="cost">
-      <div class="card">
-        <h3>A・現在吃的</h3>
-        <label class="field"><span>一包價格（元）</span><input type="number" id="pA" min="0" placeholder="例：899"></label>
-        <label class="field"><span>一包幾公斤</span><input type="number" id="wA" min="0" step="0.1" placeholder="例：2"></label>
-        <label class="field"><span>每 100 克幾大卡</span><input type="number" id="cA" min="200" max="600" value="380"><small>包裝背面「代謝能」那欄 ~ 找不到就用 380</small></label>
-        <label class="field"><span>每天餵幾克</span><input type="number" id="gA" min="0" placeholder="自動估"><small>空白就自動估</small></label>
-      </div>
-      <div class="card b">
-        <h3>B・香菇吃的高端餐</h3>
-        <label class="field"><span>一包價格（元）</span><input type="number" id="pB" min="0" value="1680"></label>
-        <label class="field"><span>一包幾公斤</span><input type="number" id="wB" min="0" step="0.1" value="1.1"></label>
-        <label class="field"><span>每 100 克幾大卡</span><input type="number" id="cB" min="200" max="600" value="394"></label>
-        <label class="field"><span>每天餵幾克</span><input type="number" id="gB" min="0" placeholder="自動估"><small>包裝建議：4～5 公斤每天 50～65 克</small></label>
-      </div>
+    <div class="title-row"><span class="num">STEP 1</span><h2>照著包裝背面填</h2><p>「營養分析」或「保證分析值」那一欄</p></div>
+    <div class="two">
+      <label class="field"><span>粗蛋白（%）</span><input type="number" id="pro" min="0" max="80" step="0.1" placeholder="例：30"></label>
+      <label class="field"><span>粗脂肪（%）</span><input type="number" id="fat" min="0" max="50" step="0.1" placeholder="例：12"></label>
     </div>
-    <button class="go" id="calc" type="button">算算看</button>
+    <label class="field"><span>成分表的第一個原料</span><input type="text" id="first" placeholder="例：雞肉、玉米、雞肉粉"><small>排越前面的放越多 ~ 第一個最重要</small></label>
+    <div class="field"><span>成分裡有沒有這些穀物</span>
+      <div class="chips" id="grain"><button class="chip" data-v="玉米" type="button">玉米</button><button class="chip" data-v="小麥" type="button">小麥</button><button class="chip" data-v="米" type="button">米・糙米</button><button class="chip" data-v="燕麥" type="button">燕麥・大麥</button><button class="chip" data-v="大豆" type="button">大豆</button></div>
+      <small>都沒有就不用按</small></div>
+    <button class="go" id="calc" type="button">跟香菇吃的比一比</button>
   </section>
 
-  <section class="section" id="out" hidden>
-    <div class="title-row"><span class="num">RESULT</span><h2>算出來了</h2></div>
-    <div class="card"><b>A・現在吃的</b><div class="res" id="rA"></div></div>
-    <div class="card" style="border-color:#dccbeb"><b>B・香菇吃的高端餐</b><div class="res" id="rB"></div></div>
-    <div class="answer" id="diff"></div>
+  <section class="section alt" id="out" hidden>
+    <div class="title-row"><span class="num">RESULT</span><h2>並排看看</h2></div>
+    <div class="card" style="overflow-x:auto"><table class="plan" id="tbl"></table></div>
+    <div class="answer" id="sum"></div>
+  </section>
+
+  <section class="section">
+    <div class="title-row"><span class="num">WHY</span><h2>為什麼要看這幾項</h2></div>
+    <ul class="tips">
+      <li><b>蛋白質</b> ~ 貓是肉食動物，身體需要的蛋白質比狗和人都多</li>
+      <li><b>第一個原料</b> ~ 排第一的放最多，是真正的肉，跟是玉米或穀物，差很多</li>
+      <li><b>穀物</b> ~ 不是不能吃，但放越多，肉相對就越少</li>
+      <li><b>脂肪</b> ~ 是熱量和好吃的來源，太低主子可能不愛吃，太高容易胖</li>
+    </ul>
   </section>
 
   <section class="section alt">
-    <div class="title-row"><span class="num">MORE</span><h2>價格之外，也看看這些</h2></div>
+    <div class="title-row"><span class="num">SHROOM</span><h2>香菇家的選擇</h2></div>
     <div class="shroom">
       <span class="tag">香菇現在吃的主食</span>
       <h3>高端餐・貓寶營養餐</h3>
       <ul>
-        <li><b>全齡貓配方</b> ~ 從小吃到老，不用因為長大再換一次</li>
-        <li>無穀 ~ 主要原料是鴨肉、雞肉、鮪魚、鰹魚、牛肉</li>
+        <li>第一個原料是<b>台灣鴨肉</b>，接著是雞肉、鮪魚、鰹魚、牛肉</li>
+        <li><b>無穀</b> ~ 成分裡沒有玉米、小麥、米</li>
         <li>粗蛋白 ≥ 34%・粗脂肪 ≥ 11%・每 100 克 394 大卡</li>
-        <li>香菇一天六餐，固定時間吃</li>
+        <li><b>全齡貓配方</b> ~ 從小吃到老不用再換</li>
       </ul>
       <a class="buy" href="https://mushroomlove.zeabur.app/food.html" target="_blank" rel="noopener">看香菇同款高端餐 ›</a>
       <span class="note">每隻貓狀況不同，換食前可以先問你的獸醫 ~ 這裡分享的是香菇家的選擇，不是醫療建議</span>
     </div>
-    <a class="link-card" href="貓咪熱量計算機/food_analyzer.html"><span>🔍</span><span><b>看懂飼料成分</b><small>便宜不便宜之外 ~ 看看裡面裝了什麼</small></span><i>›</i></a>
+    <a class="link-card" href="貓咪熱量計算機/food_analyzer.html"><span>🔍</span><span><b>整份成分表幫你看</b><small>貼上成分表，一項一項解釋給你聽</small></span><i>›</i></a>
     <a class="link-card" href="switch-food.html"><span>🔄</span><span><b>換糧小幫手</b><small>決定要換 ~ 幫你排好 7～10 天日曆</small></span><i>›</i></a>
-    <a class="line-btn" href="https://agentone.metaepoch.life/link/channels/ifVUGO3ckT" target="_blank" rel="noopener"><span>💬</span><span><b>想知道開團價，問香菇爸</b><small>菇粉不定期有團購優惠 ~ 傳 LINE 給我</small></span><i>↗</i></a>
+    <a class="line-btn" href="https://agentone.metaepoch.life/link/channels/ifVUGO3ckT" target="_blank" rel="noopener"><span>💬</span><span><b>看不懂包裝，拍給香菇爸</b><small>把包裝背面拍下來 ~ 傳 LINE 我幫你看</small></span><i>↗</i></a>
   </section>
 
-  <p class="sources"><strong>怎麼算的</strong>自動估算：先用體重算每天需要的熱量（以結紮室內成貓抓 70 × 體重<sup>0.75</sup> × 1.2 大卡），再除以飼料每 100 克的熱量 ~ 實際份量請照主子體態調整<br>兩款都用同一個方法估算，比較公平 ~ 高端餐包裝建議量：3 公斤以下 35～40 克、3～4 公斤 40～50 克、4～5 公斤 50～65 克、5～6 公斤 65～75 克<br>價格以市售價計算，團購優惠另計<br>© 2026 香菇爸・原創內容</p>
-
+  <p class="sources"><strong>關於這份對照</strong>高端餐的數字來自包裝標示的保證值；你填的數字也請以包裝標示為準<br>保證值是最低或最高標準，實際含量會在這個範圍內 ~ 這頁幫你比較包裝上寫的東西，不是營養師診斷<br>© 2026 香菇爸・原創內容</p>
 </main>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const 估克數 = (kg, kcal) => Math.round(70 * Math.pow(kg, .75) * 1.2 / kcal * 100);
-  const 元 = n => Math.round(n).toLocaleString('zh-TW');
-  try { const s = JSON.parse(localStorage.getItem('shroom-cost') || 'null'); if (s) for (const k in s) if ($(k) && s[k] !== '') $(k).value = s[k]; } catch (e) {}
-  function 算(邊, kg) {
-    const p = +$('p' + 邊).value, w = +$('w' + 邊).value, c = +$('c' + 邊).value || 380;
-    if (!p || !w) return null;
-    let g = +$('g' + 邊).value, 來源 = '你填的';
-    if (!g) { g = 估克數(kg, c); 來源 = '依熱量自動估算'; }
-    const 每克 = p / (w * 1000);
-    return { g, 來源, 天: g * 每克, 月: g * 每克 * 30, 吃幾天: Math.floor(w * 1000 / g) };
-  }
+  const 穀 = new Set();
+  document.querySelectorAll('#grain .chip').forEach(b => b.onclick = () => { const v = b.dataset.v; 穀.has(v) ? 穀.delete(v) : 穀.add(v); b.classList.toggle('on', 穀.has(v)); });
+  const 肉 = /雞|鴨|牛|豬|羊|鹿|兔|火雞|鮭|鮪|鰹|魚|肉/;
   $('calc').onclick = () => {
-    const kg = Math.max(.5, +$('kg').value || 4);
-    try { localStorage.setItem('shroom-cost', JSON.stringify(Object.fromEntries(['kg', 'pA', 'wA', 'cA', 'gA'].map(k => [k, $(k).value])))); } catch (e) {}
-    const A = 算('A', kg), B = 算('B', kg);
-    const 畫 = (r, el) => { $(el).innerHTML = r ? `<div><b>${元(r.天)}</b><small>元／天</small></div><div><b>${元(r.月)}</b><small>元／月</small></div><div><b>${r.吃幾天}</b><small>天吃完一包</small></div><p style="grid-column:1/-1;font-size:10.5px;color:var(--soft)">每天 ${r.g} 克（${r.來源}）</p>` : '<p style="grid-column:1/-1;font-size:12px;color:var(--soft)">填好價格和重量就會算出來</p>'; };
-    畫(A, 'rA'); 畫(B, 'rB');
-    let 話 = '';
-    if (A && B) {
-      const 差 = B.天 - A.天;
-      話 = Math.abs(差) < 1 ? '<b class="big">一天差不到 1 元</b><p>價格差不多，就可以多看看成分和主子愛不愛吃</p>'
-        : `<b class="big">一天${差 > 0 ? '多' : '少'} ${元(Math.abs(差))} 元</b><p>${差 > 0 && 差 <= 70 ? '差不多是一杯手搖飲的錢 ~ ' : ''}一個月${差 > 0 ? '多' : '少'}大約 ${元(Math.abs(差) * 30)} 元${差 > 0 ? ' ~ 可以再對照成分，看值不值得' : ''}</p>`;
-    } else 話 = '<b class="big">再填一下 A 的價格和重量</b><p>就能看出兩款一天差多少</p>';
-    $('diff').innerHTML = 話;
+    const pro = parseFloat($('pro').value), fat = parseFloat($('fat').value), first = $('first').value.trim();
+    const 第一是肉 = first ? 肉.test(first) && !/粉$|副產品|玉米|小麥|米/.test(first) : null;
+    const 列 = [
+      ['粗蛋白', isNaN(pro) ? '—' : pro + '%', '≥ 34%'],
+      ['粗脂肪', isNaN(fat) ? '—' : fat + '%', '≥ 11%'],
+      ['第一個原料', first || '—', '台灣鴨肉'],
+      ['穀物', 穀.size ? [...穀].join('、') : '沒有勾選', '無穀'],
+    ];
+    $('tbl').innerHTML = '<tr><th></th><th>你家的</th><th>香菇吃的高端餐</th></tr>' + 列.map(r => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+    const 話 = [];
+    if (!isNaN(pro)) 話.push(pro >= 34 ? `你家的蛋白質 ${pro}%，已經很不錯了` : `蛋白質差了 ${(34 - pro).toFixed(1)}% ~ 換算一天吃 60 克，大約少吃 ${((34 - pro) * 0.6).toFixed(1)} 克蛋白質`);
+    if (第一是肉 === false) 話.push(`第一個原料是「${first}」，不是一整塊的肉`);
+    if (第一是肉 === true) 話.push(`第一個原料是「${first}」，是肉，很好`);
+    if (穀.size) 話.push(`成分裡有${[...穀].join('、')}`);
+    $('sum').innerHTML = `<b class="big">${話.length ? '比完了，重點是這些' : '填一下包裝上的數字'}</b>` + (話.length ? '<p>' + 話.join('<br>') + '</p>' : '<p>至少填蛋白質，才比得出來</p>');
     $('out').hidden = false; $('out').scrollIntoView({ behavior: 'smooth' });
   };
 })();

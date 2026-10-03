@@ -254,7 +254,7 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
             + '<p style="margin:0"><b>主要原料：</b>台灣鴨肉、澳洲雞肉、鮪魚、鰹魚、澳洲牛肉 ~ 無穀</p>'
             + '<p style="margin:4px 0 0"><b>保證值：</b>粗蛋白 ≥ 34%・粗脂肪 ≥ 11%・粗纖維 ≤ 4%・水分 ≤ 10%・每 100 克 394 大卡</p>'
             + '<a href="https://mushroomlove.zeabur.app/food.html" target="_blank" rel="noopener" style="display:block;margin-top:12px;padding:11px;border-radius:13px;background:#6f4f9e;color:#fff;text-align:center;font-weight:800;text-decoration:none">看香菇同款高端餐的完整成分 ›</a>'
-            + '<a href="../food-cost.html" style="display:block;margin-top:8px;padding:10px;border-radius:13px;border:1px solid #dccbeb;color:#6f4f9e;text-align:center;font-weight:700;text-decoration:none">兩款飼料一天差多少錢？算算看 ›</a>'
+            + '<a href="../food-cost.html" style="display:block;margin-top:8px;padding:10px;border-radius:13px;border:1px solid #dccbeb;color:#6f4f9e;text-align:center;font-weight:700;text-decoration:none">把你家的飼料跟高端餐並排比一比 ›</a>'
             + '<small style="display:block;margin-top:8px;color:#958a79;font-size:10.5px">這裡分享的是香菇家的選擇，每隻貓狀況不同，換食前可以先問你的獸醫</small>';
         els.results.appendChild(d);
     }
