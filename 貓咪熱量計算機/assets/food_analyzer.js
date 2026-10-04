@@ -65,6 +65,9 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
     const USED_KEY   = 'mushroom_analyzer_used_codes';
     const accessCard = document.getElementById('access-card');
 
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
     function getAccess() {
         try { return JSON.parse(localStorage.getItem(ACCESS_KEY)) || null; }
         catch { return null; }
