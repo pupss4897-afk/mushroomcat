@@ -505,8 +505,9 @@
     摺耳貓: { 毛: '#A7A3A0', 白: true, 巾: '#E2B95B', 眼: '#E0A23B', 自稱: '本喵', 介紹: '摺耳圓臉', 摺: 1 },
     暹羅貓: { 毛: '#EFE4D2', 白: false, 巾: '#6F86C2', 眼: '#7FB3E0', 自稱: '我', 介紹: '愛講話的重點色', 點: '#5A4636' },
     俄羅斯藍: { 毛: '#7F8C9B', 白: false, 巾: '#E58FA0', 眼: '#7FC08A', 自稱: '我', 介紹: '綠眼優雅藍', },
-    緬因貓: { 毛: '#8E6A48', 白: true, 巾: '#5E8C61', 眼: '#C9A23E', 自稱: '本大爺', 介紹: '溫柔大巨人', 紋: '#4E3826', 長: 1, 簇: 1 },
     波斯貓: { 毛: '#F2EEE6', 白: false, 巾: '#B994C9', 眼: '#E0A23B', 自稱: '本宮', 介紹: '扁臉長毛貴族', 長: 1 },
+    緬因貓: { 毛: '#8E6A48', 白: true, 巾: '#5E8C61', 眼: '#C9A23E', 自稱: '本大爺', 介紹: '溫柔大巨人', 紋: '#4E3826', 長: 1, 簇: 1, 菇: 1 },
+    加菲貓: { 毛: '#E8A35A', 白: false, 巾: '#5E8C61', 眼: '#C9A23E', 自稱: '本大爺', 介紹: '扁臉橘色胖胖', 紋: '#B9692A', 菇: 1 },
     金吉拉: { 毛: '#EDECEA', 白: false, 巾: '#22305A', 眼: '#5FAF7A', 自稱: '人家', 介紹: '銀白仙女', 長: 1, 菇: 1 },
     孟加拉貓: { 毛: '#D9A85E', 白: false, 巾: '#22305A', 眼: '#9CC07A', 自稱: '本大爺', 介紹: '小豹紋', 豹: '#5B3F22', 菇: 1 },
     無毛貓: { 毛: '#E8C4B8', 白: false, 巾: '#6F86C2', 眼: '#9CC07A', 自稱: '我', 介紹: '暖呼呼的小外星人', 皺: 1, 菇: 1 },
@@ -747,7 +748,7 @@
     開卡(`<h3>${第二 ? '挑第二隻貓' : 第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
       <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
       <div class="cats">${卡們}</div>
-      <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 4 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
+      <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 6 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
       <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
       <h4>從幾歲開始養？</h4><div class="ages">${開始年齡們.map(a => `<button class="opt" data-a="${a.週}">${a.字}<small>${a.說明}</small></button>`).join('')}</div>
       <p class="lead" style="margin:8px 0 0">現實 1 天，貓咪長大 1 週。從小奶貓開始，就能陪牠打疫苗、結紮、慢慢長大</p></div>
@@ -834,7 +835,7 @@
     };
   }
   function 解鎖貓畫面(回去) {
-    開卡(`<h3>🍄 菇粉限定貓咪</h3><p class="lead">金吉拉 孟加拉貓 無毛貓 三花貓是<b>菇粉限定</b> ~ 跟團香菇同款成為菇粉 香菇爸會私訊你解鎖碼</p>
+    開卡(`<h3>🍄 菇粉限定貓咪</h3><p class="lead">緬因貓 加菲貓 金吉拉 孟加拉貓 無毛貓 三花貓是<b>菇粉限定</b> ~ 跟團香菇同款成為菇粉 香菇爸會私訊你解鎖碼</p>
       <button class="line-btn" id="askCode">我是菇粉 跟香菇爸要解鎖碼<small>會打開香菇爸 LINE 按送出就好</small></button>
       <h4>輸入解鎖碼</h4><input class="name" id="codeOne" maxlength="12" autocapitalize="characters" aria-label="解鎖碼">
       <p class="msg" id="unlockMsg"></p>
@@ -842,7 +843,7 @@
     $('askCode').onclick = () => 開LINE(暗號.解鎖);
     $('backBtn').onclick = 回去;
     $('unlockBtn').onclick = () => {
-      if ($('codeOne').value.trim().toUpperCase() === 菇粉碼) { 狀態.菇粉 = true; 存(); 吐司('🎉 解鎖 4 隻菇粉限定貓咪！'); 回去(); }
+      if ($('codeOne').value.trim().toUpperCase() === 菇粉碼) { 狀態.菇粉 = true; 存(); 吐司('🎉 解鎖 6 隻菇粉限定貓咪！'); 回去(); }
       else { $('unlockMsg').className = 'msg bad'; $('unlockMsg').textContent = '解鎖碼不對 再看一下香菇爸 LINE 的回覆'; }
     };
   }
