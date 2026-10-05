@@ -510,6 +510,25 @@
     #tab-fan .fan-compact .fan-perks{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
     #tab-fan .fan-compact .fan-perks li{margin:0;padding:8px 9px}
     #tab-fan .fan-compact .fan-perks .pt{font-size:12.5px}
+    .first-buy{margin:14px 0 4px;padding:16px;border-radius:20px;background:linear-gradient(150deg,#fff,#f6f0fb);border:1px solid #dccbeb;box-shadow:0 8px 20px rgba(111,79,158,.08)}
+    .first-buy .fb-tag{display:inline-block;padding:2px 9px;border-radius:99px;background:#6f4f9e;color:#fff;font-size:11px;font-weight:800}
+    .first-buy b{display:block;margin-top:8px;font-size:15.5px;color:#4a3d5c}
+    .first-buy .fb-price{display:flex;align-items:baseline;gap:8px;margin-top:8px;font-variant-numeric:tabular-nums}
+    .first-buy .fb-price span{font-size:12.5px;color:#7a6f86}
+    .first-buy s{font-size:13px;color:#a99fb3}
+    .first-buy em{font-style:normal;font-size:24px;font-weight:900;color:#6f4f9e}
+    .first-buy p{margin:6px 0 0;font-size:12.5px;color:#6b6070;line-height:1.7}
+    .first-buy code{padding:1px 7px;border-radius:7px;background:#ece3f6;color:#4a2f66;font-weight:800;font-family:inherit}
+    .first-buy a{display:block;margin-top:12px;padding:12px;border-radius:14px;background:#6f4f9e;color:#fff;text-align:center;font-weight:800;text-decoration:none}
+    .fan-compare{width:100%;border-collapse:collapse;margin:4px 0 6px;font-size:12.5px}
+    .fan-compare th,.fan-compare td{padding:9px 6px;border-bottom:1px solid #eadfcd;text-align:center}
+    .fan-compare th{font-size:13px}
+    .fan-compare th small{display:block;font-size:10.5px;font-weight:500;color:#958a79}
+    .fan-compare td:first-child,.fan-compare th:first-child{text-align:left}
+    .fan-compare td{color:#958a79}
+    .fan-compare td:first-child{color:#5a5246}
+    .fan-compare .on{background:#fff7f5;color:#c06f61;font-weight:800}
+    .fan-compare th.on{color:#5a5246}
     #tab-fan .fan-links{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
     #tab-fan .fan-links a{color:#5a5246;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:14px;background:#fff;border:1px solid #eadfcd;font-weight:700;font-size:13px}
     #tab-fan .fan-links img{width:24px;height:24px;object-fit:contain}
@@ -690,7 +709,13 @@
                         <span class="cap"><b>高端餐</b><small>一天六餐都吃這個</small></span>
                     </a>
                 </div>
-                <a class="hx-buy" href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="首頁-看香菇同款按鈕">🍄 看香菇同款藍藻菌 <i>›</i></a>
+                <div class="first-buy">
+                    <span class="fb-tag">新朋友第一次</span>
+                    <b>想讓主子試試香菇同款？從一瓶開始</b>
+                    <div class="fb-price"><span>單瓶・新手嚐鮮組</span><s>$1,680</s><em>$1,180</em></div>
+                    <p>結帳輸入香菇爸專屬折扣碼 <code>119208</code> ~ 平均一天不到 $40</p>
+                    <a href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="首頁-首購嚐鮮">用折扣碼試試看 ›</a>
+                </div>
                 <p class="hx-note">這是香菇爸自己家的日常 ~ 不是醫療建議，每隻貓狀況不同，有疑慮請先問獸醫</p>
             </div>
 
@@ -909,20 +934,27 @@
             <!-- ② 成為菇粉：福利＋等級合成一張 -->
             <div class="section-title">👑 成為菇粉</div>
             <div class="fan-hero fan-compact">
-                <p class="lead">跟團香菇同款好物，累積滿 <b>$2,000</b> 就是菇粉 ~ 還沒跟過團的新朋友，專屬直播可以<b>免費體驗 1 次</b></p>
-                <div class="tier-row">
-                    <div><span>🌱</span><b>新朋友</b><small>LV.0・體驗 1 次</small></div>
-                    <i>→</i>
-                    <div class="on"><span>🍄</span><b>菇粉</b><small>LV.1・全部解鎖</small></div>
+                <p class="lead">免費的工具大家都能用 ~ <b>菇粉</b>是香菇爸會陪你一路顧下去的家人</p>
+                <table class="fan-compare">
+                    <thead><tr><th></th><th>🌱 新朋友<small>加 LINE 就是</small></th><th class="on">🍄 菇粉<small>跟團累積 $2,000</small></th></tr></thead>
+                    <tbody>
+                        <tr><td>網站所有工具與知識</td><td>✓</td><td class="on">✓</td></tr>
+                        <tr><td>每週一護貓直播</td><td>體驗 1 次</td><td class="on">每週都能來</td></tr>
+                        <tr><td>直播 Q&amp;A 現場問香菇爸</td><td>—</td><td class="on">✓</td></tr>
+                        <tr><td>一對一幫你看飼料成分</td><td>—</td><td class="on">✓</td></tr>
+                        <tr><td>Zoom 進修課程</td><td>—</td><td class="on">✓</td></tr>
+                        <tr><td>菇粉專屬社群</td><td>—</td><td class="on">✓</td></tr>
+                        <tr><td>開團優先・專屬優惠</td><td>—</td><td class="on">✓</td></tr>
+                        <tr><td>菇粉貓聚・年度福利禮</td><td>—</td><td class="on">✓</td></tr>
+                    </tbody>
+                </table>
+                <div class="first-buy">
+                    <span class="fb-tag">新朋友第一次</span>
+                    <b>想讓主子試試香菇同款？從一瓶開始</b>
+                    <div class="fb-price"><span>單瓶・新手嚐鮮組</span><s>$1,680</s><em>$1,180</em></div>
+                    <p>結帳輸入香菇爸專屬折扣碼 <code>119208</code> ~ 平均一天不到 $40</p>
+                    <a href="https://mushroomlove.zeabur.app/" target="_blank" rel="noopener" data-ga="菇粉頁-首購嚐鮮">用折扣碼試試看 ›</a>
                 </div>
-                <ul class="fan-perks">
-                    <li><img class="pi" src="icons/course.png?v=3" alt=""><span class="pt">Zoom 系列課程</span></li>
-                    <li><img class="pi" src="icons/livetalk.png?v=3" alt=""><span class="pt">每週直播</span></li>
-                    <li><img class="pi" src="icons/fan-chat.png?v=3" alt=""><span class="pt">專屬社群＋諮詢</span></li>
-                    <li><img class="pi" src="icons/catmeet.png?v=3" alt=""><span class="pt">菇粉貓聚</span></li>
-                    <li><img class="pi" src="icons/newdeal.png?v=3" alt=""><span class="pt">開團優先</span></li>
-                    <li><img class="pi" src="icons/reward.png?v=3" alt=""><span class="pt">年度福利禮</span></li>
-                </ul>
                 <a class="cta-line" href="https://agentone.metaepoch.life/link/channels/SlnRbJB6EK" target="_blank" rel="noopener" data-ga="菇粉專區-加入LINE">
                     <span class="ico">🍄</span>
                     <span class="tx"><span class="t">加入 LINE，收上課通知</span><span class="d">直播連結・等級查詢・開團都在這</span></span>
