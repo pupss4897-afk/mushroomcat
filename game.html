@@ -33,17 +33,17 @@
   .hl { opacity: 0; transition: opacity .2s; }
 
   /* 香菇的小動作 */
-  #shroom .bob { animation: breathe 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
-  #shroom.walking .bob { animation: hop .32s ease-in-out infinite; }
-  #shroom .tail { transform-box: fill-box; transform-origin: 0% 100%; animation: tail 2.8s ease-in-out infinite; }
-  #shroom .lid { transform-box: fill-box; transform-origin: center top; transform: scaleY(0); }
-  #shroom.blink .lid { animation: blink .2s ease-in-out; }
-  #shroom .pose { display: none; } #shroom[data-pose="sit"] .p-sit, #shroom[data-pose="loaf"] .p-loaf, #shroom[data-pose="sleep"] .p-sleep, #shroom[data-pose="eat"] .p-eat, #shroom[data-pose="crouch"] .p-loaf { display: inline; }
-  #shroom[data-pose="crouch"] .bob { animation: wiggle .15s ease-in-out infinite; }
-  #shroom.happy .eyes-open { display: none; } #shroom .eyes-happy { display: none; } #shroom.happy .eyes-happy { display: inline; }
-  #shroom.annoyed .tail { animation: flick .28s ease-in-out 4; }
-  #shroom .zzz text { animation: zz 2.4s ease-in-out infinite; } #shroom .zzz text:nth-child(2) { animation-delay: .8s; } #shroom .zzz text:nth-child(3) { animation-delay: 1.6s; }
-  #shroom.eating .head-eat { animation: chew .35s ease-in-out infinite; transform-box: fill-box; transform-origin: center top; }
+  .kitty .bob { animation: breathe 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+  .kitty.walking .bob { animation: hop .32s ease-in-out infinite; }
+  .kitty .tail { transform-box: fill-box; transform-origin: 0% 100%; animation: tail 2.8s ease-in-out infinite; }
+  .kitty .lid { transform-box: fill-box; transform-origin: center top; transform: scaleY(0); }
+  .kitty.blink .lid { animation: blink .2s ease-in-out; }
+  .kitty .pose { display: none; } .kitty[data-pose="sit"] .p-sit, .kitty[data-pose="loaf"] .p-loaf, .kitty[data-pose="sleep"] .p-sleep, .kitty[data-pose="eat"] .p-eat, .kitty[data-pose="crouch"] .p-loaf { display: inline; }
+  .kitty[data-pose="crouch"] .bob { animation: wiggle .15s ease-in-out infinite; }
+  .kitty.happy .eyes-open { display: none; } .kitty .eyes-happy { display: none; } .kitty.happy .eyes-happy { display: inline; }
+  .kitty.annoyed .tail { animation: flick .28s ease-in-out 4; }
+  .kitty .zzz text { animation: zz 2.4s ease-in-out infinite; } .kitty .zzz text:nth-child(2) { animation-delay: .8s; } .kitty .zzz text:nth-child(3) { animation-delay: 1.6s; }
+  .kitty.eating .head-eat { animation: chew .35s ease-in-out infinite; transform-box: fill-box; transform-origin: center top; }
   @keyframes breathe { 50% { transform: scale(1.02, 1.04); } }
   @keyframes hop { 50% { transform: translateY(-5px); } }
   @keyframes tail { 50% { transform: rotate(10deg); } }
@@ -96,7 +96,7 @@
   @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 20% { transform: scale(1.15); opacity: 1; } 100% { transform: translateY(-36px); opacity: 0; } }
   .foot { position: absolute; left: 0; right: 0; bottom: calc(70px + env(safe-area-inset-bottom, 0px)); text-align: center; z-index: 4; font-size: 11px; color: var(--ink-soft); pointer-events: none; }
   .foot a { pointer-events: auto; color: var(--navy); font-weight: 700; text-decoration: none; background: rgba(255,249,238,.85); padding: 2px 8px; border-radius: 99px; }
-  @media (prefers-reduced-motion: reduce) { #shroom .bob, #shroom .tail, #shroom .zzz text { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .kitty .bob, .kitty .tail, .kitty .zzz text { animation: none; } }
 
   /* ── v3：四條狀態、五顆按鈕、選貓與問答卡 ── */
   .bars { grid-template-columns: repeat(4, 1fr); gap: 6px; }
@@ -162,10 +162,10 @@
   .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
   .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
   #room { transition: opacity .25s; }
-  #shroom .cone { display: none; } #shroom.cone .cone { display: inline; }
-  #shroom.kitten .headg { transform: scale(1.14); transform-box: fill-box; transform-origin: 50% 100%; }
-  #shroom.roll .bob { animation: roll .55s ease-in-out infinite; }
-  #shroom.scratching .bob { animation: wiggle .12s ease-in-out infinite; }
+  .kitty .cone { display: none; } .kitty.cone .cone { display: inline; }
+  .kitty.kitten .headg { transform: scale(1.14); transform-box: fill-box; transform-origin: 50% 100%; }
+  .kitty.roll .bob { animation: roll .55s ease-in-out infinite; }
+  .kitty.scratching .bob { animation: wiggle .12s ease-in-out infinite; }
   @keyframes roll { 25% { transform: rotate(-16deg); } 75% { transform: rotate(16deg); } }
   #birdy { animation: birdy 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
   @keyframes birdy { 50% { transform: translateY(-3px) rotate(-4deg); } }
@@ -177,7 +177,7 @@
   .ages .opt, .sexes .opt { text-align: center; padding: 8px 4px; }
   .sexes { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .event-list { margin: 8px 0 0; padding-left: 1.2em; font-size: 13.5px; line-height: 1.7; }
-  @media (prefers-reduced-motion: reduce) { #birdy, #shroom.roll .bob { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { #birdy, .kitty.roll .bob { animation: none; } }
 </style>
 
 <div class="game" id="game">
@@ -376,7 +376,7 @@
     </g>
 
     <!-- ── 香菇（小小一隻、有輪廓線）── -->
-    <g id="shroom" data-pose="sit" transform="translate(206 470) scale(1.25)" class="tap" tabindex="0" role="button" aria-label="香菇">
+    <g id="shroom" data-pose="sit" transform="translate(206 470) scale(1.25)" class="tap kitty" tabindex="0" role="button" aria-label="香菇">
       <ellipse cx="0" cy="1" rx="24" ry="5" fill="rgba(69,55,44,.18)"/>
       <g class="bob" filter="url(#hand)" stroke="#45372C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
         <!-- 坐 -->
@@ -449,6 +449,7 @@
       </g>
     </g>
 
+    <g id="cats2"></g>
     <!-- 逗貓棒（遊戲中跟著手指）-->
     <g id="wand" style="display:none" stroke="#45372C" stroke-width="2" stroke-linecap="round">
       <line id="wandLine" x1="420" y1="-10" x2="0" y2="0" stroke="#9C6B43" stroke-width="3"/>
@@ -550,6 +551,9 @@
     { id: '防墜網', 標: '陽台要裝防墜網', 文: '貓咪可能為了追鳥或蟲跳出去，陽台和窗戶一定要裝防墜網', 提示: '在陽台點欄杆' },
     { id: '貓草', 標: '貓草選專用的', 文: '很多貓咪喜歡啃貓草，要選貓咪專用的，家裡別放對貓有毒的植物', 提示: '在陽台點貓草' },
     { id: '曬太陽', 標: '曬太陽要有遮蔭', 文: '貓咪喜歡曬太陽取暖，夏天別曬太久，旁邊要有水和陰涼處', 提示: '在陽台點陽光' },
+    { id: '多貓隔離', 標: '新貓先隔離', 文: '新貓到家先在另一個房間住 7～14 天，用毛巾交換氣味，再慢慢讓兩隻見面', 提示: '養第二隻貓' },
+    { id: '多貓n+1', 標: '資源 N＋1', 文: '幾隻貓就準備「貓咪數量＋1」個飯碗 水碗 貓砂盆，比較不會搶', 提示: '兩隻貓都照顧一次' },
+    { id: '多貓哈氣', 標: '哈氣不一定是討厭', 文: '剛見面互相哈氣很常見 是在說「先別靠太近」，不要硬把牠們湊在一起', 提示: '摸摸第二隻貓' },
     ...['慢慢眨眼', '用力甩尾巴', '吐司姿勢', '坐在碗旁邊叫', '扭屁股', '對窗外喀喀叫', '捲成一團睡', '叫名字只轉耳朵', '撥水碗的水'].map((標, i) => ({ id: '心' + i, 標, 文: '', 提示: '讀心術答一題' })),
   ];
   const 小抄門檻 = 6;
@@ -736,11 +740,11 @@
   }
 
   // ── 選貓 ──
-  function 選貓畫面(第一次) {
+  function 選貓畫面(第一次, 第二) {
     let 選 = 狀態.貓?.種 || '香菇', 起 = 8, 性 = 狀態.貓?.性別 || '母';
     const 鎖 = k => 貓們[k].菇 && !狀態.菇粉;
     const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${c.菇 ? (鎖(k) ? '菇粉限定' : '菇粉限定 ✓') : c.介紹}</small></button>`).join('');
-    開卡(`<h3>${第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
+    開卡(`<h3>${第二 ? '挑第二隻貓' : 第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
       <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
       <div class="cats">${卡們}</div>
       <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 4 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
@@ -750,11 +754,12 @@
       <p class="lead" id="shroomNote" style="margin-top:12px">香菇是 <b>8 歲的熟齡貓</b>，作息照真的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
       <h4>幫牠取名字</h4><input class="name" id="nameIn" maxlength="8" aria-label="貓咪的名字">
       <button class="go" id="goBtn">${第一次 ? '開始養 🐾' : '就是牠了'}</button>
-      ${第一次 ? '<button class="ghost-btn" id="showLoad2">我在別支手機養過，要找回我的貓</button><div id="loadBox2" hidden><textarea class="codebox" id="codeIn2" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn2">找回我的貓</button><p class="msg" id="loadMsg2"></p></div>' : 存檔區()}`);
+      ${!第一次 && !第二 ? '<button class="ghost-btn" id="adoptBtn">🐱 再養第二隻</button>' : ''}
+      ${第二 ? '' : 第一次 ? '<button class="ghost-btn" id="showLoad2">我在別支手機養過，要找回我的貓</button><div id="loadBox2" hidden><textarea class="codebox" id="codeIn2" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn2">找回我的貓</button><p class="msg" id="loadMsg2"></p></div>' : 存檔區()}`);
     if (第一次) {
       $('showLoad2').onclick = () => { $('loadBox2').hidden = false; $('codeIn2').focus(); };
       $('loadBtn2').onclick = () => { if (解包($('codeIn2').value)) { 關卡(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, '', 3); }); } else { $('loadMsg2').className = 'msg bad'; $('loadMsg2').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; } };
-    } else 綁存檔();
+    } else if (!第二) { 綁存檔(); $('adoptBtn').onclick = 領養第二隻; }
     const 原型 = 香菇.querySelector('.p-sit');
     document.querySelectorAll('.catopt svg').forEach(s => { const g = 原型.cloneNode(true); g.setAttribute('filter', 'url(#hand)'); g.setAttribute('stroke', '#45372C'); g.setAttribute('stroke-width', '2'); g.setAttribute('stroke-linejoin', 'round'); s.append(g); 上色(s, 貓們[s.dataset.k]); 套特徵(s, 貓們[s.dataset.k]); });
     const 刷新 = (換名) => {
@@ -771,8 +776,10 @@
     刷新(false);
     $('goBtn').onclick = () => {
       const 香 = 選 === '香菇', 起週 = 香 ? 416 : 起;
-      狀態.貓 = { 種: 選, 名: ($('nameIn').value.trim() || 選).slice(0, 8), 性別: 香 ? '母' : 性, 起始週: 起週, 領養: Date.now(), 上次週: 起週,
+      const 新貓 = { 種: 選, 名: ($('nameIn').value.trim() || 選).slice(0, 8), 性別: 香 ? '母' : 性, 起始週: 起週, 領養: Date.now(), 上次週: 起週,
         疫苗: [8, 12, 16].filter(d => d < 起週), 結紮: 香 || 起週 >= 52 ? 'done' : undefined };
+      if (第二) return 放進第二隻(新貓);
+      狀態.貓 = 新貓;
       狀態.已餵 = {};
       存(); 關卡(); 去場景('living', null, true); 套貓();
       if (狀態.待訪) { const 客 = 狀態.待訪; delete 狀態.待訪; 存(); setTimeout(() => 去作客(客), 2500); }
@@ -798,17 +805,17 @@
 
   // ── 存檔碼：把貓打包成一串字，傳到 LINE 存著，換手機貼回來就好 ──
   function 打包() {
-    const c = 狀態.貓, o = [c.種, 週(), c.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.菇粉 ? 1 : 0, c.性別, c.結紮 || '', c.疫苗 || [], 狀態.魚 || 0, 狀態.裝潢 || [], 狀態.擺 || []];
+    const c = 狀態.貓, o = [c.種, 週(), c.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.菇粉 ? 1 : 0, c.性別, c.結紮 || '', c.疫苗 || [], 狀態.魚 || 0, 狀態.裝潢 || [], 狀態.擺 || [], (狀態.家 || []).map(x => [x.貓.種, x.貓.名, x.貓.性別, (x.貓.起始週 || 52) + Math.floor((Date.now() - (x.貓.領養 || Date.now())) / 864e5)])];
     return 'MC' + btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/, '');
   }
   function 解包(文) {
     const m = /MC([A-Za-z0-9+/]{8,})/.exec(文 || ''); if (!m) return false;
     try {
-      let [種, 齡, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓, 性別, 結紮, 疫苗, 魚, 裝潢, 擺] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      let [種, 齡, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓, 性別, 結紮, 疫苗, 魚, 裝潢, 擺, 家] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
       const w = typeof 齡 === 'number' ? 齡 : ({ 幼貓: 12, 成貓: 104, 熟齡: 416 }[齡] || 52);
       if (舊貓[種]) 種 = 舊貓[種];
       if (!貓們[種]) return false;
-      Object.assign(狀態, { 貓: { 種, 名: String(名字).slice(0, 8), 性別: 性別 || '母', 起始週: w, 領養: Date.now(), 上次週: w, 結紮: 結紮 || (w >= 52 ? 'done' : undefined), 疫苗: 疫苗 || [8, 12, 16].filter(d => d < w) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 菇粉: !!解鎖貓 && !!魚, 魚: 魚 ?? 狀態.魚, 裝潢: 裝潢 || 狀態.裝潢, 擺: 擺 || 狀態.擺, 已餵: {}, 簽到日: new Date().toDateString() });
+      Object.assign(狀態, { 貓: { 種, 名: String(名字).slice(0, 8), 性別: 性別 || '母', 起始週: w, 領養: Date.now(), 上次週: w, 結紮: 結紮 || (w >= 52 ? 'done' : undefined), 疫苗: 疫苗 || [8, 12, 16].filter(d => d < w) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 菇粉: !!解鎖貓 && !!魚, 家: (家 || []).filter(x => 貓們[x[0]]).map(x => ({ 貓: { 種: x[0], 名: x[1], 性別: x[2] || '母', 起始週: x[3] || 52, 領養: Date.now(), 結紮: 'done', 疫苗: [8, 12, 16] }, 飽足: 60, 心情: 60, 親密: 10, 水: 0, 已餵: {}, 答對: 0 })), 魚: 魚 ?? 狀態.魚, 裝潢: 裝潢 || 狀態.裝潢, 擺: 擺 || 狀態.擺, 已餵: {}, 簽到日: new Date().toDateString() });
       存(); 套貓(); return true;
     } catch (e) { return false; }
   }
@@ -838,6 +845,80 @@
       if ($('codeOne').value.trim().toUpperCase() === 菇粉碼) { 狀態.菇粉 = true; 存(); 吐司('🎉 解鎖 4 隻菇粉限定貓咪！'); 回去(); }
       else { $('unlockMsg').className = 'msg bad'; $('unlockMsg').textContent = '解鎖碼不對 再看一下香菇爸 LINE 的回覆'; }
     };
+  }
+
+  // ── 第二隻貓：同一個家最多 2 隻 點另一隻可以換照顧牠 ──
+  const 第二隻價 = 120;
+  const 個別欄 = ['飽足', '心情', '親密', '水', '已餵', '答對'];
+  let 貓二 = null, 貓二位 = [300, 520];
+  function 畫第二隻() {
+    $('cats2').innerHTML = ''; 貓二 = null;
+    const 家 = 作客 ? (作客.伴 ? [作客.伴] : []) : (狀態.家 || []);
+    if (!家.length || 場景 === 'clinic') return;
+    const c = 家[0].貓;
+    貓二 = 香菇.cloneNode(true); 貓二.removeAttribute('id'); 貓二.setAttribute('aria-label', c.名);
+    貓二.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+    $('cats2').append(貓二);
+    const k = 貓們[c.種] || 貓們.香菇; 上色(貓二, k); 套特徵(貓二, k);
+    貓二.classList.remove('cone', 'happy', 'walking', 'annoyed', 'eating');
+    const w = (c.起始週 || 52) + Math.floor((Date.now() - (c.領養 || Date.now())) / 864e5);
+    貓二.dataset.w = w; 貓二.classList.toggle('kitten', w < 26);
+    放二(...(地點.rug2 || [300, 520])); 貓二.dataset.pose = 'loaf';
+    貓二.addEventListener('pointerdown', e => { e.stopPropagation(); 點第二隻(); });
+  }
+  function 放二(x, y) {
+    if (!貓二) return; 貓二位 = [x, y];
+    const w = +貓二.dataset.w, 成 = w >= 52 ? 1 : Math.max(.58, Math.min(1, .58 + .42 * (w - 8) / 44));
+    貓二.setAttribute('transform', `translate(${x} ${y}) scale(${(比例(y) * 成).toFixed(3)})`);
+  }
+  function 二走到(目標, 姿) {
+    if (!貓二) return;
+    const [x0, y0] = 貓二位, [x1, y1] = 目標, t0 = performance.now(), 長 = Math.max(500, Math.hypot(x1 - x0, y1 - y0) / 140 * 1000);
+    貓二.dataset.pose = 'sit'; 貓二.classList.add('walking');
+    (function 步(t) { if (!貓二) return; const k = Math.min(1, (t - t0) / 長); 放二(x0 + (x1 - x0) * k, y0 + (y1 - y0) * k); if (k < 1) requestAnimationFrame(步); else { 貓二.classList.remove('walking'); 貓二.dataset.pose = 姿; } })(t0);
+  }
+  setInterval(() => {
+    if (!貓二 || 遊戲中) return;
+    const 清單 = 場景們[場景].閒逛; if (!清單.length) return;
+    const [點, 姿] = 清單[Math.floor(Math.random() * 清單.length)];
+    if (!地點[點]) return;
+    const [x, y] = 地點[點]; 二走到([x + (x > 200 ? -40 : 40), y + 10], 姿);
+    if (Math.hypot(x - 位置[0], y - 位置[1]) < 60 && Math.random() < .5) setTimeout(() => 愛心(2), 1800);
+  }, 13000);
+  function 點第二隻() {
+    if (遊戲中) return;
+    if (作客) { 說(`${作客.伴.貓.名}也來打招呼了`, '', 2); return; }
+    const 伴 = 狀態.家[0], c = 伴.貓;
+    貓二.classList.add('happy'); setTimeout(() => 貓二 && 貓二.classList.remove('happy'), 1500);
+    解鎖('多貓哈氣');
+    開卡(`<h3>🐾 ${c.名}</h3><p class="lead">${(貓們[c.種] || {}).介紹 || ''} ~ 飽足 ${Math.round(伴.飽足 ?? 50)}・心情 ${Math.round(伴.心情 ?? 50)}・親密 ${Math.round(伴.親密 ?? 10)}</p>
+      <button class="go" id="switchCat">換照顧${c.名}</button><button class="ghost-btn" id="closeC">好</button>`);
+    $('switchCat').onclick = () => { 關卡(); 換主角(); };
+    $('closeC').onclick = 關卡;
+  }
+  function 打包個別() { const o = { 貓: 狀態.貓 }; for (const k of 個別欄) o[k] = 狀態[k]; return o; }
+  function 換主角() {
+    const 現 = 打包個別(), 下 = 狀態.家[0];
+    for (const k of 個別欄) 狀態[k] = 下[k] ?? (k === '已餵' ? {} : k === '水' ? 0 : 50);
+    狀態.貓 = 下.貓; 狀態.家 = [現];
+    if (!狀態.照顧兩隻) { 狀態.照顧兩隻 = 1; } else 解鎖('多貓n+1');
+    存(); 套貓(); 畫第二隻();
+    走到(地點.rug, () => { 姿勢('sit'); 愛心(2); 說(`換我了～`, `現在照顧的是${名()}`, 3); });
+  }
+  function 領養第二隻() {
+    if ((狀態.家 || []).length) { 說('家裡已經有兩隻了', '先好好照顧牠們', 3); return; }
+    const 可 = 狀態.菇粉 || (狀態.魚 || 0) >= 第二隻價;
+    開卡(`<h3>🐱 再養一隻</h3><p class="lead">一個家最多兩隻貓 ~ ${狀態.菇粉 ? '<b>菇粉免費</b>' : `需要 <b>🐟 ${第二隻價}</b> 小魚乾（你有 ${狀態.魚 || 0}）`}</p>
+      <div class="explain"><b>多貓家庭先知道</b>新貓到家先隔離 7～14 天，用毛巾交換氣味；碗和貓砂盆準備「貓咪數量＋1」</div>
+      <button class="go" id="adopt2" ${可 ? '' : 'disabled'}>${可 ? '去挑第二隻' : '小魚乾還不夠'}</button><button class="ghost-btn" id="closeA">先不用</button>`);
+    $('closeA').onclick = 關卡;
+    if (可) $('adopt2').onclick = () => 選貓畫面(false, true);
+  }
+  function 放進第二隻(新貓) {
+    if (!狀態.菇粉) 狀態.魚 -= 第二隻價;
+    狀態.家 = [{ 貓: 新貓, 飽足: 60, 心情: 55, 親密: 5, 水: 0, 已餵: {}, 答對: 0 }];
+    存(); 畫魚(); 關卡(); 畫第二隻(); 解鎖('多貓隔離');
+    說(`歡迎${新貓.名}！`, '兩隻剛見面可能會哈氣 ~ 慢慢來，點另一隻就能換照顧牠', 5.5);
   }
 
   // ── 小魚乾商店：照顧貓咪賺小魚乾 買家具佈置房間 ──
@@ -889,13 +970,14 @@
   let 作客 = null;
   function 拜訪碼() {
     const c = 狀態.貓;
-    return btoa(unescape(encodeURIComponent(JSON.stringify([c.種, c.名, 週(), c.性別, 狀態.擺 || [], Math.floor((Date.now() - 狀態.開始) / 864e5) + 1])))).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+    const 伴 = (狀態.家 || [])[0];
+    return btoa(unescape(encodeURIComponent(JSON.stringify([c.種, c.名, 週(), c.性別, 狀態.擺 || [], Math.floor((Date.now() - 狀態.開始) / 864e5) + 1, 伴 ? [伴.貓.種, 伴.貓.名] : 0])))).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
   }
   function 讀拜訪碼(t) {
     try {
-      const [種, 名字, 齡, 性別, 擺, 天] = JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
+      const [種, 名字, 齡, 性別, 擺, 天, 伴] = JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
       if (!貓們[種]) return null;
-      return { 種, 名: String(名字).slice(0, 8), 齡: +齡 || 52, 性別, 擺: (擺 || []).filter(x => 商品們.some(g => g.id === x)), 天 };
+      return { 伴: 伴 && 貓們[伴[0]] ? { 貓: { 種: 伴[0], 名: String(伴[1]).slice(0, 8), 起始週: 52, 領養: Date.now() } } : null, 種, 名: String(名字).slice(0, 8), 齡: +齡 || 52, 性別, 擺: (擺 || []).filter(x => 商品們.some(g => g.id === x)), 天 };
     } catch (e) { return null; }
   }
   function 作客面板() {
@@ -914,7 +996,7 @@
     };
   }
   function 去作客(客) {
-    作客 = { 原: JSON.parse(JSON.stringify(狀態.貓)), 擺: 客.擺, 摸: 0 };
+    作客 = { 原: JSON.parse(JSON.stringify(狀態.貓)), 擺: 客.擺, 摸: 0, 伴: 客.伴 };
     狀態.貓 = { 種: 客.種, 名: 客.名, 性別: 客.性別 || '母', 起始週: 客.齡, 領養: Date.now(), 上次週: 客.齡, 結紮: 'done', 疫苗: [8, 12, 16] };
     document.body.classList.add('visiting');
     $('visitBar').innerHTML = `🏠 你在 <b>${客.名}</b> 家作客・陪伴 ${客.天 || 1} 天 <button id="goHome">回家</button>`;
@@ -1103,7 +1185,7 @@
       for (const k in 場景們) $('scene-' + k).style.display = k === id ? '' : 'none';
       場景 = id; 地點 = 場景們[id].點;
       if (id !== 'clinic' && 狀態) { 狀態.場景 = id; 存(); }
-      放(...地點.rug); 姿勢('sit'); if (狀態 && 狀態.貓) 畫(); svg.style.opacity = 1;
+      放(...地點.rug); 姿勢('sit'); if (狀態 && 狀態.貓) { 畫(); 畫第二隻(); } svg.style.opacity = 1;
       然後 && 然後();
     };
     if (立刻) return 換();
@@ -1231,7 +1313,7 @@
   }
   const 訪 = /#visit=([A-Za-z0-9_-]+)/.exec(location.hash);
   if (訪) { const 客 = 讀拜訪碼(訪[1]); if (客) { if ($('sheet').hidden) setTimeout(() => 去作客(客), 600); else 狀態.待訪 = 客; } }
-  setInterval(() => { if (作客) return; 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
+  setInterval(() => { if (作客) return; (狀態.家 || []).forEach(x => { x.飽足 = Math.max(5, (x.飽足 ?? 50) - .17); x.心情 = Math.max(10, (x.心情 ?? 50) - .11); }); 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
 })();
 </script>
 
