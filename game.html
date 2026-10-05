@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="選一隻貓來養！餵飯、喝水、逗貓棒、讀心術，玩著玩著就學會怎麼照顧貓咪">
-<meta property="og:title" content="養一隻香菇｜香菇爸的養貓小遊戲">
-<meta property="og:description" content="選一隻貓來養！餵飯、喝水、逗貓棒、讀心術，玩著玩著就學會怎麼照顧貓咪">
+<meta name="description" content="恭喜你撿到一隻貓 接下來每一個決定都由你負責 生病 挑主食 保養 突發事件 熟齡照護 你能把主子養到幾級？">
+<meta property="og:title" content="養貓生存挑戰｜你能把主子養到幾級？">
+<meta property="og:description" content="恭喜你撿到一隻貓 😼 接下來每一個決定 都由你負責">
 <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/media/og-cover.jpg">
 <meta name="theme-color" content="#E9DCC3">
 <style>html{color-scheme:light}body{margin:0}</style>
 </head>
 <body>
-<title>養一隻香菇</title>
+<title>養貓生存挑戰</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
@@ -159,6 +159,18 @@
   body.visiting .visit-bar { display: block; } body.visiting #shopBtn, body.visiting #visitBtn, body.visiting #swap, body.visiting #book { opacity: .3; pointer-events: none; }
   .cats { grid-template-columns: repeat(4, 1fr) !important; } .catopt svg { width: 56px !important; height: 62px !important; } .catopt b { font-size: 13.5px !important; }
   .card { position: relative; }
+  .game-title { text-align: center; margin: 2px 0 10px; }
+  .game-title b { display: block; font-family: var(--hand); font-size: 28px; letter-spacing: .06em; }
+  .game-title span { font-family: var(--hand); font-size: 15px; color: var(--ink-soft); }
+  .opening { margin: 0 0 14px; padding: 16px 14px; border-radius: 16px; background: #3A2F27; color: #FFF9EE; text-align: center; animation: up .5s ease; }
+  .opening .big { margin: 0; font-family: var(--hand); font-size: 22px; } .opening p { margin: 6px 0 0; font-size: 14px; opacity: .92; }
+  .chap { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 11px 12px; border: 2px solid var(--line); border-radius: 14px; background: #FBF3E4; margin-top: 8px; cursor: pointer; width: 100%; text-align: left; font: inherit; color: var(--ink); }
+  .chap .n { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--mustard); font-family: var(--hand); font-weight: 700; }
+  .chap b { font-family: var(--hand); font-size: 16px; } .chap small { display: block; font-size: 11.5px; color: var(--ink-soft); }
+  .chap .st { font-size: 13px; letter-spacing: 1px; }
+  .lv { text-align: center; padding: 18px 10px; border-radius: 18px; background: linear-gradient(160deg, #3A2F27, #5A4636); color: #FFF9EE; }
+  .lv small { display: block; font-size: 13px; opacity: .85; } .lv b { display: block; font-family: var(--hand); font-size: 46px; line-height: 1.1; color: #F6D06B; }
+  .lv p { margin: 8px 0 0; font-family: var(--hand); font-size: 19px; }
   .card .x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); font-size: 20px; line-height: 1; cursor: pointer; z-index: 2; }
   .coin-tap { cursor: pointer; text-decoration: underline dotted; }
   .shroom-opt { background: #F6E9FB !important; border-color: #8C6FAE !important; }
@@ -357,6 +369,22 @@
       </g>
      </g>
 
+     <!-- ═══ 貓咪公園 ═══ -->
+     <g id="scene-park" style="display:none">
+      <rect x="-200" y="-400" width="800" height="700" fill="#CFE6EE"/>
+      <g stroke="none" fill="#FFFFFF"><ellipse cx="70" cy="60" rx="38" ry="13"/><ellipse cx="98" cy="52" rx="24" ry="13"/><ellipse cx="310" cy="80" rx="34" ry="11"/></g>
+      <path d="M-200 200 Q100 170 200 195 Q300 215 600 185 V700 H-200 Z" fill="#B7CF92"/>
+      <path d="M-200 250 Q200 225 600 255 V700 H-200 Z" fill="#A8C384"/>
+      <path d="M150 700 Q190 520 200 260 Q210 520 250 700 Z" fill="#E8D9BE" stroke-width="2"/>
+      <g><path d="M48 300 V230" stroke-width="5" stroke="#8A6545"/><circle cx="48" cy="200" r="42" fill="#8DB46C"/><circle cx="26" cy="214" r="26" fill="#9BC277"/><circle cx="70" cy="214" r="24" fill="#86AD66"/></g>
+      <g><path d="M352 290 V220" stroke-width="5" stroke="#8A6545"/><circle cx="352" cy="190" r="40" fill="#8DB46C"/><circle cx="330" cy="206" r="24" fill="#9BC277"/><circle cx="374" cy="204" r="22" fill="#86AD66"/></g>
+      <g><rect x="60" y="400" width="96" height="10" rx="3" fill="#B98A5E"/><rect x="60" y="384" width="96" height="10" rx="3" fill="#B98A5E"/><path d="M68 410 V434 M148 410 V434" stroke-width="4" stroke="#7A5638"/></g>
+      <g><ellipse cx="300" cy="560" rx="42" ry="14" fill="#BCD3E3"/><ellipse cx="300" cy="556" rx="30" ry="8" fill="#DDEBF4"/></g>
+      <g stroke="none" fill="#F2A8B0"><circle cx="30" cy="560" r="5"/><circle cx="44" cy="572" r="4"/><circle cx="370" cy="470" r="5"/><circle cx="356" cy="482" r="4"/></g>
+      <g stroke="none" fill="#F6D06B"><circle cx="20" cy="480" r="4"/><circle cx="384" cy="600" r="4"/></g>
+      <rect x="120" y="268" width="160" height="30" rx="10" fill="#FFF9EE" stroke-width="2"/>
+      <text x="200" y="289" text-anchor="middle" font-family="LXGW WenKai TC, serif" font-size="15" fill="#45372C" stroke="none">🌳 貓咪公園</text>
+     </g>
      <!-- ═══ 動物醫院 ═══ -->
      <g id="scene-clinic" style="display:none">
       <rect x="-200" y="-400" width="800" height="630" fill="#E4F0EC"/>
@@ -461,6 +489,7 @@
       </g>
     </g>
 
+    <g id="parkcats"></g>
     <g id="cats2"></g>
     <!-- 逗貓棒（遊戲中跟著手指）-->
     <g id="wand" style="display:none" stroke="#45372C" stroke-width="2" stroke-linecap="round">
@@ -471,7 +500,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="challengeBtn" aria-label="生存挑戰">🏆</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -479,7 +508,7 @@
         <div class="bar" id="b-bond"><div class="lb"><span>親密</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
       </div>
       <div class="meals" id="meals"></div>
-      <div class="rooms" id="rooms"><button data-s="living">🛋️ 客廳</button><button data-s="bedroom">🛏️ 臥室</button><button data-s="balcony">🌿 陽台</button></div>
+      <div class="rooms" id="rooms"><button data-s="living">🛋️ 客廳</button><button data-s="bedroom">🛏️ 臥室</button><button data-s="balcony">🌿 陽台</button><button data-s="park">🌳 公園</button></div>
     </div>
   </div>
 
@@ -585,6 +614,7 @@
     living: { 名: '客廳', 點: { rug: [206, 470], tree: [78, 186], bed: [328, 334], bowl: [266, 560], window: [300, 250], water: [178, 352] }, 閒逛: [['rug', 'loaf'], ['window', 'sit'], ['rug', 'sit'], ['tree', 'loaf'], ['bed', 'sleep'], ['water', 'sit']] },
     bedroom: { 名: '臥室', 點: { rug: [170, 490], bed: [300, 352], top: [70, 112], scratch: [292, 548], window: [205, 300] }, 閒逛: [['rug', 'loaf'], ['bed', 'sleep'], ['top', 'loaf'], ['rug', 'sit']] },
     balcony: { 名: '陽台', 點: { rug: [206, 470], rail: [200, 330], grass: [282, 556], sun: [120, 444] }, 閒逛: [['rug', 'loaf'], ['sun', 'sleep'], ['rail', 'sit'], ['grass', 'sit']] },
+    park: { 名: '貓咪公園', 點: { rug: [200, 470], bench: [108, 392], fountain: [252, 560], path: [200, 330] }, 閒逛: [['rug', 'sit'], ['bench', 'loaf'], ['fountain', 'sit'], ['path', 'sit']] },
     clinic: { 名: '動物醫院', 點: { rug: [196, 380] }, 閒逛: [] },
   };
   let 場景 = 'living', 地點 = 場景們.living.點;
@@ -761,8 +791,10 @@
     let 選 = 狀態.貓?.種 || '香菇', 起 = 8, 性 = 狀態.貓?.性別 || '母';
     const 鎖 = k => 貓們[k].菇 && !狀態.菇粉;
     const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${c.菇 ? (鎖(k) ? '菇粉限定' : '菇粉限定 ✓') : c.介紹}</small></button>`).join('');
-    開卡(`<h3>${第二 ? '挑第二隻貓' : 第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
-      <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
+    開卡(`${第一次 ? `<div class="game-title"><b>養貓生存挑戰</b><span>你能把主子養到幾級？</span></div>
+      <div class="opening"><p class="big">「恭喜你撿到一隻貓。」</p><p>接下來每一個決定 都由你負責 😼</p></div>
+      <h3>先看看是哪一隻</h3>` : `<h3>${第二 ? '挑第二隻貓' : '換一隻貓'}</h3>`}
+      <p class="lead">${第一次 ? '選好牠 取個名字 生存挑戰就開始了' : '每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪'}</p>
       <div class="cats">${卡們}</div>
       <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 6 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
       <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
@@ -800,6 +832,8 @@
       狀態.貓 = 新貓;
       狀態.已餵 = {};
       存(); 關卡(); 去場景('living', null, true); 套貓();
+      上傳我的貓(true);
+      if (第一次 && !狀態.看過挑戰) { 狀態.看過挑戰 = 1; 存(); setTimeout(() => 說('生存挑戰開始了', '點右上角 🏆 看你能把主子養到幾級', 5), 6500); }
       if (狀態.待訪) { const 客 = 狀態.待訪; delete 狀態.待訪; 存(); setTimeout(() => 去作客(客), 2500); }
       if (週() < 12) setTimeout(() => 解鎖('藍眼睛'), 6000);
       走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
@@ -921,7 +955,7 @@
     for (const k of 個別欄) 狀態[k] = 下[k] ?? (k === '已餵' ? {} : k === '水' ? 0 : 50);
     狀態.貓 = 下.貓; 狀態.家 = [現];
     if (!狀態.照顧兩隻) { 狀態.照顧兩隻 = 1; } else 解鎖('多貓n+1');
-    存(); 套貓(); 畫第二隻();
+    存(); 套貓(); 畫第二隻(); 上傳我的貓(true);
     走到(地點.rug, () => { 姿勢('sit'); 愛心(2); 說(`換我了～`, `現在照顧的是${名()}`, 3); });
   }
   function 領養第二隻() {
@@ -939,6 +973,143 @@
     存(); 畫魚(); 關卡(); 畫第二隻(); 解鎖('多貓隔離');
     說(`歡迎${新貓.名}！`, '兩隻剛見面可能會哈氣 ~ 慢慢來，點另一隻就能換照顧牠', 5.5);
   }
+
+  // ── 貓咪公園：看到其他毛家長養的貓 點牠可以去牠家作客 ──
+  const 公園API = 'https://mushroom-cat-park.pupss4897.workers.dev';
+  const 公園位 = [[70, 470], [330, 440], [120, 560], [300, 610], [60, 360], [350, 520], [180, 620], [250, 390]];
+  const 常駐 = [{ 種: '香菇', 名: '香菇', 週: 416, 性別: '母', 擺: ['shelf', 'pic', 'lamp', 'curtain'], 天: 2920, 伴: 0, 本尊: 1 }];
+  let 公園貓們 = [], 公園快取 = null, 公園時 = 0;
+  async function 上傳我的貓(強制) {
+    if (作客 || !狀態.貓 || !狀態.貓.領養) return;
+    if (!強制 && Date.now() - (狀態.上傳時 || 0) < 20 * 60e3) return;
+    狀態.pid = 狀態.pid || Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    const 伴 = (狀態.家 || [])[0];
+    try {
+      await fetch(公園API + '/cat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 狀態.pid, 種: 狀態.貓.種, 名: 狀態.貓.名, 週: 週(), 性別: 狀態.貓.性別, 擺: 狀態.擺 || [], 天: Math.floor((Date.now() - 狀態.開始) / 864e5) + 1, 伴: 伴 ? [伴.貓.種, 伴.貓.名] : 0 }) });
+      狀態.上傳時 = Date.now(); 存();
+    } catch (e) {}
+  }
+  async function 拿公園() {
+    if (公園快取 && Date.now() - 公園時 < 60e3) return 公園快取;
+    try { const r = await (await fetch(公園API + '/cats?me=' + (狀態.pid || ''))).json(); 公園快取 = r.貓 || []; 公園時 = Date.now(); } catch (e) { 公園快取 = 公園快取 || []; }
+    return 公園快取;
+  }
+  async function 畫公園() {
+    $('parkcats').innerHTML = ''; 公園貓們 = [];
+    if (場景 !== 'park') return;
+    上傳我的貓(true);
+    const 別人 = (await 拿公園()).filter(c => 貓們[c.種]).sort(() => Math.random() - .5).slice(0, 公園位.length - 1);
+    if (場景 !== 'park') return;
+    const 名單 = [...常駐, ...別人];
+    名單.forEach((c, i) => {
+      const g = 香菇.cloneNode(true); g.removeAttribute('id'); g.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+      g.classList.remove('cone', 'happy', 'walking', 'annoyed', 'eating'); g.classList.toggle('kitten', c.週 < 26);
+      const k = 貓們[c.種]; 上色(g, k); 套特徵(g, k);
+      g.dataset.pose = ['sit', 'loaf', 'sit', 'sleep'][i % 4];
+      const 牌 = document.createElementNS(NS, 'g'); 牌.innerHTML = `<rect x="-26" y="-92" width="52" height="16" rx="8" fill="${c.本尊 ? '#22305A' : '#FFF9EE'}" stroke="#45372C" stroke-width="1.2"/><text x="0" y="-80" text-anchor="middle" font-size="10" font-family="LXGW WenKai TC, serif" fill="${c.本尊 ? '#fff' : '#45372C'}" stroke="none"></text>`;
+      牌.querySelector('text').textContent = (c.本尊 ? '👑 ' : '') + c.名; g.append(牌);
+      const [x, y] = 公園位[i]; const 成 = c.週 >= 52 ? 1 : Math.max(.58, .58 + .42 * (c.週 - 8) / 44);
+      g.setAttribute('transform', `translate(${x} ${y}) scale(${(比例(y) * 成 * .92).toFixed(3)})`);
+      g.addEventListener('pointerdown', e => { e.stopPropagation(); 點公園貓(c); });
+      $('parkcats').append(g); 公園貓們.push({ g, c, x, y, 成 });
+    });
+    if (!別人.length) setTimeout(() => 說('公園今天好安靜', '把遊戲分享給朋友 公園就會越來越熱鬧', 4), 900);
+    else setTimeout(() => 說(`公園裡有 ${別人.length + 1} 隻貓`, '點牠們可以去家裡作客', 3.5), 900);
+  }
+  setInterval(() => {
+    if (場景 !== 'park' || !公園貓們.length || !$('sheet').hidden) return;
+    const m = 公園貓們[Math.floor(Math.random() * 公園貓們.length)];
+    const 到 = 公園位[Math.floor(Math.random() * 公園位.length)], [x0, y0] = [m.x, m.y], [x1, y1] = [到[0] + (Math.random() * 30 - 15), 到[1]];
+    const t0 = performance.now(), 長 = Math.max(600, Math.hypot(x1 - x0, y1 - y0) / 120 * 1000);
+    m.g.dataset.pose = 'sit'; m.g.classList.add('walking');
+    (function 步(t) { const k = Math.min(1, (t - t0) / 長); m.x = x0 + (x1 - x0) * k; m.y = y0 + (y1 - y0) * k; m.g.setAttribute('transform', `translate(${m.x} ${m.y}) scale(${(比例(m.y) * m.成 * .92).toFixed(3)})`); if (k < 1) requestAnimationFrame(步); else { m.g.classList.remove('walking'); m.g.dataset.pose = Math.random() < .5 ? 'loaf' : 'sit'; } })(t0);
+  }, 4000);
+  function 點公園貓(c) {
+    if (忙 || 遊戲中) return;
+    const 歲 = c.週 < 52 ? `${Math.max(1, Math.round(c.週 / 4.345))} 個月大` : `${Math.floor(c.週 / 52)} 歲`;
+    開卡(`<h3>${c.本尊 ? '👑 ' : '🐾 '}${c.名}</h3><p class="lead">${c.本尊 ? '香菇爸家的公主・公園常駐 ~ 每天都來散步' : `${c.種}・${c.性別 === '公' ? '♂' : '♀'} ${歲}・被照顧了 ${c.天} 天`}${c.伴 ? `<br>家裡還有一隻 ${c.伴[1]}` : ''}${c.擺 && c.擺.length ? `<br>家裡有 ${c.擺.length} 樣家具` : ''}</p>
+      <button class="go" id="visitIt">去${c.名}家作客 🏠</button>`);
+    $('visitIt').onclick = () => { 關卡(); 去作客({ 種: c.種, 名: c.名, 齡: c.週, 性別: c.性別, 擺: c.擺 || [], 天: c.天, 伴: c.伴 ? { 貓: { 種: c.伴[0], 名: c.伴[1], 起始週: 52, 領養: Date.now() } } : null }); };
+  }
+
+  // ── 養貓生存挑戰：五關情境題 最後算出鏟屎官等級 ──
+  const 關卡們 = [
+    { 名: '生病事件', 圖: '🤒', 說: '主子不舒服的時候 你會怎麼做', 題: [
+      ['主子一整天沒吃東西 一直躲在床底下', '帶去看獸醫', ['再等兩三天看看', '餵牠人吃的胃藥'], '貓咪超過 24 小時不吃東西就要就醫 拖太久可能引起脂肪肝'],
+      ['公貓一直進貓砂盆 卻尿不出來', '立刻掛急診', ['多喝水明天再看', '換一種貓砂試試'], '公貓尿不出來可能是尿道阻塞 這是會致命的急症 不能等'],
+      ['吐了一次毛球 吐完精神和食慾都正常', '記錄下來 繼續觀察', ['馬上禁食三天', '自己餵止吐藥'], '偶爾吐毛球常見 記錄次數就好 頻繁嘔吐或精神變差再就醫'],
+    ] },
+    { 名: '挑主食', 圖: '🍚', 說: '每天吃的東西 決定了很多事', 題: [
+      ['翻到飼料包裝背面 你先看哪裡？', '第一個原料是不是肉', ['價格最便宜的', '包裝最漂亮的'], '成分表排越前面放越多 第一個原料是真正的肉 比較符合貓是肉食動物'],
+      ['主子滿 1 歲 要從幼貓飼料換成貓飼料', '7～10 天新舊慢慢混著換', ['舊的吃完直接全部換新', '不吃就一直換牌子'], '一次全換腸胃容易不適應 用 7～10 天慢慢增加新飼料的比例'],
+      ['包裝上要找哪一個標示 才能當正餐？', '「完整營養」或「主食」', ['「天然」兩個字', '「點心」也可以'], '標示「完整營養／主食」的才能當正餐 點心和副食只能偶爾吃'],
+    ] },
+    { 名: '保養', 圖: '🌿', 說: '不是生病才照顧 是每天慢慢顧', 題: [
+      ['主子的牙齒要怎麼照顧？', '用寵物牙膏 定期刷牙', ['用人的牙膏', '貓不用刷牙'], '貓也會有牙結石和口腔問題 人用牙膏不能用 要用寵物專用的'],
+      ['健康的成貓 多久做一次健檢？', '每年一次', ['生病再去就好', '五年一次'], '貓很會忍 很多問題在健檢才發現 7 歲以上建議半年一次'],
+      ['梳毛的主要目的是？', '把廢毛梳掉 減少毛球', ['只有長毛貓需要', '洗澡就可以取代'], '短毛貓也會掉毛 定期梳毛可以減少吞進去的毛 也順便檢查皮膚'],
+    ] },
+    { 名: '突發事件', 圖: '🚨', 說: '這種時候 冷靜最重要', 題: [
+      ['發現主子咬了家裡的百合花', '馬上帶著花去醫院', ['自己幫牠催吐', '先觀察有沒有事'], '百合對貓毒性很強 連花粉都危險 不要自己催吐 帶著植物直接就醫'],
+      ['夏天主子在陽台張嘴喘氣 身體很燙', '移到陰涼處降溫 立刻就醫', ['用冰水從頭澆下去', '讓牠繼續曬太陽'], '貓張嘴喘氣是警訊 可能中暑 用微涼的毛巾降溫並就醫 不要用冰水'],
+      ['主子吞了毛線 還有一段露在嘴巴外面', '不要拉 直接就醫', ['用力拉出來', '把露出來的剪掉'], '線狀異物硬拉可能傷到腸胃 剪掉又更難處理 保持原狀就醫'],
+    ] },
+    { 名: '熟齡照護', 圖: '🧓', 說: '陪牠一起慢慢變老', 題: [
+      ['主子 8 歲了 健檢要怎麼安排？', '半年一次 包含血液和腎臟指數', ['一年一次就好', '老了就不用檢查'], '熟齡貓很多問題早期沒症狀 半年一次檢查比較能早點發現'],
+      ['最近主子喝水和尿尿都變多了', '記錄下來告訴獸醫', ['老了正常不用管', '少給一點水'], '喝多尿多可能是身體的警訊 記錄量和次數 帶去給獸醫看'],
+      ['主子跳不上沙發了', '放小階梯 並諮詢獸醫', ['逼牠多跳幾次', '老了正常不用管'], '可能是關節不舒服 提供好上下的環境 並請獸醫檢查'],
+    ] },
+  ];
+  const 等級稱號 = ['', '先從認識貓開始吧', '還在新手村', '見習鏟屎官', '合格鏟屎官', '稱職鏟屎官', '資深鏟屎官', '主子很信任你', '主子可以放心把九條命交給你', '金牌鏟屎官', '傳說中的貓奴之神'];
+  function 挑戰分數() { const r = 狀態.挑戰 || {}; let 對 = 0, 做 = 0; 關卡們.forEach((_, i) => { if (r[i] != null) { 對 += r[i]; 做++; } }); return { 對, 做 }; }
+  function 等級(對) { return Math.max(1, Math.min(10, Math.round(1 + 對 * 9 / 15))); }
+  function 挑戰首頁() {
+    const r = 狀態.挑戰 || {}, { 對, 做 } = 挑戰分數();
+    開卡(`<div class="game-title"><b>養貓生存挑戰</b><span>你能把主子養到幾級？</span></div>
+      <p class="lead">${名()}的一生 會遇到這 5 關 ~ 每一關 3 個決定 都由你負責 😼</p>
+      ${關卡們.map((c, i) => `<button class="chap" data-c="${i}"><span class="n">${i + 1}</span><span><b>${c.圖} ${c.名}</b><small>${c.說}</small></span><span class="st">${r[i] == null ? '挑戰' : '★'.repeat(r[i]) + '☆'.repeat(3 - r[i])}</span></button>`).join('')}
+      ${做 === 5 ? '<button class="go" id="seeLv">看我的鏟屎官等級 🎓</button>' : `<p class="lead" style="margin-top:12px;text-align:center">完成 5 關就能看到你的鏟屎官等級（${做}/5）</p>`}`);
+    document.querySelectorAll('[data-c]').forEach(b => b.onclick = () => 闖關(+b.dataset.c));
+    if ($('seeLv')) $('seeLv').onclick = 看等級;
+  }
+  function 闖關(i) {
+    const c = 關卡們[i]; let k = 0, 對 = 0;
+    const 下一題 = () => {
+      if (k >= c.題.length) {
+        const 舊 = (狀態.挑戰 || {})[i]; 狀態.挑戰 = { ...(狀態.挑戰 || {}), [i]: Math.max(對, 舊 || 0) }; 存();
+        if (舊 == null) 給魚(對 * 2, `第 ${i + 1} 關完成`);
+        const 全 = Object.keys(狀態.挑戰).length === 5;
+        開卡(`<h3>${c.圖} ${c.名} 完成</h3><p class="lead" style="font-size:22px;text-align:center;letter-spacing:4px">${'★'.repeat(對)}${'☆'.repeat(3 - 對)}</p><p class="lead" style="text-align:center">答對 ${對} / 3 ${對 === 3 ? '~ 主子很放心' : '~ 可以再挑戰一次'}</p>
+          <button class="go" id="nextC">${全 ? '看我的鏟屎官等級 🎓' : i < 4 ? `下一關：${關卡們[i + 1].圖} ${關卡們[i + 1].名}` : '回挑戰首頁'}</button><button class="ghost-btn" id="backC">回挑戰首頁</button>`);
+        $('nextC').onclick = () => 全 ? 看等級() : i < 4 ? 闖關(i + 1) : 挑戰首頁();
+        $('backC').onclick = 挑戰首頁; return;
+      }
+      const [景, 正, 錯, 解] = c.題[k], 選 = [正, ...錯].sort(() => Math.random() - .5);
+      開卡(`<p class="lead" style="margin:0">第 ${i + 1} 關 ${c.圖} ${c.名}・${k + 1} / 3</p><h3 style="margin-top:6px">${景}</h3><p class="lead">你會怎麼做？</p>
+        <div class="opts">${選.map(o => `<button class="opt" data-o="${o}">${o}</button>`).join('')}</div><div id="ansC"></div>`);
+      document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
+        const 中 = b.dataset.o === 正; if (中) 對++;
+        document.querySelectorAll('[data-o]').forEach(x => { x.disabled = true; if (x.dataset.o === 正) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
+        $('ansC').innerHTML = `<div class="explain"><b>${中 ? '做得好！' : '比較好的做法：' + 正}</b>${解}</div><button class="go" id="okC">${k < 2 ? '下一個決定' : '這關結算'}</button>`;
+        $('okC').onclick = () => { k++; 下一題(); };
+      });
+    };
+    下一題();
+  }
+  function 看等級() {
+    const { 對 } = 挑戰分數(), L = 等級(對), 字 = 等級稱號[L];
+    const 連 = location.origin + location.pathname;
+    開卡(`<div class="lv"><small>🎓 你的鏟屎官等級</small><b>LV.${L}</b><p>「${字}」</p></div>
+      <p class="lead" style="text-align:center;margin-top:10px">15 個決定 答對 ${對} 個 ~ 照顧${名()}的每一天 都在累積經驗</p>
+      <button class="line-btn" id="shareLv">分享給朋友挑戰<small>看看誰能把主子養到更高級</small></button>
+      <div class="reward"><b>想要升級？</b>加入香菇爸 LINE 每週護貓直播 遇到狀況可以直接問</div>
+      <button class="line-btn" id="joinLine" style="background:#06C755">加香菇爸 LINE<small>傳「我是 LV.${L} 鏟屎官」給香菇爸</small></button>
+      <button class="ghost-btn" id="replay">重新挑戰</button>`);
+    $('shareLv').onclick = () => window.open('https://line.me/R/share?text=' + encodeURIComponent(`我在「養貓生存挑戰」拿到 LV.${L}：${字} 😼 你能把主子養到幾級？ ${連}`), '_blank', 'noopener');
+    $('joinLine').onclick = () => 開LINE(`我是 LV.${L} 鏟屎官 😼`);
+    $('replay').onclick = () => { 狀態.挑戰 = {}; 存(); 挑戰首頁(); };
+  }
+  $('challengeBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 挑戰首頁(); };
 
   // ── 小魚乾商店：照顧貓咪賺小魚乾 買家具佈置房間 ──
   const 商品們 = [
@@ -1030,7 +1201,7 @@
   function 去作客(客) {
     作客 = { 原: JSON.parse(JSON.stringify(狀態.貓)), 擺: 客.擺, 摸: 0, 伴: 客.伴 };
     狀態.貓 = { 種: 客.種, 名: 客.名, 性別: 客.性別 || '母', 起始週: 客.齡, 領養: Date.now(), 上次週: 客.齡, 結紮: 'done', 疫苗: [8, 12, 16] };
-    document.body.classList.add('visiting');
+    document.body.classList.add('visiting'); $('parkcats').innerHTML = '';
     $('visitBar').innerHTML = `🏠 你在 <b>${客.名}</b> 家作客・陪伴 ${客.天 || 1} 天 <button id="goHome">回家</button>`;
     $('goHome').onclick = 回家作客;
     去場景('living', null, true); 套貓();
@@ -1220,7 +1391,7 @@
       for (const k in 場景們) $('scene-' + k).style.display = k === id ? '' : 'none';
       場景 = id; 地點 = 場景們[id].點;
       if (id !== 'clinic' && 狀態) { 狀態.場景 = id; 存(); }
-      放(...地點.rug); 姿勢('sit'); if (狀態 && 狀態.貓) { 畫(); 畫第二隻(); } svg.style.opacity = 1;
+      放(...地點.rug); 姿勢('sit'); if (狀態 && 狀態.貓) { 畫(); 畫第二隻(); 畫公園(); } svg.style.opacity = 1;
       然後 && 然後();
     };
     if (立刻) return 換();
@@ -1348,6 +1519,7 @@
   }
   const 訪 = /#visit=([A-Za-z0-9_-]+)/.exec(location.hash);
   if (訪) { const 客 = 讀拜訪碼(訪[1]); if (客) { if ($('sheet').hidden) setTimeout(() => 去作客(客), 600); else 狀態.待訪 = 客; } }
+  setTimeout(() => 上傳我的貓(false), 3000);
   setInterval(() => { if (作客) return; (狀態.家 || []).forEach(x => { x.飽足 = Math.max(5, (x.飽足 ?? 50) - .17); x.心情 = Math.max(10, (x.心情 ?? 50) - .11); }); 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
 })();
 </script>
