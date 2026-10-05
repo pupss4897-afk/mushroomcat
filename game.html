@@ -1139,7 +1139,7 @@
       const 文 = $('wishIn').value.trim(); if (文.length < 2) return;
       $('wishGo').disabled = true;
       try { const r = await (await fetch(公園API + '/wish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 狀態.pid, 文 }) })).json();
-        if (r.ok) { 吐司('🌠 願望送出了'); 給魚(3, '許了一個願'); 許願頁 = '新'; 許願池(); } else { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = r.錯 || '送不出去 等一下再試'; $('wishGo').disabled = false; }
+        if (r.ok) { 狀態.我的願望 = { k: 'mine' + Date.now(), 文, 票: 1, t: Date.now() }; 狀態.投過 = [...(狀態.投過 || []), 狀態.我的願望.k]; 吐司('🌠 願望送出了'); 給魚(3, '許了一個願'); 許願頁 = '新'; 許願池(); } else { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = r.錯 || '送不出去 等一下再試'; $('wishGo').disabled = false; }
       } catch (e) { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = '網路好像不太穩 等一下再試'; $('wishGo').disabled = false; }
     };
     $('installBtn').onclick = async () => {
@@ -1148,7 +1148,8 @@
       $('installTip').innerHTML = iOS ? '用 <b>Safari</b> 打開這個遊戲 → 按下面的<b>分享鈕</b>（方框加箭頭）→ 選<b>「加入主畫面」</b>' : '按瀏覽器右上角的<b>「⋮」</b> → 選<b>「加到主畫面」</b>或<b>「安裝應用程式」</b>';
     };
     try {
-      const r = await (await fetch(公園API + '/wishes')).json(), 單 = 許願頁 === '熱' ? r.熱 : r.新;
+      const r = await (await fetch(公園API + '/wishes')).json(), 單 = [...(許願頁 === '熱' ? r.熱 : r.新)];
+      const 我 = 狀態.我的願望; if (我 && Date.now() - 我.t < 3 * 60e3 && !單.some(w => w.文 === 我.文)) 單.unshift(我);
       if (!$('wishList')) return;
       const 投過 = new Set(狀態.投過 || []);
       $('wishList').innerHTML = 單.length ? '' : '<p class="lead">還沒有人許願 ~ 當第一個吧</p>';
