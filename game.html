@@ -150,6 +150,14 @@
   .ghost-btn { display: block; width: 100%; margin-top: 8px; border: 2px solid var(--line); background: var(--paper); border-radius: 14px; padding: 9px; font-family: var(--hand); font-size: 16px; color: var(--ink); cursor: pointer; }
   .codebox { width: 100%; box-sizing: border-box; min-height: 64px; border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; font: 13px/1.5 var(--ui); background: #fff; color: var(--ink); resize: vertical; }
   .lock { position: absolute; top: 4px; right: 6px; font-size: 14px; }
+  .shop { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .shop .item { border: 2px solid var(--line); border-radius: 13px; padding: 9px; background: #FBF3E4; display: grid; gap: 3px; }
+  .shop .item b { font-family: var(--hand); font-size: 15px; } .shop .item small { font-size: 11px; color: var(--ink-soft); }
+  .shop .sm { margin-top: 4px; padding: 6px; font-size: 14px; } .shop .go:disabled { opacity: .45; }
+  .visit-bar { display: none; position: absolute; left: 10px; right: 10px; top: calc(196px + env(safe-area-inset-top, 0px)); z-index: 6; padding: 7px 12px; border: 2px solid var(--line); border-radius: 14px; background: #FFF1C9; font-family: var(--hand); font-size: 14px; text-align: center; }
+  .visit-bar button { margin-left: 8px; border: 2px solid var(--line); border-radius: 99px; background: var(--paper); padding: 2px 10px; font: inherit; cursor: pointer; }
+  body.visiting .visit-bar { display: block; } body.visiting #shopBtn, body.visiting #visitBtn, body.visiting #swap, body.visiting #book { opacity: .3; pointer-events: none; }
+  .cats { grid-template-columns: repeat(4, 1fr) !important; } .catopt svg { width: 56px !important; height: 62px !important; } .catopt b { font-size: 13.5px !important; }
   .catopt { position: relative; } .catopt.locked svg { opacity: .35; filter: grayscale(1); }
   .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
   .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
@@ -215,8 +223,8 @@
         <rect x="102" y="306" width="18" height="90" fill="url(#rope)"/>
       </g>
       <!-- 圓形地毯 -->
-      <ellipse cx="206" cy="458" rx="122" ry="54" fill="#A8B98A"/>
-      <ellipse cx="206" cy="458" rx="104" ry="42" fill="none" stroke="#8EA273" stroke-width="2"/>
+      <ellipse id="rugMain" cx="206" cy="458" rx="122" ry="54" fill="#A8B98A"/>
+      <ellipse id="rugLine" cx="206" cy="458" rx="104" ry="42" fill="none" stroke="#8EA273" stroke-width="2"/>
       <!-- 窩（點了香菇會去睡）-->
       <g class="tap" id="t-bed" tabindex="0" role="button" aria-label="香菇的窩">
         <ellipse class="hl" cx="328" cy="330" rx="60" ry="30" fill="#FFF1C9" stroke="none"/>
@@ -248,6 +256,15 @@
       <!-- 盆栽 -->
       <path d="M362 250 L368 286 H396 L402 250 Z" fill="#E2B95B"/>
       <path d="M382 250 C372 230 360 222 352 208 M382 250 C388 228 398 220 410 214 M382 250 C380 228 384 214 382 200" fill="none" stroke="#6E8F5A" stroke-width="3"/>
+      <!-- 小魚乾商店的家具 -->
+      <g id="deco-lights" style="display:none"><path d="M10 30 Q100 60 200 30 Q300 60 390 30" fill="none" stroke-width="1.6"/>
+        <g stroke="none"><circle cx="40" cy="40" r="4" fill="#F6D06B"/><circle cx="80" cy="47" r="4" fill="#F2A8B0"/><circle cx="120" cy="47" r="4" fill="#9CC9E8"/><circle cx="160" cy="40" r="4" fill="#F6D06B"/><circle cx="240" cy="40" r="4" fill="#F2A8B0"/><circle cx="280" cy="47" r="4" fill="#9CC9E8"/><circle cx="320" cy="47" r="4" fill="#F6D06B"/><circle cx="360" cy="40" r="4" fill="#F2A8B0"/></g></g>
+      <g id="deco-pic" style="display:none"><rect x="28" y="70" width="64" height="48" rx="3" fill="#B98A5E"/><rect x="34" y="76" width="52" height="36" fill="#CFE3EE"/><path d="M44 94 q10 -8 20 0 q-10 8 -20 0 z M64 94 l8 -6 v12 z" fill="#E39A4E" stroke-width="1.4"/></g>
+      <g id="deco-lamp" style="display:none"><path d="M175 0 V58" stroke-width="2"/><path d="M152 76 Q175 40 198 76 Z" fill="#E06B74"/><g fill="#FFF7EE" stroke="none"><circle cx="166" cy="64" r="3"/><circle cx="182" cy="60" r="2.5"/><circle cx="176" cy="70" r="2"/></g><ellipse cx="175" cy="80" rx="8" ry="3" fill="#FFF1A8" stroke="none"/></g>
+      <g id="deco-curtain" style="display:none"><path d="M220 74 Q238 130 228 190 L214 190 Q222 130 210 74 Z M370 74 Q352 130 362 190 L376 190 Q368 130 380 74 Z" fill="#FFF7F2" stroke-width="1.6"/><path d="M208 74 H382" stroke-width="3"/></g>
+      <g id="deco-tank" style="display:none"><rect x="346" y="410" width="50" height="60" rx="4" fill="#9C6B43"/><rect x="342" y="372" width="58" height="42" rx="6" fill="#CFE8F2"/><path d="M360 392 q5 -4 10 0 q-5 4 -10 0 z M370 392 l4 -3 v6 z" fill="#E39A4E" stroke-width="1"/><path d="M380 404 q4 -3 8 0 q-4 3 -8 0 z" fill="#E06B74" stroke-width="1"/></g>
+      <g id="deco-pillow" style="display:none"><path d="M376 360 q14 -16 26 0 q-12 14 -26 0 z" fill="#9CC9E8"/><path d="M402 360 l8 -6 v12 z" fill="#9CC9E8"/></g>
+      <g id="deco-box" style="display:none"><path d="M168 584 L252 584 L246 630 L174 630 Z" fill="#D9A970"/><path d="M168 584 L182 566 L238 566 L252 584 Z" fill="#E8C08E"/><path d="M190 600 h40" stroke-width="1.4"/></g>
       <!-- 公貓發情時噴的尿 -->
       <ellipse id="puddle" cx="250" cy="250" rx="22" ry="6" fill="#E9D66B" stroke="none" opacity=".75" style="display:none"/>
      </g>
@@ -441,7 +458,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・🐟 <b id="coins">0</b>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -465,6 +482,7 @@
     <button class="act" id="mind"><svg viewBox="0 0 32 32" stroke="#45372C" stroke-width="1.8"><path d="M8 20 C3 20 3 13 8 13 C8 7 15 6 17 10 C20 6 28 8 26 14 C30 16 28 22 23 21 C21 24 11 24 8 20 Z" fill="#FFF9EE"/><circle cx="7" cy="26" r="2" fill="#FFF9EE"/><circle cx="4" cy="30" r="1.2" fill="#FFF9EE"/><text x="12.5" y="19.5" font-size="9" fill="#45372C" stroke="none" font-family="serif" font-weight="700">?</text></svg>讀心術</button>
   </div>
 
+  <div class="visit-bar" id="visitBar"></div>
   <div class="sheet" id="sheet" hidden><div class="card" id="card" role="dialog" aria-modal="true"></div></div>
 </div>
 
@@ -473,14 +491,29 @@
   const $ = id => document.getElementById(id);
   const 鍵 = 'shroom-pet-v1';
   // 可以選的貓（香菇是香菇爸家的本尊，作息照真的來）
+  // 品種：12 隻熱門＋香菇本尊免費，4 隻菇粉限定
   const 貓們 = {
     香菇: { 毛: '#9AA2AC', 白: true, 巾: '#22305A', 眼: '#B5B248', 自稱: '本宮', 介紹: '香菇爸家的公主' },
-    橘子: { 毛: '#E39A4E', 白: true, 巾: '#5E8C61', 眼: '#9CC07A', 自稱: '本喵', 介紹: '貪吃的橘白' },
-    煤球: { 毛: '#46424A', 白: false, 巾: '#C0504D', 眼: '#E8C14E', 自稱: '我', 介紹: '害羞的小黑' },
-    雪球: { 毛: '#F4F0E8', 白: true, 巾: '#E58FA0', 眼: '#8EC3E6', 自稱: '人家', 介紹: '愛撒嬌的白貓' },
-    奶茶: { 毛: '#D8B48A', 白: true, 巾: '#6F86C2', 眼: '#C9A23E', 自稱: '本喵', 介紹: '溫柔的奶茶色' },
-    小虎: { 毛: '#A98F6E', 白: true, 巾: '#E2B95B', 眼: '#9CC07A', 自稱: '本大爺', 介紹: '好動的虎斑' },
+    米克斯: { 毛: '#B08A5E', 白: true, 巾: '#5E8C61', 眼: '#9CC07A', 自稱: '本喵', 介紹: '最親人的虎斑', 紋: '#6E5236' },
+    橘貓: { 毛: '#E39A4E', 白: true, 巾: '#6F86C2', 眼: '#C9A23E', 自稱: '本喵', 介紹: '十橘九胖', 紋: '#B9692A' },
+    賓士貓: { 毛: '#3C3A40', 白: true, 巾: '#C0504D', 眼: '#E8C14E', 自稱: '我', 介紹: '黑白西裝紳士' },
+    英國短毛: { 毛: '#8E99A6', 白: false, 巾: '#E2B95B', 眼: '#E0A23B', 自稱: '本喵', 介紹: '圓臉包子' },
+    美國短毛: { 毛: '#C9C8C2', 白: false, 巾: '#C0504D', 眼: '#9CC07A', 自稱: '本喵', 介紹: '銀色虎斑', 紋: '#55534E' },
+    布偶貓: { 毛: '#F3EDE4', 白: true, 巾: '#E58FA0', 眼: '#7FB3E0', 自稱: '人家', 介紹: '藍眼大長毛', 點: '#8A7666', 長: 1 },
+    曼赤肯: { 毛: '#D8B48A', 白: true, 巾: '#6F86C2', 眼: '#C9A23E', 自稱: '本喵', 介紹: '小短腿' },
+    摺耳貓: { 毛: '#A7A3A0', 白: true, 巾: '#E2B95B', 眼: '#E0A23B', 自稱: '本喵', 介紹: '摺耳圓臉', 摺: 1 },
+    暹羅貓: { 毛: '#EFE4D2', 白: false, 巾: '#6F86C2', 眼: '#7FB3E0', 自稱: '我', 介紹: '愛講話的重點色', 點: '#5A4636' },
+    俄羅斯藍: { 毛: '#7F8C9B', 白: false, 巾: '#E58FA0', 眼: '#7FC08A', 自稱: '我', 介紹: '綠眼優雅藍', },
+    緬因貓: { 毛: '#8E6A48', 白: true, 巾: '#5E8C61', 眼: '#C9A23E', 自稱: '本大爺', 介紹: '溫柔大巨人', 紋: '#4E3826', 長: 1, 簇: 1 },
+    波斯貓: { 毛: '#F2EEE6', 白: false, 巾: '#B994C9', 眼: '#E0A23B', 自稱: '本宮', 介紹: '扁臉長毛貴族', 長: 1 },
+    金吉拉: { 毛: '#EDECEA', 白: false, 巾: '#22305A', 眼: '#5FAF7A', 自稱: '人家', 介紹: '銀白仙女', 長: 1, 菇: 1 },
+    孟加拉貓: { 毛: '#D9A85E', 白: false, 巾: '#22305A', 眼: '#9CC07A', 自稱: '本大爺', 介紹: '小豹紋', 豹: '#5B3F22', 菇: 1 },
+    無毛貓: { 毛: '#E8C4B8', 白: false, 巾: '#6F86C2', 眼: '#9CC07A', 自稱: '我', 介紹: '暖呼呼的小外星人', 皺: 1, 菇: 1 },
+    三花貓: { 毛: '#F7F2EA', 白: false, 巾: '#E58FA0', 眼: '#C9A23E', 自稱: '本宮', 介紹: '幸運三花', 花: 1, 菇: 1 },
   };
+  const 舊貓 = { 橘子: '橘貓', 煤球: '賓士貓', 雪球: '波斯貓', 奶茶: '曼赤肯', 小虎: '米克斯' };
+  const 菇粉碼 = 'GUFEN2280';
+  const 菇粉貓 = Object.keys(貓們).filter(k => 貓們[k].菇);
   const 階段們 = {
     幼貓: { 字: '幼貓', 說明: '2～12 個月', 公斤: 2, 餐: [7, 12, 17, 22], 餐提示: '幼貓長得快、胃又小，一天大約 4 餐，少量多餐' },
     成貓: { 字: '成貓', 說明: '1～7 歲', 公斤: 4, 餐: [8, 13, 19], 餐提示: '成貓一天 2～3 餐，固定時間吃最有安全感' },
@@ -489,9 +522,7 @@
   const 香菇作息 = { 字: '熟齡貓', 說明: '8 歲', 公斤: 4.6, 餐: [7, 9, 12, 17, 19, 22], 餐提示: '香菇家是少量多餐，一天 6 餐，每餐都固定時間' };
   // ── 香菇爸 LINE（AO 的關鍵字自動回覆會接住這些訊息）──
   const LINE_ID = '@mushroom131';
-  const 暗號 = { 小抄: '我要領養貓遊戲小抄', 解鎖: '我要解鎖隱藏貓咪', 存貓: '我要存貓' };
-  const 解鎖碼 = 'MUSH131';
-  const 隱藏貓 = ['奶茶', '小虎'];
+  const 暗號 = { 小抄: '我要領養貓遊戲小抄', 解鎖: '我是菇粉 我要解鎖菇粉限定貓', 存貓: '我要存貓' };
   function 開LINE(文) { window.open('https://line.me/R/oaMessage/' + LINE_ID + '/?' + encodeURIComponent(文), '_blank', 'noopener'); }
   // 玩的過程中解鎖的知識卡（照顧小知識，集滿就能去 LINE 領完整版）
   const 知識卡 = [
@@ -575,13 +606,15 @@
       s.連續 = s.簽到日 === 昨天 ? s.連續 + 1 : 1; s.簽到日 = 今天; s.已餵 = {}; s.水 = 0; s.首次 = true;
     }
     s.水 = s.水 || 0;
+    if (s.貓 && 舊貓[s.貓.種]) s.貓.種 = 舊貓[s.貓.種];
+    s.魚 = s.魚 ?? 20; s.裝潢 = s.裝潢 || []; s.擺 = s.擺 || [];
     if (s.貓 && s.貓.起始週 == null) Object.assign(s.貓, { 起始週: { 幼貓: 12, 成貓: 104, 熟齡: 416 }[s.貓.段] || 52, 領養: s.開始, 性別: s.貓.種 === '香菇' ? '母' : '母', 疫苗: [8, 12, 16], 結紮: s.貓.段 === '幼貓' ? undefined : 'done' });
     // 測試用：網址加 ?快轉=8 會讓貓咪長大 8 週
     const 快 = parseInt(new URLSearchParams(location.search).get('快轉'));
     if (s.貓 && 快 > 0) { s.貓.領養 -= 快 * 864e5; history.replaceState(null, '', location.pathname); }
     return s;
   }
-  function 存() { 狀態.上次 = Date.now(); try { localStorage.setItem(鍵, JSON.stringify(狀態)); } catch (e) {} }
+  function 存() { if (作客) return; 狀態.上次 = Date.now(); try { localStorage.setItem(鍵, JSON.stringify(狀態)); } catch (e) {} }
   function 畫() {
     const 夾 = v => Math.round(Math.max(0, Math.min(100, v)));
     for (const [id, k] of [['b-full', '飽足'], ['b-mood', '心情'], ['b-bond', '親密']]) { $(id).querySelector('b').textContent = 夾(狀態[k]); $(id).querySelector('.fill').style.width = 夾(狀態[k]) + '%'; }
@@ -604,9 +637,47 @@
     const 色 = { 毛: c.毛, 白: c.白 ? '#FCFAF4' : c.毛, 巾: c.巾, 眼: c.眼 };
     for (const a of ['fill', 'stroke']) root.querySelectorAll(`[data-p${a}]`).forEach(el => el.setAttribute(a, 色[el.dataset['p' + a]]));
   }
+  // ── 品種特徵：條紋、重點色、摺耳、長毛、豹紋、皺褶、三花 ──
+  const 頭底 = 'M-26 -42 C-27 -56 -14 -63 0 -63', 口鼻 = 'M0 -53 C-3 -47', 外耳 = 'M-21 -52 L-18 -70', 內耳 = 'M-17 -56';
+  const NS = 'http://www.w3.org/2000/svg';
+  function 加(after, html) { const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'feat'); g.innerHTML = html; after.after(g); }
+  function 套特徵(root, c) {
+    root.querySelectorAll('.feat').forEach(e => e.remove());
+    root.querySelectorAll('path').forEach(e => { const d = e.getAttribute('d') || ''; if (e.dataset.d0) e.setAttribute('d', e.dataset.d0); });
+    root.querySelectorAll('[data-pt]').forEach(e => { e.setAttribute('fill', e.dataset.pt); delete e.dataset.pt; });
+    for (const 底 of root.querySelectorAll('path')) {
+      const d = 底.getAttribute('d') || '';
+      if (d.startsWith(外耳)) {
+        if (c.摺) { 底.dataset.d0 = d; 底.setAttribute('d', 'M-24 -52 Q-21 -64 -9 -60 Q-15 -56 -24 -52 Z M24 -52 Q21 -64 9 -60 Q15 -56 24 -52 Z'); }
+        if (c.點) { 底.dataset.pt = 底.getAttribute('fill'); 底.setAttribute('fill', c.點); }
+        if (c.簇) 加(底, '<path d="M-18 -70 l-2 -7 M-18 -70 l1 -7 M18 -70 l2 -7 M18 -70 l-1 -7" stroke-width="1.4" fill="none"/>');
+      }
+      if (d.startsWith(內耳) && c.摺) { 底.dataset.d0 = d; 底.setAttribute('d', 'M0 0'); }
+      if (d.startsWith(頭底)) {
+        let h = '';
+        if (c.紋) h += `<path d="M-7 -61 l2.5 6 l2.5 -5 l2.5 5 l2.5 -5 l2.5 6 M-27 -43 l7 1 M-27 -38 l7 0 M27 -43 l-7 1 M27 -38 l-7 0" fill="none" stroke="${c.紋}" stroke-width="1.6"/>`;
+        if (c.豹) h += `<g fill="${c.豹}" stroke="none"><circle cx="-18" cy="-52" r="2"/><circle cx="16" cy="-55" r="1.8"/><circle cx="-6" cy="-58" r="1.5"/><circle cx="20" cy="-46" r="1.6"/><circle cx="-21" cy="-44" r="1.4"/></g>`;
+        if (c.花) h += '<path d="M-26 -42 C-27 -56 -14 -63 -2 -63 C-6 -55 -12 -50 -24 -36 Z" fill="#E39A4E" stroke="none"/><path d="M10 -62 C20 -60 27 -54 26 -44 C20 -47 14 -52 10 -62 Z" fill="#3C3A40" stroke="none"/>';
+        if (c.皺) h += '<path d="M-9 -59 q9 -3 18 0 M-7 -55 q7 -2 14 0" fill="none" stroke-width="1" opacity=".55"/>';
+        if (c.長) h += `<path d="M-26 -46 l-6 3 l5 2 l-6 4 l6 1 l-4 4 l6 0 M26 -46 l6 3 l-5 2 l6 4 l-6 1 l4 4 l-6 0" fill="${c.毛}" stroke-width="1.4"/>`;
+        if (h) 加(底, h);
+      }
+      if (d.startsWith(口鼻) && c.點) 加(底, `<ellipse cx="0" cy="-39" rx="9" ry="8" fill="${c.點}" stroke="none" opacity=".88"/>`);
+    }
+    for (const 身 of root.querySelectorAll('.p-sit > ellipse[cx="0"][cy="-17"], .p-eat > ellipse[cx="0"][cy="-17"], .p-loaf > ellipse[cx="0"][cy="-12"]')) {
+      let h = '';
+      const y = 身.getAttribute('cy') === '-12' ? 5 : 0;
+      if (c.紋) h += `<path d="M-19 ${-22 + y} q4 2 8 0 M-20 ${-14 + y} q4 2 8 0 M11 ${-22 + y} q4 2 8 0 M12 ${-14 + y} q4 2 8 0" fill="none" stroke="${c.紋}" stroke-width="1.6"/>`;
+      if (c.豹) h += `<g fill="${c.豹}" stroke="none"><circle cx="-15" cy="${-20 + y}" r="2.2"/><circle cx="14" cy="${-24 + y}" r="2"/><circle cx="16" cy="${-12 + y}" r="1.8"/><circle cx="-16" cy="${-10 + y}" r="1.7"/></g>`;
+      if (c.花) h += `<ellipse cx="-12" cy="${-20 + y}" rx="8" ry="6" fill="#E39A4E" stroke="none"/><ellipse cx="13" cy="${-14 + y}" rx="7" ry="5" fill="#3C3A40" stroke="none"/>`;
+      if (h) 加(身, h);
+    }
+    if (c.點) root.querySelectorAll('.tail').forEach(t => { if (t.getAttribute('fill') && t.getAttribute('fill') !== 'none') { t.dataset.pt = t.getAttribute('fill'); t.setAttribute('fill', c.點); } });
+  }
   function 套貓() {
     const 小 = 週() < 12 && 狀態.貓.種 !== '香菇';
-    上色(香菇, 小 ? { ...貓(), 眼: '#8FB8D8' } : 貓()); 上色($('photo'), 貓());
+    上色(香菇, 小 ? { ...貓(), 眼: '#8FB8D8' } : 貓()); 上色($('photo'), 貓()); 套特徵(香菇, 貓());
+    套裝潢();
     香菇.classList.toggle('kitten', 週() < 26);
     香菇.classList.toggle('cone', 狀態.貓.結紮 === 'done' && Date.now() - (狀態.貓.結紮日 || 0) < 864e5);
     $('puddle').style.display = 狀態.貓.結紮 === 'later' && 狀態.貓.性別 === '公' && 狀態.貓.上次發情 ? '' : 'none';
@@ -667,11 +738,12 @@
   // ── 選貓 ──
   function 選貓畫面(第一次) {
     let 選 = 狀態.貓?.種 || '香菇', 起 = 8, 性 = 狀態.貓?.性別 || '母';
-    const 鎖 = k => 隱藏貓.includes(k) && !狀態.解鎖貓;
-    const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${鎖(k) ? '傳暗號解鎖' : c.介紹}</small></button>`).join('');
+    const 鎖 = k => 貓們[k].菇 && !狀態.菇粉;
+    const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${c.菇 ? (鎖(k) ? '菇粉限定' : '菇粉限定 ✓') : c.介紹}</small></button>`).join('');
     開卡(`<h3>${第一次 ? '選一隻貓來養吧' : '換一隻貓'}</h3>
       <p class="lead">每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪</p>
       <div class="cats">${卡們}</div>
+      <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 4 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
       <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
       <h4>從幾歲開始養？</h4><div class="ages">${開始年齡們.map(a => `<button class="opt" data-a="${a.週}">${a.字}<small>${a.說明}</small></button>`).join('')}</div>
       <p class="lead" style="margin:8px 0 0">現實 1 天，貓咪長大 1 週。從小奶貓開始，就能陪牠打疫苗、結紮、慢慢長大</p></div>
@@ -684,7 +756,7 @@
       $('loadBtn2').onclick = () => { if (解包($('codeIn2').value)) { 關卡(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, '', 3); }); } else { $('loadMsg2').className = 'msg bad'; $('loadMsg2').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; } };
     } else 綁存檔();
     const 原型 = 香菇.querySelector('.p-sit');
-    document.querySelectorAll('.catopt svg').forEach(s => { const g = 原型.cloneNode(true); g.setAttribute('filter', 'url(#hand)'); g.setAttribute('stroke', '#45372C'); g.setAttribute('stroke-width', '2'); g.setAttribute('stroke-linejoin', 'round'); s.append(g); 上色(s, 貓們[s.dataset.k]); });
+    document.querySelectorAll('.catopt svg').forEach(s => { const g = 原型.cloneNode(true); g.setAttribute('filter', 'url(#hand)'); g.setAttribute('stroke', '#45372C'); g.setAttribute('stroke-width', '2'); g.setAttribute('stroke-linejoin', 'round'); s.append(g); 上色(s, 貓們[s.dataset.k]); 套特徵(s, 貓們[s.dataset.k]); });
     const 刷新 = (換名) => {
       document.querySelectorAll('.catopt').forEach(b => b.classList.toggle('on', b.dataset.k === 選));
       document.querySelectorAll('[data-a]').forEach(b => b.classList.toggle('on', +b.dataset.a === 起));
@@ -703,6 +775,7 @@
         疫苗: [8, 12, 16].filter(d => d < 起週), 結紮: 香 || 起週 >= 52 ? 'done' : undefined };
       狀態.已餵 = {};
       存(); 關卡(); 去場景('living', null, true); 套貓();
+      if (狀態.待訪) { const 客 = 狀態.待訪; delete 狀態.待訪; 存(); setTimeout(() => 去作客(客), 2500); }
       if (週() < 12) setTimeout(() => 解鎖('藍眼睛'), 6000);
       走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
     };
@@ -725,16 +798,17 @@
 
   // ── 存檔碼：把貓打包成一串字，傳到 LINE 存著，換手機貼回來就好 ──
   function 打包() {
-    const c = 狀態.貓, o = [c.種, 週(), c.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.解鎖貓 ? 1 : 0, c.性別, c.結紮 || '', c.疫苗 || []];
+    const c = 狀態.貓, o = [c.種, 週(), c.名, Math.round(狀態.親密), Math.floor(狀態.開始 / 864e5), 狀態.連續, 狀態.答對 || 0, (狀態.卡 || []).map(id => 知識卡.findIndex(k => k.id === id)).filter(i => i >= 0), 狀態.菇粉 ? 1 : 0, c.性別, c.結紮 || '', c.疫苗 || [], 狀態.魚 || 0, 狀態.裝潢 || [], 狀態.擺 || []];
     return 'MC' + btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/, '');
   }
   function 解包(文) {
     const m = /MC([A-Za-z0-9+/]{8,})/.exec(文 || ''); if (!m) return false;
     try {
-      const [種, 齡, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓, 性別, 結紮, 疫苗] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
+      let [種, 齡, 名字, 親密, 開始日, 連續, 答對, 卡, 解鎖貓, 性別, 結紮, 疫苗, 魚, 裝潢, 擺] = JSON.parse(decodeURIComponent(escape(atob(m[1]))));
       const w = typeof 齡 === 'number' ? 齡 : ({ 幼貓: 12, 成貓: 104, 熟齡: 416 }[齡] || 52);
+      if (舊貓[種]) 種 = 舊貓[種];
       if (!貓們[種]) return false;
-      Object.assign(狀態, { 貓: { 種, 名: String(名字).slice(0, 8), 性別: 性別 || '母', 起始週: w, 領養: Date.now(), 上次週: w, 結紮: 結紮 || (w >= 52 ? 'done' : undefined), 疫苗: 疫苗 || [8, 12, 16].filter(d => d < w) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 解鎖貓: !!解鎖貓, 已餵: {}, 簽到日: new Date().toDateString() });
+      Object.assign(狀態, { 貓: { 種, 名: String(名字).slice(0, 8), 性別: 性別 || '母', 起始週: w, 領養: Date.now(), 上次週: w, 結紮: 結紮 || (w >= 52 ? 'done' : undefined), 疫苗: 疫苗 || [8, 12, 16].filter(d => d < w) }, 親密, 開始: 開始日 * 864e5, 連續, 答對, 卡: 卡.map(i => 知識卡[i]?.id).filter(Boolean), 菇粉: !!解鎖貓 && !!魚, 魚: 魚 ?? 狀態.魚, 裝潢: 裝潢 || 狀態.裝潢, 擺: 擺 || 狀態.擺, 已餵: {}, 簽到日: new Date().toDateString() });
       存(); 套貓(); return true;
     } catch (e) { return false; }
   }
@@ -753,22 +827,112 @@
     };
   }
   function 解鎖貓畫面(回去) {
-    開卡(`<h3>🔒 解鎖隱藏貓咪</h3><p class="lead">奶茶和小虎是隱藏貓咪。傳暗號給香菇爸，就會收到解鎖碼</p>
-      <button class="line-btn" id="askCode">傳暗號給香菇爸<small>會打開香菇爸 LINE，按送出就好</small></button>
+    開卡(`<h3>🍄 菇粉限定貓咪</h3><p class="lead">金吉拉 孟加拉貓 無毛貓 三花貓是<b>菇粉限定</b> ~ 跟團香菇同款成為菇粉 香菇爸會私訊你解鎖碼</p>
+      <button class="line-btn" id="askCode">我是菇粉 跟香菇爸要解鎖碼<small>會打開香菇爸 LINE 按送出就好</small></button>
       <h4>輸入解鎖碼</h4><input class="name" id="codeOne" maxlength="12" autocapitalize="characters" aria-label="解鎖碼">
       <p class="msg" id="unlockMsg"></p>
       <button class="go" id="unlockBtn">解鎖</button><button class="ghost-btn" id="backBtn">先不用</button>`);
     $('askCode').onclick = () => 開LINE(暗號.解鎖);
     $('backBtn').onclick = 回去;
     $('unlockBtn').onclick = () => {
-      if ($('codeOne').value.trim().toUpperCase() === 解鎖碼) { 狀態.解鎖貓 = true; 存(); 吐司('🎉 解鎖奶茶和小虎！'); 回去(); }
-      else { $('unlockMsg').className = 'msg bad'; $('unlockMsg').textContent = '解鎖碼不對，再看一下香菇爸 LINE 的回覆'; }
+      if ($('codeOne').value.trim().toUpperCase() === 菇粉碼) { 狀態.菇粉 = true; 存(); 吐司('🎉 解鎖 4 隻菇粉限定貓咪！'); 回去(); }
+      else { $('unlockMsg').className = 'msg bad'; $('unlockMsg').textContent = '解鎖碼不對 再看一下香菇爸 LINE 的回覆'; }
     };
   }
 
+  // ── 小魚乾商店：照顧貓咪賺小魚乾 買家具佈置房間 ──
+  const 商品們 = [
+    { id: 'lights', 名: '星星燈串', 價: 40, 說: '牆上一閃一閃' },
+    { id: 'pic', 名: '小魚掛畫', 價: 30, 說: '貓咪最愛的畫' },
+    { id: 'lamp', 名: '香菇吊燈', 價: 50, 說: '暖暖的光' },
+    { id: 'box', 名: '紙箱', 價: 25, 說: '貓咪會自己鑽進去' },
+    { id: 'tank', 名: '小魚缸', 價: 60, 說: '貓咪可以看一整天' },
+    { id: 'curtain', 名: '蕾絲窗簾', 價: 35, 說: '陽光變得好柔' },
+    { id: 'rugpink', 名: '粉紅地毯', 價: 30, 說: '換一個地毯顏色' },
+    { id: 'pillow', 名: '小魚抱枕', 價: 15, 說: '放在窩旁邊' },
+  ];
+  function 給魚(n, 理由) {
+    if (作客) return;
+    狀態.魚 = (狀態.魚 || 0) + n; 存(); 畫魚();
+    if (理由) 吐司(`🐟 +${n} 小魚乾・${理由}`);
+  }
+  function 畫魚() { $('coins').textContent = 狀態.魚 || 0; }
+  function 套裝潢() {
+    const 擺 = new Set(作客 ? 作客.擺 : 狀態.擺 || []);
+    for (const g of 商品們) { const e = $('deco-' + g.id); if (e) e.style.display = 擺.has(g.id) ? '' : 'none'; }
+    $('rugMain').setAttribute('fill', 擺.has('rugpink') ? '#E6B3B0' : '#A8B98A');
+    $('rugLine').setAttribute('stroke', 擺.has('rugpink') ? '#D49C99' : '#8EA273');
+    場景們.living.點.box = [210, 606];
+    const 逛 = 場景們.living.閒逛.filter(x => x[0] !== 'box');
+    if (擺.has('box')) 逛.push(['box', 'loaf']);
+    場景們.living.閒逛 = 逛;
+  }
+  function 商店() {
+    const 有 = new Set(狀態.裝潢), 擺 = new Set(狀態.擺);
+    開卡(`<h3>🛒 小魚乾商店</h3><p class="lead">你有 <b>🐟 ${狀態.魚 || 0}</b> 小魚乾 ~ 準時餵飯 喝水 陪玩 讀心術答對都能賺</p>
+      <div class="shop">${商品們.map(g => `<div class="item"><b>${g.名}</b><small>${g.說}</small>${有.has(g.id)
+        ? `<button class="ghost-btn sm" data-put="${g.id}">${擺.has(g.id) ? '收起來' : '擺出來'}</button>`
+        : `<button class="go sm" data-buy="${g.id}" ${(狀態.魚 || 0) < g.價 ? 'disabled' : ''}>🐟 ${g.價}</button>`}</div>`).join('')}</div>
+      <button class="ghost-btn" id="closeShop">回到客廳</button>`);
+    document.querySelectorAll('[data-buy]').forEach(b => b.onclick = () => {
+      const g = 商品們.find(x => x.id === b.dataset.buy); if ((狀態.魚 || 0) < g.價) return;
+      狀態.魚 -= g.價; 狀態.裝潢.push(g.id); 狀態.擺.push(g.id); 存(); 畫魚(); 套裝潢(); 吐司(`🎉 買了${g.名} 已經擺在客廳`); 商店();
+    });
+    document.querySelectorAll('[data-put]').forEach(b => b.onclick = () => {
+      const id = b.dataset.put; 狀態.擺 = 狀態.擺.includes(id) ? 狀態.擺.filter(x => x !== id) : [...狀態.擺, id]; 存(); 套裝潢(); 商店();
+    });
+    $('closeShop').onclick = () => { 關卡(); if (場景 !== 'living') 去場景('living'); };
+  }
+  $('shopBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 商店(); };
+
+  // ── 去朋友家作客：分享自己的家 用拜訪連結看別人的貓和房間 ──
+  let 作客 = null;
+  function 拜訪碼() {
+    const c = 狀態.貓;
+    return btoa(unescape(encodeURIComponent(JSON.stringify([c.種, c.名, 週(), c.性別, 狀態.擺 || [], Math.floor((Date.now() - 狀態.開始) / 864e5) + 1])))).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
+  }
+  function 讀拜訪碼(t) {
+    try {
+      const [種, 名字, 齡, 性別, 擺, 天] = JSON.parse(decodeURIComponent(escape(atob(t.replace(/-/g, '+').replace(/_/g, '/')))));
+      if (!貓們[種]) return null;
+      return { 種, 名: String(名字).slice(0, 8), 齡: +齡 || 52, 性別, 擺: (擺 || []).filter(x => 商品們.some(g => g.id === x)), 天 };
+    } catch (e) { return null; }
+  }
+  function 作客面板() {
+    const 連結 = location.origin + location.pathname + '#visit=' + 拜訪碼();
+    開卡(`<h3>🏠 串門子</h3><p class="lead">把你家分享給朋友 ~ 朋友點開就能來看${名()} 也可以用朋友的連結去他家玩</p>
+      <button class="line-btn" id="shareHome">分享我家給 LINE 好友<small>朋友點連結就能來作客</small></button>
+      <h4>去朋友家</h4><input class="name" id="visitIn" placeholder="貼上朋友傳來的連結"><p class="msg" id="visitMsg"></p>
+      <button class="go" id="goVisit">出發去作客</button><button class="ghost-btn" id="closeV">先不用</button>`);
+    $('shareHome').onclick = () => window.open('https://line.me/R/share?text=' + encodeURIComponent(`來我家看${名()}🐱 ${連結}`), '_blank', 'noopener');
+    $('closeV').onclick = 關卡;
+    $('goVisit').onclick = () => {
+      const m = /visit=([A-Za-z0-9_-]+)/.exec($('visitIn').value);
+      const 客 = m && 讀拜訪碼(m[1]);
+      if (!客) { $('visitMsg').className = 'msg bad'; $('visitMsg').textContent = '連結好像不完整 請把朋友傳的整段貼上'; return; }
+      關卡(); 去作客(客);
+    };
+  }
+  function 去作客(客) {
+    作客 = { 原: JSON.parse(JSON.stringify(狀態.貓)), 擺: 客.擺, 摸: 0 };
+    狀態.貓 = { 種: 客.種, 名: 客.名, 性別: 客.性別 || '母', 起始週: 客.齡, 領養: Date.now(), 上次週: 客.齡, 結紮: 'done', 疫苗: [8, 12, 16] };
+    document.body.classList.add('visiting');
+    $('visitBar').innerHTML = `🏠 你在 <b>${客.名}</b> 家作客・陪伴 ${客.天 || 1} 天 <button id="goHome">回家</button>`;
+    $('goHome').onclick = 回家作客;
+    去場景('living', null, true); 套貓();
+    走到(地點.rug, () => { 姿勢('sit'); 說(`歡迎來${客.名}家～`, '可以摸摸牠 ~ 摸到牠開心 你會拿到小魚乾', 5); });
+  }
+  function 回家作客() {
+    狀態.貓 = 作客.原; if (作客.原魚) { try { 狀態.魚 = JSON.parse(localStorage.getItem(鍵)).魚; } catch (e) {} } 作客 = null; document.body.classList.remove('visiting');
+    history.replaceState(null, '', location.pathname); 去場景('living', null, true); 套貓(); 畫魚();
+    走到(地點.rug, () => { 姿勢('sit'); 說(`${我()}等你回來好久了`, '', 3); });
+  }
+  function 作客提醒() { if (!作客) return false; 說('這是朋友家的貓～', '在朋友家只能摸摸牠喔', 2.6); return true; }
+  $('visitBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 作客面板(); };
+
   // ── 餵飯：選乾飼料或主食罐 ──
   function 餵飯() {
-    if (忙 || 遊戲中) return;
+    if (忙 || 遊戲中 || 作客提醒()) return;
     if (場景 !== 'living') return 去場景('living', 餵飯);
     if (狀態.飽足 >= 90) { 走到(地點.rug, () => { 姿勢('sit'); 說(`${我()}吃飽了，晚點再說`, '飽足快滿了 ~ 吃太多會胖喔'); 解鎖('吃太飽'); }); return; }
     開卡(`<h3>要餵${名()}吃什麼？</h3><p class="lead">${作息().餐提示}</p>
@@ -790,7 +954,7 @@
         狀態.飽足 = Math.min(100, 狀態.飽足 + (濕 ? 22 : 26));
         if (濕) 狀態.水 += 60;
         const 水話 = 濕 ? `・順便補了 60ml 水` : '';
-        if (這餐) { 狀態.已餵[這餐] = true; 狀態.心情 = Math.min(100, 狀態.心情 + 10); 狀態.親密 += 3; 說(`${時(這餐)} 準時開飯！`, `固定時間吃飯，貓咪最有安全感 ~ 心情 +10${水話}`, 4.4); }
+        if (這餐) { 給魚(3, '準時開飯'); 狀態.已餵[這餐] = true; 狀態.心情 = Math.min(100, 狀態.心情 + 10); 狀態.親密 += 3; 說(`${時(這餐)} 準時開飯！`, `固定時間吃飯，貓咪最有安全感 ~ 心情 +10${水話}`, 4.4); }
         else 說(`嗯…${我()}勉強吃了`, `${名()}一天 ${開飯時間().length} 餐 ~ 看上面的開飯時間${水話}`, 4.4);
         愛心(2); 存(); 畫(); 忙 = false;
         if (這餐) 解鎖('準時');
@@ -804,14 +968,14 @@
   const 喝水小知識 = ['貓咪本來就不太愛喝水，要想辦法讓牠多喝', '水碗和飯碗分開放，貓咪比較願意喝', '家裡多放幾個水碗，走到哪都喝得到', '每天換新鮮的水，貓咪很挑', '有些貓咪喜歡會流動的水', '吃主食罐也能補充水分'];
   let 喝次 = 0;
   function 喝水() {
-    if (忙 || 遊戲中) return;
+    if (忙 || 遊戲中 || 作客提醒()) return;
     if (場景 !== 'living') return 去場景('living', 喝水);
     忙 = true;
     走到(地點.water, () => {
       姿勢('eat'); 香菇.classList.add('eating');
       setTimeout(() => {
         香菇.classList.remove('eating'); 姿勢('sit');
-        狀態.水 += 30; 狀態.心情 = Math.min(100, 狀態.心情 + 2); 存(); 畫(); 忙 = false;
+        狀態.水 += 30; 狀態.心情 = Math.min(100, 狀態.心情 + 2); 存(); 畫(); 忙 = false; 給魚(1);
         const 目標 = 喝水目標();
         if (狀態.水 >= 目標 && 狀態.水 - 30 < 目標) { 愛心(3); 說('今天的水喝夠了！', `${名()}大約 ${作息().公斤} 公斤，一天約 ${目標}ml ~ 每公斤體重約 40～60ml（食物裡的水也算）`, 6); }
         else 說(`咕嚕咕嚕… +30ml`, `今天 ${狀態.水}/${目標}ml ・ ${喝水小知識[喝次++ % 喝水小知識.length]}`, 4.6);
@@ -830,6 +994,7 @@
     if (摸數 > 12) { 香菇.classList.remove('happy'); 香菇.classList.add('annoyed'); setTimeout(() => 香菇.classList.remove('annoyed'), 1200); 說(`好了好了，${我()}知道你愛我`, '尾巴開始甩就是「摸夠了」~ 讓牠休息一下'); 摸數 = 0; 解鎖('摸夠了'); return; }
     香菇.classList.add('happy'); if (摸數 % 3 === 1) { 愛心(1); 呼嚕(); }
     if (摸數 === 5) { 說('呼嚕呼嚕…', '眼睛瞇起來，代表牠很放鬆', 2.4); 解鎖('瞇眼'); }
+    if (作客) { if (++作客.摸 === 8) { const k = 'shroom-visit-gift'; let d = {}; try { d = JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) {} const 今 = new Date().toDateString(); if (d.日 !== 今) { d = { 日: 今 }; try { const s2 = JSON.parse(localStorage.getItem(鍵)); s2.魚 = (s2.魚 || 0) + 5; localStorage.setItem(鍵, JSON.stringify(s2)); 作客.原魚 = 1; } catch (e) {} localStorage.setItem(k, JSON.stringify(d)); 吐司('🐟 +5 小魚乾・幫朋友摸摸貓'); } } return; }
     狀態.心情 = Math.min(100, 狀態.心情 + 1.3); 狀態.親密 = Math.min(100, 狀態.親密 + .7); 存(); 畫();
   }
   let 按著 = false;
@@ -840,7 +1005,7 @@
 
   // ── 睡午覺（點窩或貓跳台）──
   function 睡午覺(去樹上) {
-    if (忙 || 遊戲中) return;
+    if (忙 || 遊戲中 || 作客提醒()) return;
     if (場景 !== 'living') return 去場景('living', () => 睡午覺(去樹上));
     走到(去樹上 ? 地點.tree : 地點.bed, () => { 姿勢('sleep'); 狀態.心情 = Math.min(100, 狀態.心情 + 5); 存(); 畫(); 說('zzz…', `貓咪一天要睡 12～16 小時 ~ ${去樹上 ? '高處讓牠覺得安全' : '有自己的窩牠才睡得安穩'}`, 3.6); 解鎖('睡覺'); });
   }
@@ -860,7 +1025,7 @@
   情境們.forEach((q, i) => { 知識卡.find(k => k.id === '心' + i).文 = q.解; });
   let 出題序 = [], 效果計時;
   function 讀心術() {
-    if (忙 || 遊戲中) return;
+    if (忙 || 遊戲中 || 作客提醒()) return;
     if (場景 !== 'living') return 去場景('living', 讀心術);
     if (!出題序.length) 出題序 = 情境們.map((_, i) => i).sort(() => Math.random() - .5);
     const 題號 = 出題序.pop(), q = 情境們[題號];
@@ -875,7 +1040,7 @@
       document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
         const 中 = b.dataset.o === q.對;
         document.querySelectorAll('[data-o]').forEach(x => { x.disabled = true; if (x.dataset.o === q.對) x.classList.add('right'); else if (x === b) x.classList.add('wrong'); });
-        if (中) { 狀態.親密 = Math.min(100, 狀態.親密 + 2); 狀態.心情 = Math.min(100, 狀態.心情 + 3); 狀態.答對 = (狀態.答對 || 0) + 1; 存(); 畫(); }
+        if (中) { 狀態.親密 = Math.min(100, 狀態.親密 + 2); 狀態.心情 = Math.min(100, 狀態.心情 + 3); 狀態.答對 = (狀態.答對 || 0) + 1; 存(); 畫(); 給魚(2, '讀懂牠了'); }
         $('ans').innerHTML = `<div class="explain"><b>${中 ? '答對了！親密 +2' : '其實牠在想：' + q.對}</b>${q.解}</div><button class="go" id="okBtn">${中 ? '我懂牠了' : '原來如此'}</button>`;
         $('okBtn').onclick = () => { 關卡(); clearInterval(效果計時); 香菇.classList.remove('happy', 'annoyed'); 忙 = false; 說(`💭 ${q.對}`, `你已經讀懂${名()} ${狀態.答對 || 0} 次`, 3.2); 解鎖('心' + 題號); };
       });
@@ -918,7 +1083,7 @@
       if (k < 1) return requestAnimationFrame(跳);
       const 中 = 瞄準 && Math.hypot(手.x - 目[0], 手.y + 30 - 目[1]) < 60;
       const p = 到螢幕(手.x, 手.y - 30), c = document.createElement('div'); c.className = 'combo'; c.style.left = (p.x - 34) + 'px'; c.style.top = p.y + 'px';
-      if (中) { 撲中++; $('caught').textContent = 撲中; c.textContent = 撲中 > 1 ? `抓到 ×${撲中}` : '抓到！'; 狀態.心情 = Math.min(100, 狀態.心情 + 4); 狀態.親密 += .8; 愛心(2); }
+      if (中) { 撲中++; 給魚(1); $('caught').textContent = 撲中; c.textContent = 撲中 > 1 ? `抓到 ×${撲中}` : '抓到！'; 狀態.心情 = Math.min(100, 狀態.心情 + 4); 狀態.親密 += .8; 愛心(2); }
       else { c.textContent = '差一點！'; c.style.color = '#7A6A5C'; }
       遊戲.append(c); setTimeout(() => c.remove(), 900); 畫(); 存();
     })(t0);
@@ -946,7 +1111,7 @@
   }
   document.querySelectorAll('#rooms button').forEach(b => b.onclick = () => { if (!忙 && !遊戲中) 去場景(b.dataset.s, () => 說(場景們[b.dataset.s].名, '', 1.4)); });
   function 互動(點, 姿, 文, 小, 卡, 特效) {
-    if (忙 || 遊戲中) return;
+    if (忙 || 遊戲中 || 作客提醒()) return;
     忙 = true;
     走到(地點[點], () => {
       姿勢(姿); if (特效) 香菇.classList.add(特效);
@@ -1054,17 +1219,19 @@
   for (const id of ['t-bowl', 't-water', 't-toy', 't-bed', 't-tree']) $(id).addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $(id).onclick(); } });
 
   // ── 開始 ──
-  狀態 = 讀(); 去場景(狀態.場景 && 狀態.場景 !== 'clinic' ? 狀態.場景 : 'living', null, true); 姿勢('loaf');
+  狀態 = 讀(); 畫魚(); 去場景(狀態.場景 && 狀態.場景 !== 'clinic' ? 狀態.場景 : 'living', null, true); 姿勢('loaf');
   addEventListener('resize', 對話位置);
   if (!狀態.貓) { 狀態.貓 = { 種: '香菇', 名: '香菇', 性別: '母', 起始週: 416, 領養: Date.now(), 結紮: 'done', 疫苗: [8, 12, 16] }; 套貓(); 選貓畫面(true); }
   else {
     套貓(); setTimeout(() => { 檢查長大(); 檢查事件(); }, 7500);
     setTimeout(() => {
-      if (狀態.首次) { 狀態.首次 = false; 存(); 說(狀態.連續 > 1 ? `你回來啦～連續第 ${狀態.連續} 天了` : `你回來啦～${我()}等你好久了`, 狀態.飽足 < 40 ? `${名()}有點餓了 ~ 點飯碗餵牠` : '點房間裡的東西，照顧牠吧', 6.5); }
+      if (狀態.首次) { 狀態.首次 = false; 存(); setTimeout(() => 給魚(5, '每日簽到'), 2500); 說(狀態.連續 > 1 ? `你回來啦～連續第 ${狀態.連續} 天了` : `你回來啦～${我()}等你好久了`, 狀態.飽足 < 40 ? `${名()}有點餓了 ~ 點飯碗餵牠` : '點房間裡的東西，照顧牠吧', 6.5); }
       else 說(狀態.飽足 < 40 ? `${我()}有點餓…` : '喵～', 狀態.飽足 < 40 ? '點飯碗餵飯' : '', 3);
     }, 400);
   }
-  setInterval(() => { 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
+  const 訪 = /#visit=([A-Za-z0-9_-]+)/.exec(location.hash);
+  if (訪) { const 客 = 讀拜訪碼(訪[1]); if (客) { if ($('sheet').hidden) setTimeout(() => 去作客(客), 600); else 狀態.待訪 = 客; } }
+  setInterval(() => { if (作客) return; 狀態.飽足 = Math.max(5, 狀態.飽足 - .17); 狀態.心情 = Math.max(10, 狀態.心情 - .11); 存(); 畫(); }, 60000);
 })();
 </script>
 
