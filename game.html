@@ -590,10 +590,10 @@
   let 場景 = 'living', 地點 = 場景們.living.點;
   // 年齡：現實 1 天＝貓咪 1 週
   const 開始年齡們 = [{ 週: 8, 字: '8 週', 說明: '小奶貓' }, { 週: 17, 字: '4 個月', 說明: '可以結紮了' }, { 週: 52, 字: '1 歲', 說明: '剛長大' }, { 週: 156, 字: '3 歲', 說明: '成貓' }, { 週: 416, 字: '8 歲', 說明: '熟齡貓' }];
-  function 週() { const c = 狀態.貓; if (c.種 === '香菇') return 416; return (c.起始週 || 52) + Math.floor((Date.now() - (c.領養 || 狀態.開始)) / 864e5); }
+  function 週() { const c = 狀態.貓; return (c.起始週 || 52) + Math.floor((Date.now() - (c.領養 || 狀態.開始)) / 864e5); }
   function 段() { const w = 週(); return w < 52 ? '幼貓' : w < 364 ? '成貓' : '熟齡'; }
   function 年齡文字() { const w = 週(); return w < 16 ? `${w} 週大` : w < 52 ? `${Math.round(w / 4.345)} 個月大` : `${Math.floor(w / 52)} 歲`; }
-  function 體重() { if (狀態.貓.種 === '香菇') return 4.6; const 大 = 狀態.貓.性別 === '公' ? 4.5 : 3.8, w = 週(); return Math.round((w < 52 ? Math.max(.8, Math.min(大, .15 + w * .1)) : 大) * 10) / 10; }
+  function 體重() { const 大 = 狀態.貓.種 === '香菇' ? 4.6 : 狀態.貓.性別 === '公' ? 4.5 : 3.8, w = 週(); return Math.round((w < 52 ? Math.max(.8, Math.min(大, .15 + w * .1)) : 大) * 10) / 10; }
   function 成長比例() { const w = 週(); return w >= 52 ? 1 : Math.max(.58, Math.min(1, .58 + .42 * (w - 8) / 44)); }
   const svg = $('room'), 香菇 = $('shroom'), 遊戲 = $('game');
   let 狀態, 位置 = [...地點.rug], 忙 = false, 遊戲中 = false;
@@ -602,7 +602,7 @@
   const 名 = () => 狀態.貓.名;
   const 我 = () => 貓().自稱;
   function 作息() {
-    if (狀態.貓.種 === '香菇') return 香菇作息;
+    if (狀態.貓.種 === '香菇' && 週() >= 364) return 香菇作息;
     const w = 週(), kg = 體重();
     if (w < 26) return { ...階段們.幼貓, 公斤: kg };
     if (w < 52) return { ...階段們.幼貓, 公斤: kg, 餐: [8, 13, 19], 餐提示: '6 個月以上的幼貓，可以慢慢從 4 餐改成一天 3 餐' };
@@ -695,7 +695,7 @@
     if (c.點) root.querySelectorAll('.tail').forEach(t => { if (t.getAttribute('fill') && t.getAttribute('fill') !== 'none') { t.dataset.pt = t.getAttribute('fill'); t.setAttribute('fill', c.點); } });
   }
   function 套貓() {
-    const 小 = 週() < 12 && 狀態.貓.種 !== '香菇';
+    const 小 = 週() < 12;
     上色(香菇, 小 ? { ...貓(), 眼: '#8FB8D8' } : 貓()); 上色($('photo'), 貓()); 套特徵(香菇, 貓());
     套裝潢();
     香菇.classList.toggle('kitten', 週() < 26);
@@ -768,7 +768,7 @@
       <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
       <h4>從幾歲開始養？</h4><div class="ages">${開始年齡們.map(a => `<button class="opt" data-a="${a.週}">${a.字}<small>${a.說明}</small></button>`).join('')}</div>
       <p class="lead" style="margin:8px 0 0">現實 1 天，貓咪長大 1 週。從小奶貓開始，就能陪牠打疫苗、結紮、慢慢長大</p></div>
-      <p class="lead" id="shroomNote" style="margin-top:12px">香菇是 <b>8 歲的熟齡貓</b>，作息照真的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
+      <p class="lead" id="shroomNote" style="margin-top:12px">香菇是<b>母貓</b> ~ 可以從小奶貓開始養 選 <b>8 歲</b>就是現在的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
       <h4>幫牠取名字</h4><input class="name" id="nameIn" maxlength="8" aria-label="貓咪的名字">
       <button class="go" id="goBtn">${第一次 ? '開始養 🐾' : '就是牠了'}</button>
       ${!第一次 && !第二 ? '<button class="ghost-btn" id="adoptBtn">🐱 再養第二隻</button>' : ''}
@@ -784,7 +784,7 @@
       document.querySelectorAll('.catopt').forEach(b => b.classList.toggle('on', b.dataset.k === 選));
       document.querySelectorAll('[data-a]').forEach(b => b.classList.toggle('on', +b.dataset.a === 起));
       document.querySelectorAll('[data-x]').forEach(b => b.classList.toggle('on', b.dataset.x === 性));
-      $('ageBox').hidden = 選 === '香菇'; $('shroomNote').hidden = 選 !== '香菇';
+      $('ageBox').hidden = false; $('shroomNote').hidden = 選 !== '香菇'; document.querySelector('.sexes').previousElementSibling.hidden = document.querySelector('.sexes').hidden = 選 === '香菇';
       if (換名) $('nameIn').value = 選;
     };
     $('nameIn').value = 狀態.貓?.名 || 選;
@@ -793,9 +793,9 @@
     document.querySelectorAll('[data-x]').forEach(b => b.onclick = () => { 性 = b.dataset.x; 刷新(false); });
     刷新(false);
     $('goBtn').onclick = () => {
-      const 香 = 選 === '香菇', 起週 = 香 ? 416 : 起;
+      const 香 = 選 === '香菇', 起週 = 起;
       const 新貓 = { 種: 選, 名: ($('nameIn').value.trim() || 選).slice(0, 8), 性別: 香 ? '母' : 性, 起始週: 起週, 領養: Date.now(), 上次週: 起週,
-        疫苗: [8, 12, 16].filter(d => d < 起週), 結紮: 香 || 起週 >= 52 ? 'done' : undefined };
+        疫苗: [8, 12, 16].filter(d => d < 起週), 結紮: 起週 >= 52 ? 'done' : undefined };
       if (第二) return 放進第二隻(新貓);
       狀態.貓 = 新貓;
       狀態.已餵 = {};
@@ -1073,7 +1073,7 @@
         else 說(`嗯…${我()}勉強吃了`, `${名()}一天 ${開飯時間().length} 餐 ~ 看上面的開飯時間${水話}`, 4.4);
         愛心(2); 存(); 畫(); 忙 = false;
         if (這餐) 解鎖('準時');
-        解鎖('餐-' + (狀態.貓.種 === '香菇' ? '熟齡' : 段()));
+        解鎖('餐-' + 段());
         if (濕) 解鎖('主食罐');
         if (種類 === 'hi') { 狀態.心情 = Math.min(100, 狀態.心情 + 4); 解鎖('香菇同款'); 狀態.高端次 = (狀態.高端次 || 0) + 1; if (狀態.高端次 === 1) setTimeout(() => 說('這個好香～', '香菇同款高端餐・全齡貓配方', 3.5), 4600); }
         if (加藍藻) { 狀態.保養日 = new Date().toDateString(); 狀態.保養天 = (狀態.保養天 || 0) + 1; 存(); setTimeout(() => { 給魚(2, `今天的保養完成（第 ${狀態.保養天} 天）`); 解鎖('每日保養'); }, 1500); }
@@ -1246,7 +1246,7 @@
 
   // ── 長大：每過一天＝長大一週 ──
   function 檢查長大() {
-    const c = 狀態.貓; if (!c || c.種 === '香菇') return;
+    const c = 狀態.貓; if (!c) return;
     const w = 週(), 前 = c.上次週 || w;
     if (w <= 前) return;
     c.上次週 = w; 存(); 套貓();
@@ -1258,7 +1258,7 @@
   // ── 動物醫院的事件：疫苗、結紮、發情 ──
   function 檢查事件() {
     const c = 狀態.貓;
-    if (!c || c.種 === '香菇' || 忙 || 遊戲中 || !$('sheet').hidden) return;
+    if (!c || 忙 || 遊戲中 || !$('sheet').hidden) return;
     const w = 週(), 今天 = new Date().toDateString();
     c.疫苗 = c.疫苗 || [];
     const 劑 = [8, 12, 16].find(d => w >= d && !c.疫苗.includes(d));
