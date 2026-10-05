@@ -158,6 +158,9 @@
   .visit-bar button { margin-left: 8px; border: 2px solid var(--line); border-radius: 99px; background: var(--paper); padding: 2px 10px; font: inherit; cursor: pointer; }
   body.visiting .visit-bar { display: block; } body.visiting #shopBtn, body.visiting #visitBtn, body.visiting #swap, body.visiting #book { opacity: .3; pointer-events: none; }
   .cats { grid-template-columns: repeat(4, 1fr) !important; } .catopt svg { width: 56px !important; height: 62px !important; } .catopt b { font-size: 13.5px !important; }
+  .card { position: relative; }
+  .card .x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); font-size: 20px; line-height: 1; cursor: pointer; z-index: 2; }
+  .coin-tap { cursor: pointer; text-decoration: underline dotted; }
   .catopt { position: relative; } .catopt.locked svg { opacity: .35; filter: grayscale(1); }
   .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
   .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
@@ -459,7 +462,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・🐟 <b id="coins">0</b>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -703,7 +706,8 @@
   const 姿勢 = p => 香菇.dataset.pose = p;
 
   // ── 卡片（選貓、選飯、問答都用這張）──
-  function 開卡(html) { $('bubble').classList.add('hide'); $('card').innerHTML = html; $('sheet').hidden = false; }
+  function 開卡(html) { $('bubble').classList.add('hide'); $('card').innerHTML = (狀態 && 狀態.貓 && 狀態.貓.領養 ? '<button class="x" id="cardX" aria-label="關閉">×</button>' : '') + html; $('sheet').hidden = false; const x = $('cardX'); if (x) x.onclick = 強制關卡; }
+  function 強制關卡() { 關卡(); 忙 = false; try { clearInterval(效果計時); } catch (e) {} 香菇.classList.remove('happy', 'annoyed'); }
   function 關卡() { $('sheet').hidden = true; }
 
   // ── 走路 ──
@@ -758,6 +762,7 @@
       ${!第一次 && !第二 ? '<button class="ghost-btn" id="adoptBtn">🐱 再養第二隻</button>' : ''}
       ${第二 ? '' : 第一次 ? '<button class="ghost-btn" id="showLoad2">我在別支手機養過，要找回我的貓</button><div id="loadBox2" hidden><textarea class="codebox" id="codeIn2" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn2">找回我的貓</button><p class="msg" id="loadMsg2"></p></div>' : 存檔區()}`);
     if (第一次) {
+      $('cardX')?.remove();
       $('showLoad2').onclick = () => { $('loadBox2').hidden = false; $('codeIn2').focus(); };
       $('loadBtn2').onclick = () => { if (解包($('codeIn2').value)) { 關卡(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, '', 3); }); } else { $('loadMsg2').className = 'msg bad'; $('loadMsg2').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; } };
     } else if (!第二) { 綁存檔(); $('adoptBtn').onclick = 領養第二隻; }
@@ -788,6 +793,7 @@
       走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
     };
   }
+  $('sheet').addEventListener('click', e => { if (e.target === $('sheet') && $('cardX')) 強制關卡(); });
   $('swap').onclick = () => { if (!忙 && !遊戲中) 選貓畫面(false); };
 
   function 圖鑑() {
@@ -965,6 +971,14 @@
     });
     $('closeShop').onclick = () => { 關卡(); if (場景 !== 'living') 去場景('living'); };
   }
+  function 魚說明() {
+    開卡(`<h3>🐟 小魚乾怎麼賺</h3><p class="lead">你現在有 <b>${狀態.魚 || 0}</b> 小魚乾</p>
+      <div class="shop">${[['每天第一次打開', '+5'], ['準時開飯', '+3'], ['讀心術答對', '+2'], ['帶貓咪喝水', '+1'], ['逗貓棒撲中一次', '+1'], ['去朋友家摸摸貓', '+5／天']].map(([a, b]) => `<div class="item"><b>${b}</b><small>${a}</small></div>`).join('')}</div>
+      <p class="lead" style="margin-top:10px">可以拿來 🛒 買家具佈置房間 或是 🐾 再養第二隻貓（120）</p>
+      <button class="go" id="toShop">去商店逛逛</button>`);
+    $('toShop').onclick = 商店;
+  }
+  $('coinTap').onclick = () => { if (!忙 && !遊戲中 && !作客) 魚說明(); };
   $('shopBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 商店(); };
 
   // ── 去朋友家作客：分享自己的家 用拜訪連結看別人的貓和房間 ──
