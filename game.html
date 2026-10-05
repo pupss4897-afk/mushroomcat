@@ -12,6 +12,10 @@
 </head>
 <body>
 <title>養貓生存挑戰</title>
+<link rel="manifest" href="game-manifest.json">
+<link rel="apple-touch-icon" href="icons/game-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="養貓挑戰">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
@@ -118,7 +122,7 @@
   .catopt svg { width: 70px; height: 76px; }
   .catopt b { font-family: var(--hand); font-size: 16px; } .catopt small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
   .catopt.on { border-color: var(--line); background: #F6DFA6; }
-  .mini .eyes-happy, .mini .lid { display: none; }
+  .mini .eyes-happy, .mini .lid, .mini .cone { display: none; }
   .opts { display: grid; gap: 7px; }
   .opt { text-align: left; border: 2px solid var(--line); background: #FBF3E4; border-radius: 13px; padding: 9px 12px; font: inherit; font-size: 14.5px; color: var(--ink); cursor: pointer; box-shadow: 0 2px 0 rgba(69,55,44,.18); }
   .opt small { display: block; color: var(--ink-soft); font-size: 11.5px; margin-top: 1px; }
@@ -171,6 +175,14 @@
   .lv { text-align: center; padding: 18px 10px; border-radius: 18px; background: linear-gradient(160deg, #3A2F27, #5A4636); color: #FFF9EE; }
   .lv small { display: block; font-size: 13px; opacity: .85; } .lv b { display: block; font-family: var(--hand); font-size: 46px; line-height: 1.1; color: #F6D06B; }
   .lv p { margin: 8px 0 0; font-family: var(--hand); font-size: 19px; }
+  .row1 .sound { width: 26px !important; height: 26px !important; font-size: 11px !important; } .row1 .sound + .sound { margin-left: 4px !important; }
+  .wish-in { display: grid; grid-template-columns: 1fr auto; gap: 6px; }
+  .wish-in .go { margin: 0; padding: 0 14px; font-size: 15px; }
+  .wishes { display: grid; gap: 6px; margin-top: 8px; }
+  .wish { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 9px 11px; border: 2px solid var(--line); border-radius: 12px; background: #FBF3E4; font-size: 14px; }
+  .wish button { border: 2px solid var(--line); border-radius: 99px; background: var(--paper); padding: 3px 10px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+  .wish button.on { background: var(--mustard); }
+  .tabs2 { display: flex; gap: 6px; margin-top: 12px; } .tabs2 button { flex: 1; border: 2px solid var(--line); border-radius: 10px; background: var(--paper); padding: 6px; font-family: var(--hand); font-size: 14px; cursor: pointer; } .tabs2 button.on { background: var(--mustard); }
   .card .x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); font-size: 20px; line-height: 1; cursor: pointer; z-index: 2; }
   .coin-tap { cursor: pointer; text-decoration: underline dotted; }
   .shroom-opt { background: #F6E9FB !important; border-color: #8C6FAE !important; }
@@ -500,7 +512,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="challengeBtn" aria-label="生存挑戰">🏆</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="wishBtn" aria-label="鏟屎官許願池">🌠</button><button class="sound" id="challengeBtn" aria-label="生存挑戰">🏆</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -1111,6 +1123,49 @@
   }
   $('challengeBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 挑戰首頁(); };
 
+  // ── 鏟屎官許願池：玩家許願想要的新東西 也可以幫別人 +1 ──
+  let 許願頁 = '熱', 安裝事件 = null;
+  addEventListener('beforeinstallprompt', e => { e.preventDefault(); 安裝事件 = e; });
+  async function 許願池() {
+    狀態.pid = 狀態.pid || Math.random().toString(36).slice(2, 10) + Date.now().toString(36); 存();
+    開卡(`<h3>🌠 鏟屎官許願池</h3><p class="lead">想要新的品種 家具 關卡還是玩法？許個願 ~ 票數最高的會優先實現</p>
+      <div class="wish-in"><input class="name" id="wishIn" maxlength="40" placeholder="例：想要可以幫貓咪洗澡"><button class="go" id="wishGo">許願</button></div>
+      <p class="msg" id="wishMsg"></p>
+      <div class="tabs2"><button data-t="熱" class="${許願頁 === '熱' ? 'on' : ''}">🔥 最多人想要</button><button data-t="新" class="${許願頁 === '新' ? 'on' : ''}">🆕 最新願望</button></div>
+      <div class="wishes" id="wishList"><p class="lead">讀取中…</p></div>
+      <h4 style="margin-top:16px">📲 把遊戲加到手機桌面</h4><p class="lead" id="installTip" style="margin:0 0 6px">像 App 一樣 點桌面圖示就能玩</p><button class="ghost-btn" id="installBtn">加到桌面</button>`);
+    document.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { 許願頁 = b.dataset.t; 許願池(); });
+    $('wishGo').onclick = async () => {
+      const 文 = $('wishIn').value.trim(); if (文.length < 2) return;
+      $('wishGo').disabled = true;
+      try { const r = await (await fetch(公園API + '/wish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 狀態.pid, 文 }) })).json();
+        if (r.ok) { 吐司('🌠 願望送出了'); 給魚(3, '許了一個願'); 許願頁 = '新'; 許願池(); } else { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = r.錯 || '送不出去 等一下再試'; $('wishGo').disabled = false; }
+      } catch (e) { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = '網路好像不太穩 等一下再試'; $('wishGo').disabled = false; }
+    };
+    $('installBtn').onclick = async () => {
+      if (安裝事件) { 安裝事件.prompt(); 安裝事件 = null; return; }
+      const iOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+      $('installTip').innerHTML = iOS ? '用 <b>Safari</b> 打開這個遊戲 → 按下面的<b>分享鈕</b>（方框加箭頭）→ 選<b>「加入主畫面」</b>' : '按瀏覽器右上角的<b>「⋮」</b> → 選<b>「加到主畫面」</b>或<b>「安裝應用程式」</b>';
+    };
+    try {
+      const r = await (await fetch(公園API + '/wishes')).json(), 單 = 許願頁 === '熱' ? r.熱 : r.新;
+      if (!$('wishList')) return;
+      const 投過 = new Set(狀態.投過 || []);
+      $('wishList').innerHTML = 單.length ? '' : '<p class="lead">還沒有人許願 ~ 當第一個吧</p>';
+      單.forEach(w => {
+        const d = document.createElement('div'); d.className = 'wish';
+        const t = document.createElement('span'); t.textContent = w.文;
+        const b = document.createElement('button'); b.textContent = `${投過.has(w.k) ? '💛' : '🤍'} ${w.票}`; if (投過.has(w.k)) b.classList.add('on');
+        b.onclick = async () => { if (投過.has(w.k)) return; b.disabled = true;
+          try { const x = await (await fetch(公園API + '/vote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 狀態.pid, w: w.k }) })).json();
+            狀態.投過 = [...投過, w.k]; 投過.add(w.k); 存(); b.textContent = `💛 ${x.票 || w.票 + 1}`; b.classList.add('on'); } catch (e) { b.disabled = false; } };
+        d.append(t, b); $('wishList').append(d);
+      });
+    } catch (e) { if ($('wishList')) $('wishList').innerHTML = '<p class="lead">網路好像不太穩 等一下再試</p>'; }
+  }
+  $('wishBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 許願池(); };
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('game-sw.js').catch(() => {});
+
   // ── 小魚乾商店：照顧貓咪賺小魚乾 買家具佈置房間 ──
   const 商品們 = [
     { id: 'lights', 名: '星星燈串', 價: 40, 說: '牆上一閃一閃' },
@@ -1157,7 +1212,7 @@
   }
   function 魚說明() {
     開卡(`<h3>🐟 小魚乾怎麼賺</h3><p class="lead">你現在有 <b>${狀態.魚 || 0}</b> 小魚乾</p>
-      <div class="shop">${[['每天第一次打開', '+5'], ['準時開飯', '+3'], ['讀心術答對', '+2'], ['帶貓咪喝水', '+1'], ['逗貓棒撲中一次', '+1'], ['去朋友家摸摸貓', '+5／天']].map(([a, b]) => `<div class="item"><b>${b}</b><small>${a}</small></div>`).join('')}</div>
+      <div class="shop">${[['每天第一次打開', '+5'], ['許一個願', '+3／天'], ['準時開飯', '+3'], ['讀心術答對', '+2'], ['帶貓咪喝水', '+1'], ['逗貓棒撲中一次', '+1'], ['去朋友家摸摸貓', '+5／天']].map(([a, b]) => `<div class="item"><b>${b}</b><small>${a}</small></div>`).join('')}</div>
       <p class="lead" style="margin-top:10px">可以拿來 🛒 買家具佈置房間 或是 🐾 再養第二隻貓（120）</p>
       <button class="go" id="toShop">去商店逛逛</button>`);
     $('toShop').onclick = 商店;

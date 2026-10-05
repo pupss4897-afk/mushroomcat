@@ -1,0 +1,16 @@
+{
+  "name": "養貓生存挑戰",
+  "short_name": "養貓挑戰",
+  "description": "恭喜你撿到一隻貓 你能把主子養到幾級？",
+  "start_url": "./game.html?from=app",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#E9DCC3",
+  "theme_color": "#E9DCC3",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "icons/game-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/game-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/game-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
