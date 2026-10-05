@@ -7,7 +7,8 @@
 //  輸入時不分大小寫 (內部會轉成大寫)
 // ============================================================
 const ACCESS_CODES = {
-    '100': { uses: 3,  label: '三次體驗碼' },
+    // 公開體驗碼：輸入 100 即可解鎖，不受單一裝置的 localStorage 鎖定。
+    '100': { uses: -1, label: '免費體驗碼' },
     '520': { uses: -1, label: '永久使用碼' }
 };
 
@@ -69,7 +70,18 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
         return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     }
     function getAccess() {
-        try { return JSON.parse(localStorage.getItem(ACCESS_KEY)) || null; }
+        try {
+            const data = JSON.parse(localStorage.getItem(ACCESS_KEY)) || null;
+            // 舊版曾把 100 設成三次且記錄在 USED_KEY；升級後直接轉為可解鎖狀態。
+            if (data && data.code === '100') {
+                data.unlimited = true;
+                data.remaining = -1;
+                data.label = ACCESS_CODES['100'].label;
+                localStorage.setItem(ACCESS_KEY, JSON.stringify(data));
+            }
+            localStorage.removeItem(USED_KEY);
+            return data;
+        }
         catch { return null; }
     }
     function setAccess(data) { localStorage.setItem(ACCESS_KEY, JSON.stringify(data)); }
@@ -115,11 +127,6 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
         if (existing && existing.code === code) {
             return { ok: true };
         }
-        // 已用過的碼(非無限碼)不能再用
-        if (cfg.uses !== -1 && getUsedCodes().includes(code)) {
-            return { ok: false, msg: '這個體驗碼在此裝置已使用過,請輸入其他碼或加入 LINE 領取新的碼' };
-        }
-
         const data = {
             code, label: cfg.label,
             remaining: cfg.uses,
@@ -127,8 +134,6 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
             activatedAt: new Date().toISOString(),
         };
         setAccess(data);
-        // 啟用的當下就標記為「已使用過」,任何離開後重輸都會被擋
-        if (cfg.uses !== -1) markCodeUsed(code);
         return { ok: true };
     }
 
@@ -141,7 +146,7 @@ const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ck
                     <span class="ico">🔐</span>
                     <div>
                         <h3>輸入體驗碼解鎖分析功能</h3>
-                        <p>輸入體驗碼可免費試用 3 次完整成分分析。沒有碼?加入香菇爸 LINE 社群免費領取!</p>
+                        <p>輸入體驗碼 100 即可解鎖成分分析功能。</p>
                         <div class="access-form">
                             <input id="code-input" type="text" placeholder="輸入 100" autocomplete="off" maxlength="32">
                             <button id="code-submit" type="button">啟用</button>

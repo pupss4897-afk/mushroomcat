@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //  uses: 使用次數;設為 -1 = 無限次
     // ============================================================
     const ACCESS_CODES = {
-        '100': { uses: 3,  label: '三次驗證碼' },
+        // 公開驗證碼：輸入 100 即可解鎖，不受單一裝置的 localStorage 鎖定。
+        '100': { uses: -1, label: '免費驗證碼' },
         '520': { uses: -1, label: '永久使用碼' }
     };
     const LINE_INVITE_URL = 'https://agentone.metaepoch.life/link/channels/ifVUGO3ckT';
@@ -143,7 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ));
     }
     function getAccess() {
-        try { return JSON.parse(localStorage.getItem(ACCESS_KEY)) || null; }
+        try {
+            const data = JSON.parse(localStorage.getItem(ACCESS_KEY)) || null;
+            if (data && data.code === '100') {
+                data.unlimited = true;
+                data.remaining = -1;
+                data.label = ACCESS_CODES['100'].label;
+                localStorage.setItem(ACCESS_KEY, JSON.stringify(data));
+            }
+            localStorage.removeItem(USED_KEY);
+            return data;
+        }
         catch { return null; }
     }
     function setAccess(data) { localStorage.setItem(ACCESS_KEY, JSON.stringify(data)); }
@@ -183,16 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const existing = getAccess();
         if (existing && existing.code === code) return { ok: true };
-        if (cfg.uses !== -1 && getUsedCodes().includes(code)) {
-            return { ok: false, msg: '這個驗證碼在此裝置已使用過，請輸入其他碼或加入 LINE 領取新的碼' };
-        }
         setAccess({
             code, label: cfg.label,
             remaining: cfg.uses,
             unlimited: cfg.uses === -1,
             activatedAt: new Date().toISOString(),
         });
-        if (cfg.uses !== -1) markCodeUsed(code);
         return { ok: true };
     }
 
