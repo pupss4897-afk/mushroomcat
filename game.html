@@ -13,6 +13,8 @@
 <body>
 <title>養貓生存挑戰</title>
 <link rel="manifest" href="game-manifest.json">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KD4Y1VHLGC',{page_title:'養貓生存挑戰'});</script>
 <link rel="apple-touch-icon" href="icons/game-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="養貓挑戰">
@@ -578,7 +580,8 @@
   // ── 香菇爸 LINE（AO 的關鍵字自動回覆會接住這些訊息）──
   const LINE_ID = '@mushroom131';
   const 暗號 = { 小抄: '我要領養貓遊戲小抄', 解鎖: '我是菇粉 我要解鎖菇粉限定貓', 存貓: '我要存貓' };
-  function 開LINE(文) { window.open('https://line.me/R/oaMessage/' + LINE_ID + '/?' + encodeURIComponent(文), '_blank', 'noopener'); }
+  function 記事件(名, 資料) { try { gtag('event', 名, 資料 || {}); } catch (e) {} }
+  function 開LINE(文) { 記事件('game_line', { 文字: 文.slice(0, 20) }); window.open('https://line.me/R/oaMessage/' + LINE_ID + '/?' + encodeURIComponent(文), '_blank', 'noopener'); }
   // 玩的過程中解鎖的知識卡（照顧小知識，集滿就能去 LINE 領完整版）
   const 知識卡 = [
     { id: '準時', 標: '固定時間開飯', 文: '每天固定時間吃飯，貓咪最有安全感，也比較不會一直討食', 提示: '在開飯時間餵飯' },
@@ -844,7 +847,7 @@
       狀態.貓 = 新貓;
       狀態.已餵 = {};
       存(); 關卡(); 去場景('living', null, true); 套貓();
-      上傳我的貓(true);
+      上傳我的貓(true); 記事件(第一次 ? 'game_start' : 'game_change_cat', { 品種: 選, 開始年齡: 起 });
       if (第一次 && !狀態.看過挑戰) { 狀態.看過挑戰 = 1; 存(); setTimeout(() => 說('生存挑戰開始了', '點右上角 🏆 看你能把主子養到幾級', 5), 6500); }
       if (狀態.待訪) { const 客 = 狀態.待訪; delete 狀態.待訪; 存(); setTimeout(() => 去作客(客), 2500); }
       if (週() < 12) setTimeout(() => 解鎖('藍眼睛'), 6000);
@@ -1109,7 +1112,7 @@
     下一題();
   }
   function 看等級() {
-    const { 對 } = 挑戰分數(), L = 等級(對), 字 = 等級稱號[L];
+    const { 對 } = 挑戰分數(), L = 等級(對), 字 = 等級稱號[L]; 記事件('game_level', { 等級: L });
     const 連 = location.origin + location.pathname;
     開卡(`<div class="lv"><small>🎓 你的鏟屎官等級</small><b>LV.${L}</b><p>「${字}」</p></div>
       <p class="lead" style="text-align:center;margin-top:10px">15 個決定 答對 ${對} 個 ~ 照顧${名()}的每一天 都在累積經驗</p>
@@ -1121,6 +1124,7 @@
     $('joinLine').onclick = () => 開LINE(`我是 LV.${L} 鏟屎官 😼`);
     $('replay').onclick = () => { 狀態.挑戰 = {}; 存(); 挑戰首頁(); };
   }
+  記事件('game_open', { 回來第幾天: 狀態 ? 狀態.連續 : 0 });
   $('challengeBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 挑戰首頁(); };
 
   // ── 鏟屎官許願池：玩家許願想要的新東西 也可以幫別人 +1 ──
@@ -1139,7 +1143,7 @@
       const 文 = $('wishIn').value.trim(); if (文.length < 2) return;
       $('wishGo').disabled = true;
       try { const r = await (await fetch(公園API + '/wish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: 狀態.pid, 文 }) })).json();
-        if (r.ok) { 狀態.我的願望 = { k: 'mine' + Date.now(), 文, 票: 1, t: Date.now() }; 狀態.投過 = [...(狀態.投過 || []), 狀態.我的願望.k]; 吐司('🌠 願望送出了'); 給魚(3, '許了一個願'); 許願頁 = '新'; 許願池(); } else { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = r.錯 || '送不出去 等一下再試'; $('wishGo').disabled = false; }
+        if (r.ok) { 記事件('game_wish'); 狀態.我的願望 = { k: 'mine' + Date.now(), 文, 票: 1, t: Date.now() }; 狀態.投過 = [...(狀態.投過 || []), 狀態.我的願望.k]; 吐司('🌠 願望送出了'); 給魚(3, '許了一個願'); 許願頁 = '新'; 許願池(); } else { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = r.錯 || '送不出去 等一下再試'; $('wishGo').disabled = false; }
       } catch (e) { $('wishMsg').className = 'msg bad'; $('wishMsg').textContent = '網路好像不太穩 等一下再試'; $('wishGo').disabled = false; }
     };
     $('installBtn').onclick = async () => {
