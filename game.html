@@ -161,6 +161,10 @@
   .card { position: relative; }
   .card .x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); font-size: 20px; line-height: 1; cursor: pointer; z-index: 2; }
   .coin-tap { cursor: pointer; text-decoration: underline dotted; }
+  .shroom-opt { background: #F6E9FB !important; border-color: #8C6FAE !important; }
+  .spirulina { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; margin-top: 10px; padding: 10px 12px; border: 2px dashed #8EA273; border-radius: 13px; background: #EEF3E6; cursor: pointer; }
+  .spirulina input { width: 20px; height: 20px; accent-color: #6E8F5A; }
+  .spirulina b { font-family: var(--hand); font-size: 15px; display: block; } .spirulina small { font-size: 11.5px; color: var(--ink-soft); }
   .catopt { position: relative; } .catopt.locked svg { opacity: .35; filter: grayscale(1); }
   .msg { font-size: 12.5px; margin-top: 6px; min-height: 1em; } .msg.bad { color: #B23A3A; } .msg.ok { color: #3E7A4F; }
   .ghost-btn:focus-visible, .line-btn:focus-visible, .codebox:focus-visible { outline: 3px solid var(--mustard); outline-offset: 2px; }
@@ -268,6 +272,11 @@
       <g id="deco-tank" style="display:none"><rect x="346" y="410" width="50" height="60" rx="4" fill="#9C6B43"/><rect x="342" y="372" width="58" height="42" rx="6" fill="#CFE8F2"/><path d="M360 392 q5 -4 10 0 q-5 4 -10 0 z M370 392 l4 -3 v6 z" fill="#E39A4E" stroke-width="1"/><path d="M380 404 q4 -3 8 0 q-4 3 -8 0 z" fill="#E06B74" stroke-width="1"/></g>
       <g id="deco-pillow" style="display:none"><path d="M376 360 q14 -16 26 0 q-12 14 -26 0 z" fill="#9CC9E8"/><path d="M402 360 l8 -6 v12 z" fill="#9CC9E8"/></g>
       <g id="deco-box" style="display:none"><path d="M168 584 L252 584 L246 630 L174 630 Z" fill="#D9A970"/><path d="M168 584 L182 566 L238 566 L252 584 Z" fill="#E8C08E"/><path d="M190 600 h40" stroke-width="1.4"/></g>
+      <g id="deco-shelf" style="display:none" class="tap" transform="translate(-118 0)"><rect x="242" y="196" width="0" height="0"/>
+        <rect x="150" y="166" width="66" height="8" rx="2" fill="#B98A5E"/>
+        <rect x="160" y="146" width="12" height="20" rx="3" fill="#F6D06B"/><rect x="161" y="141" width="10" height="6" rx="2" fill="#9AA6AE"/><path d="M162 156 h8" stroke-width="1"/>
+        <path d="M182 166 L184 140 H210 L212 166 Z" fill="#B994C9"/><path d="M188 150 h18" stroke-width="1"/><circle cx="197" cy="158" r="3" fill="#FFF7EE" stroke-width="1"/>
+      </g>
       <!-- 公貓發情時噴的尿 -->
       <ellipse id="puddle" cx="250" cy="250" rx="22" ry="6" fill="#E9D66B" stroke="none" opacity=".75" style="display:none"/>
      </g>
@@ -555,6 +564,8 @@
     { id: '防墜網', 標: '陽台要裝防墜網', 文: '貓咪可能為了追鳥或蟲跳出去，陽台和窗戶一定要裝防墜網', 提示: '在陽台點欄杆' },
     { id: '貓草', 標: '貓草選專用的', 文: '很多貓咪喜歡啃貓草，要選貓咪專用的，家裡別放對貓有毒的植物', 提示: '在陽台點貓草' },
     { id: '曬太陽', 標: '曬太陽要有遮蔭', 文: '貓咪喜歡曬太陽取暖，夏天別曬太久，旁邊要有水和陰涼處', 提示: '在陽台點陽光' },
+    { id: '香菇同款', 標: '香菇吃的主食', 文: '香菇吃的是全齡貓配方的高端餐 從小吃到老不用因為長大再換一次 一天分六餐固定時間吃', 提示: '餵一次香菇同款高端餐' },
+    { id: '每日保養', 標: '香菇的每日保養', 文: '香菇每天會在飯裡加一顆藍藻益生菌 這是牠八年來的習慣 ~ 每隻貓狀況不同 有疑問先問獸醫', 提示: '餵飯時加一顆藍藻益生菌' },
     { id: '多貓隔離', 標: '新貓先隔離', 文: '新貓到家先在另一個房間住 7～14 天，用毛巾交換氣味，再慢慢讓兩隻見面', 提示: '養第二隻貓' },
     { id: '多貓n+1', 標: '資源 N＋1', 文: '幾隻貓就準備「貓咪數量＋1」個飯碗 水碗 貓砂盆，比較不會搶', 提示: '兩隻貓都照顧一次' },
     { id: '多貓哈氣', 標: '哈氣不一定是討厭', 文: '剛見面互相哈氣很常見 是在說「先別靠太近」，不要硬把牠們湊在一起', 提示: '摸摸第二隻貓' },
@@ -616,6 +627,7 @@
     s.水 = s.水 || 0;
     if (s.貓 && 舊貓[s.貓.種]) s.貓.種 = 舊貓[s.貓.種];
     s.魚 = s.魚 ?? 20; s.裝潢 = s.裝潢 || []; s.擺 = s.擺 || [];
+    if (!s.送櫃) { s.送櫃 = 1; if (!s.裝潢.includes('shelf')) { s.裝潢.push('shelf'); s.擺.push('shelf'); } }
     if (s.貓 && s.貓.起始週 == null) Object.assign(s.貓, { 起始週: { 幼貓: 12, 成貓: 104, 熟齡: 416 }[s.貓.段] || 52, 領養: s.開始, 性別: s.貓.種 === '香菇' ? '母' : '母', 疫苗: [8, 12, 16], 結紮: s.貓.段 === '幼貓' ? undefined : 'done' });
     // 測試用：網址加 ?快轉=8 會讓貓咪長大 8 週
     const 快 = parseInt(new URLSearchParams(location.search).get('快轉'));
@@ -938,6 +950,7 @@
     { id: 'curtain', 名: '蕾絲窗簾', 價: 35, 說: '陽光變得好柔' },
     { id: 'rugpink', 名: '粉紅地毯', 價: 30, 說: '換一個地毯顏色' },
     { id: 'pillow', 名: '小魚抱枕', 價: 15, 說: '放在窩旁邊' },
+    { id: 'shelf', 名: '香菇同款保養櫃', 價: 10, 說: '藍藻菌和高端餐的家' },
   ];
   function 給魚(n, 理由) {
     if (作客) return;
@@ -978,6 +991,10 @@
       <button class="go" id="toShop">去商店逛逛</button>`);
     $('toShop').onclick = 商店;
   }
+  $('deco-shelf').addEventListener('click', e => { e.stopPropagation(); if (忙 || 遊戲中) return; 開卡(`<h3>🍄 香菇每天在吃的</h3><p class="lead">這是香菇爸家的日常 ~ 不是醫療建議 每隻貓狀況不同 有疑慮請先問獸醫</p>
+      <div class="shop"><div class="item"><b>🍚 高端餐</b><small>主食・全齡貓配方・一天六餐都吃這個</small></div><div class="item"><b>🌿 藍藻益生菌</b><small>保養・每天一顆加在飯裡・八年沒斷過</small></div></div>
+      <a class="go" style="display:block;text-align:center;text-decoration:none;margin-top:12px" href="${'https://mushroomlove.zeabur.app/'}" target="_blank" rel="noopener">看香菇同款 ›</a>
+      <p class="lead" style="margin-top:8px;font-size:12px">在遊戲裡餵飯時 也可以選香菇同款高端餐 加一顆藍藻益生菌</p>`); });
   $('coinTap').onclick = () => { if (!忙 && !遊戲中 && !作客) 魚說明(); };
   $('shopBtn').onclick = () => { if (!忙 && !遊戲中 && !作客) 商店(); };
 
@@ -1033,15 +1050,16 @@
     if (場景 !== 'living') return 去場景('living', 餵飯);
     if (狀態.飽足 >= 90) { 走到(地點.rug, () => { 姿勢('sit'); 說(`${我()}吃飽了，晚點再說`, '飽足快滿了 ~ 吃太多會胖喔'); 解鎖('吃太飽'); }); return; }
     開卡(`<h3>要餵${名()}吃什麼？</h3><p class="lead">${作息().餐提示}</p>
-      <div class="opts"><button class="opt" data-f="dry">乾飼料<small>方便保存，記得另外補充水分</small></button><button class="opt" data-f="wet">主食罐<small>大約 7～8 成是水分，吃飯也能順便補水</small></button></div>`);
-    document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { 關卡(); 開飯(b.dataset.f === 'wet'); });
+      <div class="opts"><button class="opt shroom-opt" data-f="hi">🍄 香菇同款高端餐<small>香菇每天吃的主食・全齡貓配方 從小吃到老</small></button><button class="opt" data-f="dry">一般乾飼料<small>方便保存 記得另外補充水分</small></button><button class="opt" data-f="wet">主食罐<small>大約 7～8 成是水分 吃飯也能順便補水</small></button></div>
+      <label class="spirulina"><input type="checkbox" id="addSp" ${狀態.保養日 === new Date().toDateString() ? 'disabled checked' : ''}> <span><b>🌿 加一顆藍藻益生菌</b><small>${狀態.保養日 === new Date().toDateString() ? '今天已經加過了' : '香菇八年來每天的保養習慣 加在飯裡一起吃'}</small></span></label>`);
+    document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { const 加 = $('addSp').checked && !$('addSp').disabled; 關卡(); 開飯(b.dataset.f === 'wet', b.dataset.f, 加); });
   }
-  function 開飯(濕) {
+  function 開飯(濕, 種類, 加藍藻) {
     忙 = true;
     const h = new Date().getHours() + new Date().getMinutes() / 60, 這餐 = 開飯時間().find(t => Math.abs(h - t) <= .75 && !狀態.已餵[t]);
     const k = $('kibbles'); k.innerHTML = '';
     for (let i = 0; i < (濕 ? 4 : 9); i++) { const c = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse'); c.setAttribute('cx', 290 + Math.random() * 20); c.setAttribute('cy', 549 + Math.random() * 4); c.setAttribute('rx', 濕 ? 4 : 2.4); c.setAttribute('ry', 濕 ? 2.6 : 1.8); c.setAttribute('fill', 濕 ? '#C98A6B' : '#B9762D'); c.setAttribute('stroke-width', '.8'); c.classList.add('kib'); c.style.animationDelay = i * 50 + 'ms'; k.append(c); }
-    $('food').setAttribute('fill', 濕 ? '#C98A6B' : '#B9762D');
+    $('food').setAttribute('fill', 濕 ? '#C98A6B' : 種類 === 'hi' ? '#C9925B' : '#B9762D');
     setTimeout(() => $('food').setAttribute('opacity', 1), 500);
     說('喵！開飯了？', '', 1.6);
     走到(地點.bowl, () => {
@@ -1057,6 +1075,8 @@
         if (這餐) 解鎖('準時');
         解鎖('餐-' + (狀態.貓.種 === '香菇' ? '熟齡' : 段()));
         if (濕) 解鎖('主食罐');
+        if (種類 === 'hi') { 狀態.心情 = Math.min(100, 狀態.心情 + 4); 解鎖('香菇同款'); 狀態.高端次 = (狀態.高端次 || 0) + 1; if (狀態.高端次 === 1) setTimeout(() => 說('這個好香～', '香菇同款高端餐・全齡貓配方', 3.5), 4600); }
+        if (加藍藻) { 狀態.保養日 = new Date().toDateString(); 狀態.保養天 = (狀態.保養天 || 0) + 1; 存(); setTimeout(() => { 給魚(2, `今天的保養完成（第 ${狀態.保養天} 天）`); 解鎖('每日保養'); }, 1500); }
       }, 2800);
     });
   }
