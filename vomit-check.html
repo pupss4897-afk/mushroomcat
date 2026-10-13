@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta name="author" content="香菇爸・綸綸老師 Jolly">
+  <meta name="copyright" content="© 2026 香菇爸・原創內容，未經授權請勿轉載或重製">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf5e9">
+  <meta name="description" content="香菇爸嘔吐觀察表：九種嘔吐物顏色與樣子對照、可能原因、什麼時候先觀察什麼時候立刻就醫、嘔吐和反流的差別、怎麼拍照記錄給醫生看">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="嘔吐觀察表｜香菇爸 App">
+  <meta property="og:description" content="吐黃水、吐白泡泡、吐毛球 哪些可以先觀察、哪些要馬上去醫院？九種一次對照">
+  <title>嘔吐觀察表｜香菇爸 App</title>
+<style>
+:root{--cream:#fbf5e9;--cream2:#f4ead7;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;
+ --pink:#e8a39b;--green:#8fb89a;--green2:#e3eee5;--brown:#a9835c;--brown2:#f0e5d8;
+ --danger:#d97a6c;--amber:#d9a441;--shadow:0 8px 22px rgba(150,130,100,.1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",sans-serif;
+ color:var(--ink);background:#e9e0d2;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.app{width:100%;max-width:440px;min-height:100vh;margin:auto;padding-bottom:78px;
+ background:radial-gradient(circle at 15% 0,#fff 0,transparent 38%),var(--cream);box-shadow:0 0 40px rgba(0,0,0,.06)}
+.head{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;
+ gap:10px;padding:12px 16px;background:rgba(251,245,233,.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.back,.home{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:14px;background:#fff;box-shadow:var(--shadow);font-size:19px}
+.head-title{text-align:center}
+.head-title strong{display:block;font-family:"Noto Serif TC","Songti TC",serif;font-size:16px}
+.head-title small{display:block;color:var(--soft);font-size:10px}
+
+.hero{padding:22px 18px 16px}
+.hero-card{position:relative;padding:23px 20px 20px;border-radius:26px;overflow:hidden;color:#fff;
+ background:linear-gradient(152deg,#8a6a49 0%,#a9835c 52%,#c9a880 100%)}
+.hero-card:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-58px;top:-65px;border:1px solid rgba(255,255,255,.22)}
+.kicker{position:relative;z-index:1;display:inline-block;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.22);font-size:10px;font-weight:900;letter-spacing:1.2px}
+.hero h1{position:relative;z-index:1;margin-top:11px;font-family:"Noto Serif TC","Songti TC",serif;font-size:27px;line-height:1.35}
+.hero p{position:relative;z-index:1;margin-top:8px;color:rgba(255,255,255,.92);font-size:12.5px}
+.hero-mini{position:relative;z-index:1;display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+.hero-mini span{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.19);font-size:10.5px;font-weight:700}
+
+.section{padding:18px}
+.section.alt{background:rgba(255,255,255,.34);border-block:1px solid rgba(234,223,205,.8)}
+.title-row{margin-bottom:13px}
+.num{display:block;color:var(--brown);font-size:10px;font-weight:900;letter-spacing:1.4px}
+.title-row h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:19px;margin-top:2px}
+.title-row p{margin-top:4px;color:var(--soft);font-size:11.5px}
+
+.photo{display:grid;grid-template-columns:96px 1fr;gap:13px;align-items:center;padding:14px;
+ margin-bottom:10px;border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow)}
+.photo img{width:96px;height:66px;object-fit:contain}
+.photo b{display:block;font-size:15px}
+.photo small{display:block;color:var(--soft);font-size:11.5px;line-height:1.7;margin-top:3px}
+.photo.best{border-color:#a8cbb2;background:linear-gradient(160deg,#f2f9f4,#fff)}
+.pts{margin-top:6px}
+.illus{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:999px;
+ background:var(--cream2);color:var(--soft);font-size:10px;font-weight:700}
+.pts span{display:inline-block;margin:2px 5px 0 0;padding:2px 9px;border-radius:999px;
+ background:var(--cream2);font-size:10.5px}
+.colors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.col{padding:12px;border:1px solid var(--line);border-radius:16px;background:#fff;text-align:center}
+.col img{width:100%;max-width:112px;height:56px;object-fit:contain}
+.col b{display:block;margin-top:6px;font-size:12.5px}
+.col small{display:block;color:var(--soft);font-size:10.5px;margin-top:2px;line-height:1.6}
+.col .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:1px}
+/* 七型 */
+.type{display:grid;grid-template-columns:34px 62px 1fr;gap:11px;align-items:center;padding:12px;
+ margin-bottom:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.type .no{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;
+ background:var(--brown2);color:#8a6a49;font-weight:900;font-size:13px}
+.shape{height:34px;display:flex;align-items:center;justify-content:center;gap:3px}
+.shape i{display:block;background:#a9835c;border-radius:50%}
+.type b{display:block;font-size:13.5px}
+.type small{display:block;color:var(--soft);font-size:10.8px;line-height:1.6;margin-top:2px}
+.flag{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;font-size:9.5px;font-weight:900}
+.f-hard{background:#f5e2dc;color:#b56552}
+.f-ok{background:var(--green2);color:#4a7d5c}
+.f-best{background:#8fb89a;color:#fff}
+.f-soft{background:#faeed6;color:#a8802c}
+.f-bad{background:#f7dcd7;color:#c25a48}
+
+/* 觀察四件事 */
+.chk{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;padding:12px;margin-bottom:9px;
+ border:1px solid var(--line);border-radius:15px;background:#fff}
+.chk i{width:26px;height:26px;display:grid;place-items:center;border-radius:9px;background:var(--green);
+ color:#fff;font-style:normal;font-size:13px;font-weight:900}
+.chk b{font-size:13px}
+.chk small{display:block;color:var(--soft);font-size:11px;margin-top:2px;line-height:1.7}
+
+/* 紅燈 */
+.urgent{display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start;padding:13px;margin-bottom:9px;
+ border:1px solid #f0d4ce;border-radius:16px;background:#fdf4f2}
+.urgent>span{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:var(--danger);color:#fff;font-weight:900}
+.urgent b{color:var(--danger);font-size:12.5px}
+.urgent p{font-size:11px;color:#806962;margin-top:2px;line-height:1.7}
+
+.link-card{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px;
+ margin-top:9px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+.link-card span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--cream2);font-size:19px}
+.link-card b{font-size:13px}
+.link-card small{display:block;color:var(--soft);font-size:10.5px}
+.link-card i{font-style:normal;color:var(--soft)}
+.line-btn{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:14px;margin-top:9px;
+ border-radius:16px;background:#06C755;color:#fff;box-shadow:0 8px 20px rgba(6,199,85,.22)}
+.line-btn span:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.2);font-size:19px}
+.line-btn b{font-size:13.5px}
+.line-btn small{display:block;font-size:10.5px;opacity:.9}
+.sources{padding:16px 18px;background:var(--cream2);font-size:9.5px;color:var(--soft);line-height:1.8}
+.sources strong{display:block;color:var(--ink);margin-bottom:3px}
+@media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+
+
+/* 淚痕頁專用 */
+.fig{display:block;margin:0 0 12px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.fig img{display:block;width:100%;height:auto}
+.tier{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:start;padding:13px;margin-bottom:9px;
+ border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.tier .tag{display:grid;place-items:center;padding:7px 4px;border-radius:12px;font-size:11.5px;font-weight:900;line-height:1.4;text-align:center}
+.t-ok{background:var(--green2);color:#4a7d5c}
+.t-mid{background:var(--brown2);color:#8a6a49}
+.t-warn{background:#faeed6;color:#a8802c}
+.tier b{display:block;font-size:13.5px}
+.tier small{display:block;color:var(--soft);font-size:11px;line-height:1.7;margin-top:3px}
+.tier .act{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:800}
+.a-ok{background:var(--green2);color:#4a7d5c}
+.a-warn{background:#f7dcd7;color:#c25a48}
+.swatch{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.sw{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;padding:11px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.sw i{width:20px;height:20px;border-radius:50%;margin-top:2px}
+.sw b{display:block;font-size:12.5px}
+.sw small{display:block;color:var(--soft);font-size:10.3px;line-height:1.6;margin-top:2px}
+.note{padding:13px 14px;border:1px dashed var(--line);border-radius:15px;background:rgba(255,255,255,.6);font-size:11.5px;color:var(--soft);line-height:1.8}
+.note b{color:var(--ink)}
+
+/* ── 學習頁共用補充 ── */
+.fig{display:block;margin:0 0 12px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.fig img{display:block;width:100%;height:auto}
+.hero-card.c-blue{background:linear-gradient(152deg,#4f6d8f 0%,#6d8db0 55%,#9db6cf 100%)}
+.hero-card.c-green{background:linear-gradient(152deg,#5e7f62 0%,#7f9f7f 55%,#b0c6a8 100%)}
+.hero-card.c-rose{background:linear-gradient(152deg,#9a6660 0%,#b98479 55%,#d8b0a4 100%)}
+.hero-card.c-plum{background:linear-gradient(152deg,#6f5a7e 0%,#8e7a9c 55%,#bcaec6 100%)}
+.hero-card.c-sand{background:linear-gradient(152deg,#8a6a49 0%,#a9835c 52%,#c9a880 100%)}
+.fig small.cap{display:block;padding:8px 4px 0;color:var(--soft);font-size:10.5px;text-align:center}
+.tap{display:block;margin:-4px 0 12px;text-align:center;color:var(--soft);font-size:10.5px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.cd{padding:13px 12px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.cd .ic{font-size:21px;line-height:1}
+.cd b{display:block;margin-top:6px;font-size:13px}
+.cd small{display:block;margin-top:3px;color:var(--soft);font-size:10.8px;line-height:1.7}
+.cd.wide{grid-column:1/-1}
+.cd.warn{border-color:#f0d4ce;background:#fdf6f4}
+.cd.ok{border-color:#cfe2d4;background:#f5faf6}
+.vs{width:100%;border-collapse:separate;border-spacing:0;font-size:11.5px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.vs th,.vs td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+.vs tr:last-child td{border-bottom:0}
+.vs th{background:var(--cream2);font-size:12px}
+.vs td:first-child{color:var(--soft);font-weight:700;white-space:nowrap;width:52px;text-align:center}
+.vs .a{color:#4f6d8f}.vs .b{color:#8a6a49}
+.day{border:1px solid var(--line);border-radius:16px;background:#fff;margin-bottom:8px;overflow:hidden}
+.day summary{list-style:none;display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:12px 13px;cursor:pointer}
+.day summary::-webkit-details-marker{display:none}
+.day summary .d{display:grid;place-items:center;height:30px;border-radius:10px;background:var(--brown2);color:#8a6a49;font-weight:900;font-size:12px}
+.day summary b{font-size:13.5px}
+.day summary small{display:block;color:var(--soft);font-size:10.5px}
+.day summary i{font-style:normal;color:var(--soft);transition:transform .2s}
+.day[open] summary i{transform:rotate(90deg)}
+.day .in{padding:0 14px 13px 75px;font-size:11.5px;line-height:1.8}
+.day .in .no{color:#b56552}
+.ck{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;padding:11px 12px;margin-bottom:8px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer}
+.ck input{appearance:none;width:22px;height:22px;margin-top:1px;border:2px solid #cdbfa9;border-radius:7px;display:grid;place-items:center;background:#fff;cursor:pointer}
+.ck input:checked{background:var(--green);border-color:var(--green)}
+.ck input:checked:after{content:"✓";color:#fff;font-size:13px;font-weight:900}
+.ck b{font-size:13px}
+.ck small{display:block;color:var(--soft);font-size:10.8px;line-height:1.7;margin-top:1px}
+.ck:has(input:checked){background:#f5faf6;border-color:#cfe2d4}
+.progress{display:flex;align-items:center;gap:10px;margin:2px 0 12px;font-size:11.5px;color:var(--soft)}
+.progress span{flex:1;height:8px;border-radius:99px;background:var(--cream2);overflow:hidden}
+.progress span i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .3s}
+.ask{padding:13px 14px;border-radius:16px;background:#fff;border:1px dashed #cdbfa9;font-size:12px;line-height:1.9}
+.ask>b:first-child{display:block;margin-bottom:4px;font-size:12.5px}
+.vid{display:block;width:100%;border-radius:20px;background:#efe6d7;box-shadow:var(--shadow)}
+.beh{display:grid;grid-template-columns:40px 1fr;gap:11px;align-items:start;padding:12px;margin-bottom:8px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.beh>span{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:var(--cream2);font-size:20px}
+.beh b{font-size:13px}
+.beh small{display:block;color:var(--soft);font-size:10.8px;line-height:1.7;margin-top:2px}
+.beh .mood{display:inline-block;margin-top:5px;padding:2px 9px;border-radius:999px;font-size:9.8px;font-weight:900}
+.m-good{background:var(--green2);color:#4a7d5c}.m-warn{background:#faeed6;color:#a8802c}.m-bad{background:#f7dcd7;color:#c25a48}
+.quiz{padding:14px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.quiz b{display:block;font-size:13.5px}
+.quiz .opts{display:grid;gap:7px;margin-top:10px}
+.quiz button{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--cream);font:inherit;font-size:12.5px;text-align:left;cursor:pointer;color:var(--ink)}
+.quiz button.r{background:var(--green2);border-color:#a8cbb2}.quiz button.w{background:#f7dcd7;border-color:#efc2ba}
+.tag.t-warn.v{}
+.quiz .ans{margin-top:10px;font-size:11.5px;line-height:1.8;color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="head">
+    <a class="back" href="index.html" aria-label="回上一頁">‹</a>
+    <div class="head-title"><strong>嘔吐觀察表</strong><small>看顏色 判斷要不要就醫</small></div>
+    <a class="home" href="index.html" aria-label="回首頁"><img src="icons/logo.png?v=3" width="26" height="26" alt=""></a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card c-green">
+      <span class="kicker">VOMIT CHECK</span>
+      <h1>吐了先別慌<br>先看顏色和次數</h1>
+      <p>拍照、記時間、看精神 ~ 這三件事做好，帶去醫院醫生會很感謝你</p>
+      <div class="hero-mini"><span>九種對照</span><span>三級判斷</span><span>就醫訊號</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title-row">
+      <span class="num">01</span>
+      <h2>一張圖看懂</h2>
+      <p>從嘔吐物看出健康警訊</p>
+    </div>
+    <a class="fig" href="media/vomit-colors.jpg" target="_blank" rel="noopener" aria-label="放大看：貓咪嘔吐顏色判斷分析">
+      <img src="media/vomit-colors.jpg" width="1050" height="1400" alt="貓咪嘔吐顏色判斷分析：黃色液體、綠色液體、毛球、未消化食物、血色紅色、白色泡沫、黑色液體咖啡渣狀、異物、透明液體的外觀特徵、可能原因與建議處理方式" loading="lazy"></a>
+    <span class="tap">🔍 點圖片可以放大看</span>
+    <p class="note">偶爾吐一次、吐完<b>精神食慾都正常</b>，通常可以先觀察。<br><br>但如果<b>一週吐好幾次</b>、或是吐的東西顏色不對，就不能當成「貓本來就會吐」 ~ 很多身體的問題，最早都是從嘔吐開始的。</p>
+  </section>
+  <section class="section alt">
+    <div class="title-row">
+      <span class="num">02</span>
+      <h2>九種嘔吐物 怎麼看</h2>
+      <p>左邊標籤：先觀察・要留意・立刻就醫</p>
+    </div>
+    <div class="tier"><span class="tag t-ok">先觀察</span><div><b>毛球</b><small>看起來：條狀毛髮、可能帶食物殘渣<br>可能原因：換毛季舔毛太多、腸胃蠕動比較慢</small><span class="act a-ok">✓ 偶爾一次先觀察 ~ 加強梳毛</span></div></div><div class="tier"><span class="tag t-ok">先觀察</span><div><b>未消化食物</b><small>看起來：食物完整成形、剛吃完不久就吐<br>可能原因：吃太快、吃太多、食物不適合</small><span class="act a-ok">✓ 少量多餐、慢食碗</span></div></div><div class="tier"><span class="tag t-mid">要留意</span><div><b>透明液體</b><small>看起來：水狀、可能帶泡泡<br>可能原因：腸胃剛開始不舒服、緊張、食物不耐受</small><span class="act a-ok">✓ 觀察精神食慾 ~ 一直吐要就醫</span></div></div><div class="tier"><span class="tag t-mid">要留意</span><div><b>白色泡沫</b><small>看起來：白色泡沫狀、大量泡泡<br>可能原因：胃酸多、空腹太久，也可能是其他器官的問題</small><span class="act a-ok">✓ 調整餵食時間 ~ 持續吐要就醫</span></div></div><div class="tier"><span class="tag t-mid">要留意</span><div><b>黃色液體</b><small>看起來：黃色或黃綠色、液體狀<br>可能原因：空腹太久、胃酸或膽汁，也可能是胃發炎</small><span class="act a-ok">✓ 記錄頻率 ~ 經常吐要就醫</span></div></div><div class="tier"><span class="tag t-mid">要留意</span><div><b>綠色液體</b><small>看起來：綠色或黃綠色<br>可能原因：膽汁逆流、空腹太久、腸胃發炎</small><span class="act a-ok">✓ 少量多餐 ~ 持續吐要就醫</span></div></div><div class="tier"><span class="tag t-warn" style="background:#f7dcd7;color:#c25a48">立刻<br>就醫</span><div><b>紅色（血色）</b><small>看起來：鮮紅色、有血絲<br>可能原因：食道或胃有出血、異物刮傷</small><span class="act a-warn">! 立刻就醫</span></div></div><div class="tier"><span class="tag t-warn" style="background:#f7dcd7;color:#c25a48">立刻<br>就醫</span><div><b>黑色／咖啡渣狀</b><small>看起來：黑色或咖啡色顆粒<br>可能原因：消化道出血（血液消化後變黑）</small><span class="act a-warn">! 立刻就醫 ~ 屬於緊急狀況</span></div></div><div class="tier"><span class="tag t-warn" style="background:#f7dcd7;color:#c25a48">立刻<br>就醫</span><div><b>異物</b><small>看起來：吐出線、塑膠、玩具碎片<br>可能原因：誤食異物，可能卡在腸胃</small><span class="act a-warn">! 立刻就醫 ~ 線狀異物不要拉</span></div></div>
+  </section>
+  <section class="section">
+    <div class="title-row">
+      <span class="num">03</span>
+      <h2>是嘔吐 還是反流？</h2>
+      <p>樣子很像 原因不一樣</p>
+    </div>
+    <table class="vs">
+      <tr><th></th><th class="a">嘔吐</th><th class="b">反流</th></tr>
+      <tr><td>前兆</td><td>會先流口水、肚子一抽一抽用力</td><td>幾乎沒有前兆</td></tr>
+      <tr><td>時間</td><td>吃完一段時間、或空腹時</td><td>常常剛吃完沒多久</td></tr>
+      <tr><td>樣子</td><td>糊狀、可能有黃色液體</td><td>食物還是完整的、條狀</td></tr>
+      <tr><td>常見原因</td><td>腸胃不適、毛球、其他疾病</td><td>吃太快、吃太多</td></tr>
+    </table>
+    <p class="note" style="margin-top:12px">如果是<b>吃太快又吐出來</b>，可以試試：把一餐分成兩三次給、用慢食碗、多貓家庭分開吃飯，不要讓牠搶食。</p>
+  </section>
+  <section class="section alt">
+    <div class="title-row">
+      <span class="num">04</span>
+      <h2>牠吐了 你可以先做這些</h2>
+      
+    </div>
+    <div class="chk"><i>1</i><div><b>先拍照</b><small>清掉之前先拍一張 ~ 顏色、樣子、有沒有毛或異物，醫生看照片很有幫助</small></div></div>
+    <div class="chk"><i>2</i><div><b>記下時間和次數</b><small>幾點吐的、跟吃飯隔多久、今天第幾次</small></div></div>
+    <div class="chk"><i>3</i><div><b>看精神和食慾</b><small>吐完還會討飯、會玩 vs 躲起來、不吃不喝，差很多</small></div></div>
+    <div class="chk"><i>4</i><div><b>先不要急著餵</b><small>讓腸胃休息一下，再少量給 ~ <b>幼貓、熟齡貓、有慢性病的貓不要自己讓牠餓太久</b>，先問醫生</small></div></div>
+    <div class="chk"><i>5</i><div><b>不要自己餵人吃的藥</b><small>人用的胃藥、止吐藥可能對貓有害</small></div></div>
+  </section>
+  <section class="section">
+    <div class="title-row">
+      <span class="num">05</span>
+      <h2>這些情況 立刻就醫</h2>
+      
+    </div>
+    <div class="urgent"><span>!</span><div><b>吐出血、或黑色咖啡渣狀</b><p>可能是消化道出血</p></div></div>
+    <div class="urgent"><span>!</span><div><b>吐出異物、或懷疑吃了線</b><p>線狀異物露在嘴巴或屁股外面 <b>不要拉</b>，直接去醫院</p></div></div>
+    <div class="urgent"><span>!</span><div><b>一直吐、一天吐好幾次</b><p>持續嘔吐超過 24 小時，或連水都吐出來</p></div></div>
+    <div class="urgent"><span>!</span><div><b>吐 ＋ 精神不好、不吃東西</b><p>身體可能有其他狀況</p></div></div>
+    <div class="urgent"><span>!</span><div><b>吐 ＋ 拉肚子或便血</b><p>容易脫水 ~ 摸摸牙齦，乾乾黏黏的就是脫水訊號</p></div></div>
+    <div class="urgent"><span>!</span><div><b>幼貓吐</b><p>幼貓體型小、很快脫水，比成貓更不能等</p></div></div>
+  </section>
+  <section class="section">
+    <div class="title-row">
+      <span class="num">NEXT</span>
+      <h2>還可以看這些</h2>
+      
+    </div>
+    
+    <a class="link-card" href="poop-check.html">
+      <span>💩</span><span><b>便便觀察表</b><small>嘔吐常常跟便便一起看</small></span><i>›</i></a>
+    <a class="link-card" href="shedding.html">
+      <span>🪮</span><span><b>掉毛觀察表</b><small>毛球吐太多 從梳毛開始</small></span><i>›</i></a>
+    <a class="link-card" href="picky-eater.html">
+      <span>🥣</span><span><b>貓咪挑食怎麼辦</b><small>吃太快、吃太多的調整方法</small></span><i>›</i></a>
+    <a class="line-btn" href="https://agentone.metaepoch.life/link/channels/ifVUGO3ckT" target="_blank" rel="noopener">
+      <span>💬</span><span><b>拍下來問香菇爸</b><small>不確定吐的東西正不正常 ~ 拍照傳給我看看</small></span><i>↗</i></a>
+  </section>
+
+  <p class="sources">
+    <strong>關於這一頁</strong>
+    這是一份幫助你「觀察」與「描述」的工具，不能取代獸醫診斷<br>同樣顏色的嘔吐物也可能有不同原因，有任何紅燈訊號或你覺得不對勁，請直接就醫<br>
+    © 2026 香菇爸・原創內容
+  </p>
+</main>
+<script>
+  // 返回鍵：有上一頁就回上一頁
+  document.querySelector('.back').addEventListener('click', function (e) { if (history.length > 1 && document.referrer.indexOf(location.host) > -1) { e.preventDefault(); history.back(); } });
+
+</script>
+<script src="search-index.js"></script>
+<script src="search.js"></script>
+</body>
+</html>
