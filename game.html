@@ -185,6 +185,14 @@
   .wish button { border: 2px solid var(--line); border-radius: 99px; background: var(--paper); padding: 3px 10px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
   .wish button.on { background: var(--mustard); }
   .tabs2 { display: flex; gap: 6px; margin-top: 12px; } .tabs2 button { flex: 1; border: 2px solid var(--line); border-radius: 10px; background: var(--paper); padding: 6px; font-family: var(--hand); font-size: 14px; cursor: pointer; } .tabs2 button.on { background: var(--mustard); }
+  .row1 { margin-bottom: 12px; }
+  .sound[data-l] { position: relative; }
+  .sound[data-l]::after { content: attr(data-l); position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1px; font-size: 8.5px; line-height: 1.1; color: var(--ink-soft); white-space: nowrap; font-family: var(--hand); pointer-events: none; }
+  .quest { display: flex; align-items: center; gap: 8px; margin-top: 7px; padding: 6px 10px; border-radius: 12px; background: #FFF4D6; border: 2px dashed #E3B653; font-size: 12.5px; animation: up .4s ease; }
+  .quest b { font-family: var(--hand); font-size: 13.5px; } .quest small { margin-left: auto; color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
+  .act.hint { animation: hintPulse 1.1s ease-in-out infinite; } @keyframes hintPulse { 50% { transform: translateY(-4px) scale(1.06); box-shadow: 0 0 0 4px #F6D06B; } }
+  .more-cats[hidden] { display: none !important; } .more-btn { grid-column: 1 / -1; }
+  .meals .game-note { color: var(--ink-soft); font-size: 10px; white-space: nowrap; }
   .card .x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper); font-size: 20px; line-height: 1; cursor: pointer; z-index: 2; }
   .coin-tap { cursor: pointer; text-decoration: underline dotted; }
   .shroom-opt { background: #F6E9FB !important; border-color: #8C6FAE !important; }
@@ -514,7 +522,7 @@
 
   <div class="hud">
     <div class="note">
-      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" id="wishBtn" aria-label="鏟屎官許願池">🌠</button><button class="sound" id="challengeBtn" aria-label="生存挑戰">🏆</button><button class="sound" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
+      <div class="row1"><span class="title" id="title">養一隻香菇</span><span class="day"><b id="ageTxt"></b>・<span class="coin-tap" id="coinTap">🐟 <b id="coins">0</b></span>・陪伴 <b id="days">1</b> 天・連續 <b id="streak">1</b> 天</span><button class="sound" data-l="聲音" id="sound" aria-label="開關呼嚕聲">🔈</button><button class="sound" data-l="圖鑑" id="book" aria-label="知識卡圖鑑">📖</button><button class="sound" data-l="許願" id="wishBtn" aria-label="鏟屎官許願池">🌠</button><button class="sound" data-l="挑戰" id="challengeBtn" aria-label="生存挑戰">🏆</button><button class="sound" data-l="商店" id="shopBtn" aria-label="小魚乾商店">🛒</button><button class="sound" data-l="串門" id="visitBtn" aria-label="串門子">🏠</button><button class="sound" data-l="換貓" id="swap" aria-label="換一隻貓或存檔">🐾</button></div>
       <div class="bars">
         <div class="bar" id="b-full"><div class="lb"><span>飽足</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
         <div class="bar" id="b-water"><div class="lb"><span>喝水</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
@@ -522,6 +530,7 @@
         <div class="bar" id="b-bond"><div class="lb"><span>親密</span><b>0</b></div><div class="track"><div class="fill"></div></div></div>
       </div>
       <div class="meals" id="meals"></div>
+      <div class="quest" id="quest" hidden></div>
       <div class="rooms" id="rooms"><button data-s="living">🛋️ 客廳</button><button data-s="bedroom">🛏️ 臥室</button><button data-s="balcony">🌿 陽台</button><button data-s="park">🌳 公園</button></div>
     </div>
   </div>
@@ -691,8 +700,36 @@
     document.querySelectorAll('#rooms button').forEach(b => b.classList.toggle('on', b.dataset.s === 場景));
     const h = new Date().getHours() + new Date().getMinutes() / 60;
     const 下一餐 = 開飯時間().find(t => t >= h - 0.75 && !狀態.已餵[t]);
-    $('meals').innerHTML = `<em>${名()}一天 ${開飯時間().length} 餐</em>` + 開飯時間().map(t => `<span class="${狀態.已餵[t] ? 'done' : t === 下一餐 ? 'next' : ''}">${時(t)}</span>`).join('');
+    $('meals').innerHTML = `<em>${名()}一天 ${開飯時間().length} 餐</em>` + 開飯時間().map(t => `<span class="${狀態.已餵[t] ? 'done' : t === 下一餐 ? 'next' : ''}">${時(t)}</span>`).join('') + `<span class="game-note">（遊戲設定 ~ 真實貓咪請依獸醫建議）</span>`;
+    畫任務();
     $('waterSurf').setAttribute('rx', 狀態.水 >= 喝水目標() ? 8 : 13);
+  }
+
+  // ── 每天一個小期待 ──
+  const 今日們 = [
+    ['今天的天氣適合曬太陽', '去陽台看看 ~ 曬太陽是貓咪的日常儀式'],
+    ['昨天聽到一個聲音 研究了一整晚', '貓咪的好奇心很重 ~ 家裡的線和小東西要收好'],
+    ['今天想換一個地方睡午覺', '點臥室的床 或客廳的貓跳台'],
+    ['今天的水好像特別好喝', '水碗每天換新鮮的水 ~ 貓咪很挑'],
+    ['我今天心情不錯 可以讓你多摸兩下', '摸到牠瞇眼睛 就是放鬆了'],
+    ['今天想玩逗貓棒', '每天陪玩 10～15 分鐘 牠會更穩定'],
+    ['今天想學新東西', '點上面 📖 圖鑑 看還有哪些知識卡沒解鎖'],
+  ];
+  function 今日小事() { if (忙 || 遊戲中 || 作客) return; const [a, b] = 今日們[new Date().getDate() % 今日們.length]; 說(`今日小事：${a}`, b, 6); }
+
+  // ── 新手三步任務：餵一餐 → 摸摸 → 喝水 ──
+  const 任務們 = [null, { 字: '先餵牠一餐 🍚', 鈕: 'feed', 提: '點下面的「餵飯」' }, { 字: '摸摸牠 ❤️', 鈕: 'pet', 提: '手指在貓咪身上來回滑' }, { 字: '帶牠去喝水 💧', 鈕: 'drink', 提: '點下面的「喝水」' }];
+  function 畫任務() {
+    const n = 狀態.新手, q = $('quest'); document.querySelectorAll('.act.hint').forEach(b => b.classList.remove('hint'));
+    if (!n || n > 3 || 作客) { q.hidden = true; return; }
+    q.hidden = false; q.innerHTML = `<span>🔰</span><span>新手任務 ${n}/3：<b>${任務們[n].字}</b></span><small>${任務們[n].提}</small>`;
+    $(任務們[n].鈕)?.classList.add('hint');
+  }
+  function 完成任務(n) {
+    if (狀態.新手 !== n) return;
+    狀態.新手 = n + 1; 存();
+    if (n < 3) setTimeout(() => { 畫任務(); 說(`做得好！下一步：${任務們[n + 1].字}`, 任務們[n + 1].提, 4); }, 4800);
+    else setTimeout(() => { 畫任務(); 給魚(10, '新手任務全部完成'); 愛心(4); 說('新手任務完成 🎉', '之後每天回來照顧牠 ~ 點上面 🏆 挑戰看你能把主子養到幾級', 6); 狀態.看過挑戰 = 1; 存(); }, 4800);
   }
 
   // ── 換毛色：把畫好的貓依照選的貓上色 ──
@@ -805,23 +842,24 @@
   function 選貓畫面(第一次, 第二) {
     let 選 = 狀態.貓?.種 || '香菇', 起 = 8, 性 = 狀態.貓?.性別 || '母';
     const 鎖 = k => 貓們[k].菇 && !狀態.菇粉;
-    const 卡們 = Object.entries(貓們).map(([k, c]) => `<button class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${c.菇 ? (鎖(k) ? '菇粉限定' : '菇粉限定 ✓') : c.介紹}</small></button>`).join('');
+    const 卡們 = Object.entries(貓們).map(([k, c], i) => `<button ${第一次 && i >= 6 ? 'data-more hidden ' : ''}class="catopt${鎖(k) ? ' locked' : ''}" data-k="${k}">${鎖(k) ? '<span class="lock">🔒</span>' : ''}<svg class="mini" viewBox="-34 -74 68 80" data-k="${k}"></svg><b>${k}</b><small>${c.菇 ? (鎖(k) ? '菇粉限定' : '菇粉限定 ✓') : c.介紹}</small></button>`).join('');
     開卡(`${第一次 ? `<div class="game-title"><b>養貓生存挑戰</b><span>你能把主子養到幾級？</span></div>
       <div class="opening"><p class="big">「恭喜你撿到一隻貓。」</p><p>接下來每一個決定 都由你負責 😼</p></div>
       <h3>先看看是哪一隻</h3>` : `<h3>${第二 ? '挑第二隻貓' : '換一隻貓'}</h3>`}
       <p class="lead">${第一次 ? '選好牠 取個名字 生存挑戰就開始了' : '每天回來餵飯、喝水、陪牠玩，順便學會怎麼照顧貓咪'}</p>
-      <div class="cats">${卡們}</div>
-      <p class="lead" style="margin:8px 0 0;font-size:12px">🔒 最後 6 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
-      <div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
+      <div class="cats">${卡們}${第一次 ? '<button class="ghost-btn more-btn" id="moreCats">🐱 看更多貓咪</button>' : ''}</div>
+      <p class="lead" id="fanNote" style="margin:8px 0 0;font-size:12px"${第一次 ? ' hidden' : ''}>🔒 最後 6 隻是<b>菇粉限定</b> ~ 跟團成為菇粉 香菇爸會給你解鎖碼</p>
+      ${第一次 ? '<details id="advBox"><summary class="lead" style="cursor:pointer;margin-top:10px">⚙️ 進階：公母、從幾歲開始養（不選也可以）</summary>' : ''}<div id="ageBox"><h4>公貓還是母貓？</h4><div class="sexes"><button class="opt" data-x="公">♂ 公貓</button><button class="opt" data-x="母">♀ 母貓</button></div>
       <h4>從幾歲開始養？</h4><div class="ages">${開始年齡們.map(a => `<button class="opt" data-a="${a.週}">${a.字}<small>${a.說明}</small></button>`).join('')}</div>
       <p class="lead" style="margin:8px 0 0">現實 1 天，貓咪長大 1 週。從小奶貓開始，就能陪牠打疫苗、結紮、慢慢長大</p></div>
-      <p class="lead" id="shroomNote" style="margin-top:12px">香菇是<b>母貓</b> ~ 可以從小奶貓開始養 選 <b>8 歲</b>就是現在的香菇：<b>一天 6 餐</b>、固定時間開飯</p>
+      <p class="lead" id="shroomNote" style="margin-top:12px">香菇是<b>母貓</b> ~ 可以從小奶貓開始養 選 <b>8 歲</b>就是現在的香菇：<b>一天 6 餐</b>、固定時間開飯<br><small>（這是香菇的個人作息 每隻貓的餐數和份量不一樣 請依體重和獸醫建議）</small></p>${第一次 ? '</details>' : ''}
       <h4>幫牠取名字</h4><input class="name" id="nameIn" maxlength="8" aria-label="貓咪的名字">
       <button class="go" id="goBtn">${第一次 ? '開始養 🐾' : '就是牠了'}</button>
       ${!第一次 && !第二 ? '<button class="ghost-btn" id="adoptBtn">🐱 再養第二隻</button>' : ''}
       ${第二 ? '' : 第一次 ? '<button class="ghost-btn" id="showLoad2">我在別支手機養過，要找回我的貓</button><div id="loadBox2" hidden><textarea class="codebox" id="codeIn2" placeholder="貼上「我要存貓 MC…」那整則訊息"></textarea><button class="ghost-btn" id="loadBtn2">找回我的貓</button><p class="msg" id="loadMsg2"></p></div>' : 存檔區()}`);
     if (第一次) {
       $('cardX')?.remove();
+      $('moreCats').onclick = () => { document.querySelectorAll('[data-more]').forEach(b => b.hidden = false); $('moreCats').remove(); $('fanNote').hidden = false; };
       $('showLoad2').onclick = () => { $('loadBox2').hidden = false; $('codeIn2').focus(); };
       $('loadBtn2').onclick = () => { if (解包($('codeIn2').value)) { 關卡(); 走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${名()}回來了！`, '', 3); }); } else { $('loadMsg2').className = 'msg bad'; $('loadMsg2').textContent = '找不到存檔碼，請確認有貼到「MC」開頭的那一串字'; } };
     } else if (!第二) { 綁存檔(); $('adoptBtn').onclick = 領養第二隻; }
@@ -848,7 +886,7 @@
       狀態.已餵 = {};
       存(); 關卡(); 去場景('living', null, true); 套貓();
       上傳我的貓(true); 記事件(第一次 ? 'game_start' : 'game_change_cat', { 品種: 選, 開始年齡: 起 });
-      if (第一次 && !狀態.看過挑戰) { 狀態.看過挑戰 = 1; 存(); setTimeout(() => 說('生存挑戰開始了', '點右上角 🏆 看你能把主子養到幾級', 5), 6500); }
+      if (第一次) { 狀態.新手 = 1; 存(); 畫任務(); }
       if (狀態.待訪) { const 客 = 狀態.待訪; delete 狀態.待訪; 存(); setTimeout(() => 去作客(客), 2500); }
       if (週() < 12) setTimeout(() => 解鎖('藍眼睛'), 6000);
       走到(地點.rug, () => { 姿勢('sit'); 愛心(3); 說(`${我() === '我' ? '我' : 我()}是${名()}，以後請多指教～`, `${作息().餐提示}，看上面的開飯時間`, 5.5); });
@@ -1304,6 +1342,7 @@
         else 說(`嗯…${我()}勉強吃了`, `${名()}一天 ${開飯時間().length} 餐 ~ 看上面的開飯時間${水話}`, 4.4);
         愛心(2); 存(); 畫(); 忙 = false;
         if (這餐) 解鎖('準時');
+        完成任務(1);
         解鎖('餐-' + 段());
         if (濕) 解鎖('主食罐');
         if (種類 === 'hi') { 狀態.心情 = Math.min(100, 狀態.心情 + 4); 解鎖('香菇同款'); 狀態.高端次 = (狀態.高端次 || 0) + 1; if (狀態.高端次 === 1) setTimeout(() => 說('這個好香～', '香菇同款高端餐・全齡貓配方', 3.5), 4600); }
@@ -1328,6 +1367,7 @@
         if (狀態.水 >= 目標 && 狀態.水 - 30 < 目標) { 愛心(3); 說('今天的水喝夠了！', `${名()}大約 ${作息().公斤} 公斤，一天約 ${目標}ml ~ 每公斤體重約 40～60ml（食物裡的水也算）`, 6); }
         else 說(`咕嚕咕嚕… +30ml`, `今天 ${狀態.水}/${目標}ml ・ ${喝水小知識[喝次++ % 喝水小知識.length]}`, 4.6);
         解鎖('水碗'); if (狀態.水 >= 目標) 解鎖('喝水量');
+        完成任務(3);
       }, 2000);
     });
   }
@@ -1339,11 +1379,30 @@
     const now = Date.now(); if (now - 上次摸 < 240) return; 上次摸 = now; 摸數++;
     clearTimeout(摸計時); 摸計時 = setTimeout(() => { 摸數 = 0; 香菇.classList.remove('happy'); }, 2200);
     if (香菇.dataset.pose === 'sleep') { 姿勢('loaf'); 說(`嗯…？${我()}在睡覺…`, '', 2); return; }
+    if (摸數 === 1 && !作客 && 個性反應()) return;
     if (摸數 > 12) { 香菇.classList.remove('happy'); 香菇.classList.add('annoyed'); setTimeout(() => 香菇.classList.remove('annoyed'), 1200); 說(`好了好了，${我()}知道你愛我`, '尾巴開始甩就是「摸夠了」~ 讓牠休息一下'); 摸數 = 0; 解鎖('摸夠了'); return; }
     香菇.classList.add('happy'); if (摸數 % 3 === 1) { 愛心(1); 呼嚕(); }
-    if (摸數 === 5) { 說('呼嚕呼嚕…', '眼睛瞇起來，代表牠很放鬆', 2.4); 解鎖('瞇眼'); }
+    if (摸數 === 5) { 說('呼嚕呼嚕…', '眼睛瞇起來，代表牠很放鬆', 2.4); 解鎖('瞇眼'); 完成任務(2); }
     if (作客) { if (++作客.摸 === 8) { const k = 'shroom-visit-gift'; let d = {}; try { d = JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) {} const 今 = new Date().toDateString(); if (d.日 !== 今) { d = { 日: 今 }; try { const s2 = JSON.parse(localStorage.getItem(鍵)); s2.魚 = (s2.魚 || 0) + 5; localStorage.setItem(鍵, JSON.stringify(s2)); 作客.原魚 = 1; } catch (e) {} localStorage.setItem(k, JSON.stringify(d)); 吐司('🐟 +5 小魚乾・幫朋友摸摸貓'); } } return; }
     狀態.心情 = Math.min(100, 狀態.心情 + 1.3); 狀態.親密 = Math.min(100, 狀態.親密 + .7); 存(); 畫();
+  }
+  // 香菇的個性：淡定、有儀式感的公主
+  let 上次個性 = 0;
+  function 個性反應() {
+    if (Date.now() - 上次個性 < 25000 || Math.random() > .35) return false;
+    const h = new Date().getHours() + new Date().getMinutes() / 60;
+    const 該吃 = 開飯時間().some(t => Math.abs(h - t) <= .5 && !狀態.已餵[t]);
+    const 是香菇 = 狀態.貓.種 === '香菇';
+    上次個性 = Date.now();
+    if (該吃) { 姿勢('sit'); 說('你看時鐘，我看你。', '快到開飯時間了 ~ 貓咪記時間記得很準', 3.6); return true; }
+    const 反應 = [
+      () => { 姿勢('loaf'); 說(是香菇 ? '（翻肚）這裡可以摸…' : '（翻肚）', '…才怪 露肚子是信任你 不一定是要你摸肚子', 3.6); },
+      () => { 說(是香菇 ? '本宮今天不想被摸。' : `${我()}現在不想被摸`, '貓咪有自己的節奏 ~ 等牠自己靠過來', 3); 走到(Math.random() < .5 ? 地點.bed : 地點.tree, () => 姿勢('loaf')); },
+      () => { 說(是香菇 ? '嗯，可以，繼續。' : '嗯～繼續', '', 2.2); },
+      () => { 說(是香菇 ? '先梳毛，再摸頭，這是規矩。' : `${我()}有自己的規矩`, '香菇是很有儀式感的貓', 3.2); },
+    ];
+    反應[Math.floor(Math.random() * 反應.length)]();
+    return true;
   }
   let 按著 = false;
   香菇.addEventListener('pointerdown', e => { 按著 = true; 摸(); e.stopPropagation(); });
@@ -1573,6 +1632,7 @@
   else {
     套貓(); setTimeout(() => { 檢查長大(); 檢查事件(); }, 7500);
     setTimeout(() => {
+      if (狀態.首次 && 狀態.新手 > 3) setTimeout(今日小事, 9000);
       if (狀態.首次) { 狀態.首次 = false; 存(); setTimeout(() => 給魚(5, '每日簽到'), 2500); 說(狀態.連續 > 1 ? `你回來啦～連續第 ${狀態.連續} 天了` : `你回來啦～${我()}等你好久了`, 狀態.飽足 < 40 ? `${名()}有點餓了 ~ 點飯碗餵牠` : '點房間裡的東西，照顧牠吧', 6.5); }
       else 說(狀態.飽足 < 40 ? `${我()}有點餓…` : '喵～', 狀態.飽足 < 40 ? '點飯碗餵飯' : '', 3);
     }, 400);
