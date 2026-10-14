@@ -372,6 +372,21 @@
         .hx-eyebrow { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 1px; color: #b77a70; margin-bottom: 5px; }
         .hx-copy h2 { font-size: 20px; line-height: 1.4; color: var(--text); }
         .hx-copy p { font-size: 12px; color: var(--text-soft); margin-top: 6px; line-height: 1.6; }
+        .hx-cred { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 11px; }
+        .hx-cred span { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 8px 4px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 11px; font-weight: 700; line-height: 1.35; color: var(--text); }
+        .hx-cred i { font-style: normal; font-size: 18px; }
+        .hx-start { display: grid; gap: 8px; }
+        .hx-start a, .hx-start button { display: grid; grid-template-columns: 44px 1fr auto; gap: 11px; align-items: center; padding: 13px 14px; border-radius: 18px; text-align: left; font: inherit; cursor: pointer; border: 0; text-decoration: none; color: inherit; width: 100%; }
+        .hx-start .s1 { background: linear-gradient(135deg, #8a6a49, #b08a62); color: #fff; box-shadow: 0 10px 22px rgba(138,106,73,.25); }
+        .hx-start .s2 { background: #fff; border: 1.5px solid var(--line); }
+        .hx-start i { font-style: normal; font-size: 26px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,.2); }
+        .hx-start .s2 i { background: #f6efe2; }
+        .hx-start b { display: block; font-size: 15px; } .hx-start small { display: block; font-size: 11.5px; opacity: .85; }
+        .hx-logic { margin: 12px 0 4px; padding: 13px 14px; border-radius: 16px; background: #fbf6ec; border: 1px dashed #d9c9ae; }
+        .hx-logic > b { display: block; font-size: 13.5px; margin-bottom: 8px; }
+        .hx-logic ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 4px; text-align: center; }
+        .hx-logic li { font-size: 11.5px; line-height: 1.4; padding: 7px 4px; border-radius: 11px; background: #fff; border: 1px solid var(--line); }
+        .hx-logic li em { display: block; font-style: normal; font-size: 16px; } .hx-logic .ar { background: none; border: 0; color: #b59a74; padding: 0; }
         .hx-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
         .hx-chips span { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--text); }
         .hx-age { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -575,12 +590,20 @@
                     <span class="hx-eyebrow">曼赤肯香菇爸 · 陪你養貓不孤單</span>
                     <h2>養貓的每個問題<br>都有人陪你一起想</h2>
                     <p>把香菇顧了八年的方法 ~ 整理成工具和清單，全部免費用</p>
-                    <div class="hx-chips"><span>🏅 特定寵物專業認證</span><span>🍄 香菇 8 歲</span></div>
+                    <div class="hx-cred"><span><i>🎓</i>特定寵物<br>專業認證</span><span><i>🐱</i>陪香菇<br>養了 8 年</span><span><i>🎥</i>TikTok<br>40 萬粉</span></div>
+                </div>
+            </div>
+
+            <!-- 第一次來：兩個強入口 -->
+            <div class="hx-block">
+                <div class="hx-start">
+                    <button type="button" class="s1" id="hxFirst"><i>🐾</i><span><b>第一次來？先從這裡開始</b><small>60 秒找到你家主子現在最該注意的 3 件事</small></span><span>›</span></button>
+                    <a class="s2" href="game.html" data-ga="首頁-養貓生存挑戰"><i>🎮</i><span><b>你真的懂你家主子嗎？</b><small>玩一次養貓生存挑戰 看你能把主子養到第幾級</small></span><span>›</span></a>
                 </div>
             </div>
 
             <!-- ② 你家主子幾歲：選一次，下面自動換成該年齡的重點 -->
-            <div class="hx-block reveal">
+            <div class="hx-block reveal" id="hxAgeBlock">
                 <div class="hx-title"><b>你家主子現在幾歲？</b><small>點一下 ~ 下次來會記得</small></div>
                 <div class="hx-age" role="tablist">
                     <button type="button" data-age="kitten"><i>🍼</i>幼貓<small>0～1 歲</small></button>
@@ -635,7 +658,7 @@
                     <img src="icons/avatar.png?v=3" width="64" height="64" alt="香菇爸">
                     <div>
                         <b>曼赤肯香菇爸</b>
-                        <p>台灣知名短影音創作者<a href="https://www.tiktok.com/@jolly81" target="_blank" rel="noopener">綸綸老師（TikTok 40 萬粉）</a>的貓咪照護品牌 ~ 通過特定寵物專業認證，專精貓咪行為與營養科普</p>
+                        <p>台灣知名短影音創作者<a href="https://www.tiktok.com/@jolly81" target="_blank" rel="noopener">綸綸老師（TikTok 40 萬粉）</a>的貓咪照護品牌 ~ <b>取得特定寵物專業認證</b>，陪曼赤肯香菇生活 8 年，專精貓咪行為與營養科普</p>
                     </div>
                 </div>
             </div>
@@ -654,9 +677,13 @@
                         <span class="lbl">🍚 主食</span>
                         <span class="cap"><b>高端餐</b><small>一天六餐都吃這個</small></span>
                     </a>
+                    </a>
+                </div>
+                <div class="hx-logic">
+                    <b>不是什麼都要補 ~ 先把每天真正需要的顧好</b>
+                    <ol><li><em>🍚</em>主食吃對</li><li class="ar">›</li><li><em>🌿</em>基礎保養</li><li class="ar">›</li><li><em>🩺</em>有特殊需求<br>再問獸醫</li></ol>
                 </div>
                 <div class="first-buy">
-                    <span class="fb-tag">新朋友首推</span>
                     <b>新手友善 ~ 主食＋營養保養一次備齊</b>
                     <div class="fb-duo">
                         <div><img src="media/meal-food.jpg" alt="高端餐" loading="lazy"><span>🍚 主食</span><b>高端餐</b><small>全齡貓・換一次就不用再換</small></div>
@@ -1132,6 +1159,17 @@
 
 <script src="search-index.js"></script>
 <script src="search.js">
+</script>
+<script>
+  (function () {
+    var b = document.getElementById('hxFirst'), box = document.getElementById('hxAgeBlock'); if (!b || !box) return;
+    b.addEventListener('click', function () {
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      box.style.transition = 'box-shadow .3s'; box.style.boxShadow = '0 0 0 3px #e3b653'; box.style.borderRadius = '18px';
+      setTimeout(function () { box.style.boxShadow = ''; }, 2200);
+      try { gtag('event', 'home_first_visit_click'); } catch (e) {}
+    });
+  })();
 </script>
 </body>
 </html>
