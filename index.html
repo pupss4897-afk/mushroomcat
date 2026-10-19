@@ -374,6 +374,14 @@
         .hx-copy p { font-size: 12px; color: var(--text-soft); margin-top: 6px; line-height: 1.6; }
         .hx-cert { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--pink); text-decoration: none; }
         .hx-cert img { width: 46px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+        .hx-pick { display: grid; grid-template-columns: 42% 1fr; margin-top: 16px; border-radius: 22px; overflow: hidden; background: linear-gradient(135deg, #3c4636, #56614a); color: #fff; text-decoration: none; box-shadow: 0 14px 30px rgba(60,70,54,.28); }
+        .hx-pick img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 1 / 1; }
+        .hx-pick-tx { display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 14px 14px 14px 16px; }
+        .hx-pick-tag { align-self: flex-start; font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,.16); }
+        .hx-pick b { font-family: var(--font-h); font-size: 19px; line-height: 1.35; color: #fff; }
+        .hx-pick small { font-size: 11.5px; line-height: 1.6; opacity: .88; }
+        .hx-pick-go { align-self: flex-start; margin-top: 4px; font-size: 12px; font-weight: 800; padding: 7px 12px; border-radius: 999px; background: #fdf3df; color: #3c4636; }
+        @media (min-width: 700px) { .hx-pick b { font-size: 24px; } .hx-pick small { font-size: 13px; } }
         .hx-cred { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 11px; }
         .hx-cred span { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 8px 4px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 11px; font-weight: 700; line-height: 1.35; color: var(--text); }
         .hx-cred i { font-style: normal; font-size: 18px; }
@@ -596,6 +604,17 @@
                 </div>
             </div>
 
+            <!-- 香菇爸激推：ARKVO 方圓水（首頁最醒目的位置） -->
+            <a class="hx-pick" href="goods.html" data-ga="首頁-方圓水橫幅">
+                <img src="media/arkvo-hero.jpg" width="1100" height="1100" alt="ARKVO 方圓水 空氣造飲用水，藍灰色的貓坐在旁邊">
+                <span class="hx-pick-tx">
+                    <span class="hx-pick-tag">🏆 香菇爸激推</span>
+                    <b>香菇的水吧<br>也是牠的景觀座位</b>
+                    <small>ARKVO 方圓水・台灣設計的黑科技<br>從空氣裡造出飲用水</small>
+                    <span class="hx-pick-go">菇粉專屬・點擊了解 ›</span>
+                </span>
+            </a>
+
             <!-- 第一次來：兩個強入口 -->
             <div class="hx-block">
                 <div class="hx-start">
@@ -698,16 +717,6 @@
                     <a href="https://line.me/R/oaMessage/@mushroom131/?%E6%88%91%E8%A6%81%E8%B7%9F%E5%9C%98%EF%BC%81%E6%96%B0%E6%9C%8B%E5%8F%8B%E9%A6%96%E8%B3%BC%E7%B5%84%E5%90%88%EF%BC%88%E8%97%8D%E8%97%BB%E8%8F%8C%EF%BC%8B%E9%AB%98%E7%AB%AF%E9%A4%90%20%242%2C280%EF%BC%89" target="_blank" rel="noopener" data-ga="首頁-首購嚐鮮">我要跟團・升級菇粉 ›</a>
                 </div>
                 <p class="hx-note">這是香菇爸自己家的日常 ~ 不是醫療建議，每隻貓狀況不同，有疑慮請先問獸醫</p>
-            </div>
-
-            <!-- 香菇爸激推好物 -->
-            <div class="hx-block reveal">
-                <div class="hx-title"><b>香菇爸激推好物</b><small>香菇家真的在用的 3C 家電</small></div>
-                <a class="row-card" href="goods.html" data-ga="首頁-激推好物" style="margin:0">
-                    <img class="rico" src="media/arkvo-hero.jpg" alt="" style="object-fit:cover;border-radius:12px">
-                    <span class="tx"><span class="t">ARKVO 方圓水</span><span class="d">香菇的水吧 也是牠的景觀座位</span></span>
-                    <span class="arrow">›</span>
-                </a>
             </div>
 
             <!-- ⑦ 只留一個 LINE 入口 -->
