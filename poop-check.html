@@ -108,6 +108,45 @@ a{text-decoration:none;color:inherit}
 .sources strong{display:block;color:var(--ink);margin-bottom:3px}
 @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
 </style>
+<style>
+/* 手冊圖卡（hb-）*/
+.hb-lead{font-size:13px;font-weight:700;color:#5c5248;margin:2px 2px 8px}
+.hb-why{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.hb-why.four{grid-template-columns:1fr 1fr}
+.hb-w{background:#fff;border:1px solid var(--line);border-radius:13px;padding:8px;text-align:center}
+.hb-w img{width:100%;border-radius:9px;display:block;margin-bottom:5px}
+.hb-w span{display:block;font-size:24px;margin-bottom:2px}
+.hb-w b{display:block;font-size:12.5px}.hb-w small{display:block;font-size:11px;color:var(--soft);line-height:1.5;margin-top:2px}
+.hb-wide{display:block;width:100%;border-radius:13px;border:1px solid var(--line)}
+.hb-step{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:13px;background:#fff;border:1px solid var(--line);margin-top:7px;font-size:13.5px;font-weight:700}
+.hb-step i{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:900;font-size:13px;background:#8fb89a}
+.hb-days{display:grid;gap:7px}
+.hb-day{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden}
+.hb-day summary{list-style:none;display:grid;grid-template-columns:64px 1fr 18px;gap:12px;align-items:center;padding:8px 12px 8px 8px;cursor:pointer}
+.hb-day summary::-webkit-details-marker{display:none}
+.hb-day summary img{width:64px;height:52px;object-fit:cover;border-radius:10px}
+.hb-day summary em{display:block;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.18em;color:#a0715a}
+.hb-day summary b{font-size:14.5px}
+.hb-day .ar{color:var(--soft);transition:transform .25s;font-style:normal}.hb-day[open] .ar{transform:rotate(90deg)}
+.hb-din{padding:2px 14px 13px 84px}
+.hb-din ul{list-style:none;display:grid;gap:4px}
+.hb-din li{font-size:13.5px;padding-left:14px;position:relative}.hb-din li:before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:#d8b9a6}
+.hb-din .tip{margin-top:8px;font-size:12.5px;color:#a0715a;background:#f8efe8;border-radius:10px;padding:7px 10px}
+.hb-ngtop{display:grid;grid-template-columns:92px 1fr;gap:11px;align-items:center;padding:10px;border-radius:14px;background:#fbeeee;border:1.5px solid #ecc0bc;margin-bottom:8px}
+.hb-ngtop img{width:92px;border-radius:10px}.hb-ngtop em{font-style:normal;font-size:10.5px;font-weight:900;color:#c25a48}
+.hb-ngtop b{display:block;font-size:14px}.hb-ngtop small{display:block;font-size:12px;color:#7d6a64;line-height:1.6}
+.hb-ng{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.hb-ng div{text-align:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:5px 3px}
+.hb-ng img{width:100%;border-radius:7px;display:block}
+.hb-ng b{display:block;font-size:11px;margin-top:3px;line-height:1.3}.hb-ng small{display:block;font-size:9.5px;color:var(--soft);line-height:1.35}
+.hb-cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hb-cmp>div{border-radius:14px;padding:10px;text-align:center}
+.hb-cmp .ok{background:#eef5ea;border:1.5px solid #bcd6b0}.hb-cmp .no{background:#fbeeee;border:1.5px solid #ecc0bc}
+.hb-cmp img{width:80%;display:block;margin:0 auto 4px}
+.hb-cmp b{font-size:13.5px}.hb-cmp .ok b{color:#4a7d3f}.hb-cmp .no b{color:#c25a48}
+.hb-cmp ol{text-align:left;margin:6px 0 4px 22px;font-size:12.5px;line-height:1.7}
+.hb-cmp small{font-size:11px;color:var(--soft)}
+</style>
 </head>
 <body>
 <main class="app">
@@ -124,6 +163,20 @@ a{text-decoration:none;color:inherit}
       <p>便便是主子每天留給你的健康報告 ~ 只是大部分毛家長都直接鏟掉了</p>
       <div class="hero-mini"><span>三大類</span><span>顏色觀察</span><span>七型對照</span><span>紅燈訊號</span></div>
     </div>
+  </section>
+
+  <section class="section alt">
+    <div class="title-row"><span class="num">幼貓</span><h2>為什麼幼貓特別容易軟便？</h2><p>多數不是生病 是腸胃還在適應</p></div>
+    <div class="hb-why">
+      <div class="hb-w"><img src="media/guide/sp1.jpg" alt=""><b>換環境壓力</b><small>離開媽媽、到新家 腸胃也會緊張</small></div>
+      <div class="hb-w"><img src="media/guide/sp2.jpg" alt=""><b>換食物太快</b><small>一回家就直接換新飼料</small></div>
+      <div class="hb-w"><img src="media/guide/sp3.jpg" alt=""><b>腸道還在發育</b><small>幼貓的腸胃還在建立中</small></div>
+    </div>
+    <p class="hb-lead" style="margin-top:12px">便便長這樣 對照一下</p>
+    <img class="hb-wide" src="media/guide/poop.jpg" alt="便便狀態參考：正常、偏軟、軟便需留意、糊狀需觀察、水狀需就醫">
+    <div class="hb-step"><i>1</i>換食物 7～10 天慢慢換</div>
+    <div class="hb-step"><i>2</i>環境先穩定 讓牠安心</div>
+    <div class="hb-step"><i>3</i>水要喝夠 給腸胃一點時間</div>
   </section>
 
   <section class="section">

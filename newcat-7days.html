@@ -192,6 +192,45 @@ a{text-decoration:none;color:inherit}
 .tag.t-warn.v{}
 .quiz .ans{margin-top:10px;font-size:11.5px;line-height:1.8;color:var(--ink)}
 </style>
+<style>
+/* 手冊圖卡（hb-）*/
+.hb-lead{font-size:13px;font-weight:700;color:#5c5248;margin:2px 2px 8px}
+.hb-why{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.hb-why.four{grid-template-columns:1fr 1fr}
+.hb-w{background:#fff;border:1px solid var(--line);border-radius:13px;padding:8px;text-align:center}
+.hb-w img{width:100%;border-radius:9px;display:block;margin-bottom:5px}
+.hb-w span{display:block;font-size:24px;margin-bottom:2px}
+.hb-w b{display:block;font-size:12.5px}.hb-w small{display:block;font-size:11px;color:var(--soft);line-height:1.5;margin-top:2px}
+.hb-wide{display:block;width:100%;border-radius:13px;border:1px solid var(--line)}
+.hb-step{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:13px;background:#fff;border:1px solid var(--line);margin-top:7px;font-size:13.5px;font-weight:700}
+.hb-step i{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;color:#fff;font-style:normal;font-weight:900;font-size:13px;background:#8fb89a}
+.hb-days{display:grid;gap:7px}
+.hb-day{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden}
+.hb-day summary{list-style:none;display:grid;grid-template-columns:64px 1fr 18px;gap:12px;align-items:center;padding:8px 12px 8px 8px;cursor:pointer}
+.hb-day summary::-webkit-details-marker{display:none}
+.hb-day summary img{width:64px;height:52px;object-fit:cover;border-radius:10px}
+.hb-day summary em{display:block;font-style:normal;font-size:10px;font-weight:800;letter-spacing:.18em;color:#a0715a}
+.hb-day summary b{font-size:14.5px}
+.hb-day .ar{color:var(--soft);transition:transform .25s;font-style:normal}.hb-day[open] .ar{transform:rotate(90deg)}
+.hb-din{padding:2px 14px 13px 84px}
+.hb-din ul{list-style:none;display:grid;gap:4px}
+.hb-din li{font-size:13.5px;padding-left:14px;position:relative}.hb-din li:before{content:"";position:absolute;left:0;top:.65em;width:6px;height:6px;border-radius:50%;background:#d8b9a6}
+.hb-din .tip{margin-top:8px;font-size:12.5px;color:#a0715a;background:#f8efe8;border-radius:10px;padding:7px 10px}
+.hb-ngtop{display:grid;grid-template-columns:92px 1fr;gap:11px;align-items:center;padding:10px;border-radius:14px;background:#fbeeee;border:1.5px solid #ecc0bc;margin-bottom:8px}
+.hb-ngtop img{width:92px;border-radius:10px}.hb-ngtop em{font-style:normal;font-size:10.5px;font-weight:900;color:#c25a48}
+.hb-ngtop b{display:block;font-size:14px}.hb-ngtop small{display:block;font-size:12px;color:#7d6a64;line-height:1.6}
+.hb-ng{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.hb-ng div{text-align:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:5px 3px}
+.hb-ng img{width:100%;border-radius:7px;display:block}
+.hb-ng b{display:block;font-size:11px;margin-top:3px;line-height:1.3}.hb-ng small{display:block;font-size:9.5px;color:var(--soft);line-height:1.35}
+.hb-cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hb-cmp>div{border-radius:14px;padding:10px;text-align:center}
+.hb-cmp .ok{background:#eef5ea;border:1.5px solid #bcd6b0}.hb-cmp .no{background:#fbeeee;border:1.5px solid #ecc0bc}
+.hb-cmp img{width:80%;display:block;margin:0 auto 4px}
+.hb-cmp b{font-size:13.5px}.hb-cmp .ok b{color:#4a7d3f}.hb-cmp .no b{color:#c25a48}
+.hb-cmp ol{text-align:left;margin:6px 0 4px 22px;font-size:12.5px;line-height:1.7}
+.hb-cmp small{font-size:11px;color:var(--soft)}
+</style>
 </head>
 <body>
 <main class="app">
@@ -213,17 +252,15 @@ a{text-decoration:none;color:inherit}
   <section class="section">
     <div class="title-row">
       <span class="num">01</span>
-      <h2>一張圖看懂 7 天</h2>
-      
+      <h2>你這 7 天可以這樣做</h2>
+      <p>點開每一天 看要準備什麼</p>
     </div>
-    <a class="fig" href="media/newcat-7days.jpg" target="_blank" rel="noopener" aria-label="放大看：新貓到家 7 天觀察清單">
-      <img src="media/newcat-7days.jpg" width="933" height="1400" alt="新貓到家 7 天觀察清單：Day1 先躲起來、Day2 開始偷偷觀察、Day3 食慾恢復、Day4 個性跑出來、Day5 建立生活節奏、Day6 開始認主人、Day7 初步適應完成" loading="lazy"></a>
-    <span class="tap">🔍 點圖片可以放大看</span>
+    <div class="hb-days"><details class="hb-day" open><summary><img src="media/guide/day1.jpg" alt=""><span><em>DAY 1</em><b>先適應新環境</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>準備安靜的獨立空間</li><li>放好貓砂、水、少量食物</li><li>讓牠自己探索 不強迫互動</li></ul><p class="tip">❤ 先讓牠看你 不要抱 坐在附近做自己的事</p></div></details><details class="hb-day"><summary><img src="media/guide/day2.jpg" alt=""><span><em>DAY 2</em><b>建立吃飯喝水習慣</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>少量多餐</li><li>確認有喝水</li><li>觀察食慾和便便</li></ul><p class="tip">❤ 手指讓牠聞一聞 用食物建立好印象</p></div></details><details class="hb-day"><summary><img src="media/guide/day3.jpg" alt=""><span><em>DAY 3</em><b>保持環境乾淨</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>每天清貓砂盆</li><li>水碗食碗保持乾淨</li><li>看便便的形狀、顏色、次數</li></ul><p class="tip">❤ 用玩具吸引注意 讓牠主動靠近你</p></div></details><details class="hb-day"><summary><img src="media/guide/day4.jpg" alt=""><span><em>DAY 4</em><b>開始建立信任</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>觀察牠的身體語言</li><li>用溫柔的聲音說話</li><li>可以輕摸下巴、臉頰</li></ul><p class="tip">❤ 牠放鬆了 再慢慢增加摸的時間</p></div></details><details class="hb-day"><summary><img src="media/guide/day5.jpg" alt=""><span><em>DAY 5</em><b>增加日常互動</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>每天固定遊戲時間</li><li>用逗貓棒或小玩具</li><li>觀察精神和食慾</li></ul><p class="tip">❤ 玩完給一點小點心 讓牠覺得跟你在一起很開心</p></div></details><details class="hb-day"><summary><img src="media/guide/day6.jpg" alt=""><span><em>DAY 6</em><b>觀察整體狀態</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>食慾、精神、排便</li><li>有沒有嘔吐、流淚、掉毛</li><li>環境維持安靜舒適</li></ul><p class="tip">❤ 延長互動時間 梳梳毛、輕輕按摩</p></div></details><details class="hb-day"><summary><img src="media/guide/day7.jpg" alt=""><span><em>DAY 7</em><b>安排健康檢查</b></span><i class="ar">›</i></summary><div class="hb-din"><ul><li>第一次健康檢查</li><li>理學檢查・血液檢測</li><li>了解身體狀況 提早預防</li></ul><p class="tip">❤ 帶著這 7 天的觀察紀錄給醫生看</p></div></details></div>
   </section>
   <section class="section alt">
     <div class="title-row">
       <span class="num">02</span>
-      <h2>每天看什麼</h2>
+      <h2>牠這 7 天會怎樣</h2>
       <p>點開每一天</p>
     </div>
     <details class="day" open><summary><span class="d">Day 1</span><span><b>先躲起來 很正常</b><small>第一天不要急著抱</small></span><i>›</i></summary><div class="in"><b>看：</b>有沒有找到躲藏處、願意自己探索、有沒有喝水<br><span class='no'>✕ 不要一直把牠找出來　✕ 不要強迫抱抱</span></div></details><details class="day"><summary><span class="d">Day 2</span><span><b>開始偷偷觀察你</b><small>牠在確認這裡安不安全</small></span><i>›</i></summary><div class="in"><b>看：</b>願意出來活動、開始聞家裡的味道、有上廁所<br><span class='no'>便便可能還沒出現、緊張時食量偏少 都正常</span></div></details><details class="day"><summary><span class="d">Day 3</span><span><b>食慾開始恢復</b><small>記錄吃喝拉撒</small></span><i>›</i></summary><div class="in"><b>看：</b>願意主動吃飯、願意靠近人、有正常排尿<br><b>觀察：</b>便便是否成形、喝水量是否正常</div></details><details class="day"><summary><span class="d">Day 4</span><span><b>個性慢慢跑出來</b><small>社牛、社恐還是主子型</small></span><i>›</i></summary><div class="in"><b>看：</b>開始玩玩具、願意接受互動、對家裡聲音比較放鬆</div></details><details class="day"><summary><span class="d">Day 5</span><span><b>建立生活節奏</b><small>開始有安全感</small></span><i>›</i></summary><div class="in"><b>看：</b>固定吃飯、固定睡覺位置、固定使用貓砂盆<br>這時候<b>固定作息</b>最重要</div></details><details class="day"><summary><span class="d">Day 6</span><span><b>開始認主人</b></span><i>›</i></summary><div class="in"><b>看：</b>看到你不躲、會跟著走、願意被摸幾秒鐘<br>有些貓甚至開始踩奶、呼嚕</div></details><details class="day"><summary><span class="d">Day 7</span><span><b>初步適應完成 🎉</b></span><i>›</i></summary><div class="in">大部分貓咪會開始：放鬆睡覺、主動討摸、展現真實個性、開始拆家（誤）</div></details><p class="note">每隻貓的速度不一樣 ~ 有的兩天就黏人，有的要兩三週，<b>慢不代表有問題</b>，只要吃喝拉撒正常，就給牠時間。</p>
