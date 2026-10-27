@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>留言後台｜香菇爸</title>
+<style>
+:root{--bg:#fbf5e9;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--brown:#a9835c;--green:#4a7d5c;--green2:#e3eee5;--red:#c25a48;--red2:#f7dcd7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 60px}
+h1{font-size:19px;margin:6px 0 2px}
+.sub{color:var(--soft);font-size:12px;margin-bottom:14px}
+.login{display:flex;gap:8px;margin-bottom:14px}
+input,textarea{flex:1;width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);font:inherit;font-size:16px;background:#fff}
+button{padding:9px 14px;border:0;border-radius:11px;font:inherit;font-weight:800;cursor:pointer;background:var(--brown);color:#fff}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.tabs button{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.tabs button.on{border-color:var(--brown);background:#f0e5d8}
+.tabs b{color:var(--red)}
+.c{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:9px}
+.c.wait{border-color:#e8c27a;background:#fffaf0}
+.c .meta{font-size:11.5px;color:var(--soft)}
+.c .meta a{color:var(--brown);text-decoration:underline}
+.c p{margin:5px 0 8px;white-space:pre-wrap;word-break:break-word;font-size:14.5px}
+.c .rp{font-size:13px;padding:7px 10px;border-left:3px solid var(--brown);background:var(--bg);border-radius:8px;margin-bottom:8px}
+.act{display:flex;gap:6px;flex-wrap:wrap}
+.act .ok{background:var(--green)}.act .del{background:var(--red)}.act .hide{background:#b5a995}.act .re{background:#fff;color:var(--brown);border:1.5px solid var(--brown)}
+.rbox{display:none;margin-top:8px;gap:6px}.rbox.on{display:grid}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:#f0e5d8;font-size:12px}
+td.n{text-align:right;font-weight:800;white-space:nowrap}
+.empty{text-align:center;color:var(--soft);padding:24px}
+.msg{font-size:12px;color:var(--red);margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🍄 護貓網站 留言後台</h1>
+  <p class="sub">只有香菇爸看得到 ~ 留言按「通過」才會公開在網頁上</p>
+  <form class="login" id="login"><input id="key" type="password" placeholder="輸入後台密碼" autocomplete="current-password"><button>進入</button></form>
+  <p class="msg" id="msg"></p>
+  <div id="app" hidden>
+    <div class="tabs">
+      <button data-t="wait" class="on">待審核 <b id="nWait">0</b></button>
+      <button data-t="pub">已公開</button>
+      <button data-t="stat">看過人數</button>
+    </div>
+    <div id="out"></div>
+  </div>
+</div>
+<script src="search-index.js"></script>
+<script>
+const API = 'https://mushroom-cat-park.pupss4897.workers.dev/fb/';
+// 頁面代號 → 中文標題（從搜尋索引對）
+const 名 = { 'guide/index': 'IG 簡易版護貓手冊', 'mc/index': '護貓網站首頁' };
+(window.SHROOM_SEARCH_INDEX || []).forEach(x => { const f = x.u.split('#')[0].split('?')[0].split('/').pop().replace(/\.html$/, '').toLowerCase().replace(/[^a-z0-9_\-]/g, ''); if (!名['mc/' + f]) 名['mc/' + f] = x.t; });
+const 連結 = p => p.startsWith('guide/') ? 'https://pupss4897-afk.github.io/cat-guide/' : (p.slice(3) + '.html');
+const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+let key = ''; try { key = localStorage.getItem('shroom-admin') || ''; } catch (e) {}
+let 資料 = null, 分頁 = 'wait';
+const call = (p, d) => fetch(API + 'admin/' + p, d ? { method: 'POST', headers: { 'X-Key': key, 'Content-Type': 'application/json' }, body: JSON.stringify(d) } : { headers: { 'X-Key': key } }).then(r => r.json());
+async function load() {
+  const r = await call('list').catch(() => ({ ok: false, 錯: '連不上 請稍後再試' }));
+  if (!r.ok) { document.getElementById('msg').textContent = r.錯 || '密碼不對'; document.getElementById('app').hidden = true; return; }
+  document.getElementById('msg').textContent = ''; document.getElementById('login').hidden = true; document.getElementById('app').hidden = false;
+  try { localStorage.setItem('shroom-admin', key); } catch (e) {}
+  資料 = r; draw();
+}
+function card(c) {
+  const d = new Date(c.t), 時 = `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  return `<div class="c ${c.ok ? '' : 'wait'}" data-id="${c.id}">
+    <div class="meta"><b>${esc(c.name)}</b> ・ ${時} ・ <a href="${連結(c.page)}" target="_blank">${esc(名[c.page] || c.title || c.page)}</a></div>
+    <p>${esc(c.body)}</p>${c.reply ? `<div class="rp">🍄 香菇爸回覆：${esc(c.reply)}</div>` : ''}
+    <div class="act">${c.ok ? '<button class="hide" data-a="hide">先隱藏</button>' : '<button class="ok" data-a="ok">✓ 通過公開</button>'}
+      <button class="re" data-a="re">${c.reply ? '改回覆' : '回覆'}</button><button class="del" data-a="del">刪除</button></div>
+    <div class="rbox"><textarea rows="2" maxlength="300" placeholder="回覆會顯示在留言下面">${esc(c.reply || '')}</textarea><button data-a="send">送出回覆</button></div></div>`;
+}
+function draw() {
+  const 待 = 資料.留言.filter(c => !c.ok), 公 = 資料.留言.filter(c => c.ok);
+  document.getElementById('nWait').textContent = 待.length;
+  const out = document.getElementById('out');
+  if (分頁 === 'stat') {
+    const 讚 = {}; 資料.按讚.forEach(x => { (讚[x.page] = 讚[x.page] || {})[x.kind] = x.n; });
+    out.innerHTML = 資料.看過.length ? `<table><tr><th>頁面</th><th>看過</th><th>👍</th><th>😻</th></tr>${資料.看過.map(v => `<tr><td>${esc(名[v.page] || v.page)}</td><td class="n">${v.n}</td><td class="n">${(讚[v.page] || {}).up || 0}</td><td class="n">${(讚[v.page] || {}).more || 0}</td></tr>`).join('')}</table><p class="sub" style="margin-top:8px">「看過」是不同手機或電腦的人數，同一個人重複看只算一次 ~ 更完整的數字（從哪裡來、看多久）在 Google 分析</p>` : '<p class="empty">還沒有資料</p>';
+    return;
+  }
+  const 單 = 分頁 === 'wait' ? 待 : 公;
+  out.innerHTML = 單.length ? 單.map(card).join('') : `<p class="empty">${分頁 === 'wait' ? '沒有要審核的留言 🎉' : '還沒有公開的留言'}</p>`;
+}
+document.getElementById('login').addEventListener('submit', e => { e.preventDefault(); key = document.getElementById('key').value.trim(); load(); });
+document.querySelector('.tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; 分頁 = b.dataset.t; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); draw(); });
+document.getElementById('out').addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b) return; const box = b.closest('.c'), id = +box.dataset.id, a = b.dataset.a;
+  if (a === 're') { box.querySelector('.rbox').classList.toggle('on'); return; }
+  if (a === 'del' && !confirm('確定要刪除這則留言嗎？刪了就找不回來')) return;
+  b.disabled = true;
+  const r = a === 'send' ? await call('reply', { id, 回: box.querySelector('textarea').value.trim() }) : await call(a, { id });
+  if (!r.ok) { alert(r.錯 || '沒有成功 請再試一次'); b.disabled = false; return; }
+  load();
+});
+if (key) load();
+</script>
+</body>
+</html>
