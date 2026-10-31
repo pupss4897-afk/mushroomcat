@@ -404,6 +404,10 @@
         .hx-cred { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 11px; }
         .hx-cred span { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 8px 4px; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-size: 11px; font-weight: 700; line-height: 1.35; color: var(--text); }
         .hx-cred i { font-style: normal; font-size: 18px; }
+        .hx-cred i img { width: 26px; height: 26px; object-fit: contain; display: block; margin: 0 auto; }
+        .hx-age button i img { width: 40px; height: 40px; object-fit: contain; display: block; margin: 0 auto; }
+        .hx-quick i img { width: 44px; height: 44px; object-fit: contain; display: block; }
+        .hx-start i img { width: 36px; height: 36px; object-fit: contain; }
         .hx-start { display: grid; gap: 8px; }
         .hx-start a, .hx-start button { display: grid; grid-template-columns: 44px 1fr auto; gap: 11px; align-items: center; padding: 13px 14px; border-radius: 18px; text-align: left; font: inherit; cursor: pointer; border: 0; text-decoration: none; color: inherit; width: 100%; }
         .hx-start .s1 { background: linear-gradient(135deg, #8a6a49, #b08a62); color: #fff; box-shadow: 0 10px 22px rgba(138,106,73,.25); }
@@ -619,7 +623,7 @@
                     <span class="hx-eyebrow">曼赤肯香菇爸 · 陪你養貓不孤單</span>
                     <h2>養貓的每個問題<br>都有人陪你一起想</h2>
                     <p>把香菇顧了八年的方法 ~ 整理成工具和清單，全部免費用</p>
-                    <div class="hx-cred"><span><i>🎓</i>特寵業專任<br>人員認證</span><span><i>🐱</i>陪香菇<br>養了 8 年</span><span><i>🎥</i>TikTok<br>40 萬粉</span></div>
+                    <div class="hx-cred"><span><i>🎓</i>特寵業專任<br>人員認證</span><span><i><img src="icons/wk/sleep-trust.png?v=1" alt=""></i>陪香菇<br>養了 8 年</span><span><i>🎥</i>TikTok<br>40 萬粉</span></div>
                 </div>
             </div>
 
@@ -646,9 +650,9 @@
             <div class="hx-block reveal" id="hxAgeBlock">
                 <div class="hx-title"><b>你家主子現在幾歲？</b><small>點一下 ~ 下次來會記得</small></div>
                 <div class="hx-age" role="tablist">
-                    <button type="button" data-age="kitten"><i>🍼</i>幼貓<small>0～1 歲</small></button>
+                    <button type="button" data-age="kitten"><i><img src="icons/wk/kitten-care.png?v=1" alt=""></i>幼貓<small>0～1 歲</small></button>
                     <button type="button" data-age="adult"><i>🐱</i>成貓<small>1～7 歲</small></button>
-                    <button type="button" data-age="senior"><i>🌳</i>熟齡<small>7 歲以上</small></button>
+                    <button type="button" data-age="senior"><i><img src="icons/wk/senior.png?v=1" alt=""></i>熟齡<small>7 歲以上</small></button>
                 </div>
                 <div class="hx-agelist" id="hx-agelist"><p class="hx-empty">👆 先選一個 ~ 這裡會出現最適合你的三篇</p></div>
             </div>
@@ -657,10 +661,10 @@
             <div class="hx-block reveal">
                 <div class="hx-title"><b>今天想解決什麼？</b></div>
                 <div class="hx-quick">
-                    <a href="newbie-care.html" class="q1"><i>😿</i><b>我家貓怪怪的</b><small>一直躲・不吃・便便怪</small></a>
-                    <a href="care-checklist.html" class="q2"><i>✅</i><b>今天該做什麼</b><small>每天到每年 ~ 直接打勾</small></a>
+                    <a href="newbie-care.html" class="q1"><i><img src="icons/wk/newbie-care.png?v=1" alt=""></i><b>我家貓怪怪的</b><small>一直躲・不吃・便便怪</small></a>
+                    <a href="care-checklist.html" class="q2"><i><img src="icons/wk/care-checklist.png?v=1" alt=""></i><b>今天該做什麼</b><small>每天到每年 ~ 直接打勾</small></a>
                     <a href="貓咪熱量計算機/calculator.html" class="q3"><i>🧮</i><b>一天該吃多少</b><small>熱量＋喝水一秒算</small></a>
-                    <a href="貓咪熱量計算機/food_analyzer.html" class="q4"><i>🥫</i><b>飼料怎麼挑</b><small>貼上成分看懂好壞</small></a>
+                    <a href="貓咪熱量計算機/food_analyzer.html" class="q4"><i><img src="icons/wk/can-ng.png?v=1" alt=""></i><b>飼料怎麼挑</b><small>貼上成分看懂好壞</small></a>
                 </div>
             </div>
 
@@ -668,10 +672,10 @@
             <div class="hx-block reveal">
                 <div class="hx-title"><b>貓咪工具箱</b><button type="button" class="hx-more" data-goto="tab-tools">看全部 ›</button></div>
                 <div class="card-grid">
-                    <a class="feature-card" href="貓咪熱量計算機/cat_sounds.html"><img class="fico" src="icons/sound.png?v=3" alt=""><span class="t">貓咪讀心術</span><span class="d">真實叫聲 ~ 聽懂牠在說什麼</span></a>
-                    <a class="feature-card" href="貓咪熱量計算機/breed_guide.html"><img class="fico" src="icons/wiki.png?v=3" alt=""><span class="t">各品種怎麼照顧</span><span class="d">22 個品種圖鑑</span></a>
-                    <a class="feature-card" href="weight-log.html"><img class="fico" src="icons/calc.png?v=3" alt=""><span class="t">主子體重紀錄</span><span class="d">每週一筆 ~ 自動畫曲線</span></a>
-                    <a class="feature-card" href="poop-check.html"><img class="fico" src="icons/household.png?v=3" alt=""><span class="t">便便觀察表</span><span class="d">鏟砂順便看 ~ 七型對照</span></a>
+                    <a class="feature-card" href="貓咪熱量計算機/cat_sounds.html"><img class="fico" src="icons/wk/cat-sounds.png?v=1" alt=""><span class="t">貓咪讀心術</span><span class="d">真實叫聲 ~ 聽懂牠在說什麼</span></a>
+                    <a class="feature-card" href="貓咪熱量計算機/breed_guide.html"><img class="fico" src="icons/wk/breed.png?v=1" alt=""><span class="t">各品種怎麼照顧</span><span class="d">22 個品種圖鑑</span></a>
+                    <a class="feature-card" href="weight-log.html"><img class="fico" src="icons/wk/weight-log.png?v=1" alt=""><span class="t">主子體重紀錄</span><span class="d">每週一筆 ~ 自動畫曲線</span></a>
+                    <a class="feature-card" href="poop-check.html"><img class="fico" src="icons/wk/poop-check.png?v=1" alt=""><span class="t">便便觀察表</span><span class="d">鏟砂順便看 ~ 七型對照</span></a>
                 </div>
             </div>
             <!-- 香菇的照顧日常：只講照顧方式，不連任何商品 -->
