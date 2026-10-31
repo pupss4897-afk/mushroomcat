@@ -280,6 +280,20 @@ a{text-decoration:none;color:inherit}
 .s-blue{border-color:#c5d6e3;background:#f3f7fb}.s-blue .age,.s-blue .key{background:#3f7fc0;color:#fff}
 .s-orange{border-color:#f3d2b0;background:#fdf6ee}.s-orange .age,.s-orange .key{background:#e8892c;color:#fff}
 .hero-card.c-orange{background:linear-gradient(152deg,#b2683a 0%,#d08a55 55%,#e7b88a 100%)}
+
+/* 這些病是什麼 */
+.dz{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+.dz summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:13px 14px;cursor:pointer;font-weight:900;font-size:13.5px}
+.dz summary::-webkit-details-marker{display:none}
+.dz summary i{font-style:normal;color:var(--soft);font-size:11px;font-weight:700}
+.dz[open] summary i:after{content:" 收起"}
+.dz:not([open]) summary i:after{content:" 點開看"}
+.dz .row{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:11px 14px;border-top:1px solid var(--line)}
+.dz .row>span{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:var(--cream2);font-size:17px}
+.dz .row b{font-size:13px}
+.dz .row b em{font-style:normal;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:9.5px;font-weight:900;vertical-align:1px}
+.dz .core{background:#e4edf4;color:#3f5f7a}.dz .opt{background:var(--brown2);color:#8a6a49}.dz .law{background:#f7dcd7;color:#c25a48}
+.dz .row small{display:block;color:var(--soft);font-size:11px;line-height:1.7;margin-top:2px}
 </style>
 </head>
 <body>
@@ -299,8 +313,9 @@ a{text-decoration:none;color:inherit}
   </section>
   <nav class="jump" style="grid-template-columns:repeat(4,1fr)"><a href="#s1"><i>01</i>打哪種</a><a href="#s2"><i>02</i>時間表</a><a href="#s3"><i>03</i>打之前</a><a href="#s4"><i>04</i>打之後</a></nav>
   <section class="section" id="s1">
-    <div class="title-row"><span class="num">01</span><h2>三種疫苗 差在哪</h2><p>點開海報看完整說明</p></div>
+    <div class="title-row"><span class="num">01</span><h2>三種疫苗 差在哪</h2><p>先搞懂每一劑在防什麼</p></div>
     <div class="tcs c3"><div class="tc ic"><img src="media/vac-type1.jpg" alt="三合一" loading="lazy"><div><b>三合一</b><small>貓瘟・貓鼻支・卡里西<br><b style="display:inline;font-size:10.3px;color:#4a7d5c">基礎核心 大多數貓都要</b></small></div></div><div class="tc ic"><img src="media/vac-type2.jpg" alt="五合一" loading="lazy"><div><b>五合一</b><small>三合一＋披衣菌・貓白血病<br><b style="display:inline;font-size:10.3px;color:#8a6a49">看生活環境 跟獸醫討論</b></small></div></div><div class="tc ic"><img src="media/vac-type3.jpg" alt="狂犬病" loading="lazy"><div><b>狂犬病</b><small>3 個月大以上<br><b style="display:inline;font-size:10.3px;color:#3f5f7a">依政府規定施打</b></small></div></div></div>
+    <details class="dz"><summary>🦠 這些病是什麼？<i></i></summary><div class="row"><span>🦠</span><div><b>貓瘟<em class="core">三合一</em></b><small>傳染力超強，嚴重吐、拉肚子，幼貓特別危險；病毒能在環境活很久，鞋底就能帶回家</small></div></div><div class="row"><span>🤧</span><div><b>貓鼻支（皰疹病毒）<em class="core">三合一</em></b><small>打噴嚏、流鼻水、眼睛發炎，像重感冒；好了也可能躲在身體裡，壓力大時再發作</small></div></div><div class="row"><span>👄</span><div><b>卡里西病毒<em class="core">三合一</em></b><small>嘴巴破洞潰瘍、流口水、痛到不想吃，也常有感冒症狀</small></div></div><div class="row"><span>👁️</span><div><b>披衣菌<em class="opt">五合一</em></b><small>主要讓眼睛紅腫、一直有分泌物，多貓家庭比較容易互相傳</small></div></div><div class="row"><span>🩸</span><div><b>貓白血病（FeLV）<em class="opt">五合一</em></b><small>靠口水、互舔、共用碗傳染，會讓免疫力變差；會外出或多貓家庭要考慮，打之前建議先篩檢</small></div></div><div class="row"><span>🐾</span><div><b>狂犬病<em class="law">法規</em></b><small>人和動物都會感染、發病幾乎致命；台灣規定貓狗都要打</small></div></div></details>
   </section>
   <section class="section alt" id="s2">
     <div class="title-row"><span class="num">02</span><h2>幼貓疫苗 時間表</h2><p>一般建議 實際依獸醫評估</p></div>
