@@ -186,6 +186,13 @@
         .row-card .tx .t { display: block; font-family: var(--font-h); font-weight: 700; font-size: 15px; }
         .row-card .tx .d { display: block; margin-top: 2px; font-size: 12px; color: var(--text-soft); }
         .row-card .arrow { color: var(--text-soft); font-size: 18px; }
+        .wk-new { display: flex; gap: 9px; overflow-x: auto; padding: 2px 2px 10px; margin: 0 -2px 4px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .wk-new::-webkit-scrollbar { display: none; }
+        .wk-new a { flex: 0 0 96px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 11px 6px 10px; border-radius: 18px; text-decoration: none; color: var(--text);
+            background: linear-gradient(180deg, #fff, #fdf3ef); border: 1.5px solid rgba(232,163,155,.45); position: relative; }
+        .wk-new a:after { content: "NEW"; position: absolute; top: 6px; right: 7px; font-size: 8.5px; font-weight: 900; letter-spacing: .5px; color: #fff; background: #e8a39b; border-radius: 6px; padding: 1px 5px; }
+        .wk-new img { width: 52px; height: 52px; object-fit: contain; }
+        .wk-new b { font-size: 11.5px; line-height: 1.3; text-align: center; }
         /* 攻略：圖示方塊 */
         .wk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 6px; }
         .wk { color: var(--text); text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 13px 4px 11px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(150,130,100,.07); text-align: center; transition: transform .15s; }
@@ -777,6 +784,16 @@
 
         <!-- ===== 百科 ===== -->
         <section class="tab-panel" id="tab-wiki">
+            <div class="section-title">🆕 最近更新 <small style="font-weight:600;color:var(--text-soft);font-size:11px;margin-left:4px">10/31</small></div>
+            <div class="wk-new">
+                <a href="senior.html"><img src="icons/wk/age-care.png?v=1" alt="" loading="lazy"><b>熟齡貓 7 歲以後</b></a>
+                <a href="vaccine.html"><img src="icons/wk/vaccine.png?v=1" alt="" loading="lazy"><b>疫苗怎麼打</b></a>
+                <a href="neuter.html"><img src="icons/wk/neuter.png?v=1" alt="" loading="lazy"><b>要不要結紮</b></a>
+                <a href="litter.html"><img src="icons/wk/litter.png?v=1" alt="" loading="lazy"><b>貓砂怎麼選</b></a>
+                <a href="kidney-signs.html"><img src="icons/wk/kidney-signs.png?v=1" alt="" loading="lazy"><b>腎臟還好嗎</b></a>
+                <a href="bones.html"><img src="icons/wk/bones.png?v=1" alt="" loading="lazy"><b>骨頭與關節</b></a>
+                <a href="sleep-trust.html"><img src="icons/wk/sleep-trust.png?v=1" alt="" loading="lazy"><b>睡姿看信任</b></a>
+            </div>
             <div class="section-title">🔰 剛養貓 先看這裡</div>
             <div class="wk-grid g-green">
                 <a class="wk" href="newbie-care.html" title="一直躲・不吃不喝・便便怪・半夜叫"><img class="wk-img" src="icons/wk/newbie-care.png?v=1" alt="" loading="lazy"><b>貓怪怪的？先看這</b></a>
@@ -815,6 +832,7 @@
             </div>
             <div class="section-title">📈 成長與年紀</div>
             <div class="wk-grid g-blue">
+                <a class="wk" href="senior.html" title="健檢頻率・6 個變化・居家調整・飲食"><img class="wk-img" src="icons/wk/age-care.png?v=1" alt="" loading="lazy"><b>7 歲以後注意</b></a>
                 <a class="wk" href="貓咪熱量計算機/age_care.html" title="幼貓／成貓／熟齡，各階段照顧重點"><img class="wk-img" src="icons/wk/age-care.png?v=1" alt="" loading="lazy"><b>幾歲注意什麼</b></a>
                 <a class="wk" href="bones.html" title="幼貓・成貓・年長 三階段重點・關節保養"><img class="wk-img" src="icons/wk/bones.png?v=1" alt="" loading="lazy"><b>骨頭與關節</b></a>
                 <a class="wk" href="weight-log.html" title="每週記一筆・自動畫曲線・存在你手機裡"><img class="wk-img" src="icons/wk/weight-log.png?v=1" alt="" loading="lazy"><b>記錄體重</b></a>
