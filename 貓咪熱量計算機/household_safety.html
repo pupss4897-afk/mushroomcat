@@ -181,6 +181,22 @@
             font-style: italic;
             line-height: 1.7;
         }
+
+        /* NG 植物 / OK 植物 */
+        .plant-head{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;color:#fff;font-weight:800;font-size:14px;margin:4px 0 12px}
+        .plant-head.ng{background:#c0544b}
+        .plant-head.ok{background:#5f8a5f}
+        .plant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+        .plant-grid.ok{grid-template-columns:repeat(6,1fr)}
+        .plant{border-radius:16px;overflow:hidden;background:#fff;border:1.5px solid #f0d4ce;text-align:center}
+        .plant.ok{border-color:#cfe2d4}
+        .plant img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#faf6f0}
+        .plant b{display:block;font-size:15px;margin-top:8px;font-family:var(--font-heading)}
+        .plant small{display:block;color:var(--text-secondary);font-size:12px;line-height:1.55;padding:3px 8px 10px}
+        .plant.ng small{color:#b0554b}
+        .plant-tip{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:#f4f8f2;border:1px dashed #b9d0b6;font-size:13.5px;line-height:1.7}
+        .plant-tip a{color:#5f8a5f;font-weight:700;white-space:nowrap}
+        @media(max-width:700px){.plant-grid{grid-template-columns:repeat(2,1fr);gap:10px}.plant-grid.ok{grid-template-columns:repeat(3,1fr)}.plant b{font-size:14px}.plant-grid.ok .plant small{display:none}}
     </style>
 </head>
 <body>
@@ -329,6 +345,18 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+
+            <!-- NG 植物 / OK 植物 -->
+            <div class="ng-card" id="plants">
+                <div class="ng-section-title">🌿 這些植物 對貓咪不友善</div>
+                <div class="ng-section-subtitle">養植物的鏟屎官一定要先看！放家裡前 對一下這張。</div>
+                <div class="plant-head ng">⚠️ NG 植物｜避免讓貓咪接觸</div>
+                <div class="plant-grid"><div class="plant ng"><img src="../media/plant-ng-lily.jpg" alt="百合花" loading="lazy"><b>百合花</b><small>高風險！連花粉、花瓶水都避開</small></div><div class="plant ng"><img src="../media/plant-ng-pachira.jpg" alt="發財樹" loading="lazy"><b>發財樹</b><small>有些貓咬了會不舒服</small></div><div class="plant ng"><img src="../media/plant-ng-pothos.jpg" alt="黃金葛" loading="lazy"><b>黃金葛</b><small>咬到可能口腔刺痛、嘔吐</small></div><div class="plant ng"><img src="../media/plant-ng-dieffen.jpg" alt="萬年青" loading="lazy"><b>萬年青</b><small>咬到可能口腔刺痛、流口水</small></div><div class="plant ng"><img src="../media/plant-ng-snake.jpg" alt="虎尾蘭" loading="lazy"><b>虎尾蘭</b><small>誤食可能腸胃不舒服</small></div><div class="plant ng"><img src="../media/plant-ng-ivy.jpg" alt="常春藤" loading="lazy"><b>常春藤</b><small>誤食可能嘔吐、拉肚子</small></div></div>
+                <div class="plant-head ok">✅ 安全植物｜對貓咪相對友善</div>
+                <div class="plant-grid ok"><div class="plant ok"><img src="../media/plant-ok-catgrass.jpg" alt="貓草" loading="lazy"><b>貓草</b><small>幫助毛球排出</small></div><div class="plant ok"><img src="../media/plant-ok-wheat.jpg" alt="小麥草" loading="lazy"><b>小麥草</b><small>很多主子愛啃</small></div><div class="plant ok"><img src="../media/plant-ok-catnip.jpg" alt="貓薄荷" loading="lazy"><b>貓薄荷</b><small>適量 讓牠放鬆</small></div><div class="plant ok"><img src="../media/plant-ok-fern.jpg" alt="波士頓腎蕨" loading="lazy"><b>波士頓腎蕨</b><small>葉子柔軟安全</small></div><div class="plant ok"><img src="../media/plant-ok-air.jpg" alt="空氣鳳梨" loading="lazy"><b>空氣鳳梨</b><small>不需土壤 好照顧</small></div><div class="plant ok"><img src="../media/plant-ok-pepe.jpg" alt="豆瓣綠" loading="lazy"><b>豆瓣綠</b><small>好養 新手入門</small></div></div>
+                <div class="plant-tip">💡 <span>植物放高處、減少誤食，是最簡單的預防。誤食後出現嘔吐、流口水、沒精神，<b>帶著植物照片</b>盡快找獸醫。</span><a href="../media/poster-plants.jpg" target="_blank" rel="noopener">看整張海報 ›</a></div>
             </div>
 
             <!-- LINE CTA -->
