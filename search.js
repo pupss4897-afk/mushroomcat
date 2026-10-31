@@ -138,3 +138,10 @@
   });
   input.addEventListener("focus", function () { if (input.value.trim()) render(input.value); });
 })();
+
+/* 全站跑馬燈：所有載入搜尋的頁面一起帶進來（內容在 ticker.js 改） */
+(function () {
+  var base = /\/貓咪熱量計算機\//.test(decodeURIComponent(location.pathname)) ? "../" : "";
+  var s = document.createElement("script"); s.src = base + "ticker.js?v=1"; s.defer = true;
+  document.head.appendChild(s);
+})();
