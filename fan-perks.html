@@ -285,8 +285,33 @@ a{text-decoration:none;color:inherit}
 .s-orange{border-color:#f3d2b0;background:#fdf6ee}.s-orange .age,.s-orange .key{background:#e8892c;color:#fff}
 .hero-card.c-orange{background:linear-gradient(152deg,#b2683a 0%,#d08a55 55%,#e7b88a 100%)}
 /* 菇粉福利頁 */
+/* 會動的香菇（藍白賓士曼赤肯） */
+.hero-card.c-fan{padding-right:128px;min-height:214px}
+.fan-cat-wrap{position:absolute;right:4px;bottom:0;width:132px;height:172px;z-index:2;cursor:pointer;-webkit-user-select:none;user-select:none}
+.fan-cat{position:absolute;left:0;bottom:4px;width:132px;height:141px;overflow:visible}
+.fan-cat-wrap.jump .fan-cat{animation:fjump .5s ease}
+.fan-bub{position:absolute;left:50%;top:0;transform:translateX(-50%);white-space:nowrap;padding:5px 10px;border-radius:12px;background:#fff;color:#7a4f4a;font-size:11px;font-weight:800;box-shadow:0 4px 12px rgba(80,40,30,.18);transition:opacity .3s,transform .3s}
+.fan-bub:after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:#fff}
+.fan-bub.hide{opacity:0;transform:translateX(-50%) translateY(4px)}
+.fan-cat-wrap .fl{position:absolute;left:50%;bottom:118px;font-style:normal;font-size:14px;opacity:0;margin-left:var(--x);animation:ffloat 3.9s ease-out var(--d) infinite;pointer-events:none}
+.kitty .bob{animation:breathe 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+.kitty .tail{transform-box:fill-box;transform-origin:0% 100%;animation:tail 2.8s ease-in-out infinite}
+.kitty .lid{transform-box:fill-box;transform-origin:center top;transform:scaleY(0)}
+.kitty.blink .lid{animation:blink .2s ease-in-out}
+.kitty .eyes-happy{display:none}.kitty.happy .eyes-open{display:none}.kitty.happy .eyes-happy{display:inline}
+.kitty.happy .tail{animation:tail .5s ease-in-out infinite}
+.kitty .crown{transform-box:fill-box;transform-origin:center bottom;animation:crown 3.4s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.02,1.04)}}
+@keyframes tail{50%{transform:rotate(12deg)}}
+@keyframes blink{50%{transform:scaleY(1)}}
+@keyframes crown{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-1px)}}
+@keyframes fjump{0%,100%{transform:none}40%{transform:translateY(-14px) scale(1.03,.97)}70%{transform:translateY(0) scale(1.05,.94)}}
+@keyframes ffloat{0%{opacity:0;transform:translateY(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translateY(-70px) scale(1.1)}}
+.lv-cat{float:right;width:58px;height:62px;margin:-6px -4px 0 6px;overflow:visible}
+.lv-res.show .lv-cat{animation:fjump .6s ease .1s}
+@media (prefers-reduced-motion:reduce){.kitty .bob,.kitty .tail,.kitty .crown,.fan-cat-wrap .fl{animation:none}}
 .hero-card.c-fan{background:linear-gradient(152deg,#9a6660 0%,#c08a7c 55%,#e2bba9 100%)}
-.jump{grid-template-columns:repeat(4,1fr)}
+.jump{grid-template-columns:repeat(5,1fr)}
 .lv-ask{padding:16px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
 .lv-ask label{display:block;font-size:13.5px;font-weight:800}
 .lv-ask .row{display:flex;align-items:center;gap:8px;margin-top:10px;padding:4px 6px 4px 14px;border:1.5px solid #e2d3bd;border-radius:14px;background:var(--cream)}
@@ -363,6 +388,29 @@ details.full summary::-webkit-details-marker{display:none}
 .join .way b{display:block;font-size:17px;color:#6f4f9e;margin:2px 0}
 .join .way div span{font-size:10.5px;color:var(--ink)}
 .join a{display:block;margin-top:11px;text-align:center;padding:11px;border-radius:14px;background:#6f4f9e;color:#fff;font-weight:800;font-size:13px}
+.pt-how{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.pt-how div{padding:11px 6px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:center}
+.pt-how i{display:block;font-style:normal;font-size:22px}
+.pt-how b{display:block;font-size:12px;margin-top:3px}
+.pt-how small{display:block;font-size:10px;color:var(--soft)}
+.pt-warn{padding:12px 14px;border-radius:15px;background:#fdf4e4;border:1px solid #f0dcb4;font-size:12px;line-height:1.75;margin-bottom:12px}
+.pt-warn b{color:#9a6b17}
+.gifts{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.gift{position:relative;padding:13px 11px 12px;border-radius:17px;background:#fff;border:1px solid var(--line);text-align:center;box-shadow:0 5px 16px rgba(150,130,100,.07)}
+.gift .gi{width:54px;height:54px;margin:0 auto;border-radius:16px;display:grid;place-items:center;background:var(--cream2);font-size:27px}
+.gift b{display:block;margin-top:7px;font-size:12.5px;line-height:1.45}
+.gift small{display:block;font-size:10.3px;color:var(--soft);margin-top:2px}
+.gift .pt{display:inline-block;margin-top:7px;padding:3px 11px;border-radius:99px;background:#f39a52;color:#fff;font-size:12px;font-weight:900}
+.gift .lim{position:absolute;top:8px;right:8px;padding:1px 7px;border-radius:99px;background:#e3eee5;color:#4a7d5c;font-size:9.5px;font-weight:800}
+.gift.wide{grid-column:1/-1;display:grid;grid-template-columns:54px 1fr;gap:12px;text-align:left;align-items:start;border-color:#bcd8c4;background:#f6fbf7}
+.gift.wide .gi{margin:0;background:#e3eee5}
+.gift.wide b{margin-top:0}
+.gift.wide li b{display:inline;margin:0;font-size:inherit;line-height:inherit}
+.gift.wide ul{list-style:none;margin-top:6px;display:grid;gap:3px;font-size:11.3px;line-height:1.6}
+.ship{margin-top:10px;padding:11px 13px;border-radius:14px;border:1px dashed #cdbfa9;background:rgba(255,255,255,.7);font-size:11.8px;line-height:1.75}
+.liff{display:grid;grid-template-columns:40px 1fr auto;gap:11px;align-items:center;padding:14px;margin-bottom:10px;border-radius:17px;background:#f39a52;color:#fff;box-shadow:0 8px 20px rgba(243,154,82,.25)}
+.liff>span:first-child{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(255,255,255,.22);font-size:20px}
+.liff b{font-size:14px}.liff small{display:block;font-size:10.8px;opacity:.92}
 </style>
 </head>
 <body>
@@ -375,6 +423,48 @@ details.full summary::-webkit-details-marker{display:none}
 
   <section class="hero">
     <div class="hero-card c-fan">
+      <div class="fan-cat-wrap" id="fanCat" role="button" tabindex="0" aria-label="摸摸香菇">
+        <span class="fan-bub" id="fanBub">嗨～菇粉 👋</span>
+        <svg class="fan-cat" viewBox="-42 -80 84 90" aria-hidden="true">
+          <defs>
+            <filter id="hand" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
+            <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1" fill="#6F86C2"/></pattern>
+          </defs>
+          <ellipse cx="0" cy="3" rx="30" ry="6" fill="rgba(69,55,44,.22)"/>
+          <g id="fcat" class="kitty">
+          <g class="bob" filter="url(#hand)" stroke="#45372C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <g>
+          <path class="tail" d="M14 -8 C32 -6 38 -24 28 -32 C24 -35 20 -32 23 -28 C29 -20 24 -14 12 -14" fill="#9AA2AC"/>
+          <ellipse cx="0" cy="-17" rx="21" ry="17" fill="#9AA2AC"/>
+          <ellipse cx="0" cy="-15" rx="11" ry="12" fill="#FCFAF4" stroke-width="1.4"/>
+          <path d="M-11 -4 v-6 h7 v6 a3.5 3.5 0 0 1 -7 0z M4 -4 v-6 h7 v6 a3.5 3.5 0 0 1 -7 0z" fill="#FCFAF4" stroke-width="1.6"/>
+          <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="#22305A"/>
+          <path d="M-17 -30 Q0 -22 17 -30 L10 -20 Q0 -11 -10 -20 Z" fill="url(#dots)" stroke="none" opacity=".7"/>
+          <circle cx="0" cy="-23" r="1.8" fill="#E8C98E" stroke-width="1"/>
+          <g class="headg">
+            <path d="M-21 -52 L-18 -70 L-6 -60 Z M21 -52 L18 -70 L6 -60 Z" fill="#9AA2AC"/>
+            <path d="M-17 -56 L-16 -65 L-10 -59 Z M17 -56 L16 -65 L10 -59 Z" fill="#F0B9B9" stroke="none"/>
+            <path d="M-26 -42 C-27 -56 -14 -63 0 -63 C14 -63 27 -56 26 -42 C29 -36 26 -28 16 -27 C8 -26 -8 -26 -16 -27 C-26 -28 -29 -36 -26 -42 Z" fill="#9AA2AC"/>
+            <path d="M0 -53 C-3 -47 -7 -43 -12 -39 C-13 -33 -6 -29 0 -29 C6 -29 13 -33 12 -39 C7 -43 3 -47 0 -53 Z" fill="#FCFAF4" stroke-width="1.2"/>
+            <g class="eyes-open" stroke="none">
+              <ellipse cx="-9" cy="-44" rx="4.4" ry="4.8" fill="#B5B248" stroke="#45372C" stroke-width="1.2"/><ellipse cx="9" cy="-44" rx="4.4" ry="4.8" fill="#B5B248" stroke="#45372C" stroke-width="1.2"/>
+              <ellipse class="pup" cx="-9" cy="-43.5" rx="1.6" ry="3.4" fill="#2A2420"/><ellipse class="pup" cx="9" cy="-43.5" rx="1.6" ry="3.4" fill="#2A2420"/>
+              <circle cx="-10.5" cy="-46" r="1.2" fill="#fff"/><circle cx="7.5" cy="-46" r="1.2" fill="#fff"/>
+              <path d="M-14 -46 Q-9 -50 -4 -46 L-4 -50 L-14 -50 Z M4 -46 Q9 -50 14 -46 L14 -50 L4 -50 Z" fill="#9AA2AC"/>
+              <rect class="lid" x="-14" y="-49.5" width="10" height="10" fill="#9AA2AC"/><rect class="lid" x="4" y="-49.5" width="10" height="10" fill="#9AA2AC"/>
+            </g>
+            <g class="eyes-happy" fill="none" stroke-width="1.8"><path d="M-13 -43 Q-9 -48 -5 -43"/><path d="M5 -43 Q9 -48 13 -43"/></g>
+            <path d="M-2 -38 Q0 -39 2 -38 Q1.5 -36 0 -35.6 Q-1.5 -36 -2 -38 Z" fill="#EFA3A6" stroke-width="1"/>
+            <path d="M0 -35.5 q0 2.4 -2.6 2.6 M0 -35.5 q0 2.4 2.6 2.6" fill="none" stroke-width="1.2"/>
+            <ellipse cx="-16" cy="-36" rx="3.5" ry="2" fill="#EFA3A6" stroke="none" opacity=".55"/><ellipse cx="16" cy="-36" rx="3.5" ry="2" fill="#EFA3A6" stroke="none" opacity=".55"/>
+          </g>
+        </g>
+          <path class="crown" d="M-9 -63 L-10 -73 L-4.5 -68 L0 -76 L4.5 -68 L10 -73 L9 -63 Z" fill="#F2C14E" stroke-width="1.4"/>
+          </g>
+          </g>
+        </svg>
+        <i class="fl" style="--x:-18px;--d:0s">💗</i><i class="fl" style="--x:14px;--d:1.3s">🍄</i><i class="fl" style="--x:-4px;--d:2.6s">⭐</i>
+      </div>
       <span class="kicker">MUSHROOM FANS</span>
       <h1>原來菇粉<br>有這麼多福利</h1>
       <p>跟團累積越高，香菇爸陪你越多 ~</p>
@@ -383,7 +473,7 @@ details.full summary::-webkit-details-marker{display:none}
   </section>
 
   <nav class="jump">
-    <a href="#s1"><i>01</i>查等級</a><a href="#s2"><i>02</i>都有的</a><a href="#s3"><i>03</i>各級福利</a><a href="#s4"><i>04</i>活動</a>
+    <a href="#s1"><i>01</i>查等級</a><a href="#s2"><i>02</i>都有的</a><a href="#s3"><i>03</i>各級福利</a><a href="#s4"><i>04</i>活動</a><a href="#s5"><i>05</i>打卡兌換</a>
   </nav>
 
   <section class="section" id="s1">
@@ -422,6 +512,20 @@ details.full summary::-webkit-details-marker{display:none}
     <div id="acts"></div>
   </section>
 
+  <section class="section" id="s5">
+    <div class="title-row"><span class="num">05</span><h2>打卡集點・兌換禮物</h2><p>在社群打卡就有點數，點數可以換禮物</p></div>
+    <div class="pt-how">
+      <div><i>📸</i><b>社群打卡</b><small>每次打卡集點</small></div>
+      <div><i>⭐</i><b>累積點數</b><small>登入就能查</small></div>
+      <div><i>🎁</i><b>兌換禮物</b><small>點數換好禮</small></div>
+    </div>
+    <a class="liff" href="https://l.luckyhsiu.vip/liff" target="_blank" rel="noopener" data-ga="菇粉福利頁-查打卡點數">
+      <span>⭐</span><span><b>登入查我的打卡點數</b><small>累積幾點、可以換什麼，自己就能看</small></span><i>↗</i></a>
+    <div class="pt-warn">⚠️ <b>註冊要注意</b>：你在「<b>喵汪樂園</b>」和「<b>養好自己俱樂部</b>」兩個社群的<b>名字要一模一樣</b>，點數才能正確累積喔！</div>
+    <div class="gifts" id="gifts"></div>
+    <div class="ship">🚚 <b>打卡禮物運費 $60</b>（人工處理包裝寄送）<br>可以<b>累積多樣一起兌換</b>，一次寄出比較划算 ~</div>
+  </section>
+
   <section class="section">
     <div class="title-row"><span class="num">NOTE</span><h2>小提醒</h2></div>
     <ul class="rules">
@@ -430,6 +534,7 @@ details.full summary::-webkit-details-marker{display:none}
       <li><span>🎁</span><div>Livetalk 上線禮依指定場次公告為準，禮物可以累積一起寄，運費由會員自付</div></li>
       <li><span>🚚</span><div><b>守護菇粉以上</b>：上線禮累積滿 7 份一起寄，<b>免運費</b></div></li>
       <li><span>🎂</span><div>生日購物金每年限領一次，要在生日當月申請</div></li>
+      <li><span>📦</span><div>打卡禮物運費 $60，可以累積一起兌換寄出；空瓶寄回的運費自付</div></li>
       <li><span>📢</span><div>各項福利與活動內容，依當月公告與名額安排為準</div></li>
     </ul>
   </section>
@@ -478,7 +583,7 @@ var PERKS = [
 /* 活動：from＝從哪一級開始可以參加（-1＝所有人，0＝入園菇粉起，1＝暖心起…） */
 var ACTS = [
   { ic: "📸", t: "曬貓日・抽逗貓棒", when: "每週", d: "曬出你家主子的萌照，抽香菇爸送的逗貓棒", from: -1 },
-  { ic: "📍", t: "社群打卡福利", when: "每月", d: "在菇粉社群打卡，參加當月打卡活動", from: 0 },
+  { ic: "📍", t: "社群打卡福利", when: "每月", d: "在社群打卡集點，點數可以換貓玩具、肉泥等禮物（看下面 05）", from: 0 },
   { ic: "🎁", t: "Livetalk 上線禮", when: "指定直播", d: "指定場次上線就有禮物，暖心每月 2 次、守護 3 次、皇家 6 次", from: 1 },
   { ic: "🎂", t: "生日購物金", when: "生日當月", d: "生日當月申請，暖心 $100、守護 $200、皇家 $500", from: 1 },
   { ic: "🐱", t: "菇粉貓聚", when: "看公告", d: "和其他毛家長、香菇本人面對面同樂", from: 1 },
@@ -486,6 +591,15 @@ var ACTS = [
   { ic: "📦", t: "年度預購方案", when: "每年", d: "一年一次的大組預購，等級越高越早卡位", from: 0 },
   { ic: "💰", t: "消費回饋", when: "每次跟團", d: "守護菇粉 1%、皇家菇粉 2%", from: 2 },
   { ic: "🏆", t: "皇家年度禮", when: "每年", d: "皇家菇粉專屬的年度禮物", from: 3 }
+];
+/* 打卡兌換區：ic＝圖示、t＝禮物、pt＝點數、lim＝限量（可空白） */
+var GIFTS = [
+  { ic: "🥕", t: "貓玩具－胡蘿蔔一根", pt: 20 },
+  { ic: "🐟", t: "貓玩具－魚魚一條", pt: 20 },
+  { ic: "🫧", t: "家的清潔小幫手｜病毒盾", s: "60ml", pt: 30 },
+  { ic: "🛁", t: "主子香香出浴｜貓薄荷洗毛露", s: "60ml", pt: 40 },
+  { ic: "🍗", t: "無膠純肉泥一包", pt: 50 },
+  { ic: "🧻", t: "白金盾濕式衛生紙一包", s: "80 抽", pt: 80 }
 ];
 /* ===== 以下不用改 ===== */
 var $ = function (s) { return document.querySelector(s); };
@@ -540,7 +654,7 @@ function calc(v) {
       return "<li>" + p[1] + "：" + p[2][lv] + "</li>";
     }).join("");
     var pct = nx ? (v - L.min) / (nx.min - L.min) * 100 : 100;
-    html = '<div class="who"><i>' + L.ic + "</i><span><small>你是</small><b>" + L.name + "</b></span></div>" +
+    html = '<svg class="lv-cat" viewBox="-42 -80 84 90" aria-hidden="true"><use href="#fcat"/></svg>' + '<div class="who"><i>' + L.ic + "</i><span><small>你是</small><b>" + L.name + "</b></span></div>" +
       '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
       (nx ? '<p class="next">再跟團 <em>' + money(nx.min - v) + "</em> 升級" + nx.name + " " + nx.ic + "</p>"
           : '<p class="next">已經是最高等級，謝謝你一路陪香菇 ❤️</p>') +
@@ -565,6 +679,32 @@ document.querySelectorAll(".quick button").forEach(function (b) {
     if (typeof gtag === "function") gtag("event", "fan_level_quick", { v: b.dataset.v });
   });
 });
+$("#gifts").innerHTML = GIFTS.map(function (g) {
+  return '<div class="gift">' + (g.lim ? '<span class="lim">' + g.lim + "</span>" : "") + '<div class="gi">' + g.ic + "</div><b>" + g.t + "</b>" +
+    (g.s ? "<small>" + g.s + "</small>" : "") + '<span class="pt">' + g.pt + " 點</span></div>";
+}).join("") + '<div class="gift wide"><span class="lim">限量 20 個</span><div class="gi">♻️</div><div><b>藍藻菌空瓶回娘家</b>' +
+  '<span class="pt" style="margin-top:4px">10 點</span><ul><li>🫙 每 <b>4 個空瓶</b> 可兌換 <b>$100 購物金</b></li>' +
+  '<li>🛒 購物金使用：菇爸開團好物<b>滿 $1,200</b> 可折抵</li><li>📮 空瓶寄回的運費自付</li></ul></div></div>';
+/* 香菇：會眨眼、會講話、摸了會開心跳一下 */
+(function () {
+  var wrap = $("#fanCat"), cat = $("#fcat"), bub = $("#fanBub");
+  var SAY = ["嗨～菇粉 👋", "查查你是哪一級 ~", "打卡可以換禮物喔", "生日有購物金！", "空瓶也能換購物金 ♻️", "摸摸我 ~"];
+  var TAP = ["喵～ 💗", "呼嚕呼嚕 ~", "謝謝你陪香菇 ❤️", "再摸一下嘛 ~"];
+  var n = 0, t = 0;
+  function say(x) { bub.classList.add("hide"); setTimeout(function () { bub.textContent = x; bub.classList.remove("hide"); }, 250); }
+  setInterval(function () { cat.classList.add("blink"); setTimeout(function () { cat.classList.remove("blink"); }, 220); }, 3800);
+  setInterval(function () { if (Date.now() - t > 5000) say(SAY[++n % SAY.length]); }, 4200);
+  function pet() {
+    t = Date.now();
+    cat.classList.add("happy"); wrap.classList.remove("jump"); void wrap.offsetWidth; wrap.classList.add("jump");
+    say(TAP[Math.floor(Math.random() * TAP.length)]);
+    if (navigator.vibrate) navigator.vibrate(15);
+    clearTimeout(pet.h); pet.h = setTimeout(function () { cat.classList.remove("happy"); }, 1600);
+    if (typeof gtag === "function") gtag("event", "fan_cat_pet");
+  }
+  wrap.addEventListener("click", pet);
+  wrap.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pet(); } });
+})();
 var saved = null;
 try { saved = localStorage.getItem("shroom-fan-amt"); } catch (e) {}
 if (saved) { inp.value = saved; calc(Number(saved)); } else drawActs(null);
