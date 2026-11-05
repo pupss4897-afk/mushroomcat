@@ -40,6 +40,10 @@
     .pic div{padding:8px 10px 10px}.pic b{display:block;font-size:13.5px}.pic small{display:block;color:var(--soft);font-size:11.5px;line-height:1.5}
     .tipline{margin-top:10px;padding:9px 12px;border-radius:12px;background:var(--green2);font-size:12px;color:#8a5a3a;text-align:center}
     .band{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;margin-bottom:14px}
+    .chips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .chips div{display:flex;gap:8px;align-items:center;padding:10px 11px;border-radius:13px;background:#fbf5ec;border:1px solid var(--line);font-size:13px;font-weight:700;line-height:1.35}
+    .chips i{font-style:normal;font-size:18px;flex:none}
+    .chips .full{grid-column:1/-1;justify-content:center}
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
@@ -82,36 +86,37 @@
   <article class="card">
     <div class="card-h"><span class="ic">💧</span><div><span class="num">02｜吃喝</span><h2>天冷更不愛喝水</h2></div></div>
     <img class="band" src="media/winter/water.jpg" alt="溫水碗和罐罐" loading="lazy">
-    <ul class="list">
-      <li><span class="k">1</span><div><b>水換成微溫的</b><small>跟體溫差不多就好</small></div></li>
-      <li><span class="k">2</span><div><b>罐罐先回溫再給</b><small>不吃冰的 香味也出來</small></div></li>
-      <li><span class="k">3</span><div><b>水碗搬到暖的地方</b><small>放在牠的窩附近</small></div></li>
-      <li><span class="k">4</span><div><b>每 2 週量體重</b><small>冬天最容易胖一圈</small></div></li>
-      <li><span class="k">5</span><div><b>每天看尿團</b><small>變小變少＝喝不夠</small></div></li>
-    </ul>
+    <div class="chips">
+      <div><i>🌡️</i>水換成微溫的</div>
+      <div><i>🥫</i>罐罐回溫再給</div>
+      <div><i>🛏️</i>水碗放暖的地方</div>
+      <div><i>⚖️</i>每 2 週量體重</div>
+      <div class="full"><i>👀</i>每天看尿團 變小＝喝不夠</div>
+    </div>
   </article>
 
   <article class="card">
     <div class="card-h"><span class="ic">🪮</span><div><span class="num">03｜換毛</span><h2>換毛季 梳毛＋毛球</h2></div></div>
     <img class="band" src="media/winter/brush.jpg" alt="梳毛梳和毛球" loading="lazy">
-    <ul class="list">
-      <li><span class="k">1</span><div><b>勤梳毛</b><small>長毛每天 短毛 2–3 天一次</small></div></li>
-      <li><span class="k">2</span><div><b>順便摸摸皮膚</b><small>有沒有結塊 皮屑 紅紅的</small></div></li>
-      <li><span class="k">3</span><div><b>偶爾吐毛球</b><small>吐完照常吃玩就還好</small></div></li>
-    </ul>
+    <div class="chips">
+      <div><i>🐈</i>長毛天天梳</div>
+      <div><i>🐱</i>短毛 2～3 天梳</div>
+      <div><i>🤲</i>順便摸摸皮膚</div>
+      <div><i>🧶</i>偶爾吐毛球沒關係</div>
+    </div>
   </article>
 
   <article class="card">
     <div class="card-h"><span class="ic">🔥</span><div><span class="num">04｜保暖</span><h2>暖暖用品 安全這樣用</h2></div></div>
     <img class="band" src="media/winter/heatpad.jpg" alt="貓窩只鋪一半電熱墊" loading="lazy">
-    <ul class="list">
-      <li><span class="k">1</span><div><b>電熱毯只鋪一半</b><small>熱了牠能自己離開</small></div></li>
-      <li><span class="k">2</span><div><b>電暖器加護欄</b><small>別讓牠貼太近</small></div></li>
-      <li><span class="k">3</span><div><b>熱水袋包毛巾</b><small>電線也要收好</small></div></li>
-      <li><span class="k">4</span><div><b>暖氣房留一條路</b><small>讓牠自己選冷熱</small></div></li>
-      <li><span class="k">5</span><div><b>老貓窩放低</b><small>加小階梯 換低邊砂盆</small></div></li>
-      <li><span class="k">6</span><div><b>開車前拍拍引擎蓋</b><small>流浪貓常躲在裡面取暖</small></div></li>
-    </ul>
+    <div class="chips">
+      <div><i>🛏️</i>電熱毯只鋪一半</div>
+      <div><i>🔥</i>電暖器加護欄</div>
+      <div><i>🫙</i>熱水袋包毛巾</div>
+      <div><i>🚪</i>暖氣房留一條路</div>
+      <div><i>🧓</i>老貓窩放低</div>
+      <div><i>🚗</i>開車前拍引擎蓋</div>
+    </div>
   </article>
 
   <div class="warn">
