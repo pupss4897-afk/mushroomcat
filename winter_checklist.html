@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="秋冬護貓保暖檢查表｜香菇爸・陪你養貓">
   <meta property="og:description" content="天冷了，主子也會怕冷。怕冷訊號・天冷喝水・換毛季・保暖安全。">
-  <meta property="og:image" content="flatface-og.jpg">
+  <meta property="og:image" content="https://pupss4897-afk.github.io/mushroomcat/media/winter/scarf.jpg">
   <title>香菇爸 - 秋冬護貓保暖檢查表</title>
   <style>
     :root{--cream:#fbf5e9;--cream2:#f4ead7;--white:#fff;--ink:#5a5246;--soft:#958a79;--line:#eadfcd;--pink:#e8a39b;--green:#c0805a;--green2:#f6e6d8;--danger:#b96559;--shadow:0 8px 24px rgba(150,130,100,.12)}
@@ -32,6 +32,14 @@
     .sources{padding:16px 18px 22px;font-size:9.5px;color:var(--soft);text-align:center}.sources p+p{margin-top:4px}
     .bottom{position:fixed;left:50%;bottom:0;z-index:30;transform:translateX(-50%);width:100%;max-width:440px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}.bottom a{height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:15px;background:#06c755;color:#fff;text-decoration:none;font-weight:900;font-size:13px;box-shadow:0 6px 16px rgba(6,199,85,.24)}
     @media(min-width:700px){.app{border-inline:1px solid rgba(90,82,70,.08)}}
+    .hero-pic{position:absolute;right:16px;top:16px;z-index:1;width:92px;height:92px;border-radius:24px;object-fit:cover;border:3px solid rgba(255,255,255,.6);box-shadow:0 8px 18px rgba(60,30,10,.25)}
+    .hero h1,.hero p{padding-right:96px}
+    .pics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pic{border-radius:16px;overflow:hidden;background:#fbf5ec;border:1px solid var(--line)}
+    .pic img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+    .pic div{padding:8px 10px 10px}.pic b{display:block;font-size:13.5px}.pic small{display:block;color:var(--soft);font-size:11.5px;line-height:1.5}
+    .tipline{margin-top:10px;padding:9px 12px;border-radius:12px;background:var(--green2);font-size:12px;color:#8a5a3a;text-align:center}
+    .band{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;margin-bottom:14px}
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KD4Y1VHLGC"></script>
@@ -52,7 +60,8 @@
 
   <section class="hero">
     <div class="hero-card">
-      <span class="kicker">AUTUMN &amp; WINTER CAT CARE</span>
+      <img class="hero-pic" src="media/winter/scarf.jpg" alt="">
+      <span class="kicker">AUTUMN &amp; WINTER</span>
       <h1>天冷了<br>主子也會怕冷</h1>
       <p>四張清單 一次看完 截圖收藏</p>
       <div class="hero-mini"><span>🥶 怕冷訊號</span><span>💧 天冷喝水</span><span>🪮 換毛季</span><span>🔥 保暖安全</span></div>
@@ -61,17 +70,18 @@
 
   <article class="card">
     <div class="card-h"><span class="ic">🥶</span><div><span class="num">01｜觀察</span><h2>牠在說「我好冷」</h2></div></div>
-    <ul class="list">
-      <li><span class="k">1</span><div><b>縮成一顆甜甜圈</b><small>尾巴蓋住鼻子 把熱留住</small></div></li>
-      <li><span class="k">2</span><div><b>一直鑽被窩</b><small>哪裡暖往哪裡鑽</small></div></li>
-      <li><span class="k">3</span><div><b>突然變超黏</b><small>你就是牠的暖爐</small></div></li>
-      <li><span class="k">4</span><div><b>追著太陽跑</b><small>陽光在哪 牠就在哪</small></div></li>
-      <li><span class="k">5</span><div><b>耳朵腳掌冰冰的</b><small>幼貓和老貓更怕冷</small></div></li>
-    </ul>
+    <div class="pics">
+      <div class="pic"><img src="media/winter/curl.jpg" alt="貓咪縮成一團睡覺" loading="lazy"><div><b>縮成甜甜圈</b><small>尾巴蓋住鼻子</small></div></div>
+      <div class="pic"><img src="media/winter/blanket.jpg" alt="貓咪鑽在毛毯裡" loading="lazy"><div><b>一直鑽被窩</b><small>哪裡暖往哪裡鑽</small></div></div>
+      <div class="pic"><img src="media/winter/lap.jpg" alt="貓咪窩在腿上" loading="lazy"><div><b>突然變超黏</b><small>你就是牠的暖爐</small></div></div>
+      <div class="pic"><img src="media/winter/sun.jpg" alt="貓咪曬太陽" loading="lazy"><div><b>追著太陽跑</b><small>陽光在哪 牠就在哪</small></div></div>
+    </div>
+    <p class="tipline">🐾 摸摸耳朵腳掌 冰冰的就是冷了 ~ 幼貓和老貓更怕冷</p>
   </article>
 
   <article class="card">
     <div class="card-h"><span class="ic">💧</span><div><span class="num">02｜吃喝</span><h2>天冷更不愛喝水</h2></div></div>
+    <img class="band" src="media/winter/water.jpg" alt="溫水碗和罐罐" loading="lazy">
     <ul class="list">
       <li><span class="k">1</span><div><b>水換成微溫的</b><small>跟體溫差不多就好</small></div></li>
       <li><span class="k">2</span><div><b>罐罐先回溫再給</b><small>不吃冰的 香味也出來</small></div></li>
@@ -83,6 +93,7 @@
 
   <article class="card">
     <div class="card-h"><span class="ic">🪮</span><div><span class="num">03｜換毛</span><h2>換毛季 梳毛＋毛球</h2></div></div>
+    <img class="band" src="media/winter/brush.jpg" alt="梳毛梳和毛球" loading="lazy">
     <ul class="list">
       <li><span class="k">1</span><div><b>勤梳毛</b><small>長毛每天 短毛 2–3 天一次</small></div></li>
       <li><span class="k">2</span><div><b>順便摸摸皮膚</b><small>有沒有結塊 皮屑 紅紅的</small></div></li>
@@ -92,6 +103,7 @@
 
   <article class="card">
     <div class="card-h"><span class="ic">🔥</span><div><span class="num">04｜保暖</span><h2>暖暖用品 安全這樣用</h2></div></div>
+    <img class="band" src="media/winter/heatpad.jpg" alt="貓窩只鋪一半電熱墊" loading="lazy">
     <ul class="list">
       <li><span class="k">1</span><div><b>電熱毯只鋪一半</b><small>熱了牠能自己離開</small></div></li>
       <li><span class="k">2</span><div><b>電暖器加護欄</b><small>別讓牠貼太近</small></div></li>
